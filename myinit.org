@@ -388,7 +388,8 @@ Swiper gives us a really efficient incremental search with regular expressions a
 
 #+RESULTS:
 
-* slime for common-lisp
+* Programming with Lisp
+** slime for common-lisp
 #+BEGIN_SRC emacs-lisp
   (use-package lisp-mode
     :config
@@ -418,7 +419,6 @@ Swiper gives us a really efficient incremental search with regular expressions a
 #+RESULTS:
 : t
 
-
 ** set variables about lisp-mode 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
@@ -434,7 +434,21 @@ Swiper gives us a really efficient incremental search with regular expressions a
 #+RESULTS:
 : /usr/local/bin/sbcl --dynamic-space-size 1024
 
-
+** Programming with Racket
+   #+BEGIN_SRC emacs-lisp
+     (use-package racket-mode
+       :ensure t
+       :init
+       (progn
+	 (setq racket-program "/Applications/Racket v7.0/bin/racket")
+	 (add-hook 'racket-mode-hook
+	       (lambda ()
+		 (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+	 (setq tab-always-indent 'complete)
+	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+	 ))
+   #+END_SRC
 * Set variables
 ** set ingore case during completion
 #+BEGIN_SRC emacs-lisp
