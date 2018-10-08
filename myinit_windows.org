@@ -1,0 +1,686 @@
+* Interface tweaks 
+** set key-bindings
+#+BEGIN_SRC emacs-lisp
+  ;; use cmd + n and cmd + p to select next and previous lines
+  (global-set-key (kbd "s-n") (kbd "C-S-n"))
+  (global-set-key (kbd "s-p") (kbd "C-S-p"))
+
+  ;; use cmd + / to comment region of code
+  (global-set-key (kbd "s-/") 'comment-region)
+  ;; use cmd + \ to uncomment region of code
+  (global-set-key (kbd "s-\\") 'uncomment-region)
+
+  ;; use f4 to format whole buffer
+  (global-set-key (kbd "<f10>") (kbd "C-x h C-M-\\"))
+  ;; use f3 to use org-edit-special
+  (global-set-key (kbd "<f3>") (kbd "C-c '"))
+  ;; use f5 to revert the buffer
+  (global-set-key (kbd "<f5>") 'revert-buffer)
+  ;; use f6 to toggle the display of inline image
+  (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v")) 
+
+#+END_SRC
+
+#+RESULTS:
+: 
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-tab-acts-natively t)
+  (tool-bar-mode -1)
+
+  ;; use y/n for yes/no
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; wrap lines
+  (global-visual-line-mode 1)
+
+  ;; Show matching arenthesis
+  (show-paren-mode 1)
+  (setq show-paren-delay 0)
+
+  (require 'paren)
+  (set-face-background 'show-paren-match (face-background 'default))
+  (set-face-foreground 'show-paren-match "#def")
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+  ;; no need for prompt for confirm when execute code block in org-mode
+  (setq org-confirm-babel-evaluate nil)
+
+  ;; make sure environment variables inside Emacs look the same as in the user's shell
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (progn
+      (when (memq window-system '(mac ns x))
+        (exec-path-from-shell-initialize))))
+#+END_SRC
+** make tag align to the right margin
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+  (defun place-agenda-tags ()
+    "Put the agenda tags by the right border of the agenda window."
+    (setq org-agenda-tags-column (- 4 (window-width)))
+    (org-agenda-align-tags))
+
+#+END_SRC
+#+RESULTS:
+: place-agenda-tags
+
+** use indent-guide
+#+BEGIN_SRC emacs-lisp
+  (use-package indent-guide
+    :ensure t
+    :config
+    (indent-guide-global-mode))
+#+END_SRC
+
+#+RESULTS:
+: t
+* Themes
+#+BEGIN_SRC emacs-lisp
+  (use-package spacemacs-common
+    :ensure spacemacs-theme
+    :config
+    (progn
+      (load-theme 'spacemacs-light t)
+      ;;    (add-hook 'after-init-hook (lambda () (load-theme 'spacemacs-light)))
+      ))
+
+
+#+END_SRC
+
+#+RESULTS:
+: t
+
+* try
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:
+
+* which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config (which-key-mode))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+* Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode t)
+    (setq company-minimum-prefix-length 3)
+    (setq company-idle-delay 0))
+#+END_SRC
+
+Set the manner how tab complete
+#+BEGIN_SRC emacs-lisp
+  ;; bind company-select-next to tab
+  (eval-after-load 'company
+    '(progn
+       (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+       (define-key company-active-map [tab] 'company-complete-common-or-cycle)))
+
+
+#+END_SRC
+#+RESULTS:
+: company-complete-common-or-cycle
+
+** Set use TAB key to do company complete, see [[https://www.emacswiki.org/emacs/CompanyMode][Company interferes with Yasnippet’s native behaviour]].
+#+BEGIN_SRC emacs-lisp
+  ;; (defun check-expansion ()
+  ;;   (save-excursion
+  ;;     (if (looking-at "\\_>") t
+  ;;       (backward-char 1)
+  ;;       (if (looking-at "\\.") t
+  ;;         (backward-char 1)
+  ;;         (if (looking-at "->") t nil)))))
+
+  ;; (defun do-yas-expand ()
+  ;;   (let ((yas/fallback-behavior 'return-nil))
+  ;;     (yas/expand)))
+
+  ;; (defun tab-indent-or-complete ()
+  ;;   (interactive)
+  ;;   (if (minibufferp)
+  ;;       (minibuffer-complete)
+  ;;     (if (or (not yas/minor-mode)
+  ;;             (null (do-yas-expand)))
+  ;;         (if (check-expansion)
+  ;;             (company-complete-common)
+  ;;           (indent-for-tab-command)))))
+
+  ;; (global-set-key [tab] 'tab-indent-or-complete)
+
+#+END_SRC
+#+RESULTS:
+: tab-indent-or-complete
+
+* Autocomplete
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-complete 
+    :ensure t
+    :init
+    (progn
+      (ac-config-default)
+      ))
+#+END_SRC 
+
+#+RESULTS:
+* Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :init
+    (yas-global-mode 1))
+
+  (use-package yasnippet-snippets
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:
+
+* Org-mode enhance
+** org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure t)
+  (use-package org-ac
+    :ensure t
+    :config
+    (org-ac/config-default))
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+  (custom-set-variables
+   '(org-directory "~/OneDrive/notes"))
+  (global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+** make code-block could be executed in org-mode
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((lisp . t)
+     (shell . t)
+     (R . t)
+     (C . t)))
+  ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
+#+END_SRC
+
+#+RESULTS:
+
+
+** highlight within code block in emacs org-mode
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
+** remove numbering from headers when exporting from org-mode
+#+BEGIN_SRC emacs-lisp
+  ;; (setq org-export-with-section-numbers nil)
+#+END_SRC
+
+#+RESULTS:
+
+** htmlize, which makes exported html file with highlight
+#+BEGIN_SRC emacs-lisp
+  (use-package htmlize
+    :ensure t)
+#+END_SRC
+#+RESULTS:
+  : t
+
+** For org-capture
+By default, running org-capture brings up a form to capture a "task" but things get really cool when you start making your own capture templates. With capture templates, you can speed up recording information and then tell org-mode to store it where you want it.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c c")
+                  'org-capture)
+
+  (setq org-capture-templates
+        '(("a" "Appointment" entry (file  "~/OneDrive/notes/orgfiles/appointments.org" "Appointments")
+           "* TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n")
+          ("n" "Note" entry (file+headline "~/OneDrive/notes/orgfiles/notes.org" "Notes")
+           "* Note %?\n%T")
+          ("l" "Link" entry (file+headline "~/OneDrive/notes/orgfiles/links.org" "Links")
+           "* %? %^L %^g \n%T" :prepend t)
+          ("b" "Blog idea" entry (file+headline "~/OneDrive/notes/orgfiles/blog_ideas.org" "Blog Topics:")
+           "* %?\n%T" :prepend t)
+          ("t" "To Do Item" entry (file+headline "~/OneDrive/notes/orgfiles/to_do_items.org" "To Do Items")
+           "* %?\n%T" :prepend t)
+          ("j" "Journal" entry (file+datetree "~/OneDrive/notes/journal.org")
+           "* %?\nEntered on %U\n  %i\n  %a")
+          ("r" "Reading" entry (file "~/OneDrive/notes/orgfiles/reading-notes.org")
+           "* %?\n%i\n")))
+
+#+END_SRC
+
+#+RESULTS:
+| a | Appointment | entry | (file ~/OneDrive/notes/orgfiles/appointments.org Appointments)        | * TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n |          |   |
+| n | Note        | entry | (file+headline ~/OneDrive/notes/orgfiles/notes.org Notes)             | * Note %?\n%T                                           |          |   |
+| l | Link        | entry | (file+headline ~/OneDrive/notes/orgfiles/links.org Links)             | * %? %^L %^g \n%T                                       | :prepend | t |
+| b | Blog idea   | entry | (file+headline ~/OneDrive/notes/orgfiles/blog_ideas.org Blog Topics:) | * %?\n%T                                                | :prepend | t |
+| t | To Do Item  | entry | (file+headline ~/OneDrive/notes/orgfiles/to_do_items.org To Do Items) | * %?\n%T                                                | :prepend | t |
+| j | Journal     | entry | (file+datetree ~/OneDrive/notes/journal.org)                          | * %?\nEntered on %U\n  %i\n  %a                         |          |   |
+| r | Reading     | entry | (file ~/OneDrive/notes/orgfiles/reading-notes.org)                    | * %?\n%i\n                                              |          |   |
+** [[https://stackoverflow.com/questions/17435995/paste-an-image-on-clipboard-to-emacs-org-mode-file-without-saving-it][paste an image on clipboard to emacs org mode file without saving it]]
+#+BEGIN_SRC emacs-lisp
+  (defun my-org-screenshot ()
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (file-name-nondirectory (buffer-file-name))
+                    "_imgs/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+    ;; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+    ;; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (insert (concat "[[file:" filename "]]"))))
+#+END_SRC
+
+#+RESULTS:
+: my-org-screenshot
+
+* tab-bar
+#+BEGIN_SRC emacs-lisp
+  ;; add tab-bar on top of window to show different buffer
+  (use-package tabbar
+    :ensure t
+    :config
+    (setq tabbar-mode 1))
+#+END_SRC  
+
+#+RESULTS:
+  : t
+
+* ace-windwo
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :init
+    (progn
+      (setq aw-scope 'frame)
+      (global-set-key (kbd "C-x O") 'other-frame)
+      (global-set-key [remap other-window] 'ace-window)
+      (custom-set-faces
+       '(aw-leading-char-face
+         ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
+      ))
+#+END_SRC
+
+#+RESULTS:
+
+* Swiper / Ivy / Counsel
+Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
+#+BEGIN_SRC emacs-lisp
+  ;; it looks like counsel is a requirement for swiper
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-y" . counsel-yank-pop)
+     :map ivy-minibuffer-map
+     ("M-y" . ivy-next-line)))
+
+  (use-package ivy
+    :ensure t
+    :diminish (ivy-mode)
+    :bind (("C-x b" . ivy-switch-buffer))
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "%d/%d ")
+    (setq ivy-display-style 'fancy))
+
+
+  (use-package swiper
+    :ensure try
+    :bind (("C-s" . swiper)
+           ("C-r" . swiper)
+           ("C-c C-r" . ivy-resume)
+           ("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file))
+    :config
+    (progn
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (setq ivy-display-style 'fancy)
+      (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+      ))
+#+END_SRC
+
+#+RESULTS:
+: counsel-find-file
+
+* smartparens
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :commands (smartparens-mode) ;; autoload the commands from smartparens
+    :bind (:map smartparens-strict-mode-map
+                ("C-}" . sp-forward-slurp-sexp)
+                ("M-s" . sp-backward-unwrap-sexp)
+                ("C-c [" . sp-select-next-thing)
+                ("C-c ]" . sp-select-next-thing-exchange))
+    :config
+    (progn
+      ;;    (require 'smartparens-config)
+      (add-hook 'slime-repl-mode-hook 'smartparens-strict-mode)
+      (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
+      (add-hook 'lisp-mode-hook 'smartparens-strict-mode)
+      ))
+
+#+END_SRC
+
+#+RESULTS:
+
+* slime for common-lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package lisp-mode
+    :config
+    (use-package elisp-slime-nav
+      :ensure t
+      :commands elisp-slime-nav-mode)
+    (use-package macrostep
+      :ensure t
+      :bind ("C-c e" . macrostep-expand))
+    
+    (use-package slime
+      :ensure t
+      :commands (slime slime-lisp-mode-hook)
+      :config
+      (progn
+        (add-to-list 'slime-contribs 'slime-fancy)
+        (slime-setup)
+        (use-package slime-company
+          :ensure t
+          :config
+          (progn
+            (slime-setup '(slime-fancy slime-company))
+            ))      
+        )))
+
+#+END_SRC
+#+RESULTS:
+: t
+
+
+** set variables about lisp-mode 
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook #'elisp-slime-nav-mode)
+  (add-hook 'ielm-mode-hook #'elisp-slime-nav-mode)
+  (add-hook 'ielm-mode-hook #'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
+  (add-hook 'lisp-mode-hook #'slime-lisp-mode-hook)
+
+  (setq inferior-lisp-program "/usr/local/bin/sbcl --dynamic-space-size 1024")
+#+END_SRC
+
+#+RESULTS:
+: /usr/local/bin/sbcl --dynamic-space-size 1024
+
+* Programming for Racket
+  #+begin_src emacs-lisp
+    (use-package racket-mode
+      :ensure t
+      :init
+      (progn
+	(setq racket-program "C:\\Users\\x1ezmr\\Racket\\Racket.exe")
+	(add-hook 'racket-mode-hook
+		  (lambda ()
+		    (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+	(setq tab-always-indent 'complete)
+	(add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+	(add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+	))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Set variables
+** set ingore case during completion
+#+BEGIN_SRC emacs-lisp
+  (setq company-etags-ignore-case t)
+  (setq company-dabbrev-code-ignore-case t)
+  (setq company-dabbrev-ignore-case t)
+  (setq company-emacs-eclim-ignore-case t)
+  (setq company-irony-ignore-case t)
+  (setq completion-ignore-case t)
+#+END_SRC
+
+#+RESULTS:
+: t
+** for downscaling inline iamges in org-mode
+#+BEGIN_SRC emacs-lisp
+  (setq org-image-actual-width nil)
+#+END_SRC
+
+#+RESULTS:
+
+* R
+- Install ESS
+#+BEGIN_SRC emacs-lisp
+  (use-package ess
+    :ensure t
+    :init (require 'ess-site)
+    :config
+    (progn
+      (setq comint-input-ring-size 1000)
+      (setq ess-indent-level 4)
+      (setq ess-arg-function-offset 4)
+      (setq ess-else-offset 4)
+      (add-hook 'inferior-ess-mode-hook
+                '(lambda nil
+                   (define-key inferior-ess-mode-map [\C-up]
+                     'comint-previous-matching-input-from-input)
+                   (define-key inferior-ess-mode-map [\C-down]
+                     'comint-next-matching-input-from-input)
+                   (define-key inferior-ess-mode-map [\C-x \t]
+                     'comint-dynamic-complete-filename)
+                   (setenv "LANG" "en_US.UTF-8")
+                   )
+                )
+      (add-hook 'ess-mode-hook 
+                (lambda () 
+                  (setq truncate-lines t)
+                  (auto-fill-mode)))
+
+      ))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+* Treemacs
+#+BEGIN_SRC emacs-lisp
+  (use-package treemacs
+    :ensure t
+    :defer t
+    :init
+    (with-eval-after-load 'winum
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :config
+    (progn
+      (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+            treemacs-file-event-delay           5000
+            treemacs-follow-after-init          t
+            treemacs-follow-recenter-distance   0.1
+            treemacs-goto-tag-strategy          'refetch-index
+            treemacs-indentation                2
+            treemacs-indentation-string         " "
+            treemacs-is-never-other-window      nil
+            treemacs-no-png-images              nil
+            treemacs-project-follow-cleanup     nil
+            treemacs-recenter-after-file-follow nil
+            treemacs-recenter-after-tag-follow  nil
+            treemacs-show-hidden-files          t
+            treemacs-silent-filewatch           nil
+            treemacs-silent-refresh             nil
+            treemacs-sorting                    'alphabetic-desc
+            treemacs-tag-follow-cleanup         t
+            treemacs-tag-follow-delay           1.5
+            treemacs-width                      40)
+
+      (treemacs-follow-mode t)
+      (treemacs-filewatch-mode t)
+      (pcase (cons (not (null (executable-find "git")))
+                   (not (null (executable-find "python3"))))
+        (`(t . t)
+         (treemacs-git-mode 'extended))
+        (`(t . _)
+         (treemacs-git-mode 'simple))))
+    :bind
+    (:map global-map
+          ("M-0"       . treemacs-select-window)
+          ("C-x t 1"   . treemacs-delete-other-windows)
+          ("C-x t t"   . treemacs)
+          ("C-x t B"   . treemacs-bookmark)
+          ("C-x t C-t" . treemacs-find-file)
+          ("C-x t M-t" . treemacs-find-tag)))
+
+  (use-package treemacs-evil
+    :after treemacs evil
+    :ensure t)
+
+  (use-package treemacs-projectile
+    :after treemacs projectile
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:~
+* Powershell on Windows
+#+BEGIN_SRC emacs-lisp 
+  (require 'shell)
+  (defun powershell-gen-window-width-string ()
+    (concat  "$a = (Get-Host).UI.RawUI\n"
+	     "$b = $a.WindowSize\n"
+	     "$b.Width = " (number-to-string  (window-width)) "\n"
+	     "$a.BufferSize = $b\n"
+	     "$a.WindowSize = $b")
+    )
+  (defvar powershell-prompt-pattern  "PS [^#$%>]+>"
+    "Regexp for powershell prompt.  This isn't really used, because I couldn't figure out how to get it to work."
+    )
+  (defgroup powershell nil
+    "Running shell from within Emacs buffers."
+    :group 'processes
+    )
+  (defcustom powershell-need-rawui-resize t
+    "set when powershell needs to be resized"
+    :group 'powershell
+    )
+  ;;;###autoload
+  (defun powershell (&optional buffer)
+    "Run an inferior powershell, by invoking the shell function. See the help for shell for more details.
+  \(Type \\[describe-mode] in the shell buffer for a list of commands.)"
+    (interactive
+     (list
+      (and current-prefix-arg
+	   (read-buffer "Shell buffer: "
+			(generate-new-buffer-name "*PowerShell*")))))
+					  ; get a name for the buffer
+    (setq buffer (get-buffer-create (or buffer "*PowerShell*")))
+    (let (
+	  (tmp-shellfile explicit-shell-file-name)
+	  )
+					  ; set arguments for the powershell exe.
+					  ; This needs to be tunable.
+      (setq explicit-shell-file-name "c:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
+      (setq explicit-powershell.exe-args '("-Command" "-" )) ; interactive, but no command prompt
+					  ; launch the shell
+      (shell buffer)
+					  ; restore the original shell
+      (if explicit-shell-file-name
+	  (setq explicit-shell-file-name tmp-shellfile)
+	)
+      )
+    (let (
+	  (proc (get-buffer-process buffer))
+	  )
+					  ; This sets up the powershell RawUI screen width. By default,
+					  ; the powershell v1.0 assumes terminal width of 80 chars.
+					  ;This means input gets wrapped at the 80th column.  We reset the
+					  ; width of the PS terminal to the window width.
+      (add-hook 'window-size-change-functions 'powershell-window-size-changed)
+      (powershell-window-size-changed)
+					  ; ask for initial prompt
+      (comint-simple-send proc "prompt")
+      )
+					  ; hook the kill-buffer action so we can kill the inferior process?
+    (add-hook 'kill-buffer-hook 'powershell-delete-process)
+					  ; wrap the comint-input-sender with a PS version
+					  ; must do this after launching the shell!
+    (make-local-variable 'comint-input-sender)
+    (setq comint-input-sender 'powershell-simple-send)
+					  ; set a preoutput filter for powershell.  This will trim newlines after the prompt.
+    (add-hook 'comint-preoutput-filter-functions 'powershell-preoutput-filter-for-prompt)
+					  ;(run-hooks 'powershell-launch-hook)
+					  ; return the buffer created
+    buffer
+    )
+  (defun powershell-window-size-changed (&optional frame)
+					  ; do not actually resize here. instead just set a flag.
+    (setq powershell-need-rawui-resize t)
+    )
+  (defun powershell-delete-process (&optional proc)
+    (or proc
+	(setq proc (get-buffer-process (current-buffer))))
+    (and (processp proc)
+	 (delete-process proc))
+    )
+
+
+  ;; This function trims the newline from the prompt that we
+
+  ;; get back from powershell.  It is set into the preoutput
+
+  ;; filters, so the newline is trimmed before being put into
+
+  ;; the output buffer.
+
+  (defun powershell-preoutput-filter-for-prompt (string)
+    (if
+					  ; not sure why, but I have not succeeded in using a variable here???
+					  ;(string-match  powershell-prompt-pattern  string)
+	(string-match  "PS [^#$%>]+>" string)
+	(substring string 0 -1)
+      string
+      )
+    )
+
+  (defun powershell-simple-send (proc string)
+    "Override of the comint-simple-send function, specific for powershell.
+  This just sends STRING, plus the prompt command. Normally powershell is in
+  noninteractive model when run as an inferior shell with stdin/stdout
+  redxirected, which is the case when running as a shell within emacs.
+  This function insures we get and display the prompt. "
+					  ; resize if necessary. We do this by sending a resize string to the shell,
+					  ; before sending the actual command to the shell.
+    (if powershell-need-rawui-resize
+	(and
+	 (comint-simple-send proc (powershell-gen-window-width-string))
+	 (setq powershell-need-rawui-resize nil)
+	 )
+      )
+    (comint-simple-send proc string)
+    (comint-simple-send proc "prompt")
+    )
+#+END_SRC
+
+#+RESULTS:
+: powershell-simple-send
