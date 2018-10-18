@@ -1,5 +1,14 @@
 * Interface tweaks 
-** #+SETUPFILE:  key-bindings
+** general setting
+   Let line wrap in org-mode
+   #+begin_src emacs-lisp
+     (global-visual-line-mode t)
+   #+end_src
+
+   #+RESULTS:
+   : t
+
+** key-bindings
    #+BEGIN_SRC emacs-lisp
      ;; use cmd + n and cmd + p to select next and previous lines
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
@@ -17,12 +26,13 @@
      ;; use f5 to revert the buffer
      (global-set-key (kbd "<f5>") 'revert-buffer)
      ;; use f6 to toggle the display of inline image
-     (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v")) 
+     ;; (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v"))
+
 
    #+END_SRC
 
    #+RESULTS:
-   : 
+   : revert-buffer
 
    #+BEGIN_SRC emacs-lisp
      (setq org-src-tab-acts-natively t)
@@ -185,7 +195,7 @@
 
   #+RESULTS:
 
-# * Org-mode enhance
+* Org-mode enhance
 # ** org-bullets
 #    #+BEGIN_SRC emacs-lisp
 #      (use-package org
@@ -203,19 +213,21 @@
 #       '(org-directory "~/OneDrive/notes"))
 #      (global-set-key "\C-ca" 'org-agenda)
 #    #+END_SRC
-# ** make code-block could be executed in org-mode
-#    #+BEGIN_SRC emacs-lisp
-#      (org-babel-do-load-languages
-#       'org-babel-load-languages
-#       '((lisp . t)
-# 	(shell . t)
-# 	(R . t)
-# 	(C . t)))
-#      ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
-#    #+END_SRC
+** make code-block could be executed in org-mode
+   #+BEGIN_SRC emacs-lisp
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '(
+	(lisp . t)
+	(shell . t)
+	;;   (powershell . t)
+	;;   (R . t)
+	(C . t)
+	))
+     ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
+   #+END_SRC
 
-#    #+RESULTS:
-
+   #+RESULTS:
 
 # ** highlight within code block in emacs org-mode
 #    #+BEGIN_SRC emacs-lisp
@@ -666,12 +678,62 @@
 
    #+RESULTS:
 * Powershell within emacs
-  Enable powershell mode within emacs, after installation just run: M-x powershell to enter that mode
+  - Enable powershell mode within emacs, after installation just run: M-x powershell to enter that mode
   #+begin_src emacs-lisp
     (use-package powershell
       :ensure t
       :init
       )
   #+end_src
+  
+  # - Execute two command in powershell to set the window size to avoid warning 
+  #   #+begin_src powershell
+  #     $height = (Get-Host).UI.RawUI.MaxWindowSize.Height
+  #     $width = (Get-Host).UI.RawUI.MaxWindowSize.Width
 
-  #+RESULTS:
+  #     # or 
+  #     # (Get-Host).UI.RawUI.MaxWindowSize
+  #   #+end_src 
+
+# * Configuration for outline
+#   #+begin_src emacs-lisp
+#     ; first call 'clone-indirect-buffer'. Then...
+#     ; This function works between buffer and it's clone.
+#     (defun my/goto-same-spot-in-other-buffer () 
+#       "Go to the same location in the other buffer. Useful for when you have cloned indirect buffers"
+#       (interactive)
+#       (let ((my/goto-current-point (point)))
+# 	(other-window 1)
+# 	(goto-char my/goto-current-point)
+# 	(when (invisible-p (point))
+# 	  (org-reveal)))
+#       )
+
+#     ; This function is a clone-to-buffer jump only:
+#     ; It does find the other buffer first thou instead of just jumping to the other 
+#     ; window as does the function above.
+#     (defun my/jump-to-point-and-show ()
+#       "Switch to a cloned buffer's base buffer and move point to the
+#     cursor position in the clone."
+#       (interactive)
+#       (let ((buf (buffer-base-buffer)))
+# 	(unless buf
+# 	  (error "You need to be in a cloned buffer!"))
+# 	(let ((pos (point))
+# 	      (win (car (get-buffer-window-list buf))))
+# 	  (if win
+# 	      (select-window win)
+# 	    (other-window 1)
+# 	    (switch-to-buffer buf))
+# 	  (goto-char pos)
+# 	  (when (invisible-p (point))
+# 	    (show-branches)))))
+
+#     (global-set-key (kbd "<s-mouse-1>") 'my/goto-same-spot-in-other-buffer)
+#     (global-set-key (kbd "s-m") 'my/goto-same-spot-in-other-buffer)
+#     (global-set-key (kbd "<C-s-mouse-1>") 'my/jump-to-point-and-show)
+#     (global-set-key (kbd "C-s-m") 'my/jump-to-point-and-show)
+#   #+end_src 
+
+#   #+RESULTS:
+
