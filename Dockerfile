@@ -1,8 +1,9 @@
 # Dockerfile for development with emacs
-FROM ubuntu:18.04
-
+FROM ubuntu:16.04
 # for ssh
 RUN apt-get update && apt-get install -y openssh-server
+# for general
+RUN apt-get install -y software-properties-common python-software-properties gnutls-bin
 # for network tools
 RUN apt-get install -y tcpdump telnet curl wget
 # for c/c++
@@ -11,6 +12,13 @@ RUN apt-get install -y cmake gcc
 RUN apt-get install -y gdbserver valgrind
 # for git
 RUN apt-get install -y git
+# for nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get -y install nodejs
+# for emacs
+RUN add-apt-repository ppa:ubuntu-elisp/ppa
+RUN apt-get update
+RUN apt-get install -y emacs25
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:gghh3344' | chpasswd
