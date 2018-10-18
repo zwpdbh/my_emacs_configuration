@@ -15,7 +15,7 @@ apt-get install -y gdbserver valgrind && \
 # For git
 apt-get install -y git && \
 # For other 
-apt-get install man && \
+apt-get install -y man && \
 # Configuration for ssh
 mkdir /var/run/sshd && \
 echo 'root:root' | chpasswd && \
