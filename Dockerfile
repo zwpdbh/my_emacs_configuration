@@ -1,7 +1,8 @@
 # Dockerfile for development with emacs
 FROM ubuntu:16.04
 # for ssh
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update
+RUN apt-get install -y openssh-server
 # for general
 RUN apt-get install -y software-properties-common python-software-properties gnutls-bin
 # for network tools
@@ -16,12 +17,10 @@ RUN apt-get install -y git
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get -y install nodejs
 # for emacs
-RUN add-apt-repository ppa:ubuntu-elisp/ppa
-RUN apt-get update
-RUN apt-get install -y emacs25
+RUN apt-get install -y emacs
 
 RUN mkdir /var/run/sshd
-RUN echo 'root:gghh3344' | chpasswd
+RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -29,6 +28,8 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+
+RUN apt install dumb-init
 
 # port 22 will be used to ssh into the container
 # port 9999 could be used to connect to some application
@@ -38,4 +39,4 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 # ssh -p 3022 root@localhost
 # password will be "root"
 EXPOSE 22 9999 7777
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["dumb-init", "/usr/sbin/sshd", "-D"]
