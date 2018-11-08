@@ -176,12 +176,14 @@
     (use-package auto-complete 
       :ensure t
       :init
+      :config
       (progn
-	(ac-config-default)
-	))
+	(ac-config-default))
+      )
   #+END_SRC 
 
   #+RESULTS:
+  : t
 * Yasnippet
   #+BEGIN_SRC emacs-lisp
     (use-package yasnippet
@@ -196,23 +198,23 @@
   #+RESULTS:
 
 * Org-mode enhance
-# ** org-bullets
-#    #+BEGIN_SRC emacs-lisp
-#      (use-package org
-#        :ensure t)
-#      (use-package org-ac
-#        :ensure t
-#        :config
-#        (org-ac/config-default))
-#      (use-package org-bullets
-#        :ensure t
-#        :config
-#        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  # ** org-bullets
+  #    #+BEGIN_SRC emacs-lisp
+  #      (use-package org
+  #        :ensure t)
+  #      (use-package org-ac
+  #        :ensure t
+  #        :config
+  #        (org-ac/config-default))
+  #      (use-package org-bullets
+  #        :ensure t
+  #        :config
+  #        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-#      (custom-set-variables
-#       '(org-directory "~/OneDrive/notes"))
-#      (global-set-key "\C-ca" 'org-agenda)
-#    #+END_SRC
+  #      (custom-set-variables
+  #       '(org-directory "~/OneDrive/notes"))
+  #      (global-set-key "\C-ca" 'org-agenda)
+  #    #+END_SRC
 ** make code-block could be executed in org-mode
    #+BEGIN_SRC emacs-lisp
      (org-babel-do-load-languages
@@ -229,82 +231,82 @@
 
    #+RESULTS:
 
-# ** highlight within code block in emacs org-mode
-#    #+BEGIN_SRC emacs-lisp
-#      (setq org-src-fontify-natively t)
-#    #+END_SRC
-# ** remove numbering from headers when exporting from org-mode
-#    #+BEGIN_SRC emacs-lisp
-#      ;; (setq org-export-with-section-numbers nil)
-#    #+END_SRC
+   # ** highlight within code block in emacs org-mode
+   #    #+BEGIN_SRC emacs-lisp
+   #      (setq org-src-fontify-natively t)
+   #    #+END_SRC
+   # ** remove numbering from headers when exporting from org-mode
+   #    #+BEGIN_SRC emacs-lisp
+   #      ;; (setq org-export-with-section-numbers nil)
+   #    #+END_SRC
 
-#    #+RESULTS:
+   #    #+RESULTS:
 
-# ** htmlize, which makes exported html file with highlight
-#    #+BEGIN_SRC emacs-lisp
-#      (use-package htmlize
-#        :ensure t)
-#    #+END_SRC
-#    #+RESULTS:
-#    : t
+   # ** htmlize, which makes exported html file with highlight
+   #    #+BEGIN_SRC emacs-lisp
+   #      (use-package htmlize
+   #        :ensure t)
+   #    #+END_SRC
+   #    #+RESULTS:
+   #    : t
 
-# ** For org-capture
-#    By default, running org-capture brings up a form to capture a "task" but things get really cool when you start making your own capture templates. With capture templates, you can speed up recording information and then tell org-mode to store it where you want it.
-#    #+BEGIN_SRC emacs-lisp
-#      (global-set-key (kbd "C-c c")
-# 		     'org-capture)
+   # ** For org-capture
+   #    By default, running org-capture brings up a form to capture a "task" but things get really cool when you start making your own capture templates. With capture templates, you can speed up recording information and then tell org-mode to store it where you want it.
+   #    #+BEGIN_SRC emacs-lisp
+   #      (global-set-key (kbd "C-c c")
+   # 		     'org-capture)
 
-#      (setq org-capture-templates
-# 	   '(("a" "Appointment" entry (file  "~/OneDrive/notes/orgfiles/appointments.org" "Appointments")
-# 	      "* TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n")
-# 	     ("n" "Note" entry (file+headline "~/OneDrive/notes/orgfiles/notes.org" "Notes")
-# 	      "* Note %?\n%T")
-# 	     ("l" "Link" entry (file+headline "~/OneDrive/notes/orgfiles/links.org" "Links")
-# 	      "* %? %^L %^g \n%T" :prepend t)
-# 	     ("b" "Blog idea" entry (file+headline "~/OneDrive/notes/orgfiles/blog_ideas.org" "Blog Topics:")
-# 	      "* %?\n%T" :prepend t)
-# 	     ("t" "To Do Item" entry (file+headline "~/OneDrive/notes/orgfiles/to_do_items.org" "To Do Items")
-# 	      "* %?\n%T" :prepend t)
-# 	     ("j" "Journal" entry (file+datetree "~/OneDrive/notes/journal.org")
-# 	      "* %?\nEntered on %U\n  %i\n  %a")
-# 	     ("r" "Reading" entry (file "~/OneDrive/notes/orgfiles/reading-notes.org")
-# 	      "* %?\n%i\n")))
+   #      (setq org-capture-templates
+   # 	   '(("a" "Appointment" entry (file  "~/OneDrive/notes/orgfiles/appointments.org" "Appointments")
+   # 	      "* TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n")
+   # 	     ("n" "Note" entry (file+headline "~/OneDrive/notes/orgfiles/notes.org" "Notes")
+   # 	      "* Note %?\n%T")
+   # 	     ("l" "Link" entry (file+headline "~/OneDrive/notes/orgfiles/links.org" "Links")
+   # 	      "* %? %^L %^g \n%T" :prepend t)
+   # 	     ("b" "Blog idea" entry (file+headline "~/OneDrive/notes/orgfiles/blog_ideas.org" "Blog Topics:")
+   # 	      "* %?\n%T" :prepend t)
+   # 	     ("t" "To Do Item" entry (file+headline "~/OneDrive/notes/orgfiles/to_do_items.org" "To Do Items")
+   # 	      "* %?\n%T" :prepend t)
+   # 	     ("j" "Journal" entry (file+datetree "~/OneDrive/notes/journal.org")
+   # 	      "* %?\nEntered on %U\n  %i\n  %a")
+   # 	     ("r" "Reading" entry (file "~/OneDrive/notes/orgfiles/reading-notes.org")
+   # 	      "* %?\n%i\n")))
 
-#    #+END_SRC
+   #    #+END_SRC
 
-#    #+RESULTS:
-#    | a | Appointment | entry | (file ~/OneDrive/notes/orgfiles/appointments.org Appointments)        | * TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n |          |   |
-#    | n | Note        | entry | (file+headline ~/OneDrive/notes/orgfiles/notes.org Notes)             | * Note %?\n%T                                           |          |   |
-#    | l | Link        | entry | (file+headline ~/OneDrive/notes/orgfiles/links.org Links)             | * %? %^L %^g \n%T                                       | :prepend | t |
-#    | b | Blog idea   | entry | (file+headline ~/OneDrive/notes/orgfiles/blog_ideas.org Blog Topics:) | * %?\n%T                                                | :prepend | t |
-#    | t | To Do Item  | entry | (file+headline ~/OneDrive/notes/orgfiles/to_do_items.org To Do Items) | * %?\n%T                                                | :prepend | t |
-#    | j | Journal     | entry | (file+datetree ~/OneDrive/notes/journal.org)                          | * %?\nEntered on %U\n  %i\n  %a                         |          |   |
-#    | r | Reading     | entry | (file ~/OneDrive/notes/orgfiles/reading-notes.org)                    | * %?\n%i\n                                              |          |   |
-# ** [[https://stackoverflow.com/questions/17435995/paste-an-image-on-clipboard-to-emacs-org-mode-file-without-saving-it][paste an image on clipboard to emacs org mode file without saving it]]
-#    #+BEGIN_SRC emacs-lisp
-#      (defun my-org-screenshot ()
-#        (interactive)
-#        (org-display-inline-images)
-#        (setq filename
-# 	     (concat
-# 	      (make-temp-name
-# 	       (concat (file-name-nondirectory (buffer-file-name))
-# 		       "_imgs/"
-# 		       (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
-#        (unless (file-exists-p (file-name-directory filename))
-# 	 (make-directory (file-name-directory filename)))
-#        ;; take screenshot
-#        (if (eq system-type 'darwin)
-# 	   (call-process "screencapture" nil nil nil "-i" filename))
-#        (if (eq system-type 'gnu/linux)
-# 	   (call-process "import" nil nil nil filename))
-#        ;; insert into file if correctly taken
-#        (if (file-exists-p filename)
-# 	   (insert (concat "[[file:" filename "]]"))))
-#    #+END_SRC
+   #    #+RESULTS:
+   #    | a | Appointment | entry | (file ~/OneDrive/notes/orgfiles/appointments.org Appointments)        | * TODO %?\n:PROPERTIES:\n\n:END:\nDEADLINE: %^T \n %i\n |          |   |
+   #    | n | Note        | entry | (file+headline ~/OneDrive/notes/orgfiles/notes.org Notes)             | * Note %?\n%T                                           |          |   |
+   #    | l | Link        | entry | (file+headline ~/OneDrive/notes/orgfiles/links.org Links)             | * %? %^L %^g \n%T                                       | :prepend | t |
+   #    | b | Blog idea   | entry | (file+headline ~/OneDrive/notes/orgfiles/blog_ideas.org Blog Topics:) | * %?\n%T                                                | :prepend | t |
+   #    | t | To Do Item  | entry | (file+headline ~/OneDrive/notes/orgfiles/to_do_items.org To Do Items) | * %?\n%T                                                | :prepend | t |
+   #    | j | Journal     | entry | (file+datetree ~/OneDrive/notes/journal.org)                          | * %?\nEntered on %U\n  %i\n  %a                         |          |   |
+   #    | r | Reading     | entry | (file ~/OneDrive/notes/orgfiles/reading-notes.org)                    | * %?\n%i\n                                              |          |   |
+   # ** [[https://stackoverflow.com/questions/17435995/paste-an-image-on-clipboard-to-emacs-org-mode-file-without-saving-it][paste an image on clipboard to emacs org mode file without saving it]]
+   #    #+BEGIN_SRC emacs-lisp
+   #      (defun my-org-screenshot ()
+   #        (interactive)
+   #        (org-display-inline-images)
+   #        (setq filename
+   # 	     (concat
+   # 	      (make-temp-name
+   # 	       (concat (file-name-nondirectory (buffer-file-name))
+   # 		       "_imgs/"
+   # 		       (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+   #        (unless (file-exists-p (file-name-directory filename))
+   # 	 (make-directory (file-name-directory filename)))
+   #        ;; take screenshot
+   #        (if (eq system-type 'darwin)
+   # 	   (call-process "screencapture" nil nil nil "-i" filename))
+   #        (if (eq system-type 'gnu/linux)
+   # 	   (call-process "import" nil nil nil filename))
+   #        ;; insert into file if correctly taken
+   #        (if (file-exists-p filename)
+   # 	   (insert (concat "[[file:" filename "]]"))))
+   #    #+END_SRC
 
-#    #+RESULTS:
-#    : my-org-screenshot
+   #    #+RESULTS:
+   #    : my-org-screenshot
 
 * tab-bar
   #+BEGIN_SRC emacs-lisp
@@ -323,6 +325,7 @@
     (use-package ace-window
       :ensure t
       :init
+      :config
       (progn
 	(setq aw-scope 'frame)
 	(global-set-key (kbd "C-x O") 'other-frame)
@@ -334,6 +337,7 @@
   #+END_SRC
 
   #+RESULTS:
+  : t
 
 * Swiper / Ivy / Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
@@ -382,6 +386,7 @@
      (use-package eldoc
        :ensure t
        :init
+       :config
        (progn
 	 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
@@ -424,11 +429,16 @@
 							  (eldoc-get-arg-index))))
 	 ))
    #+END_SRC
+
+   #+RESULTS:
+   : t
+
 ** Install paredit to help keep parentheses balanced
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
        :ensure t
        :init
+       :config
        (progn
 	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
@@ -437,6 +447,10 @@
 	 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
 	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+
+	 ;;set { and } 
+	 ;; (define-key js-mode-map "{" 'paredit-open-curly)
+	 ;; (define-key js-mode-map "}" 'paredit-close-curly-and-newline)
 
 	 ;; paredit with eldoc
 	 (require 'eldoc) ; if not already loaded
@@ -475,6 +489,7 @@
    #+END_SRC
 
    #+RESULTS:
+   : t
 
 ** Slime for common-lisp
    #+BEGIN_SRC emacs-lisp
@@ -515,17 +530,18 @@
      (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
      (add-hook 'lisp-mode-hook #'slime-lisp-mode-hook)
 
-     (setq inferior-lisp-program "/usr/local/bin/sbcl --dynamic-space-size 1024")
+     (setq inferior-lisp-program "sbcl.exe --dynamic-space-size 1024")
    #+END_SRC
 
    #+RESULTS:
-   : /usr/local/bin/sbcl --dynamic-space-size 1024
+   : sbcl.exe --dynamic-space-size 1024
 
 ** Programming with Racket
    #+BEGIN_SRC emacs-lisp
      (use-package racket-mode
        :ensure t
        :init
+       :config
        (progn
 	 (setq racket-program "D:\\Program Files\\Racket\\Racket.exe")
 	 (add-hook 'racket-mode-hook
@@ -671,12 +687,14 @@
      (use-package dockerfile-mode
        :ensure t
        :init 
+       :config
        (progn
 	 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 	 ))
    #+end_src 
 
    #+RESULTS:
+   : t
 * Powershell within emacs
   - Enable powershell mode within emacs, after installation just run: M-x powershell to enter that mode
   #+begin_src emacs-lisp
@@ -695,45 +713,80 @@
   #     # (Get-Host).UI.RawUI.MaxWindowSize
   #   #+end_src 
 
-# * Configuration for outline
-#   #+begin_src emacs-lisp
-#     ; first call 'clone-indirect-buffer'. Then...
-#     ; This function works between buffer and it's clone.
-#     (defun my/goto-same-spot-in-other-buffer () 
-#       "Go to the same location in the other buffer. Useful for when you have cloned indirect buffers"
-#       (interactive)
-#       (let ((my/goto-current-point (point)))
-# 	(other-window 1)
-# 	(goto-char my/goto-current-point)
-# 	(when (invisible-p (point))
-# 	  (org-reveal)))
-#       )
+  # * Configuration for outline
+  #   #+begin_src emacs-lisp
+  #     ; first call 'clone-indirect-buffer'. Then...
+  #     ; This function works between buffer and it's clone.
+  #     (defun my/goto-same-spot-in-other-buffer () 
+  #       "Go to the same location in the other buffer. Useful for when you have cloned indirect buffers"
+  #       (interactive)
+  #       (let ((my/goto-current-point (point)))
+  # 	(other-window 1)
+  # 	(goto-char my/goto-current-point)
+  # 	(when (invisible-p (point))
+  # 	  (org-reveal)))
+  #       )
 
-#     ; This function is a clone-to-buffer jump only:
-#     ; It does find the other buffer first thou instead of just jumping to the other 
-#     ; window as does the function above.
-#     (defun my/jump-to-point-and-show ()
-#       "Switch to a cloned buffer's base buffer and move point to the
-#     cursor position in the clone."
-#       (interactive)
-#       (let ((buf (buffer-base-buffer)))
-# 	(unless buf
-# 	  (error "You need to be in a cloned buffer!"))
-# 	(let ((pos (point))
-# 	      (win (car (get-buffer-window-list buf))))
-# 	  (if win
-# 	      (select-window win)
-# 	    (other-window 1)
-# 	    (switch-to-buffer buf))
-# 	  (goto-char pos)
-# 	  (when (invisible-p (point))
-# 	    (show-branches)))))
+  #     ; This function is a clone-to-buffer jump only:
+  #     ; It does find the other buffer first thou instead of just jumping to the other 
+  #     ; window as does the function above.
+  #     (defun my/jump-to-point-and-show ()
+  #       "Switch to a cloned buffer's base buffer and move point to the
+  #     cursor position in the clone."
+  #       (interactive)
+  #       (let ((buf (buffer-base-buffer)))
+  # 	(unless buf
+  # 	  (error "You need to be in a cloned buffer!"))
+  # 	(let ((pos (point))
+  # 	      (win (car (get-buffer-window-list buf))))
+  # 	  (if win
+  # 	      (select-window win)
+  # 	    (other-window 1)
+  # 	    (switch-to-buffer buf))
+  # 	  (goto-char pos)
+  # 	  (when (invisible-p (point))
+  # 	    (show-branches)))))
 
-#     (global-set-key (kbd "<s-mouse-1>") 'my/goto-same-spot-in-other-buffer)
-#     (global-set-key (kbd "s-m") 'my/goto-same-spot-in-other-buffer)
-#     (global-set-key (kbd "<C-s-mouse-1>") 'my/jump-to-point-and-show)
-#     (global-set-key (kbd "C-s-m") 'my/jump-to-point-and-show)
-#   #+end_src 
+  #     (global-set-key (kbd "<s-mouse-1>") 'my/goto-same-spot-in-other-buffer)
+  #     (global-set-key (kbd "s-m") 'my/goto-same-spot-in-other-buffer)
+  #     (global-set-key (kbd "<C-s-mouse-1>") 'my/jump-to-point-and-show)
+  #     (global-set-key (kbd "C-s-m") 'my/jump-to-point-and-show)
+  #   #+end_src 
 
-#   #+RESULTS:
+  #   #+RESULTS:
 
+* Javascript
+** js2-mode 
+   #+begin_src emacs-lisp
+     (use-package ac-js2
+       :ensure t
+       :init
+       :config 
+       (progn
+	 (use-package js2-mode
+	   :ensure t
+	   :init)
+	 (add-hook 'js-mode-hook 'js2-minor-mode)
+	 (add-hook 'js2-mode-hook 'ac-js2-mode)
+	 (add-hook 'js2-mode-hook (lambda ()
+				    (setq paredit-mode t)
+				    ))
+	 )
+       )
+   #+end_src 
+
+   #+RESULTS:
+   : t
+# ** using paredit with non lisp mode 
+#    #+begin_src emacs-lisp
+#      (require 'paredit)
+#      (defun my-paredit-nonlisp ()
+#        "Turn on paredit mode for non-lisps."
+#        (interactive)
+#        (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+# 	    '((lambda (endp delimiter) nil)))
+#        (paredit-mode 1))
+
+#      ;; if you want to active paredit for a certain mode, add this 
+#      (add-hook 'js-mode-hook 'my-paredit-nonlisp)
+#    #+end_src
