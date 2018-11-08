@@ -10,6 +10,9 @@
      ;; use cmd + \ to uncomment region of code
      (global-set-key (kbd "s-\\") 'uncomment-region)
 
+     ;; use c-c c-c to execute a function in scheme
+     (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
+
      ;; use f4 to format whole buffer
      (global-set-key (kbd "<f10>") (kbd "C-x h C-M-\\"))
      ;; use f3 to use org-edit-special
