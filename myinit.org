@@ -85,7 +85,7 @@
       :ensure spacemacs-theme
       :config
       (progn
-	(load-theme 'spacemacs-light t)
+	(load-theme 'spacemacs-dark t)
 	;;    (add-hook 'after-init-hook (lambda () (load-theme 'spacemacs-light)))
 	))
 
@@ -213,14 +213,13 @@
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((lisp . t)
-	(shell . t)
-	(R . t)
-	(C . t)))
+        (sh . t)
+        (R . t)
+        (C . t)))
      ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
    #+END_SRC
 
    #+RESULTS:
-
 
 ** highlight within code block in emacs org-mode
    #+BEGIN_SRC emacs-lisp
@@ -423,48 +422,49 @@
        :ensure t
        :init
        (progn
-	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-	 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-	 (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+         (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+         (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+         (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+         (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+         (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+         (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+         (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+         (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-	 ;; paredit with eldoc
-	 (require 'eldoc) ; if not already loaded
-	 (eldoc-add-command
-	  'paredit-backward-delete
-	  'paredit-close-round)
+         ;; paredit with eldoc
+         (require 'eldoc) ; if not already loaded
+         (eldoc-add-command
+          'paredit-backward-delete
+          'paredit-close-round)
 
-	 ;; paredit with slime repl
-	 (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-	 ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
-	 ;; Stop SLIME's REPL from grabbing DEL,
-	 ;; which is annoying when backspacing over a '('
-	 (defun override-slime-repl-bindings-with-paredit ()
-	   (define-key slime-repl-mode-map
-	     (read-kbd-macro paredit-backward-delete-key) nil))
-	 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+         ;; paredit with slime repl
+         (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+         ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
+         ;; Stop SLIME's REPL from grabbing DEL,
+         ;; which is annoying when backspacing over a '('
+         (defun override-slime-repl-bindings-with-paredit ()
+           (define-key slime-repl-mode-map
+             (read-kbd-macro paredit-backward-delete-key) nil))
+         (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
-	 ;; paredit with electric return
-	 (defvar electrify-return-match
-	   "[\]}\)\"]"
-	   "If this regexp matches the text after the cursor, do an \"electric\"
+         ;; paredit with electric return
+         (defvar electrify-return-match
+           "[\]}\)\"]"
+           "If this regexp matches the text after the cursor, do an \"electric\"
        return.")
-	 (defun electrify-return-if-match (arg)
-	   "If the text after the cursor matches `electrify-return-match' then
+         (defun electrify-return-if-match (arg)
+           "If the text after the cursor matches `electrify-return-match' then
        open and indent an empty line between the cursor and the text.  Move the
        cursor to the new line."
-	   (interactive "P")
-	   (let ((case-fold-search nil))
-	     (if (looking-at electrify-return-match)
-		 (save-excursion (newline-and-indent)))
-	     (newline arg)
-	     (indent-according-to-mode)))
-	 ;; Using local-set-key in a mode-hook is a better idea.
-	 (global-set-key (kbd "RET") 'electrify-return-if-match)
-	 ))
+           (interactive "P")
+           (let ((case-fold-search nil))
+             (if (looking-at electrify-return-match)
+                 (save-excursion (newline-and-indent)))
+             (newline arg)
+             (indent-according-to-mode)))
+         ;; Using local-set-key in a mode-hook is a better idea.
+         (global-set-key (kbd "RET") 'electrify-return-if-match)
+         ))
    #+END_SRC
 
    #+RESULTS:
@@ -520,15 +520,24 @@
        :ensure t
        :init
        (progn
-	 (setq racket-program "/Applications/Racket v7.0/bin/racket")
-	 (add-hook 'racket-mode-hook
-		   (lambda ()
-		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
-	 (setq tab-always-indent 'complete)
-	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
-	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
-	 ))
+         (setq racket-program "/usr/bin/racket")
+         (add-hook 'racket-mode-hook
+                   (lambda ()
+                     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+         (setq tab-always-indent 'complete)
+         (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+         (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+         
+         ;; set auto-complete for racket-mode
+         (require 'auto-complete)
+         (add-to-list 'ac-modes 'racket-mode)
+         ;; associate .scheme file with racket-mode 
+         (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))
+         ))
    #+END_SRC
+
+   #+RESULTS:
+
 * hook with different modes
 ** paredit, eldoc, show-paren and electric return
    #+BEGIN_SRC emacs-lisp
