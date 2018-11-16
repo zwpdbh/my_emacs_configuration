@@ -6,7 +6,7 @@
    #+end_src
 
    #+RESULTS:
-   : t
+   : 8613
 
 ** key-bindings
    #+BEGIN_SRC emacs-lisp
@@ -450,6 +450,7 @@
 	 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
 	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
 	 ;;set { and } 
 	 ;; (define-key js-mode-map "{" 'paredit-open-curly)
@@ -546,15 +547,22 @@
        :init
        :config
        (progn
-	 (setq racket-program "D:\\Program Files\\Racket\\Racket.exe")
+	 (setq racket-program "c:/Program Files/Racket/Racket.exe")
 	 (add-hook 'racket-mode-hook
 		   (lambda ()
 		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
 	 (setq tab-always-indent 'complete)
 	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
 	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+    
+	 ;; setup file ending in ".scheme" to open in racket-mode 
+	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))
 	 ))
    #+END_SRC
+
+   #+RESULTS:
+   : t
+
 * hook with different modes
 ** paredit, eldoc, show-paren and electric return
    #+BEGIN_SRC emacs-lisp
