@@ -532,8 +532,7 @@
          (require 'auto-complete)
          (add-to-list 'ac-modes 'racket-mode)
          ;; associate .scheme file with racket-mode 
-         (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))
-         ))
+         (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))))
    #+END_SRC
 
    #+RESULTS:
