@@ -384,7 +384,7 @@
   : counsel-find-file
 
 * Lisp Programming Configuration
-** Install eldoc to show the argument list of the function call you are currently writing in the echo area
+** eldoc to show the argument list of the function call you are currently writing in the echo area
    #+BEGIN_SRC emacs-lisp
      (use-package eldoc
        :ensure t
@@ -436,7 +436,7 @@
    #+RESULTS:
    : t
 
-** Install paredit to help keep parentheses balanced
+** paredit which keeps parentheses balanced
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
        :ensure t
@@ -497,43 +497,35 @@
 
 ** Programming with common-lisp 
 *** Slime for common-lisp
-   #+BEGIN_SRC emacs-lisp
-     (use-package lisp-mode
-       :config
-       (use-package elisp-slime-nav
-	 :ensure t
-	 :commands elisp-slime-nav-mode)
-       (use-package macrostep
-	 :ensure t
-	 :bind ("C-c e" . macrostep-expand))
+    #+BEGIN_SRC emacs-lisp
+      ;; lisp-mode could works with common-lisp, so there is no need to invoke
+      ;; common-lisp-mode directly
+      (use-package lisp-mode
+	:config
+	(use-package elisp-slime-nav
+	  :ensure t
+	  :commands elisp-slime-nav-mode)
+	(use-package macrostep
+	  :ensure t
+	  :bind ("C-c e" . macrostep-expand))
 
-       (use-package slime
-	 :ensure t
-	 :commands (slime slime-lisp-mode-hook)
-	 :config
-	 (progn
-	   (add-to-list 'slime-contribs 'slime-fancy)
-	   (slime-setup)
-	   (use-package slime-company
-	     :ensure t
-	     :config
-	     (progn
-	       (slime-setup '(slime-fancy slime-company))
-	       ))      
-	   )))
+	(use-package slime
+	  :ensure t
+	  :commands (slime slime-lisp-mode-hook)
+	  :config
+	  (progn
+	    (add-to-list 'slime-contribs 'slime-fancy)
+	    (slime-setup)
+	    (use-package slime-company
+	      :ensure t
+	      :config
+	      (progn
+		(slime-setup '(slime-fancy slime-company)))))))
 
-   #+END_SRC
-   #+RESULTS:
-   : t
-*** Add hooks for common-lisp 
-#+begin_src emacs-lisp 
-  ;; (add-to-list 'auto-mode-alist '("\\.lisp\\'" . common-lisp-mode))
-#+end_src
-
-#+RESULTS:
-
-
-** set variables about lisp-mode which works for emacslisp
+    #+END_SRC
+    #+RESULTS:
+    : t
+** set variables about lisp-mode to work with emacslisp
    #+BEGIN_SRC emacs-lisp
      (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
      (add-hook 'emacs-lisp-mode-hook #'elisp-slime-nav-mode)
@@ -562,7 +554,7 @@
 	 (setq tab-always-indent 'complete)
 	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
 	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
-    
+
 	 ;; setup file ending in ".scheme" to open in racket-mode 
 	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))
 	 ))
@@ -796,16 +788,16 @@
 
    #+RESULTS:
    : t
-# ** using paredit with non lisp mode 
-#    #+begin_src emacs-lisp
-#      (require 'paredit)
-#      (defun my-paredit-nonlisp ()
-#        "Turn on paredit mode for non-lisps."
-#        (interactive)
-#        (set (make-local-variable 'paredit-space-for-delimiter-predicates)
-# 	    '((lambda (endp delimiter) nil)))
-#        (paredit-mode 1))
+   # ** using paredit with non lisp mode 
+   #    #+begin_src emacs-lisp
+   #      (require 'paredit)
+   #      (defun my-paredit-nonlisp ()
+   #        "Turn on paredit mode for non-lisps."
+   #        (interactive)
+   #        (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+   # 	    '((lambda (endp delimiter) nil)))
+   #        (paredit-mode 1))
 
-#      ;; if you want to active paredit for a certain mode, add this 
-#      (add-hook 'js-mode-hook 'my-paredit-nonlisp)
-#    #+end_src
+   #      ;; if you want to active paredit for a certain mode, add this 
+   #      (add-hook 'js-mode-hook 'my-paredit-nonlisp)
+   #    #+end_src
