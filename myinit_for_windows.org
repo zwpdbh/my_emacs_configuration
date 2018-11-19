@@ -451,6 +451,7 @@
 	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+	 (add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
 
 	 ;;set { and } 
 	 ;; (define-key js-mode-map "{" 'paredit-open-curly)
@@ -494,7 +495,8 @@
    #+RESULTS:
    : t
 
-** Slime for common-lisp
+** Programming with common-lisp 
+*** Slime for common-lisp
    #+BEGIN_SRC emacs-lisp
      (use-package lisp-mode
        :config
@@ -523,8 +525,15 @@
    #+END_SRC
    #+RESULTS:
    : t
+*** Add hooks for common-lisp 
+#+begin_src emacs-lisp 
+  ;; (add-to-list 'auto-mode-alist '("\\.lisp\\'" . common-lisp-mode))
+#+end_src
 
-** set variables about lisp-mode 
+#+RESULTS:
+
+
+** set variables about lisp-mode which works for emacslisp
    #+BEGIN_SRC emacs-lisp
      (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
      (add-hook 'emacs-lisp-mode-hook #'elisp-slime-nav-mode)
