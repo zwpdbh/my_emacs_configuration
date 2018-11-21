@@ -36,7 +36,7 @@
      ;; use f5 to revert the buffer
      (global-set-key (kbd "<f5>") 'revert-buffer)
      ;; use f6 to toggle the display of inline image
-     ;; (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v"))
+     (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v"))
 
 
    #+END_SRC
@@ -232,7 +232,7 @@
 	;;   (powershell . t)
 	;;   (R . t)
 	(C . t)
-	))
+	(plantuml . t)))
      ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
    #+END_SRC
 
@@ -806,3 +806,19 @@
    #      ;; if you want to active paredit for a certain mode, add this 
    #      (add-hook 'js-mode-hook 'my-paredit-nonlisp)
    #    #+end_src
+* Use org-mode to draw UML
+#+begin_src emacs-lisp 
+  (use-package plantuml-mode
+    :ensure t
+    :init
+    :config
+    (progn
+      (add-to-list
+       'org-src-lang-modes '("plantuml" . plantuml))
+      (setq org-plantuml-jar-path
+	    (expand-file-name "c:/Users/x1ezmr/notes/plantuml.jar"))
+      ))
+#+end_src
+
+#+RESULTS:
+: t
