@@ -2,11 +2,18 @@
 ** general setting
    Let line wrap in org-mode
    #+begin_src emacs-lisp
-     (global-visual-line-mode t)
+     (use-package adaptive-wrap
+       :ensure t
+       :config
+       (progn
+	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+	 (global-visual-line-mode t)))
+
+
    #+end_src
 
    #+RESULTS:
-   : 8613
+   : t
 
 ** key-bindings
    #+BEGIN_SRC emacs-lisp
@@ -43,9 +50,6 @@
 
      ;; use y/n for yes/no
      (fset 'yes-or-no-p 'y-or-n-p)
-
-     ;; wrap lines
-     (global-visual-line-mode 1)
 
      ;; Show matching arenthesis
      (show-paren-mode 1)
