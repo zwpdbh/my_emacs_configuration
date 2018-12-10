@@ -571,7 +571,7 @@
      (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
      (add-hook 'lisp-mode-hook #'slime-lisp-mode-hook)
 
-     (setq inferior-lisp-program "sbcl.exe --dynamic-space-size 1024")
+     (setq inferior-lisp-program "sbcl.exe")
    #+END_SRC
 
    #+RESULTS:
