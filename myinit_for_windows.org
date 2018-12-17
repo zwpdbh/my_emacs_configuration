@@ -262,8 +262,8 @@
       '(
 	(lisp . t)
 	(shell . t)
-	;;   (powershell . t)
-	;;   (R . t)
+	;; (powershell . t)
+	;; (R . t)
 	(C . t)
 	(plantuml . t)))
      ;;(add-hook 'org-mode-hook (lambda () (org-indent-mode t)))
