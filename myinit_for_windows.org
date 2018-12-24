@@ -21,10 +21,20 @@
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
      (global-set-key (kbd "s-p") (kbd "C-S-p"))
 
-     ;; use cmd + / to comment region of code
-     (global-set-key (kbd "s-/") 'comment-region)
-     ;; use cmd + \ to uncomment region of code
-     (global-set-key (kbd "s-\\") 'uncomment-region)
+     (cond
+      ((string-equal system-type "darwin")
+       (progn
+	 ;; use cmd + / to comment region of code
+	 (global-set-key (kbd "s-/") 'comment-region)
+	 ;; use cmd + \ to uncomment region of code
+	 (global-set-key (kbd "s-\\") 'uncomment-region)))
+      (t
+       (progn
+	 ;; use Ctrl + ; to comment region of code
+	 (global-set-key (kbd "C-;") 'comment-region)
+	 ;; use Ctrl + ' to uncomment region of code
+	 (global-set-key (kbd "C-'") 'uncomment-region))))
+
 
      ;; use c-c c-c to execute a function in scheme
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
@@ -543,6 +553,10 @@
    : t
 
 * paredit which keeps parentheses balanced
+  When sometimes you want to add or delete unbalanced parentheses:
+  Use C-q for quoted-insert and C-u DEL or C-u C-d to delete.
+  Sometimes, you could move the unbalanced thing into an new line,
+  comment out that line and delete them.
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
        :ensure t

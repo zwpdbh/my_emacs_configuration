@@ -36,7 +36,7 @@
  '(org-directory "~/OneDrive/notes")
  '(package-selected-packages
    (quote
-    (treemacs-projectile treemacs-evil treemacs ess yasnippet-snippets which-key use-package try tabbar spacemacs-theme smartparens slime-company org-ref org-bullets org-ac irony-eldoc indent-guide flycheck exec-path-from-shell elisp-slime-nav counsel company-rtags company-math company-irony-c-headers company-irony cmake-mode auctex ace-window))))
+    (py-autopep8 treemacs-projectile treemacs-evil treemacs ess yasnippet-snippets which-key use-package try tabbar spacemacs-theme smartparens slime-company org-ref org-bullets org-ac irony-eldoc indent-guide flycheck exec-path-from-shell elisp-slime-nav counsel company-rtags company-math company-irony-c-headers company-irony cmake-mode auctex ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
