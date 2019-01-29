@@ -875,3 +875,32 @@
   ;;(setq python-shell-interpreter "c:/Anaconda3/python.exe")
   ;;(setq python-shell-interpreter "c:/Anaconda3/Scripts/ipython3.exe" python-shell-interpreter-args "--simple-prompt -i")
 #+end_src
+* Scala programming
+** set global variables
+   #+begin_src emacs-lisp
+     (cond
+      ((string-equal system-type "windows-nt")
+       (progn
+	 (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
+	 (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))))
+   #+end_src
+** require ensime
+   #+begin_src emacs-lisp
+     (use-package ensime
+       :ensure t
+       :init 
+       :config 
+       (progn
+	 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
+   #+end_src 
+
+   #+RESULTS:
+   : t
+** Install and configure [[https://github.com/ensime/ensime-sbt][ensime-sbt]] plugin 
+   You do not need to manually install. Instead, configure sbt to use this plugin. 
+   Edit the plugins.sbt file which is usually located under the user's home directory (create the file if it does not exist)
+   Such as "c:/Users/x1ezmr/.sbt/1.0/plugins/plugins.sbt":
+   #+begin_src html
+     addSbtPlugin("org.ensime" % "sbt-ensime" % "2.5.1")
+   #+end_src
+   Check the latest version number at: http://ensime.github.io/build_tools/sbt/
