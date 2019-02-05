@@ -80,6 +80,18 @@
      (use-package try
        :ensure t)
    #+end_src
+** set color theme
+   #+begin_src emacs-lisp
+     (use-package material-theme
+       :ensure t
+       :init
+       :config
+       (progn
+	 (load-theme 'material-light t)))
+   #+end_src
+
+   #+RESULTS:
+   : t
 
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
