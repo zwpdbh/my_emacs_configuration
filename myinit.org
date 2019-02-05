@@ -177,8 +177,40 @@
 
      (require 'paren)
      (set-face-background 'show-paren-match (face-background 'default))
-     (set-face-foreground 'show-paren-match "greenyellow")
+     ;; highlight matched parenthesis
+     (set-face-foreground 'show-paren-match "red")
      (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
    #+end_src
 
    #+RESULTS:
+* AutoComplete
+  #+begin_src emacs-lisp
+    (use-package auto-complete 
+      :ensure t
+      :init
+      :config
+      (progn
+	(ac-config-default)
+	(add-hook 'after-init-hook 'global-auto-complete-mode t)))
+  #+end_src
+
+  #+RESULTS:
+  : t
+
+* Ace-window
+  #+begin_src emacs-lisp
+    (use-package ace-window
+      :ensure t
+      :init
+      :config
+      (progn
+	(setq aw-scope 'frame)
+	(global-set-key (kbd "C-x O") 'other-frame)
+	(global-set-key [remap other-window] 'ace-window)
+	(custom-set-faces
+	 '(aw-leading-char-face
+	   ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
+  #+end_src
+
+  #+RESULTS:
+  : t

@@ -33,10 +33,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (indent-guide exec-path-from-shell use-package))))
+ '(custom-safe-themes
+   (quote
+    ("028de01489a683696c64dcc2a01eaa663670d04202de3fce48ec3a5542bc2da5" default)))
+ '(package-selected-packages
+   (quote
+    (ace-window auto-complete indent-guide exec-path-from-shell use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
