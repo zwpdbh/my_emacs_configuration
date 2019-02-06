@@ -28,3 +28,20 @@
   (progn
     (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org")))))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("028de01489a683696c64dcc2a01eaa663670d04202de3fce48ec3a5542bc2da5" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" default)))
+ '(package-selected-packages
+   (quote
+    (ensime which-key use-package try paredit material-theme leuven-theme indent-guide exec-path-from-shell counsel auto-complete ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
