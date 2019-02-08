@@ -1,4 +1,4 @@
-*Interface tweaks
+* Interface tweaks
 ** set key-bindings
    #+begin_src emacs-lisp
      ;; use cmd + n and cmd + p to select next and previous lines
@@ -222,20 +222,6 @@
 
   #+RESULTS:
   : t
-* Org mode enhancement
-** make code-block could be executed in org-mode
-   #+begin_src emacs-lisp
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '(
-	(lisp . t)
-	(shell . t)
-	;; (R . t)
-	(C . t)
-	(plantuml . t)))
-   #+end_src
-
-   #+RESULTS:
 * Lisp programming configuration
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
@@ -363,3 +349,21 @@
 
 
 
+* Org mode enhancement
+** make code-block could be executed in org-mode
+   #+begin_src emacs-lisp
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((lisp . t)
+	(shell . t)
+	;; (cond
+	;;  ((string-equal system-type "windows-nt")
+	;;   (powershell . t))
+	;;  ((string-equal system-type "darwin")
+	;;   (shell . t))
+	;;  ((string-equal system-type "gnu/linux")
+	;;   (sh . t)))
+	;; (R . t)
+	;; (plantuml . t)
+	(C . t)))
+   #+end_src
