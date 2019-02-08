@@ -324,7 +324,9 @@
        :ensure t
        :config
        (progn
-	 (setq racket-program "/Applications/Racket_v7.0/bin/racket")
+	 (if (string-equal system-type "windows-nt")
+	     (setq racket-program "c:/Program Files/Racket/Racket.exe")
+	   (setq racket-program "/Applications/Racket_v7.0/bin/racket"))
 	 (add-hook 'racket-mode-hook
 		   (lambda ()
 		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
@@ -344,10 +346,11 @@
    #+begin_src emacs-lisp
      (use-package ensime
        :init 
-       (cond
-	((string-equal system-type "darwin")
-	 (progn
-	   (setq exec-path (append exec-path '("/usr/local/bin"))))))
+       (if (string-equal system-type "windows-nt")
+	   (progn
+	     (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
+	     (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
+	 (setq exec-path (append exec-path '("/usr/local/bin"))))
        :ensure t
        :config
        (progn
