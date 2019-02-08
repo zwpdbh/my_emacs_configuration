@@ -323,9 +323,22 @@
      (use-package racket-mode
        :ensure t
        :config
-       :disabled
-       (progn))
+       (progn
+	 (setq racket-program "/Applications/Racket_v7.0/bin/racket")
+	 (add-hook 'racket-mode-hook
+		   (lambda ()
+		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+	 (setq tab-always-indent 'complete)
+	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+
+	 ;; setup file ending in ".scheme" to open in racket-mode 
+	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))))
    #+end_src
+
+   #+RESULTS:
+   : t
+
 * Scala programming
 ** ensime
    #+begin_src emacs-lisp
