@@ -237,7 +237,7 @@
 
    #+RESULTS:
 * Lisp programming configuration
-** eldoc to show argument list
+** Eldoc to show argument list
    #+begin_src emacs-lisp
      (use-package eldoc
        :ensure t
@@ -287,6 +287,45 @@
 
    #+RESULTS:
    : t
+** Common-lisp
+   #+begin_src emacs-lisp
+     ;; slime for common-lisp 
+     (use-package lisp-mode
+       :config
+       (progn
+	 (use-package elisp-slime-nav
+	   :ensure t
+	   :commands elisp-slime-nav-mode)
+	 (use-package macrostep
+	   :ensure t
+	   :bind ("C-c e" . macrostep-expand))
+	 (use-package slime
+	   :ensure t
+	   :commands (slime slime-lisp-mode-hook)
+	   :config
+	   (progn
+	     (add-to-list 'slime-contribs 'slime-fancy)
+	     (slime-setup)
+	     (use-package ac-slime
+	       :ensure t
+	       :config
+	       (progn
+		 (add-hook 'slime-mode-hook 'set-up-slime-ac)
+		 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+		 (eval-after-load "auto-complete"
+		   '(add-to-list 'ac-modes 'slime-repl-mode))))))))
+   #+end_src
+
+   #+RESULTS:
+   : t
+** Racket
+   #+begin_src emacs-lisp
+     (use-package racket-mode
+       :ensure t
+       :config
+       :disabled
+       (progn))
+   #+end_src
 * Scala programming
 ** ensime
    #+begin_src emacs-lisp
