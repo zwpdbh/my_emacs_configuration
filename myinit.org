@@ -290,8 +290,19 @@
 	   :commands (slime slime-lisp-mode-hook)
 	   :config
 	   (progn
-	     (add-to-list 'slime-contribs 'slime-fancy)
-	     (slime-setup)
+	     (if (string-equal system-type "windows-nt")
+		 (progn
+		   (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl") ; where sbcl is installed
+		   (add-to-list 'load-path "D:\\Program Files\\slime")) ; slime folder position
+	       (progn
+		 (setq exec-path (append exec-path
+					 '("/usr/local/bin")))))
+	     (setq inferior-lisp-program "sbcl")
+	     ;; (add-to-list 'slime-contribs 'slime-fancy)
+	     ;; (slime-setup)
+	     (require 'slime-autoloads)
+	     (eval-after-load 'slime '(progn
+					(slime-setup '(slime-fancy))))
 	     (use-package ac-slime
 	       :ensure t
 	       :config
@@ -345,8 +356,6 @@
 
    #+RESULTS:
    : t
-
-
 
 
 * Org mode enhancement
