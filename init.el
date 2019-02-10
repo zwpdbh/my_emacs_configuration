@@ -20,7 +20,7 @@
 (cond
  ((string-equal system-type "windows-nt")
   (progn
-    (org-babel-load-file (expand-file-name "~/.emacs.d/myinit_for_windows.org"))))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))))
  ((string-equal system-type "darwin")
   (progn
     (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))))
@@ -38,7 +38,7 @@
     ("028de01489a683696c64dcc2a01eaa663670d04202de3fce48ec3a5542bc2da5" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" default)))
  '(package-selected-packages
    (quote
-    (ac-slime racket-mode slime macrostep elisp-slime-nav ensime which-key use-package try paredit material-theme leuven-theme indent-guide exec-path-from-shell counsel auto-complete ace-window))))
+    (treemacs-projectile treemacs-evil treemacs ac-slime racket-mode slime macrostep elisp-slime-nav ensime which-key use-package try paredit material-theme leuven-theme indent-guide exec-path-from-shell counsel auto-complete ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
