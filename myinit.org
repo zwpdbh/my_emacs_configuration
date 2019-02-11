@@ -366,26 +366,26 @@
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
      (cond
-      ((string-equal system-type "gnu/linux")
-       (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((sh . t)
-            (C . t)))))
       ((string-equal system-type "darwin")
        (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((sh . t)
-            (lisp . t)
-            (C . t)))))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (lisp . t)
+	    (C . t)))))
+      ((string-equal system-type "gnu/linux")
+       (progn
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((sh . t)
+	    (C . t)))))
       ((string-equal system-type "windows-nt")
        (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((sh . t)
-            (lisp . t)
-            (C . t))))))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((powershell . t)
+	    (lisp . t)
+	    (C . t))))))
 
 
 
