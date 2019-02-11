@@ -222,6 +222,7 @@
 
   #+RESULTS:
   : t
+
 * Lisp programming configuration
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
@@ -273,6 +274,7 @@
 
    #+RESULTS:
    : t
+
 ** Common-lisp
    #+begin_src emacs-lisp
      ;; slime for common-lisp 
@@ -290,13 +292,15 @@
 	   :commands (slime slime-lisp-mode-hook)
 	   :config
 	   (progn
+	     ;; make sbcl and slime accessible from command line
 	     (if (string-equal system-type "windows-nt")
 		 (progn
-		   (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl") ; where sbcl is installed
-		   (add-to-list 'load-path "D:\\Program Files\\slime")) ; slime folder position
+		   (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
+		   (add-to-list 'load-path "D:\\Program Files\\slime"))
 	       (progn
 		 (setq exec-path (append exec-path
 					 '("/usr/local/bin")))))
+	     ;; set 'sbcl' as lisp compiler
 	     (setq inferior-lisp-program "sbcl")
 	     ;; (add-to-list 'slime-contribs 'slime-fancy)
 	     ;; (slime-setup)
@@ -315,6 +319,7 @@
 
    #+RESULTS:
    : t
+
 ** Racket
    #+begin_src emacs-lisp
      (use-package racket-mode
