@@ -383,12 +383,9 @@
        (progn
 	 (org-babel-do-load-languages
 	  'org-babel-load-languages
-	  '((powershell . t)
+	  '((shell . t)
 	    (lisp . t)
 	    (C . t))))))
-
-
-
    #+end_src
    
    #+RESULTS:
