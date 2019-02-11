@@ -365,21 +365,34 @@
 * Org mode enhancement
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((lisp . t)
-	(shell . t)
-	;; (cond
-	;;  ((string-equal system-type "windows-nt")
-	;;   (powershell . t))
-	;;  ((string-equal system-type "darwin")
-	;;   (shell . t))
-	;;  ((string-equal system-type "gnu/linux")
-	;;   (sh . t)))
-	;; (R . t)
-	;; (plantuml . t)
-	(C . t)))
+     (cond
+      ((string-equal system-type "gnu/linux")
+       (progn
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((sh . t)
+            (C . t)))))
+      ((string-equal system-type "darwin")
+       (progn
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((sh . t)
+            (lisp . t)
+            (C . t)))))
+      ((string-equal system-type "windows-nt")
+       (progn
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((sh . t)
+            (lisp . t)
+            (C . t))))))
+
+
+
    #+end_src
+   
+   #+RESULTS:
+   
 * Treemacs
   #+begin_src emacs-lisp
     (use-package treemacs
