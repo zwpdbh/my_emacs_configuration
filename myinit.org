@@ -198,10 +198,11 @@
       :init
       :config
       (progn
-	(ac-config-default)
-	(add-hook 'after-init-hook 'global-auto-complete-mode t)
-	;; ingore case during completion
-	(setq completion-ignore-case t)))
+        (ac-config-default)
+        ;; (add-hook 'after-init-hook 'global-auto-complete-mode t)
+        (global-auto-complete-mode t)
+        ;; ingore case during completion
+        (setq completion-ignore-case t)))
   #+end_src
 
   #+RESULTS:
