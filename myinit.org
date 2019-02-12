@@ -1,4 +1,17 @@
 * Interface tweaks
+** set font
+   #+begin_src emacs-lisp
+     ;; to adjust font dynamically
+     ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
+     (cond
+      ((string-equal system-type "windows-nt")
+       (set-default-font "Consolas 13")))
+
+
+   #+end_src
+
+   #+RESULTS:
+
 ** set key-bindings
    #+begin_src emacs-lisp
      ;; use cmd + n and cmd + p to select next and previous lines
@@ -448,3 +461,16 @@
   #+end_src
 
   #+RESULTS:
+* Yaml-mode
+  #+begin_src emacs-lisp
+    (use-package yaml-mode
+      :ensure t
+      :config
+      (progn
+	(add-hook 'yaml-mode-hook
+		  (lambda ()
+		    (define-key yaml-mode-map "\C-m" 'newline-and-indent)))))
+  #+end_src
+
+  #+RESULTS:
+  : t
