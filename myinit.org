@@ -53,6 +53,50 @@
    #+RESULTS:
    : t
 
+** set line number
+   #+BEGIN_SRC emacs-lisp
+     (use-package nlinum
+       :ensure t
+       :config
+       (progn
+	 (global-nlinum-mode t)
+	 ;; Preset `nlinum-format' for minimum width.
+	 (defun my-nlinum-mode-hook ()
+	   (when nlinum-mode
+	     (setq-local nlinum-format
+			 (concat "%" (number-to-string
+				      ;; Guesstimate number of buffer lines.
+				      (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+				 "d"))))
+	 (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
+
+	 ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
+	 (defun initialize-nlinum (&optional frame)
+	   (require 'nlinum)
+	   (add-hook 'prog-mode-hook 'nlinum-mode))
+	 (when (daemonp)
+	   (add-hook 'window-setup-hook 'initialize-nlinum)
+	   (defadvice make-frame (around toggle-nlinum-mode compile activate)
+	     (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
+** set adaptive-wrap
+   #+BEGIN_SRC emacs-lisp
+     (use-package adaptive-wrap
+       :ensure t
+       :config
+       (progn
+	 ;; (setq-default adaptive-wrap-extra-indent 2)
+	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+	 (global-visual-line-mode 1)))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
 ** change the cursor type and color
    #+begin_src emacs-lisp
      (setq-default cursor-type '(hbar . 2))
@@ -403,7 +447,15 @@
    #+end_src
    
    #+RESULTS:
-   
+** htmlize --- convert buffer text and decorations to HTML
+   #+BEGIN_SRC emacs-lisp
+     (use-package htmlize
+       :ensure t)
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
 * Treemacs
   #+begin_src emacs-lisp
     (use-package treemacs
