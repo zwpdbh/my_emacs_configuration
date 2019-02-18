@@ -527,3 +527,20 @@
 
   #+RESULTS:
   : t
+
+* Flycheck
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck-yamllint
+      :ensure t
+      :defer t
+      :init
+      (progn
+	(use-package flycheck
+	  :ensure t)
+	(eval-after-load 'flycheck
+	  '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+
+  #+END_SRC
+
+  #+RESULTS:
+  | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
