@@ -12,7 +12,7 @@
 
    #+RESULTS:
 
-** set key-bindings
+** set global key-bindings
    #+begin_src emacs-lisp
      ;; use cmd + n and cmd + p to select next and previous lines
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
@@ -421,6 +421,11 @@
    : t
 
 * Org mode enhancement
+** key binding for org mode
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'org-mode-hook
+	       (lambda () (local-set-key (kbd "<f9>") #'org-global-cycle)))
+   #+END_SRC
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
      (cond
