@@ -5,7 +5,7 @@
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
      (cond
       ((string-equal system-type "windows-nt")
-       (set-default-font "Consolas 13")))
+       (set-default-font "Consolas 11")))
 
 
    #+end_src
@@ -353,13 +353,16 @@
 	     ;; make sbcl and slime accessible from command line
 	     (if (string-equal system-type "windows-nt")
 		 (progn
-		   (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
+		   ;; Or, just edit path variable of system
+		   ;; (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
+		   (add-to-list 'load-path "C:\\clisp-2.49")
 		   (add-to-list 'load-path "D:\\Program Files\\slime"))
 	       (progn
 		 (setq exec-path (append exec-path
 					 '("/usr/local/bin")))))
 	     ;; set 'sbcl' as lisp compiler
-	     (setq inferior-lisp-program "sbcl")
+	     ;; (setq inferior-lisp-program "sbcl")
+	     (setq inferior-lisp-program "clisp")
 	     ;; (add-to-list 'slime-contribs 'slime-fancy)
 	     ;; (slime-setup)
 	     (require 'slime-autoloads)
