@@ -242,12 +242,22 @@
       :init
       :config
       (progn
-        (ac-config-default)
-        ;; (add-hook 'after-init-hook 'global-auto-complete-mode t)
-        (global-auto-complete-mode t)
-        ;; ingore case during completion
-        (setq completion-ignore-case t)))
+	(ac-config-default)
+	(setq completion-ignore-case t)))
   #+end_src
+
+  #+RESULTS:
+  : t
+
+* Company
+  #+BEGIN_SRC emacs-lisp
+    (use-package company
+      :ensure t
+      :config
+      (progn
+	(setq completion-ignore-case t)
+	(add-hook 'after-init-hook 'global-company-mode)))
+  #+END_SRC
 
   #+RESULTS:
   : t
@@ -618,3 +628,112 @@
        - M-. jump to definition
        - M-? jump to references
        - M-, Pop back to where M. was last invoked.
+
+** setting up term and company-mode for auto-completion
+   Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
+   #+BEGIN_SRC emacs-lisp
+     (use-package tern
+       :ensure t
+       :config
+       (progn
+	 (use-package company-tern
+	   :ensure t
+	   :config
+	   (progn
+	     (add-to-list 'company-backend 'company-tern)
+	     (add-hook 'js2-mode-hook (lambda ()
+					(tern-mode)
+					(company-mode)))
+	     ;; Disable completion keybindings, as we use xref-js2 instead
+	     (define-key tern-mode-keymap (kbd "M-.") nil)
+	     (define-key tern-mode-keymap (kbd "M-,") nil)))))
+
+   #+END_SRC
+
+* Python development
+** Packages you need to install through pip
+   - rope
+   - jedi
+   - flake8
+   - importmagic
+** elpy
+   - simple usage
+     - show function signature, get docs: elpy-dock
+     - code navigation, navigate code by treating them as hyperlinks:
+       - elpy-goto-definition
+       - pop-tag-mar
+   #+BEGIN_SRC emacs-lisp
+     (use-package elpy
+       :ensure t
+       :init
+       (progn
+	 (setq elpy-rpc-backed "jedi")
+	 (elpy-enable))
+       :config
+       (progn
+	 (add-hook 'python-mode-hook 'elpy-mode)
+	 (with-eval-after-load 'elpy
+	   (add-hook 'elpy-mode-hook 'elpy-use-ipython)))
+       :bind
+       (("M-*" . pop-tag-mark)))
+   #+END_SRC
+
+   #+RESULTS:
+   : pop-tag-mark
+
+** indent-tools
+   For indent python code and view python code
+   #+BEGIN_SRC emacs-lisp
+     (use-package indent-tools
+       :ensure t
+       :init
+       (progn
+	 (add-hook 'python-mode-hook (lambda ()
+				       (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body)))))
+   #+END_SRC
+
+** Debugging
+   Debugg using pdb
+   #+BEGIN_SRC python
+     # import ipd
+     # ipdb.set_trace ()
+   #+END_SRC
+
+** Test Integration
+   Configure your test Runner
+   M-x elpy-set-test-runner
+   C-c C-t  ;; runs test/ all tests
+
+** Virtual Environment
+   Elpy comes with pyvenv
+   - M-x pyvenv-workon
+   - M-x pyvenv-activate
+   - M-x pyvenv-deactive
+
+* Web mode
+  - Auto opening, Auto completion, Auto expanders, code folding, Naviation
+  - Configure to support snippets, such as HTML/Django
+  - Context aware processing
+  #+BEGIN_SRC emacs-lisp
+    (use-package web-mode
+      :ensure t
+      :config
+      (progn
+	(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	(setq web-mode-engines-alist '(("django" . "\\.html\\'")))
+
+	(setq web-mode-markup-indent-offset 2)
+	(setq web-mode-code-indent-offset 2)
+	(setq web-mode-css-indent-offset 2)
+
+	(setq web-mode-enable-auto-pairing t)
+	(setq web-mode-enable-auto-expanding t)
+	(setq web-mode-enable-css-colorization t)))
+  #+END_SRC
+
+* Files/Projects
+  Exlore system all files in system. Explore files related to particular project
+** projectile
+** dired-plus
+
+
