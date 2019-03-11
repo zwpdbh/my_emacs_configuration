@@ -134,19 +134,6 @@
      (use-package try
        :ensure t)
    #+end_src
-* Some defun which will be used later
-  - For [[https://www.emacswiki.org/emacs/ElectricPair][Electric Pair]]
-    #+BEGIN_SRC emacs-lisp
-      (defun electric-pair ()
-	"If at end of line, insert character pair without surrounding spaces.
-	  Otherwise, just insert the typed character."
-	(interactive)
-	(if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
-    #+END_SRC
-
-    #+RESULTS:
-    : electric-pair
-
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
@@ -248,6 +235,35 @@
    #+end_src
 
    #+RESULTS:
+
+** Autopair
+   For working with regular programming languages, such as Python and JS. See [[https://github.com/joaotavora/autopair][autopair]].
+   #+BEGIN_SRC emacs-lisp
+     (use-package autopair
+       :ensure t
+       :config
+       (progn
+	 (defvar autopair-modes '(js-mode python-mode))
+	 (defun turn-on-autopair-mode () (autopair-mode 1))
+	 (dolist (mode autopair-modes) (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode))
+
+	 ;; Autopair doesn’t make much sense when paredit-mode is turned on, so it actually defers to paredit-mode when that is installed and enabled. So disable autopair when paredit is turned on
+	 (defadvice paredit-mode (around disable-autopairs-around (arg))
+	   ad-do-it
+	   (if (null ad-return-value)
+	       (autopair-mode 1)
+	     (autopair-mode 0)))
+	 (ad-activate 'paredit-mode)
+
+	 ;; define extra pairing
+	 (add-hook 'js-mode-hook (lambda ()
+				   (push '(?( . ?)) 
+					 (getf autopair-extra-pairs :code))))))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
 * AutoComplete
   #+begin_src emacs-lisp
     (use-package auto-complete 
@@ -611,13 +627,7 @@
        (progn
 	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 	 (add-hook 'js-mode-hook #'js2-imenu-extras-mode)
-	 (add-hook 'js-mode-hook (lambda ()
-				   ;; (interactive)
-				   (define-key js-mode-map "\"" 'electric-pair)
-				   (define-key js-mode-map "\'" 'electric-pair)
-				   (define-key js-mode-map "(" 'electric-pair)
-				   (define-key js-mode-map "[" 'electric-pair)
-				   (define-key js-mode-map "{" 'electric-pair)))
+    
 	 (use-package js2-refactor
 	   :ensure t
 	   :config
