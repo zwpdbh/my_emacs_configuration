@@ -229,9 +229,6 @@
 
      (require 'paren)
      (set-face-background 'show-paren-match (face-background 'default))
-     ;; highlight matched parenthesis
-     (set-face-foreground 'show-paren-match "red")
-     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
    #+end_src
 
    #+RESULTS:
@@ -310,11 +307,14 @@
   : t
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package material-theme
+    (use-package leuven-theme
       :ensure t
       :config
       (progn
-	(load-theme 'material-light t)))
+	(load-theme 'leuven t)
+	;; highlight matched parenthesis
+	(set-face-foreground 'show-paren-match "red")
+	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
   #+RESULTS:
