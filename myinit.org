@@ -134,6 +134,19 @@
      (use-package try
        :ensure t)
    #+end_src
+* Some defun which will be used later
+  - For [[https://www.emacswiki.org/emacs/ElectricPair][Electric Pair]]
+    #+BEGIN_SRC emacs-lisp
+      (defun electric-pair ()
+	"If at end of line, insert character pair without surrounding spaces.
+	  Otherwise, just insert the typed character."
+	(interactive)
+	(if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+    #+END_SRC
+
+    #+RESULTS:
+    : electric-pair
+
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
@@ -598,7 +611,13 @@
        (progn
 	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 	 (add-hook 'js-mode-hook #'js2-imenu-extras-mode)
-    
+	 (add-hook 'js-mode-hook (lambda ()
+				   ;; (interactive)
+				   (define-key js-mode-map "\"" 'electric-pair)
+				   (define-key js-mode-map "\'" 'electric-pair)
+				   (define-key js-mode-map "(" 'electric-pair)
+				   (define-key js-mode-map "[" 'electric-pair)
+				   (define-key js-mode-map "{" 'electric-pair)))
 	 (use-package js2-refactor
 	   :ensure t
 	   :config
@@ -606,7 +625,7 @@
 	     (add-hook 'js2-mode-hook #'js2-refactor-mode)
 	     (js2r-add-keybindings-with-prefix "C-c C-r")
 	     (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-    
+
 	 (use-package xref-js2
 	   :ensure t
 	   :config
