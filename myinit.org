@@ -630,7 +630,8 @@
        - M-, Pop back to where M. was last invoked.
 
 ** setting up term and company-mode for auto-completion
-   Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
+   - Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
+   - You need to install tern on your localhost: npm install -g tern
    #+BEGIN_SRC emacs-lisp
      (use-package tern
        :ensure t
