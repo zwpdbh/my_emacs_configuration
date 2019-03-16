@@ -6,8 +6,6 @@
      (cond
       ((string-equal system-type "windows-nt")
        (set-default-font "Consolas 11")))
-
-
    #+end_src
 
    #+RESULTS:
@@ -240,22 +238,29 @@
        :ensure t
        :config
        (progn
-	 (defvar autopair-modes '(js-mode python-mode))
+	 (defvar autopair-modes 
+	   '(js-mode python-mode scala-mode))
 	 (defun turn-on-autopair-mode () (autopair-mode 1))
-	 (dolist (mode autopair-modes) (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode))
-
-	 ;; Autopair doesn’t make much sense when paredit-mode is turned on, so it actually defers to paredit-mode when that is installed and enabled. So disable autopair when paredit is turned on
+	 (dolist (mode autopair-modes) 
+	   (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode))
+    
+	 ;; define extra pairing
+	 (defvar different-language-hooks
+	   '(js-mode-hook python-mode-hook scala-mode-hook))
+	 (dolist (eachHook  different-language-hooks)
+	   (add-hook 'js-mode-hook (lambda ()
+				     (push '(?( . ?)) 
+					   (getf autopair-extra-pairs :code)))))
+    
+	 ;; Autopair doesn’t make much sense when paredit-mode is turned on, 
+	 ;; so it actually defers to paredit-mode when that is installed and enabled. 
+	 ;; Therefore, disable autopair when paredit is turned on
 	 (defadvice paredit-mode (around disable-autopairs-around (arg))
 	   ad-do-it
 	   (if (null ad-return-value)
 	       (autopair-mode 1)
 	     (autopair-mode 0)))
-	 (ad-activate 'paredit-mode)
-
-	 ;; define extra pairing
-	 (add-hook 'js-mode-hook (lambda ()
-				   (push '(?( . ?)) 
-					 (getf autopair-extra-pairs :code))))))
+	 (ad-activate 'paredit-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -263,13 +268,13 @@
 
 * AutoComplete
   #+begin_src emacs-lisp
-    (use-package auto-complete 
-      :ensure t
-      :init
-      :config
-      (progn
-	(ac-config-default)
-	(setq completion-ignore-case t)))
+    ;; (use-package auto-complete 
+    ;;   :ensure t
+    ;;   :init
+    ;;   :config
+    ;;   (progn
+    ;;     (ac-config-default)
+    ;;     (setq completion-ignore-case t)))
   #+end_src
 
   #+RESULTS:
@@ -407,14 +412,19 @@
 	     (require 'slime-autoloads)
 	     (eval-after-load 'slime '(progn
 					(slime-setup '(slime-fancy))))
-	     (use-package ac-slime
+	     ;; (use-package ac-slime
+	     ;;   :ensure t
+	     ;;   :config
+	     ;;   (progn
+	     ;;     (add-hook 'slime-mode-hook 'set-up-slime-ac)
+	     ;;     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+	     ;;     (eval-after-load "auto-complete"
+	     ;;       '(add-to-list 'ac-modes 'slime-repl-mode))))
+	     (use-package slime-company
 	       :ensure t
 	       :config
 	       (progn
-		 (add-hook 'slime-mode-hook 'set-up-slime-ac)
-		 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-		 (eval-after-load "auto-complete"
-		   '(add-to-list 'ac-modes 'slime-repl-mode))))))))
+		 (slime-setup '(slime-fancy slime-company))))))))
    #+end_src
 
    #+RESULTS:
@@ -561,6 +571,28 @@
   #+end_src
 
   #+RESULTS:
+* emacs-neotree
+  #+BEGIN_SRC emacs-lisp
+    ;; (use-package neotree
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (global-set-key [f8] 'neotree-toggle)))
+  #+END_SRC
+* dirtree
+  #+BEGIN_SRC emacs-lisp
+    ;; (use-package dirtree
+    ;;   :ensure t
+    ;;   :init
+    ;;   (progn
+    ;;     (use-package tree-mode
+    ;;       :ensure t)
+    ;;     (use-package windata
+    ;;       :ensure t)))
+  #+END_SRC
+
+  #+RESULTS:
+
 * Yaml-mode
   #+begin_src emacs-lisp
     (use-package yaml-mode
@@ -765,5 +797,12 @@
   Exlore system all files in system. Explore files related to particular project
 ** projectile
 ** dired-plus
+* JSON-mode
+  Major mode for editing JSON files
+  #+BEGIN_SRC emacs-lisp
+    (use-package json-mode
+      :ensure t)
+  #+END_SRC
 
+  #+RESULTS:
 
