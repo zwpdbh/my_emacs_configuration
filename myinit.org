@@ -303,6 +303,8 @@
       :config
       (progn
 	(setq completion-ignore-case t)
+	(setq company-dabbrev-downcase 0)
+	(setq company-idle-delay 0.01)
 	(add-hook 'after-init-hook 'global-company-mode)))
   #+END_SRC
 
