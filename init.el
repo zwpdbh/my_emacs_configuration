@@ -38,7 +38,7 @@
     ("028de01489a683696c64dcc2a01eaa663670d04202de3fce48ec3a5542bc2da5" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" default)))
  '(package-selected-packages
    (quote
-    (xref-js2 js-refactor js2-mode flycheck-yamllint nlinum htmlize emacs-htmlize yaml-mode treemacs-projectile treemacs-evil treemacs ac-slime racket-mode slime macrostep elisp-slime-nav ensime which-key use-package try paredit material-theme leuven-theme indent-guide exec-path-from-shell counsel auto-complete ace-window))))
+    (treemacs-magit treemacs-icons-dired auto-package-update dirtree slime-company json-mode xref-js2 js-refactor js2-mode flycheck-yamllint nlinum htmlize emacs-htmlize yaml-mode treemacs-projectile treemacs-evil treemacs ac-slime racket-mode slime macrostep elisp-slime-nav ensime which-key use-package try paredit material-theme leuven-theme indent-guide exec-path-from-shell counsel auto-complete ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

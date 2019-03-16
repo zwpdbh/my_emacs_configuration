@@ -1,3 +1,19 @@
+* Auto-package-update
+  #+BEGIN_SRC emacs-lisp
+    (use-package auto-package-update
+      :ensure t
+      :config
+      (progn
+	;; pckages will be updated every 100 days
+	;; the old ones will be removed
+	(setq auto-package-update-delete-old-versions t
+	      auto-package-update-interval 100)
+	(auto-package-update-maybe)))
+  #+END_SRC
+
+  #+RESULTS:
+  : t
+
 * Interface tweaks
 ** set font
    #+begin_src emacs-lisp
@@ -241,17 +257,17 @@
 	 (defvar autopair-modes 
 	   '(js-mode python-mode scala-mode))
 	 (defun turn-on-autopair-mode () (autopair-mode 1))
+
 	 (dolist (mode autopair-modes) 
-	   (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode))
-    
+	   (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode)
+	   (add-hook (intern (concat (symbol-name mode) "-hook")) (lambda ()
+								    (push '(?\( . ?\))
+									  (getf autopair-extra-pairs :code)))))
 	 ;; define extra pairing
-	 (defvar different-language-hooks
-	   '(js-mode-hook python-mode-hook scala-mode-hook))
-	 (dolist (eachHook  different-language-hooks)
-	   (add-hook 'js-mode-hook (lambda ()
-				     (push '(?( . ?)) 
-					   (getf autopair-extra-pairs :code)))))
-    
+	 ;; (add-hook 'js-mode-hook (lambda ()
+	 ;; 			      (push '(?( . ?)) 
+	 ;; 				    (getf autopair-extra-pairs :code))))
+
 	 ;; Autopair doesn’t make much sense when paredit-mode is turned on, 
 	 ;; so it actually defers to paredit-mode when that is installed and enabled. 
 	 ;; Therefore, disable autopair when paredit is turned on
@@ -466,7 +482,8 @@
        :ensure t
        :config
        (progn
-	 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
+	 ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+	 (add-hook 'scala-mode-hook 'ensime-mode)))
    #+end_src
 
    #+RESULTS:
@@ -568,31 +585,18 @@
     (use-package treemacs-projectile
       :after treemacs projectile
       :ensure t)
+
+    (use-package treemacs-icons-dired
+      :after treemacs dired
+      :ensure t
+      :config (treemacs-icons-dired-mode))
+
+    (use-package treemacs-magit
+      :after treemacs magit
+      :ensure t)
   #+end_src
 
   #+RESULTS:
-* emacs-neotree
-  #+BEGIN_SRC emacs-lisp
-    ;; (use-package neotree
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (global-set-key [f8] 'neotree-toggle)))
-  #+END_SRC
-* dirtree
-  #+BEGIN_SRC emacs-lisp
-    ;; (use-package dirtree
-    ;;   :ensure t
-    ;;   :init
-    ;;   (progn
-    ;;     (use-package tree-mode
-    ;;       :ensure t)
-    ;;     (use-package windata
-    ;;       :ensure t)))
-  #+END_SRC
-
-  #+RESULTS:
-
 * Yaml-mode
   #+begin_src emacs-lisp
     (use-package yaml-mode
