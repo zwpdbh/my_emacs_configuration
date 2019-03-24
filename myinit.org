@@ -1,6 +1,7 @@
 * Auto-package-update
   #+BEGIN_SRC emacs-lisp
     (use-package auto-package-update
+      :defer t
       :ensure t
       :config
       (progn
@@ -140,19 +141,24 @@
 ** which-key
    #+begin_src emacs-lisp
      (use-package which-key
+       :defer 2
        :ensure t
        :config (which-key-mode))
    #+end_src
+
 ** try
    #+begin_src emacs-lisp
      (use-package try
+       :defer 2
        :ensure t)
    #+end_src
+
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
     ;; it looks like counsel is a requirement for swiper
     (use-package counsel
+      :defer 1
       :ensure t
       :bind
       (("M-y" . counsel-yank-pop)
@@ -160,6 +166,7 @@
        ("M-y" . ivy-next-line)))
 
     (use-package ivy
+      :defer 1
       :ensure t
       :diminish (ivy-mode)
       :bind (("C-x b" . ivy-switch-buffer))
@@ -171,6 +178,7 @@
 
 
     (use-package swiper
+      :defer 1
       :ensure try
       :bind (("C-s" . swiper)
 	     ("C-r" . swiper)
@@ -189,51 +197,52 @@
 ** Paredit
    #+begin_src emacs-lisp
      (use-package paredit
+       :defer 1
        :ensure t
        :init
        (progn
-         (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-         (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-         (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-         (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-         (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-         (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-         (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-         (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+	 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+	 (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+	 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-         ;; paredit with eldoc
-         (require 'eldoc) ; if not already loaded
-         (eldoc-add-command
-          'paredit-backward-delete
-          'paredit-close-round)
+	 ;; paredit with eldoc
+	 (require 'eldoc) ; if not already loaded
+	 (eldoc-add-command
+	  'paredit-backward-delete
+	  'paredit-close-round)
 
-         ;; paredit with slime repl
-         (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-         ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
-         ;; Stop SLIME's REPL from grabbing DEL,
-         ;; which is annoying when backspacing over a '('
-         (defun override-slime-repl-bindings-with-paredit ()
-           (define-key slime-repl-mode-map
-             (read-kbd-macro paredit-backward-delete-key) nil))
-         (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+	 ;; paredit with slime repl
+	 (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+	 ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
+	 ;; Stop SLIME's REPL from grabbing DEL,
+	 ;; which is annoying when backspacing over a '('
+	 (defun override-slime-repl-bindings-with-paredit ()
+	   (define-key slime-repl-mode-map
+	     (read-kbd-macro paredit-backward-delete-key) nil))
+	 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
-         ;; paredit with electric return
-         (defvar electrify-return-match
-           "[\]}\)\"]"
-           "If this regexp matches the text after the cursor, do an \"electric\"
+	 ;; paredit with electric return
+	 (defvar electrify-return-match
+	   "[\]}\)\"]"
+	   "If this regexp matches the text after the cursor, do an \"electric\"
        return.")
-         (defun electrify-return-if-match (arg)
-           "If the text after the cursor matches `electrify-return-match' then
+	 (defun electrify-return-if-match (arg)
+	   "If the text after the cursor matches `electrify-return-match' then
        open and indent an empty line between the cursor and the text.  Move the
        cursor to the new line."
-           (interactive "P")
-           (let ((case-fold-search nil))
-             (if (looking-at electrify-return-match)
-                 (save-excursion (newline-and-indent)))
-             (newline arg)
-             (indent-according-to-mode)))
-         ;; Using local-set-key in a mode-hook is a better idea.
-         (global-set-key (kbd "RET") 'electrify-return-if-match)))
+	   (interactive "P")
+	   (let ((case-fold-search nil))
+	     (if (looking-at electrify-return-match)
+		 (save-excursion (newline-and-indent)))
+	     (newline arg)
+	     (indent-according-to-mode)))
+	 ;; Using local-set-key in a mode-hook is a better idea.
+	 (global-set-key (kbd "RET") 'electrify-return-if-match)))
    #+end_src
 ** complements to paredit
    #+begin_src emacs-lisp
@@ -251,6 +260,7 @@
    For working with regular programming languages, such as Python and JS. See [[https://github.com/joaotavora/autopair][autopair]].
    #+BEGIN_SRC emacs-lisp
      (use-package autopair
+       :defer 2
        :ensure t
        :config
        (progn
@@ -283,23 +293,10 @@
    #+RESULTS:
    : t
 
-* AutoComplete
-  #+begin_src emacs-lisp
-    ;; (use-package auto-complete 
-    ;;   :ensure t
-    ;;   :init
-    ;;   :config
-    ;;   (progn
-    ;;     (ac-config-default)
-    ;;     (setq completion-ignore-case t)))
-  #+end_src
-
-  #+RESULTS:
-  : t
-
 * Company
   #+BEGIN_SRC emacs-lisp
     (use-package company
+      :defer 1
       :ensure t
       :config
       (progn
@@ -315,6 +312,7 @@
 * Ace-window
   #+begin_src emacs-lisp
     (use-package ace-window
+      :defer 2
       :ensure t
       :init
       :config
@@ -348,6 +346,7 @@
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
      (use-package eldoc
+       :defer t
        :ensure t
        :init
        :config
@@ -400,15 +399,19 @@
    #+begin_src emacs-lisp
      ;; slime for common-lisp 
      (use-package lisp-mode
+       :mode "\\.lisp\\'"
        :config
        (progn
 	 (use-package elisp-slime-nav
+	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :commands elisp-slime-nav-mode)
 	 (use-package macrostep
+	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :bind ("C-c e" . macrostep-expand))
 	 (use-package slime
+	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :commands (slime slime-lisp-mode-hook)
 	   :config
@@ -431,15 +434,9 @@
 	     (require 'slime-autoloads)
 	     (eval-after-load 'slime '(progn
 					(slime-setup '(slime-fancy))))
-	     ;; (use-package ac-slime
-	     ;;   :ensure t
-	     ;;   :config
-	     ;;   (progn
-	     ;;     (add-hook 'slime-mode-hook 'set-up-slime-ac)
-	     ;;     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-	     ;;     (eval-after-load "auto-complete"
-	     ;;       '(add-to-list 'ac-modes 'slime-repl-mode))))
+
 	     (use-package slime-company
+	       :mode "\\.lisp\\'"
 	       :ensure t
 	       :config
 	       (progn
@@ -452,6 +449,7 @@
 ** Racket
    #+begin_src emacs-lisp
      (use-package racket-mode
+       :mode "\\.racket\\'"
        :ensure t
        :config
        (progn
@@ -476,6 +474,7 @@
 ** ensime
    #+begin_src emacs-lisp
      (use-package ensime
+       :mode "\\.scala\\'"
        :init 
        (if (string-equal system-type "windows-nt")
 	   (progn
@@ -527,6 +526,7 @@
 ** htmlize --- convert buffer text and decorations to HTML
    #+BEGIN_SRC emacs-lisp
      (use-package htmlize
+       :defer 2
        :ensure t)
    #+END_SRC
 
@@ -536,6 +536,7 @@
 * Treemacs
   #+begin_src emacs-lisp
     (use-package treemacs
+      :defer 2
       :ensure t
       :defer t
       :init
@@ -582,19 +583,23 @@
 	    ("C-x t M-t" . treemacs-find-tag)))
 
     (use-package treemacs-evil
+      :defer t
       :after treemacs evil
       :ensure t)
 
     (use-package treemacs-projectile
+      :defer t
       :after treemacs projectile
       :ensure t)
 
     (use-package treemacs-icons-dired
+      :defer t
       :after treemacs dired
       :ensure t
       :config (treemacs-icons-dired-mode))
 
     (use-package treemacs-magit
+      :defer t
       :after treemacs magit
       :ensure t)
   #+end_src
@@ -603,6 +608,7 @@
 * Yaml-mode
   #+begin_src emacs-lisp
     (use-package yaml-mode
+      :mode "\\.yaml\\'"
       :ensure t
       :config
       (progn
@@ -616,13 +622,15 @@
 
 * Flycheck
   #+BEGIN_SRC emacs-lisp
+    (use-package flycheck
+      :defer 2
+      :ensure t)
+
     (use-package flycheck-yamllint
-      :ensure t
       :defer t
+      :ensure t
       :init
       (progn
-	(use-package flycheck
-	  :ensure t)
 	(eval-after-load 'flycheck
 	  '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 
@@ -633,6 +641,7 @@
 * Typescript with Tide
   #+BEGIN_SRC emacs-lisp
     (use-package tide
+      :mode "\\.ts\\'"
       :ensure t
       :config
       (progn
@@ -661,13 +670,15 @@
 ** setting up js2-mode
    #+BEGIN_SRC emacs-lisp
      (use-package js2-mode
+       :mode "\\.js\\'"
        :ensure t
        :config
        (progn
 	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 	 (add-hook 'js-mode-hook #'js2-imenu-extras-mode)
-    
+
 	 (use-package js2-refactor
+	   :defer t
 	   :ensure t
 	   :config
 	   (progn
@@ -676,6 +687,7 @@
 	     (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
 
 	 (use-package xref-js2
+	   :defer t
 	   :ensure t
 	   :config
 	   (progn
@@ -702,10 +714,12 @@
    - You need to install tern on your localhost: npm install -g tern
    #+BEGIN_SRC emacs-lisp
      (use-package tern
+       :mode "\\.js\\'"
        :ensure t
        :config
        (progn
 	 (use-package company-tern
+	   :defer t
 	   :ensure t
 	   :config
 	   (progn
@@ -718,15 +732,6 @@
 	     (define-key tern-mode-keymap (kbd "M-,") nil)))))
 
    #+END_SRC
-
-* Typescript
-  #+BEGIN_SRC emacs-lisp
-    (use-package typescript-mode
-      :ensure t)
-  #+END_SRC
-
-  #+RESULTS:
-  : t
 
 * Python development
 ** Packages you need to install through pip
@@ -742,6 +747,7 @@
        - pop-tag-mar
    #+BEGIN_SRC emacs-lisp
      (use-package elpy
+       :mode "\\.py\\'"
        :ensure t
        :init
        (progn
@@ -763,6 +769,7 @@
    For indent python code and view python code
    #+BEGIN_SRC emacs-lisp
      (use-package indent-tools
+       :mode "\\.py\\'"
        :ensure t
        :init
        (progn
@@ -794,6 +801,7 @@
   - Context aware processing
   #+BEGIN_SRC emacs-lisp
     (use-package web-mode
+      :mode "\\.html\\'"
       :ensure t
       :config
       (progn
@@ -809,14 +817,11 @@
 	(setq web-mode-enable-css-colorization t)))
   #+END_SRC
 
-* Files/Projects
-  Exlore system all files in system. Explore files related to particular project
-** projectile
-** dired-plus
 * JSON-mode
   Major mode for editing JSON files
   #+BEGIN_SRC emacs-lisp
     (use-package json-mode
+      :mode "\\.json\\'"
       :ensure t)
   #+END_SRC
 
