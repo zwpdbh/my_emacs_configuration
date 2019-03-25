@@ -37,19 +37,21 @@
      (global-set-key (kbd "s-/") 'comment-region)
      ;; use cmd + \ to uncomment region of code
      (global-set-key (kbd "s-\\") 'uncomment-region)
-
      ;; use c-c c-c to execute a function in scheme
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-     ;; use f4 to format whole buffer
-     (global-set-key (kbd "<f10>") (kbd "C-x h C-M-\\"))
      ;; use f3 to use org-edit-special
      (global-set-key (kbd "<f3>") (kbd "C-c '"))
+     ;; use f10 to format whole buffer
+     (global-set-key (kbd "<f10>") (progn
+				     #'mark-whole-buffer
+				     #'indent-region))
      ;; use f5 to revert the buffer
      (global-set-key (kbd "<f5>") 'revert-buffer)
-     ;; use f6 to toggle the display of inline image
-     (global-set-key (kbd "<f6>") (kbd "C-c C-x C-v")) 
    #+end_src
+
+   #+RESULTS:
+   : 
 
 ** set buffer and shell
    #+begin_src emacs-lisp
@@ -296,7 +298,7 @@
 * Company
   #+BEGIN_SRC emacs-lisp
     (use-package company
-      :defer 1
+      :defer t
       :ensure t
       :config
       (progn
@@ -495,8 +497,15 @@
 ** key binding for org mode
    #+BEGIN_SRC emacs-lisp
      (add-hook 'org-mode-hook
-	       (lambda () (local-set-key (kbd "<f9>") #'org-global-cycle)))
+	       (lambda () 
+		 (progn
+		   (local-set-key (kbd "<f9>") #'org-global-cycle)
+		   (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))
    #+END_SRC
+
+   #+RESULTS:
+   | (lambda nil (progn (local-set-key (kbd <f9>) (function org-global-cycle)) (local-set-key (kbd <f3>) (kbd C-c ')) (local-set-key (kbd <f6>) (function org-toggle-inline-images)))) | (lambda nil (local-set-key (kbd <f9>) (function org-global-cycle))) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-block-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
+
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
      (cond
@@ -536,7 +545,7 @@
 * Treemacs
   #+begin_src emacs-lisp
     (use-package treemacs
-      :defer 2
+      :defer t
       :ensure t
       :defer t
       :init
