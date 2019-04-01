@@ -13,7 +13,6 @@
   #+END_SRC
 
   #+RESULTS:
-  : t
 
 * Interface tweaks
 ** set font
@@ -331,14 +330,19 @@
   : t
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package leuven-theme
-      :ensure t
-      :config
-      (progn
-	(load-theme 'leuven t)
-	;; highlight matched parenthesis
-	(set-face-foreground 'show-paren-match "red")
-	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+    ;; leuven-theme
+    ;; gruvbox-theme
+    ;; (use-package leuven-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'leuven t)
+    ;;     ;; highlight matched parenthesis
+    ;;     (set-face-foreground 'show-paren-match "red")
+    ;;     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+
+    (set-face-foreground 'show-paren-match "red")
+    (set-face-attribute 'show-paren-match nil :weight 'extra-bold))
   #+end_src
 
   #+RESULTS:
@@ -401,19 +405,15 @@
    #+begin_src emacs-lisp
      ;; slime for common-lisp 
      (use-package lisp-mode
-       :mode "\\.lisp\\'"
        :config
        (progn
 	 (use-package elisp-slime-nav
-	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :commands elisp-slime-nav-mode)
 	 (use-package macrostep
-	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :bind ("C-c e" . macrostep-expand))
 	 (use-package slime
-	   :mode "\\.lisp\\'"
 	   :ensure t
 	   :commands (slime slime-lisp-mode-hook)
 	   :config
@@ -424,7 +424,8 @@
 		   ;; Or, just edit path variable of system
 		   ;; (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
 		   (add-to-list 'load-path "C:\\clisp-2.49")
-		   (add-to-list 'load-path "D:\\Program Files\\slime"))
+		   (add-to-list 'load-path "D:\\Program Files\\slime")
+		   (setf temporary-file-directory "c:/Users/x1ezmr/AppData/Local/Temp"))
 	       (progn
 		 (setq exec-path (append exec-path
 					 '("/usr/local/bin")))))
@@ -438,11 +439,12 @@
 					(slime-setup '(slime-fancy))))
 
 	     (use-package slime-company
-	       :mode "\\.lisp\\'"
 	       :ensure t
 	       :config
 	       (progn
 		 (slime-setup '(slime-fancy slime-company))))))))
+
+
    #+end_src
 
    #+RESULTS:
@@ -650,14 +652,13 @@
 * Typescript with Tide
   #+BEGIN_SRC emacs-lisp
     (use-package tide
-      :mode "\\.ts\\'"
       :ensure t
       :config
       (progn
 	(defun setup-tide-mode ()
 	  (interactive)
 	  (tide-setup)
-	  (flycheck-mode + 1)
+	  (flycheck-mode +1)
 	  (setq flycheck-check-syntax-automatically '(save mode-enabled))
 	  (eldoc-mode +1)
 	  (tide-hl-identifier-mode +1)
@@ -679,7 +680,6 @@
 ** setting up js2-mode
    #+BEGIN_SRC emacs-lisp
      (use-package js2-mode
-       :mode "\\.js\\'"
        :ensure t
        :config
        (progn
@@ -756,10 +756,10 @@
        - pop-tag-mar
    #+BEGIN_SRC emacs-lisp
      (use-package elpy
-       :mode "\\.py\\'"
        :ensure t
        :init
        (progn
+	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 	 (setq elpy-rpc-backed "jedi")
 	 (elpy-enable))
        :config
@@ -778,10 +778,10 @@
    For indent python code and view python code
    #+BEGIN_SRC emacs-lisp
      (use-package indent-tools
-       :mode "\\.py\\'"
        :ensure t
        :init
        (progn
+	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 	 (add-hook 'python-mode-hook (lambda ()
 				       (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body)))))
    #+END_SRC
