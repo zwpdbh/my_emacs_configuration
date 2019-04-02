@@ -332,17 +332,15 @@
   #+begin_src emacs-lisp
     ;; leuven-theme
     ;; gruvbox-theme
-    ;; (use-package leuven-theme
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'leuven t)
-    ;;     ;; highlight matched parenthesis
-    ;;     (set-face-foreground 'show-paren-match "red")
-    ;;     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+    (use-package material-theme
+      :ensure t
+      :config
+      (progn
+        (load-theme 'material t)
+        ;; highlight matched parenthesis
+        (set-face-foreground 'show-paren-match "red")
+        (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
 
-    (set-face-foreground 'show-paren-match "red")
-    (set-face-attribute 'show-paren-match nil :weight 'extra-bold))
   #+end_src
 
   #+RESULTS:
@@ -759,14 +757,15 @@
        :ensure t
        :init
        (progn
-	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-	 (setq elpy-rpc-backed "jedi")
-	 (elpy-enable))
+         ;; (customize-variable (quote tab-stop-list))
+         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+         (setq elpy-rpc-backed "jedi")
+         (elpy-enable))
        :config
        (progn
-	 (add-hook 'python-mode-hook 'elpy-mode)
-	 (with-eval-after-load 'elpy
-	   (add-hook 'elpy-mode-hook 'elpy-use-ipython)))
+         (add-hook 'python-mode-hook 'elpy-mode)
+         (with-eval-after-load 'elpy
+           (add-hook 'elpy-mode-hook 'elpy-use-ipython)))
        :bind
        (("M-*" . pop-tag-mark)))
    #+END_SRC
@@ -781,10 +780,13 @@
        :ensure t
        :init
        (progn
-	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-	 (add-hook 'python-mode-hook (lambda ()
-				       (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body)))))
+         (setq tab-width 4)
+         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+         (add-hook 'python-mode-hook (lambda ()
+                                       (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body)))))
    #+END_SRC
+
+   #+RESULTS:
 
 ** Debugging
    Debugg using pdb
