@@ -1,12 +1,20 @@
 (require 'cl)
 (require 'package)
 (setq package-enable-at-startup nil)
+
+;; setup repositry in China for speed
+(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa-stable" . "http://elpa.emacs-china.org/melpa-stable/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                         ("marmalada" . "http://elpa.emacs-china.org/marmalade/")))
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
 	     '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives
 	     '("org" . "http://orgmode.org/elpa/"))
+
+
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -35,7 +43,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (base16-theme gruvbox-theme zenburn-theme yaml-mode xref-js2 which-key web-mode use-package try treemacs-projectile treemacs-magit treemacs-icons-dired treemacs-evil tide spacemacs-theme solarized-theme slime-company racket-mode paredit nlinum neotree material-theme leuven-theme json-mode js2-refactor indent-tools indent-guide htmlize flycheck-yamllint exec-path-from-shell esup ensime elpy elisp-slime-nav dirtree counsel company-tern autopair auto-package-update adaptive-wrap ac-slime))))
+    (aggressive-indent rainbow-delimiters cider base16-theme gruvbox-theme zenburn-theme yaml-mode xref-js2 which-key web-mode use-package try treemacs-projectile treemacs-magit treemacs-icons-dired treemacs-evil tide spacemacs-theme solarized-theme slime-company racket-mode paredit nlinum neotree material-theme leuven-theme json-mode js2-refactor indent-tools indent-guide htmlize flycheck-yamllint exec-path-from-shell esup ensime elpy elisp-slime-nav dirtree counsel company-tern autopair auto-package-update adaptive-wrap ac-slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
