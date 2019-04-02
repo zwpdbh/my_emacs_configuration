@@ -133,8 +133,22 @@
      (use-package indent-guide
        :ensure t
        :config
-       (indent-guide-global-mode))
+       (progn
+         (indent-guide-global-mode)))
    #+end_src 
+
+   #+RESULTS:
+   : t
+
+** highlight-indentation
+   #+BEGIN_SRC emacs-lisp
+     (use-package highlight-indentation
+       :ensure t
+       :config
+       (progn
+         (setq highlight-indentation-blank-lines t)
+         (add-hook 'yaml-mode-hook #'highlight-indentation-mode)))
+   #+END_SRC
 
    #+RESULTS:
    : t
