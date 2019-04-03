@@ -877,24 +877,26 @@
    #+BEGIN_SRC emacs-lisp
      (use-package tern
        :ensure t
+       :ensure company-tern
        :config
        (progn
+         (add-hook 'js2-mode-hook (lambda ()
+                                    (tern-mode)
+                                    (company-mode)))
+         ;; Disable completion keybindings, as we use xref-js2 instead
+         (define-key tern-mode-keymap (kbd "M-.") nil)
+         (define-key tern-mode-keymap (kbd "M-,") nil)
+         
          (use-package company-tern
-           :defer t
            :ensure t
            :config
            (progn
-             (add-to-list 'company-backend 'company-tern)
-             (add-hook 'js2-mode-hook (lambda ()
-                                        (tern-mode)
-                                        (company-mode)))
-             ;; Disable completion keybindings, as we use xref-js2 instead
-             (define-key tern-mode-keymap (kbd "M-.") nil)
-             (define-key tern-mode-keymap (kbd "M-,") nil)))))
-
-
-     (rassoc 'js2-mode auto-mode-alist)
+             (add-to-list 'company-backend 'company-tern)))))
    #+END_SRC
+
+   #+RESULTS:
+   : t
+
 * Python development
 ** Packages you need to install through pip
    - rope
