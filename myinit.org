@@ -47,6 +47,8 @@
      ;; use cmd + n and cmd + p to select next and previous lines
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
      (global-set-key (kbd "s-p") (kbd "C-S-p"))
+     ;; use c-z to undo
+     (global-set-key (kbd "C-z") #'undo)
 
      ;; use cmd + / to comment region of code
      (global-set-key (kbd "s-/") 'comment-region)
@@ -292,36 +294,37 @@
 
 ** Autopair
    It is good to use it to add extra characters for pairing in some specific language mode. such as Python and JS. See [[https://github.com/joaotavora/autopair][autopair]].
+   (disable it for already used smartparens)
    #+BEGIN_SRC emacs-lisp
-     (use-package autopair
-       :defer 2
-       :ensure t
-       :config
-       (progn
-         (defvar autopair-modes 
-           '(js-mode python-mode scala-mode))
-         (defun turn-on-autopair-mode () (autopair-mode 1))
+     ;; (use-package autopair
+     ;;   :defer 2
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (defvar autopair-modes 
+     ;;       '(js-mode python-mode scala-mode))
+     ;;     (defun turn-on-autopair-mode () (autopair-mode 1))
 
-         (dolist (mode autopair-modes) 
-           (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode)
-           (add-hook (intern (concat (symbol-name mode) "-hook")) (lambda ()
-                                                                    (push '(?\( . ?\))
-                                                                          (getf autopair-extra-pairs :code)))))
+     ;;     (dolist (mode autopair-modes) 
+     ;;       (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode)
+     ;;       (add-hook (intern (concat (symbol-name mode) "-hook")) (lambda ()
+     ;;                                                                (push '(?\( . ?\))
+     ;;                                                                      (getf autopair-extra-pairs :code)))))
 
-         (add-hook 'typescript-mode-hook 'turn-on-autopair-mode)
-         (add-hook 'typescript-mode-hook (lambda ()
-                                           (push '(?( . ?)) 
-                                                 (getf autopair-extra-pairs :code))))
+     ;;     (add-hook 'typescript-mode-hook 'turn-on-autopair-mode)
+     ;;     (add-hook 'typescript-mode-hook (lambda ()
+     ;;                                       (push '(?( . ?)) 
+     ;;                                             (getf autopair-extra-pairs :code))))
 
-         ;; Autopair doesn’t make much sense when paredit-mode is turned on, 
-         ;; so it actually defers to paredit-mode when that is installed and enabled. 
-         ;; Therefore, disable autopair when paredit is turned on
-         (defadvice paredit-mode (around disable-autopairs-around (arg))
-           ad-do-it
-           (if (null ad-return-value)
-               (autopair-mode 1)
-             (autopair-mode 0)))
-         (ad-activate 'paredit-mode)))
+     ;;     ;; Autopair doesn’t make much sense when paredit-mode is turned on, 
+     ;;     ;; so it actually defers to paredit-mode when that is installed and enabled. 
+     ;;     ;; Therefore, disable autopair when paredit is turned on
+     ;;     (defadvice paredit-mode (around disable-autopairs-around (arg))
+     ;;       ad-do-it
+     ;;       (if (null ad-return-value)
+     ;;           (autopair-mode 1)
+     ;;         (autopair-mode 0)))
+     ;;     (ad-activate 'paredit-mode)))
    #+END_SRC
 
    #+RESULTS:
