@@ -889,11 +889,7 @@
    Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
    #+BEGIN_SRC emacs-lisp
      (use-package indium
-       :defer 2
-       :ensure t
-       :config
-       (progn
-         (add-hook 'js2-mode-hook #'indium-connect)))
+       :ensure t)
    #+END_SRC
 
    #+RESULTS:
