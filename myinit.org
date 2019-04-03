@@ -27,6 +27,7 @@
    #+RESULTS:
 
 ** set global key-bindings
+   Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
    #+begin_src emacs-lisp
      ;; use cmd + n and cmd + p to select next and previous lines
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
@@ -36,15 +37,16 @@
      (global-set-key (kbd "s-/") 'comment-region)
      ;; use cmd + \ to uncomment region of code
      (global-set-key (kbd "s-\\") 'uncomment-region)
-     ;; use c-c c-c to execute a function in scheme
+
+     ;; use c-c c-c to execute a lisp function
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
      ;; use f3 to use org-edit-special
      (global-set-key (kbd "<f3>") (kbd "C-c '"))
      ;; use f10 to format whole buffer
      (global-set-key (kbd "<f10>") (progn
-				     #'mark-whole-buffer
-				     #'indent-region))
+                                     #'mark-whole-buffer
+                                     #'indent-region))
      ;; use f5 to revert the buffer
      (global-set-key (kbd "<f5>") 'revert-buffer)
    #+end_src
@@ -115,12 +117,14 @@
 
 ** change the cursor type and color
    #+begin_src emacs-lisp
-     (setq-default cursor-type '(hbar . 2))
+     ;;(setq-default cursor-type '(hbar . 2))
+     (setq-default cursor-type '(bar . 2))
    #+end_src
 
    #+RESULTS:
-   : (hbar . 2)
-** highlight current line
+=(vbar . 1)
+==(vbar . 2)
+=** highlight current line
    #+begin_src emacs-lisp
      (global-hl-line-mode +1)
    #+end_src 
@@ -337,13 +341,68 @@
   #+RESULTS:
   : t
 
-* Rainbow-delimiters
+* Helm
   #+BEGIN_SRC emacs-lisp
-    (use-package rainbow-delimiters
-      :ensure t)
+    (use-package helm
+      :ensure t
+      :config
+      (progn
+        ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+        ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+        ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+        (global-set-key (kbd "C-c h") 'helm-command-prefix)
+        (global-unset-key (kbd "C-x c"))
+
+        (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+        (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
+        (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+        (when (executable-find "curl")
+          (setq helm-google-suggest-use-curl-p t))
+
+        (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+              helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+              helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+              helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+              helm-ff-file-name-history-use-recentf t
+              helm-echo-input-in-header-line t)
+
+        (defun spacemacs//helm-hide-minibuffer-maybe ()
+          "Hide minibuffer in Helm session if we use the header line as input field."
+          (when (with-helm-buffer helm-echo-input-in-header-line)
+            (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+              (overlay-put ov 'window (selected-window))
+              (overlay-put ov 'face
+                           (let ((bg-color (face-background 'default nil)))
+                             `(:background ,bg-color :foreground ,bg-color)))
+              (setq-local cursor-type nil))))
+
+
+        (add-hook 'helm-minibuffer-set-up-hook
+                  'spacemacs//helm-hide-minibuffer-maybe)
+
+        (setq helm-autoresize-max-height 0)
+        (setq helm-autoresize-min-height 20)
+        (helm-autoresize-mode 1)
+        
+        (helm-mode 1)))
   #+END_SRC
 
   #+RESULTS:
+  : t
+
+* Rainbow-delimiters
+  #+BEGIN_SRC emacs-lisp
+    (use-package rainbow-delimiters
+      :ensure t
+      :config
+      (progn
+        (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+        (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
+  #+END_SRC
+
+  #+RESULTS:
+  : t
 
 * Aggressive-indent-mode
   #+BEGIN_SRC emacs-lisp
@@ -903,11 +962,17 @@
        (progn
          (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
          (add-hook 'cider-repl-mode-hook #'subword-mode)
-         (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)))
+         (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+         (use-package helm-cider
+           :ensure t
+           :config
+           (progn
+             (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
    #+END_SRC
 
    #+RESULTS:
-
+   : t
+   
 ** Clojure-mode
    #+BEGIN_SRC emacs-lisp
      (use-package clojure-mode
@@ -928,3 +993,12 @@
    : t
 
    
+** Userful key-bindings in Clojure programming
+   - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
+   - M-. will navigate to the source code for the symbol under point
+   - M-, will return you to your original buffer and position
+   - C-c C-d C-a lets you search for arbitrary text across function names and documentation
+   - For paredit
+     - M-( Surround expression after point in parentheses (paredit-wrap-round).
+     - C-<left or right arrow>, surp or barf
+     - C-M-f, C-M-b Move to the opening/closing parenthesis.
