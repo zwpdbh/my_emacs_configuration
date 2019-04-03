@@ -770,6 +770,36 @@
 
   #+RESULTS:
   | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
+
+* Web mode
+  - Auto opening, Auto completion, Auto expanders, code folding, Naviation
+  - Configure to support snippets, such as HTML/Django
+  - Context aware processing
+  #+BEGIN_SRC emacs-lisp
+    (use-package web-mode
+      :ensure t
+      :config
+      (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+      (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
+      (setq web-mode-engines-alist
+            '(("django"    . "\\.html\\'")))
+      (setq web-mode-ac-sources-alist
+            '(("css" . (ac-source-css-property))
+              ("vue" . (ac-source-words-in-buffer ac-source-abbrev))
+              ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+      
+      (setq web-mode-enable-auto-quoting t)
+      (setq web-mode-enable-auto-closing t)
+      
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-code-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+
+      (setq web-mode-enable-auto-pairing t)
+      (setq web-mode-enable-auto-expanding t)
+      (setq web-mode-enable-css-colorization t))
+
+  #+END_SRC
 * Typescript with Tide
   #+BEGIN_SRC emacs-lisp
     (use-package tide
@@ -803,28 +833,27 @@
      (use-package js2-mode
        :ensure t
        :config
-       (progn
-	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-	 (add-hook 'js-mode-hook #'js2-imenu-extras-mode)
+       (progn    
+         (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+         (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+         (use-package js2-refactor
+           :ensure t
+           :config
+           (progn
+             (add-hook 'js2-mode-hook #'js2-refactor-mode)
+             (js2r-add-keybindings-with-prefix "C-c C-r")
+             (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+         
+         (use-package xref-js2
+           :defer t
+           :ensure t
+           :config
+           (progn
+             ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so unbind it.
+             (define-key js-mode-map (kbd "M-.") nil)
+             (add-hook 'js2-mode-hook (lambda ()
+                                        (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))))
 
-	 (use-package js2-refactor
-	   :defer t
-	   :ensure t
-	   :config
-	   (progn
-	     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-	     (js2r-add-keybindings-with-prefix "C-c C-r")
-	     (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-
-	 (use-package xref-js2
-	   :defer t
-	   :ensure t
-	   :config
-	   (progn
-	     ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so unbind it.
-	     (define-key js-mode-map (kbd "M-.") nil)
-	     (add-hook 'js2-mode-hook (lambda ()
-					(add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))))
    #+END_SRC
 
    #+RESULTS:
@@ -844,25 +873,25 @@
    - You need to install tern on your localhost: npm install -g tern
    #+BEGIN_SRC emacs-lisp
      (use-package tern
-       :mode "\\.js\\'"
        :ensure t
        :config
        (progn
-	 (use-package company-tern
-	   :defer t
-	   :ensure t
-	   :config
-	   (progn
-	     (add-to-list 'company-backend 'company-tern)
-	     (add-hook 'js2-mode-hook (lambda ()
-					(tern-mode)
-					(company-mode)))
-	     ;; Disable completion keybindings, as we use xref-js2 instead
-	     (define-key tern-mode-keymap (kbd "M-.") nil)
-	     (define-key tern-mode-keymap (kbd "M-,") nil)))))
+         (use-package company-tern
+           :defer t
+           :ensure t
+           :config
+           (progn
+             (add-to-list 'company-backend 'company-tern)
+             (add-hook 'js2-mode-hook (lambda ()
+                                        (tern-mode)
+                                        (company-mode)))
+             ;; Disable completion keybindings, as we use xref-js2 instead
+             (define-key tern-mode-keymap (kbd "M-.") nil)
+             (define-key tern-mode-keymap (kbd "M-,") nil)))))
 
+
+     (rassoc 'js2-mode auto-mode-alist)
    #+END_SRC
-
 * Python development
 ** Packages you need to install through pip
    - rope
@@ -929,29 +958,6 @@
    - M-x pyvenv-workon
    - M-x pyvenv-activate
    - M-x pyvenv-deactive
-
-* Web mode
-  - Auto opening, Auto completion, Auto expanders, code folding, Naviation
-  - Configure to support snippets, such as HTML/Django
-  - Context aware processing
-  #+BEGIN_SRC emacs-lisp
-    (use-package web-mode
-      :mode "\\.html\\'"
-      :ensure t
-      :config
-      (progn
-	(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	(setq web-mode-engines-alist '(("django" . "\\.html\\'")))
-
-	(setq web-mode-markup-indent-offset 2)
-	(setq web-mode-code-indent-offset 2)
-	(setq web-mode-css-indent-offset 2)
-
-	(setq web-mode-enable-auto-pairing t)
-	(setq web-mode-enable-auto-expanding t)
-	(setq web-mode-enable-css-colorization t)))
-  #+END_SRC
-
 * JSON-mode
   Major mode for editing JSON files
   #+BEGIN_SRC emacs-lisp
