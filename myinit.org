@@ -340,20 +340,10 @@
 * Rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
-      :ensure t
-      :config
-      (progn
-        ;; To start the mode automatically in foo-mode
-        ;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
-        
-        ;; To start the mode automatically in most programming modes
-        ;; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-        
-        ))
+      :ensure t)
   #+END_SRC
 
   #+RESULTS:
-  : t
 
 * Aggressive-indent-mode
   #+BEGIN_SRC emacs-lisp
@@ -398,7 +388,7 @@
       (progn
         (load-theme 'material t)
         ;; highlight matched parenthesis
-        (set-face-foreground 'show-paren-match "red")
+        ;; (set-face-foreground 'show-paren-match "red")
         (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
 
   #+end_src
@@ -908,7 +898,12 @@
    It is the Clojure(Script) Interactive Development Environment.
    #+BEGIN_SRC emacs-lisp
      (use-package cider
-       :ensure t)
+       :ensure t
+       :config
+       (progn
+         (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+         (add-hook 'cider-repl-mode-hook #'subword-mode)
+         (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -923,7 +918,7 @@
          ;; make moving between characters faster
          (add-hook 'clojure-mode-hook #'subword-mode)
          ;; use paredit or smartparens 
-         (add-hook 'clojure-mode-hook #'paredit-mode)
+         (add-hook 'clojure-mode-hook #'enable-paredit-mode)
          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
          (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
 
