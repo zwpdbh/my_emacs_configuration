@@ -337,12 +337,15 @@
        :ensure t
        :config
        (progn
-         ;; Always start smartparens mode in js-mode
-         (add-hook 'js-mode-hook #'smartparens-mode)))
+         (add-hook 'js-mode-hook #'smartparens-mode)
+         (add-hook 'python-mode-hook #'smartparens-mode)))
 
 
-        
    #+END_SRC
+
+   #+RESULTS:
+   : t   
+
 * Company
   #+BEGIN_SRC emacs-lisp
     (use-package company
@@ -809,22 +812,22 @@
       :ensure t
       :config
       (progn
-	(defun setup-tide-mode ()
-	  (interactive)
-	  (tide-setup)
-	  (flycheck-mode +1)
-	  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-	  (eldoc-mode +1)
-	  (tide-hl-identifier-mode +1)
-	  (indent-guide-mode +1)
-	  (auto-complete-mode +1))
+        (defun setup-tide-mode ()
+          (interactive)
+          (tide-setup)
+          (flycheck-mode +1)
+          (setq flycheck-check-syntax-automatically '(save mode-enabled))
+          (eldoc-mode +1)
+          (tide-hl-identifier-mode +1)
+          (indent-guide-mode +1)
+          (company-mode +1))
 
-	;; aligns annotation to the right hand side
-	(setq company-tooltip-align-annotations t)
+        ;; aligns annotation to the right hand side
+        (setq company-tooltip-align-annotations t)
 
-	;; formats the buffer before saving
-	(add-hook 'before-save-hook 'tide-format-before-save)
-	(add-hook 'typescript-mode-hook #'setup-tide-mode)))
+        ;; formats the buffer before saving
+        (add-hook 'before-save-hook 'tide-format-before-save)
+        (add-hook 'typescript-mode-hook #'setup-tide-mode)))
   #+END_SRC
 
   #+RESULTS:
@@ -896,25 +899,30 @@
    : t
 
 * Python development
-** Packages you need to install through pip
-   - rope
-   - jedi
-   - flake8
-   - importmagic
 ** elpy
    - simple usage
      - show function signature, get docs: elpy-dock
      - code navigation, navigate code by treating them as hyperlinks:
        - elpy-goto-definition
        - pop-tag-mar
+     - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
+	 
    #+BEGIN_SRC emacs-lisp
+     ;; Prerequisites
+     ;; pip install rope jedi, flate8 importmagic
      (use-package elpy
        :ensure t
        :init
        (progn
-         ;; (customize-variable (quote tab-stop-list))
+         ;; Notic to check the jedi package may require the jedi to be installed via python2!
+         ;; pip install jedi epc 
+         (use-package jedi
+           :ensure t
+           :config
+           (progn
+             (add-hook 'python-mode-hook 'jedi:setup)))
          (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-         (setq elpy-rpc-backed "jedi")
+         (setq elpy-rpc-backed "anaconda-mode")
          (elpy-enable))
        :config
        (progn

@@ -43,7 +43,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm-cider helm aggressive-indent rainbow-delimiters cider base16-theme gruvbox-theme zenburn-theme yaml-mode xref-js2 which-key web-mode use-package try treemacs-projectile treemacs-magit treemacs-icons-dired treemacs-evil tide spacemacs-theme solarized-theme slime-company racket-mode paredit nlinum neotree material-theme leuven-theme json-mode js2-refactor indent-tools indent-guide htmlize flycheck-yamllint exec-path-from-shell esup ensime elpy elisp-slime-nav dirtree counsel company-tern autopair auto-package-update adaptive-wrap ac-slime))))
+    (jedi helm-cider helm aggressive-indent rainbow-delimiters cider base16-theme gruvbox-theme zenburn-theme yaml-mode xref-js2 which-key web-mode use-package try treemacs-projectile treemacs-magit treemacs-icons-dired treemacs-evil tide spacemacs-theme solarized-theme slime-company racket-mode paredit nlinum neotree material-theme leuven-theme json-mode js2-refactor indent-tools indent-guide htmlize flycheck-yamllint exec-path-from-shell esup ensime elpy elisp-slime-nav dirtree counsel company-tern autopair auto-package-update adaptive-wrap ac-slime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
