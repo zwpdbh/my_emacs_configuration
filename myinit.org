@@ -353,10 +353,10 @@
       :ensure t
       :config
       (progn
-	(setq completion-ignore-case t)
-	(setq company-dabbrev-downcase 0)
-	(setq company-idle-delay 0.01)
-	(add-hook 'after-init-hook 'global-company-mode)))
+        (setq completion-ignore-case t)
+        (setq company-dabbrev-downcase 0)
+        (setq company-idle-delay 0.01)
+        (add-hook 'after-init-hook 'global-company-mode)))
   #+END_SRC
 
   #+RESULTS:
@@ -915,28 +915,34 @@
        :init
        (progn
          ;; Notic to check the jedi package may require the jedi to be installed via python2!
-         ;; pip install jedi epc 
-         (use-package jedi
+         ;; pip install jedi epc 0
+         (use-package company-jedi
            :ensure t
            :config
            (progn
-             (add-hook 'python-mode-hook 'jedi:setup)))
+             (add-hook 'python-mode-hook (lambda ()
+                                           (progn
+                                             (jedi:setup)
+                                             (add-to-list 'company-backend 'company-jedi))))))
+         
          (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-         (setq elpy-rpc-backed "anaconda-mode")
+         ;; (setq elpy-rpc-backed "company-jedi")
          (elpy-enable))
+       
        :config
        (progn
          (add-hook 'python-mode-hook 'elpy-mode)
          (with-eval-after-load 'elpy
            (setq python-shell-interpreter "ipython"
                  python-shell-interpreter-args "-i --simple-prompt")))
+       
        :bind
        (("M-*" . pop-tag-mark)))
    #+END_SRC
 
    #+RESULTS:
    : pop-tag-mark
-
+   
 ** indent-tools
    For indent python code and view python code
    #+BEGIN_SRC emacs-lisp
