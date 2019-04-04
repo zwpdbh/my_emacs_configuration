@@ -917,6 +917,7 @@
          ;; Notic to check the jedi package may require the jedi to be installed via python2!
          ;; pip install jedi epc 0
          (use-package company-jedi
+           ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
            :ensure t
            :config
            (progn
