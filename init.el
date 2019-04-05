@@ -3,10 +3,11 @@
 (setq package-enable-at-startup nil)
 
 ;; setup repositry in China for speed
-(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa-stable" . "http://elpa.emacs-china.org/melpa-stable/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
-                         ("marmalada" . "http://elpa.emacs-china.org/marmalade/")))
+;; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+;;                          ("melpa-stable" . "http://elpa.emacs-china.org/melpa-stable/")
+;;                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
+;;                          ("marmalada" . "http://elpa.emacs-china.org/marmalade/")))
+
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
