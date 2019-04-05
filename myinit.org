@@ -641,24 +641,25 @@
      (cond
       ((string-equal system-type "darwin")
        (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((shell . t)
-            (lisp . t)
-            (C . t)))))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (lisp . t)
+	    (C . t)))))
       ((string-equal system-type "gnu/linux")
        (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((sh . t)
-            (C . t)))))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (C . t)))))
       ((string-equal system-type "windows-nt")
        (progn
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((shell . t)
-            (lisp . t)
-            (C . t))))))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (lisp . t)
+	    (C . t))))))
+
    #+end_src
    
    #+RESULTS:
@@ -788,19 +789,19 @@
       (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
       (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
       (setq web-mode-engines-alist
-            '(("django"    . "\\.html\\'")))
+	    '(("django"    . "\\.html\\'")))
       (setq web-mode-ac-sources-alist
-            '(("css" . (ac-source-css-property))
-              ("vue" . (ac-source-words-in-buffer ac-source-abbrev))
-              ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-      
+	    '(("css" . (ac-source-css-property))
+	      ("vue" . (ac-source-words-in-buffer ac-source-abbrev))
+	      ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
       (setq web-mode-enable-auto-quoting t)
       (setq web-mode-enable-auto-closing t)
-      
+
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-code-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
-
+  
       (setq web-mode-enable-auto-pairing t)
       (setq web-mode-enable-auto-expanding t)
       (setq web-mode-enable-css-colorization t))
@@ -944,21 +945,6 @@
    #+RESULTS:
    : pop-tag-mark
    
-** indent-tools
-   For indent python code and view python code
-   #+BEGIN_SRC emacs-lisp
-     (use-package indent-tools
-       :ensure t
-       :init
-       (progn
-         (setq tab-width 4)
-         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-         (add-hook 'python-mode-hook (lambda ()
-                                       (define-key python-mode-map (kbd "C-c i") 'indent-tools-hydra/body)))))
-   #+END_SRC
-
-   #+RESULTS:
-
 ** Debugging
    Debugg using pdb
    #+BEGIN_SRC python
