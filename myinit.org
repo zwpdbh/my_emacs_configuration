@@ -680,49 +680,54 @@
       :ensure t
       :defer t
       :init
-      (with-eval-after-load 'winum
-        (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+      (progn
+	(use-package lv
+	  :ensure t)
+	(use-package hydra
+	  :ensure t)
+	(with-eval-after-load 'winum
+	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
       :config
       (progn
-        ;; (pcase (cons (not (null (executable-find "git")))
-        ;;              (not (null (executable-find "python3"))))
-        ;;   (`(t . t)
-        ;;    (treemacs-git-mode 'deferred))
-        ;;   (`(t . _)
-        ;;    (treemacs-git-mode 'simple)))
-        (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-              treemacs-file-event-delay           5000
-              treemacs-follow-after-init          t
-              treemacs-follow-recenter-distance   0.1
-              treemacs-goto-tag-strategy          'refetch-index
-              treemacs-indentation                1
-              ;; indent guide
-              treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
-              ;; treemacs-indentation-string         "|"
-              treemacs-is-never-other-window      nil
-              treemacs-no-png-images              nil
-              treemacs-project-follow-cleanup     nil
-              treemacs-recenter-after-file-follow nil
-              treemacs-recenter-after-tag-follow  nil
-              treemacs-show-hidden-files          t
-              treemacs-silent-filewatch           nil
-              treemacs-silent-refresh             nil
-              treemacs-sorting                    'alphabetic-desc
-              treemacs-tag-follow-cleanup         t
-              treemacs-tag-follow-delay           1.5
-              treemacs-width                      40
-              treemacs-follow-mode                t
-              treemacs-filewatch-mode             t
-              treemacs-git-mode nil))
+	;; (pcase (cons (not (null (executable-find "git")))
+	;;              (not (null (executable-find "python3"))))
+	;;   (`(t . t)
+	;;    (treemacs-git-mode 'deferred))
+	;;   (`(t . _)
+	;;    (treemacs-git-mode 'simple)))
+	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+	      treemacs-file-event-delay           5000
+	      treemacs-follow-after-init          t
+	      treemacs-follow-recenter-distance   0.1
+	      treemacs-goto-tag-strategy          'refetch-index
+	      treemacs-indentation                1
+	      ;; indent guide
+	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+	      ;; treemacs-indentation-string         "|"
+	      treemacs-is-never-other-window      nil
+	      treemacs-no-png-images              nil
+	      treemacs-project-follow-cleanup     nil
+	      treemacs-recenter-after-file-follow nil
+	      treemacs-recenter-after-tag-follow  nil
+	      treemacs-show-hidden-files          t
+	      treemacs-silent-filewatch           nil
+	      treemacs-silent-refresh             nil
+	      treemacs-sorting                    'alphabetic-desc
+	      treemacs-tag-follow-cleanup         t
+	      treemacs-tag-follow-delay           1.5
+	      treemacs-width                      40
+	      treemacs-follow-mode                t
+	      treemacs-filewatch-mode             t
+	      treemacs-git-mode nil))
       :bind
       (:map global-map
-            ([f8]        . treemacs)
-            ("M-0"       . treemacs-select-window)
-            ("C-x t 1"   . treemacs-delete-other-windows)
-            ("C-x t t"   . treemacs)
-            ("C-x t B"   . treemacs-bookmark)
-            ("C-x t C-t" . treemacs-find-file)
-            ("C-x t M-t" . treemacs-find-tag)))
+	    ([f8]        . treemacs)
+	    ("M-0"       . treemacs-select-window)
+	    ("C-x t 1"   . treemacs-delete-other-windows)
+	    ("C-x t t"   . treemacs)
+	    ("C-x t B"   . treemacs-bookmark)
+	    ("C-x t C-t" . treemacs-find-file)
+	    ("C-x t M-t" . treemacs-find-tag)))
 
     (use-package treemacs-evil
       :defer t
@@ -909,35 +914,35 @@
      - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
 	 
    #+BEGIN_SRC emacs-lisp
-     ;; Prerequisites
-     ;; pip install rope jedi, flate8 importmagic
+     ;; need to pip install jedi epc
+     ;; use M-x elpy-config to check the corresponding configurations
      (use-package elpy
        :ensure t
        :init
        (progn
-         ;; Notic to check the jedi package may require the jedi to be installed via python2!
-         ;; pip install jedi epc 0
-         (use-package company-jedi
-           ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-           :ensure t
-           :config
-           (progn
-             (add-hook 'python-mode-hook (lambda ()
-                                           (progn
-                                             (jedi:setup)
-                                             (add-to-list 'company-backend 'company-jedi))))))
-         
-         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-         ;; (setq elpy-rpc-backed "company-jedi")
-         (elpy-enable))
-       
+	 ;; Notic to check the jedi package may require the jedi to be installed via python2!
+	 ;; pip install jedi epc
+	 (use-package company-jedi
+	   ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
+	   :ensure t
+	   :config
+	   (progn
+	     (add-hook 'python-mode-hook (lambda ()
+					   (progn
+					     (jedi:setup)
+					     (add-to-list 'company-backend 'company-jedi))))))
+
+	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+	 ;; (setq elpy-rpc-backed "company-jedi")
+	 (elpy-enable))
+
        :config
        (progn
-         (add-hook 'python-mode-hook 'elpy-mode)
-         (with-eval-after-load 'elpy
-           (setq python-shell-interpreter "ipython"
-                 python-shell-interpreter-args "-i --simple-prompt")))
-       
+	 (add-hook 'python-mode-hook 'elpy-mode)
+	 (with-eval-after-load 'elpy
+	   (setq python-shell-interpreter "ipython"
+		 python-shell-interpreter-args "-i --simple-prompt")))
+
        :bind
        (("M-*" . pop-tag-mark)))
    #+END_SRC
