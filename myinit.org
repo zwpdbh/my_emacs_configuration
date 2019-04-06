@@ -237,48 +237,49 @@
        :ensure t
        :init
        (progn
-	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-	 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-	 (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+         (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+         (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+         (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+         (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+         ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+         (add-hook 'sly-mode-hook             #'enable-paredit-mode)
+         (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+         (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+         (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-	 ;; paredit with eldoc
-	 (require 'eldoc) ; if not already loaded
-	 (eldoc-add-command
-	  'paredit-backward-delete
-	  'paredit-close-round)
+         ;; paredit with eldoc
+         (require 'eldoc) ; if not already loaded
+         (eldoc-add-command
+          'paredit-backward-delete
+          'paredit-close-round)
 
-	 ;; paredit with slime repl
-	 (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-	 ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
-	 ;; Stop SLIME's REPL from grabbing DEL,
-	 ;; which is annoying when backspacing over a '('
-	 (defun override-slime-repl-bindings-with-paredit ()
-	   (define-key slime-repl-mode-map
-	     (read-kbd-macro paredit-backward-delete-key) nil))
-	 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+         ;; paredit with slime repl
+         ;; (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
+         ;; ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
+         ;; ;; Stop SLIME's REPL from grabbing DEL,
+         ;; ;; which is annoying when backspacing over a '('
+         ;; (defun override-slime-repl-bindings-with-paredit ()
+         ;;   (define-key slime-repl-mode-map
+         ;;     (read-kbd-macro paredit-backward-delete-key) nil))
+         ;; (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
-	 ;; paredit with electric return
-	 (defvar electrify-return-match
-	   "[\]}\)\"]"
-	   "If this regexp matches the text after the cursor, do an \"electric\"
+         ;; paredit with electric return
+         (defvar electrify-return-match
+           "[\]}\)\"]"
+           "If this regexp matches the text after the cursor, do an \"electric\"
        return.")
-	 (defun electrify-return-if-match (arg)
-	   "If the text after the cursor matches `electrify-return-match' then
+         (defun electrify-return-if-match (arg)
+           "If the text after the cursor matches `electrify-return-match' then
        open and indent an empty line between the cursor and the text.  Move the
        cursor to the new line."
-	   (interactive "P")
-	   (let ((case-fold-search nil))
-	     (if (looking-at electrify-return-match)
-		 (save-excursion (newline-and-indent)))
-	     (newline arg)
-	     (indent-according-to-mode)))
-	 ;; Using local-set-key in a mode-hook is a better idea.
-	 (global-set-key (kbd "RET") 'electrify-return-if-match)))
+           (interactive "P")
+           (let ((case-fold-search nil))
+             (if (looking-at electrify-return-match)
+                 (save-excursion (newline-and-indent)))
+             (newline arg)
+             (indent-according-to-mode)))
+         ;; Using local-set-key in a mode-hook is a better idea.
+         (global-set-key (kbd "RET") 'electrify-return-if-match)))
    #+end_src
 ** complements to paredit
    #+begin_src emacs-lisp
@@ -356,8 +357,6 @@
         (setq completion-ignore-case t)
         (setq company-dabbrev-downcase 0)
         (setq company-idle-delay 0.01)
-        (define-key c-mode-map [(tab)] 'company-complete)
-        (define-key c++-mode-map [(tab)] 'company-complete)
         (add-hook 'after-init-hook 'global-company-mode)))
   #+END_SRC
 
@@ -424,7 +423,8 @@
       :ensure t
       :config
       (progn
-        (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+        ;; (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+        (add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
         (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
   #+END_SRC
 
@@ -538,45 +538,49 @@
 ** Common-lisp
    #+begin_src emacs-lisp
      ;; slime for common-lisp 
-     (use-package lisp-mode
+     ;; (use-package lisp-mode
+     ;;   :config
+     ;;   (progn
+     ;;     (use-package elisp-slime-nav
+     ;;       :ensure t
+     ;;       :commands elisp-slime-nav-mode)
+     ;;     (use-package macrostep
+     ;;       :ensure t
+     ;;       :bind ("C-c e" . macrostep-expand))
+     ;;     (use-package slime
+     ;;       :ensure t
+     ;;       :commands (slime slime-lisp-mode-hook)
+     ;;       :config
+     ;;       (progn
+     ;;         (require 'slime-autoloads)
+     ;;         (use-package slime-company
+     ;;           :ensure t
+     ;;           :config
+     ;;           (progn
+     ;;             (eval-after-load 'slime '(progn
+     ;;                                        (slime-setup '(slime-fancy slime-company))))))
+     ;;         ;; make sbcl and slime accessible from command line
+     ;;         (if (string-equal system-type "windows-nt")
+     ;;             (progn
+     ;;               ;; Or, just edit path variable of system
+     ;;               ;; (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
+     ;;               (add-to-list 'load-path "C:\\clisp-2.49")
+     ;;               (add-to-list 'load-path "D:\\Program Files\\slime")
+     ;;               (setf temporary-file-directory "c:/Users/x1ezmr/AppData/Local/Temp"))
+     ;;           (progn
+     ;;             (setq exec-path (append exec-path
+     ;;                                     '("/usr/local/bin")))))
+     ;;         ;; set 'sbcl' as lisp compiler
+     ;;         ;; (setq inferior-lisp-program "sbcl")
+     ;;         (setq inferior-lisp-program "clisp")))))
+
+     (use-package sly
+       :ensure t
        :config
        (progn
-	 (use-package elisp-slime-nav
-	   :ensure t
-	   :commands elisp-slime-nav-mode)
-	 (use-package macrostep
-	   :ensure t
-	   :bind ("C-c e" . macrostep-expand))
-	 (use-package slime
-	   :ensure t
-	   :commands (slime slime-lisp-mode-hook)
-	   :config
-	   (progn
-	     ;; make sbcl and slime accessible from command line
-	     (if (string-equal system-type "windows-nt")
-		 (progn
-		   ;; Or, just edit path variable of system
-		   ;; (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
-		   (add-to-list 'load-path "C:\\clisp-2.49")
-		   (add-to-list 'load-path "D:\\Program Files\\slime")
-		   (setf temporary-file-directory "c:/Users/x1ezmr/AppData/Local/Temp"))
-	       (progn
-		 (setq exec-path (append exec-path
-					 '("/usr/local/bin")))))
-	     ;; set 'sbcl' as lisp compiler
-	     ;; (setq inferior-lisp-program "sbcl")
-	     (setq inferior-lisp-program "clisp")
-	     ;; (add-to-list 'slime-contribs 'slime-fancy)
-	     ;; (slime-setup)
-	     (require 'slime-autoloads)
-	     (eval-after-load 'slime '(progn
-					(slime-setup '(slime-fancy))))
-
-	     (use-package slime-company
-	       :ensure t
-	       :config
-	       (progn
-		 (slime-setup '(slime-fancy slime-company))))))))
+         (setq inferior-lisp-program "clisp"
+               exec-path (append exec-path
+                                 '("/usr/local/bin")))))
 
 
    #+end_src
