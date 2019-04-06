@@ -373,6 +373,10 @@
         ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
         (global-set-key (kbd "C-c h") 'helm-command-prefix)
         (global-unset-key (kbd "C-x c"))
+        
+        ;; C-x C-f runs the command counsel-find-file
+        (global-unset-key (kbd "C-x C-f"))
+        (global-set-key (kbd "C-x C-f") #'helm-find-files)
 
         (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
         (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
@@ -638,27 +642,28 @@
 
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
+     ;; the shell configuration for Linux could either be sh or shell 
+     ;; it is not same in different Linux system.
      (cond
       ((string-equal system-type "darwin")
        (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t)))))
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((shell . t)
+            (lisp . t)
+            (C . t)))))
       ((string-equal system-type "gnu/linux")
        (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (C . t)))))
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((C . t)))))
       ((string-equal system-type "windows-nt")
        (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t))))))
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((shell . t)
+            (lisp . t)
+            (C . t))))))
 
    #+end_src
    
@@ -1027,3 +1032,69 @@
      - M-( Surround expression after point in parentheses (paredit-wrap-round).
      - C-<left or right arrow>, surp or barf
      - C-M-f, C-M-b Move to the opening/closing parenthesis.
+* C/C++ programming
+  Referenced from [[https://tuhdo.github.io/c-ide.html#orgheadline1][Emacs mini manual series]].
+** source code navigation
+   #+BEGIN_SRC emacs-lisp
+     ;; before using helm-gtags, remember to create a GTAGS database by running
+     ;; gtags at your project root in terminal
+     (use-package helm-gtags
+       :init
+       (progn
+         (use-package helm
+           :ensure t))
+       :ensure t
+       :config
+       (progn
+         ;; enable helm-gtags-mode 
+         (add-hook 'dired-mode-hook 'helm-gtags-mode)
+         (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+         (add-hook 'c-mode-hook 'helm-gtags-mode)
+         (add-hook 'c++-mode-hook 'helm-gtags-mode)
+         (add-hook 'asm-mode-hook 'helm-gtags-mode)
+         
+         (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+         (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+         (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+         (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+         (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+         (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
+** Source code completion using Clang
+   To use company-mode with Clang
+   #+BEGIN_SRC emacs-lisp
+     (setq company-backend (delete 'company-semantic company-backends))
+     (define-key c-mode-map [(tab)] 'company-complete)
+     (define-key c++-mode-map [(tab)] 'company-complete)
+   #+END_SRC
+
+   To retrieve completion candidates for your projects, you will have to tell Clang where your include paths are. Create a file named =.dir-locals.el= at your project root:
+   #+header: :eval "no"
+   #+BEGIN_SRC emacs-lisp
+     ;; ((nil . ((company-clang-arguments . ("-I/home/<user>/project_root/include1/"
+     ;;                                      "-I/home/<user>/project_root/include2/")))))
+
+     ;; To enable project local header file completion, see company-c-headers package 
+     ;; (add-to-list 'company-c-headers-path-user "<your_local_header_path>")
+   #+END_SRC
+
+** Header file completion with company-c-header package
+   #+BEGIN_SRC emacs-lisp
+     (use-package company-c-headers
+       :ensure t
+       :config
+       (progn
+         ;; To enable C++ header completion for standard libraries, you have to add its path
+         ;; (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.3.0/")
+         (add-to-list 'company-backend 'company-c-headers)))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
+** CEDET
+   
