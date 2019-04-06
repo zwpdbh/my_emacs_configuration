@@ -253,16 +253,6 @@
           'paredit-backward-delete
           'paredit-close-round)
 
-         ;; paredit with slime repl
-         ;; (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-         ;; ;; To alleviate the annoying habit of grabbing DEL in slime's REPL
-         ;; ;; Stop SLIME's REPL from grabbing DEL,
-         ;; ;; which is annoying when backspacing over a '('
-         ;; (defun override-slime-repl-bindings-with-paredit ()
-         ;;   (define-key slime-repl-mode-map
-         ;;     (read-kbd-macro paredit-backward-delete-key) nil))
-         ;; (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
-
          ;; paredit with electric return
          (defvar electrify-return-match
            "[\]}\)\"]"
@@ -537,43 +527,6 @@
 
 ** Common-lisp
    #+begin_src emacs-lisp
-     ;; slime for common-lisp 
-     ;; (use-package lisp-mode
-     ;;   :config
-     ;;   (progn
-     ;;     (use-package elisp-slime-nav
-     ;;       :ensure t
-     ;;       :commands elisp-slime-nav-mode)
-     ;;     (use-package macrostep
-     ;;       :ensure t
-     ;;       :bind ("C-c e" . macrostep-expand))
-     ;;     (use-package slime
-     ;;       :ensure t
-     ;;       :commands (slime slime-lisp-mode-hook)
-     ;;       :config
-     ;;       (progn
-     ;;         (require 'slime-autoloads)
-     ;;         (use-package slime-company
-     ;;           :ensure t
-     ;;           :config
-     ;;           (progn
-     ;;             (eval-after-load 'slime '(progn
-     ;;                                        (slime-setup '(slime-fancy slime-company))))))
-     ;;         ;; make sbcl and slime accessible from command line
-     ;;         (if (string-equal system-type "windows-nt")
-     ;;             (progn
-     ;;               ;; Or, just edit path variable of system
-     ;;               ;; (add-to-list 'load-path "D:\\Program Files\\Lisp\\sbcl")
-     ;;               (add-to-list 'load-path "C:\\clisp-2.49")
-     ;;               (add-to-list 'load-path "D:\\Program Files\\slime")
-     ;;               (setf temporary-file-directory "c:/Users/x1ezmr/AppData/Local/Temp"))
-     ;;           (progn
-     ;;             (setq exec-path (append exec-path
-     ;;                                     '("/usr/local/bin")))))
-     ;;         ;; set 'sbcl' as lisp compiler
-     ;;         ;; (setq inferior-lisp-program "sbcl")
-     ;;         (setq inferior-lisp-program "clisp")))))
-
      (use-package sly
        :ensure t
        :config
@@ -581,7 +534,6 @@
          (setq inferior-lisp-program "clisp"
                exec-path (append exec-path
                                  '("/usr/local/bin")))))
-
 
    #+end_src
 
