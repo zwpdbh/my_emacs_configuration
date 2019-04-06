@@ -1034,6 +1034,7 @@
      - C-M-f, C-M-b Move to the opening/closing parenthesis.
 * C/C++ programming
   [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]]
+
 ** Source code navigation using RTags
    #+BEGIN_SRC emacs-lisp
      (use-package rtags
@@ -1065,7 +1066,21 @@
    
 ** Source code completion using Irony
    #+BEGIN_SRC emacs-lisp
-   
+     (use-package irony
+       :ensure
+       :config
+       (progn
+         (add-hook 'c++-mode-hook 'irony-mode)
+         (add-hook 'c-mode-hook 'irony-mode)
+         
+         (defun my-irony-mode-hook ()
+           (define-key irony-mode-map [remap completion-at-point]
+             'irony-completion-at-point-async)
+           (define-key irony-mode-map [remap complete-symbol]
+             'irony-completion-at-point-async))
+         
+         (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+         (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
    #+END_SRC
 ** Syntax checking with Flycheck
 ** CMake automation with cmake-ide   
