@@ -1064,10 +1064,16 @@
      ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
      ;; $ rc -J .
    #+END_SRC
-   
-   
+
+   #+RESULTS:
+   : t
+
 ** Source code completion using Irony
    #+BEGIN_SRC emacs-lisp
+     ;;  Like RTags, Irony requires a compilation database. To create one run the following:
+     ;; $ cd /path/to/project/root
+     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
      (use-package irony
        :ensure
        :config
@@ -1090,12 +1096,55 @@
        (progn
          (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
          (setq company-backend (delete 'company-semantic company-backend))
+         (use-package company-irony-c-headers
+           :ensure t)
          (eval-after-load 'company
-           '(add-to-list 'company-backend 'company-irony))))
+           '(add-to-list 'company-backend '(company-irony-c-headers company-irony)))))
 
-     ;;  Like RTags, Irony requires a compilation database. To create one run the following:
-     ;; $ cd /path/to/project/root
-     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
    #+END_SRC
+
+   #+RESULTS:
+   : t
+
 ** Syntax checking with Flycheck
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck-rtags
+       :ensure t
+       :config
+       (progn
+         (add-hook 'c++-mode-hook 'flycheck-mode)
+         (add-hook 'c-mode-hook 'flycheck-mode)
+         
+         (defun my-flycheck-rtags-setup ()
+           (flycheck-select-checker 'rtags)
+           (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+           (setq-local flycheck-check-syntax-automatically nil))
+         
+         ;; c-mode-common-hook is also called by c++-mode
+         (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+         
+         (eval-after-load 'flycheck
+           '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
 ** CMake automation with cmake-ide   
+   #+BEGIN_SRC emacs-lisp
+     (use-package cmake-ide
+       :ensure t
+       :config
+       (progn
+         (cmake-ide-setup)))
+
+     ;; To have cmake-ide automatically create a compilation commands file in your project root create a .dir-locals.el containing the following:
+     ;; ((nil . ((cmake-ide-build-dir . "<PATH_TO_PROJECT_BUILD_DIRECTORY>"))))
+     ;; build your project using ~M-x cmake-ide-compile~. Additionally, cmake-ide will automatically update your RTags index as well.
+
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
