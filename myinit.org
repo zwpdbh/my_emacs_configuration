@@ -356,6 +356,8 @@
         (setq completion-ignore-case t)
         (setq company-dabbrev-downcase 0)
         (setq company-idle-delay 0.01)
+        (define-key c-mode-map [(tab)] 'company-complete)
+        (define-key c++-mode-map [(tab)] 'company-complete)
         (add-hook 'after-init-hook 'global-company-mode)))
   #+END_SRC
 
@@ -1081,6 +1083,19 @@
          
          (add-hook 'irony-mode-hook 'my-irony-mode-hook)
          (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
+
+     (use-package company-irony
+       :ensure t
+       :config
+       (progn
+         (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+         (setq company-backend (delete 'company-semantic company-backend))
+         (eval-after-load 'company
+           '(add-to-list 'company-backend 'company-irony))))
+
+     ;;  Like RTags, Irony requires a compilation database. To create one run the following:
+     ;; $ cd /path/to/project/root
+     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
    #+END_SRC
 ** Syntax checking with Flycheck
 ** CMake automation with cmake-ide   
