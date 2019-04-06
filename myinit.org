@@ -1033,68 +1033,39 @@
      - C-<left or right arrow>, surp or barf
      - C-M-f, C-M-b Move to the opening/closing parenthesis.
 * C/C++ programming
-  Referenced from [[https://tuhdo.github.io/c-ide.html#orgheadline1][Emacs mini manual series]].
-** source code navigation
+  [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]]
+** Source code navigation using RTags
    #+BEGIN_SRC emacs-lisp
-     ;; before using helm-gtags, remember to create a GTAGS database by running
-     ;; gtags at your project root in terminal
-     (use-package helm-gtags
-       :init
-       (progn
-         (use-package helm
-           :ensure t))
+     (use-package rtags
        :ensure t
        :config
-       (progn
-         ;; enable helm-gtags-mode 
-         (add-hook 'dired-mode-hook 'helm-gtags-mode)
-         (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-         (add-hook 'c-mode-hook 'helm-gtags-mode)
-         (add-hook 'c++-mode-hook 'helm-gtags-mode)
-         (add-hook 'asm-mode-hook 'helm-gtags-mode)
-         
-         (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-         (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-         (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-         (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-         (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-         (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
+       (use-package company-rtags
+         :ensure t
+         :config
+         (progn
+           (setq rtags-completions-enabled t)
+           (eval-after-load 'company
+             '(add-to-list
+               'company-backends 'company-rtags))
+           (setq rtags-autostart-diagnostics t)
+           (rtags-enable-standard-keybindings)
+           
+           (use-package helm-rtags
+             :ensure t)
+           (setq rtags-use-helm t))))
+
+     ;; Before using RTags you need to start rdm and index your project. In order to index your project, RTags requires you to export your project's compile commands with cmake.
+
+     ;; $ rdm &
+     ;; $ cd /path/to/project/root
+     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+     ;; $ rc -J .
    #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** Source code completion using Clang
-   To use company-mode with Clang
-   #+BEGIN_SRC emacs-lisp
-     (setq company-backend (delete 'company-semantic company-backends))
-     (define-key c-mode-map [(tab)] 'company-complete)
-     (define-key c++-mode-map [(tab)] 'company-complete)
-   #+END_SRC
-
-   To retrieve completion candidates for your projects, you will have to tell Clang where your include paths are. Create a file named =.dir-locals.el= at your project root:
-   #+header: :eval "no"
-   #+BEGIN_SRC emacs-lisp
-     ;; ((nil . ((company-clang-arguments . ("-I/home/<user>/project_root/include1/"
-     ;;                                      "-I/home/<user>/project_root/include2/")))))
-
-     ;; To enable project local header file completion, see company-c-headers package 
-     ;; (add-to-list 'company-c-headers-path-user "<your_local_header_path>")
-   #+END_SRC
-
-** Header file completion with company-c-header package
-   #+BEGIN_SRC emacs-lisp
-     (use-package company-c-headers
-       :ensure t
-       :config
-       (progn
-         ;; To enable C++ header completion for standard libraries, you have to add its path
-         ;; (add-to-list 'company-c-headers-path-system "/usr/include/c++/7.3.0/")
-         (add-to-list 'company-backend 'company-c-headers)))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** CEDET
    
+   
+** Source code completion using Irony
+   #+BEGIN_SRC emacs-lisp
+   
+   #+END_SRC
+** Syntax checking with Flycheck
+** CMake automation with cmake-ide   
