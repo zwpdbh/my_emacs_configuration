@@ -347,7 +347,9 @@
         (setq completion-ignore-case t)
         (setq company-dabbrev-downcase 0)
         (setq company-idle-delay 0.01)
-        (add-hook 'after-init-hook 'global-company-mode)))
+        (add-hook 'after-init-hook 'global-company-mode)
+        (define-key company-active-map [tab] 'company-complete-selection)
+        (define-key company-active-map (kbd "<tab>") 'company-complete-selection)))
   #+END_SRC
 
   #+RESULTS:
@@ -817,12 +819,22 @@
            (progn
              (add-hook 'js2-mode-hook #'js2-refactor-mode)
              (js2r-add-keybindings-with-prefix "C-c C-r")
-             (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))))
+             (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+         (use-package prettier-js
+           :ensure t
+           :config
+           (progn
+             (setq js-indent-level 2)
+             (add-hook 'js2-mode-hook 'prettier-js-mode)
+             (add-hook 'web-mode-hook 'prettier-js-mode)))))
 
    #+END_SRC
 
    #+RESULTS:
    : t
+
+
+
    - Using js2-refactor
      - It is a javascript refactoring libary for emacs
      - see full list of keybindings [[https://github.com/magnars/js2-refactor.el][README]]
@@ -875,6 +887,7 @@
        - elpy-goto-definition
        - pop-tag-mar
      - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
+     - [[https://elpy.readthedocs.io/en/latest/ide.html#][elpy ide features]]
 	 
    #+BEGIN_SRC emacs-lisp
      ;; need to pip install jedi epc
@@ -883,28 +896,28 @@
        :ensure t
        :init
        (progn
-	 ;; Notic to check the jedi package may require the jedi to be installed via python2!
-	 ;; pip install jedi epc
-	 (use-package company-jedi
-	   ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-	   :ensure t
-	   :config
-	   (progn
-	     (add-hook 'python-mode-hook (lambda ()
-					   (progn
-					     (jedi:setup)
-					     (add-to-list 'company-backend 'company-jedi))))))
+         ;; Notic to check the jedi package may require the jedi to be installed via python2!
+         ;; pip install jedi epc
+         (use-package company-jedi
+           ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
+           :ensure t
+           :config
+           (progn
+             (add-hook 'python-mode-hook (lambda ()
+                                           (progn
+                                             (jedi:setup)
+                                             (add-to-list 'company-backend 'company-jedi))))))
 
-	 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-	 ;; (setq elpy-rpc-backed "company-jedi")
-	 (elpy-enable))
+         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+         ;; (setq elpy-rpc-backed "company-jedi")
+         (elpy-enable))
 
        :config
        (progn
-	 (add-hook 'python-mode-hook 'elpy-mode)
-	 (with-eval-after-load 'elpy
-	   (setq python-shell-interpreter "ipython"
-		 python-shell-interpreter-args "-i --simple-prompt")))
+         (add-hook 'python-mode-hook 'elpy-mode)
+         (with-eval-after-load 'elpy
+           (setq python-shell-interpreter "ipython"
+                 python-shell-interpreter-args "-i --simple-prompt")))
 
        :bind
        (("M-*" . pop-tag-mark)))
