@@ -492,7 +492,6 @@
        :init
        :config
        (progn
-	 (require 'org-tempo)
 	 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 	 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
@@ -618,6 +617,7 @@
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
 
+     ;; (require 'org-tempo)
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
