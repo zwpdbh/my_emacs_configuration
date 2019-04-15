@@ -118,6 +118,15 @@
    #+RESULTS:
    : t
 
+** use y-or-n 
+   #+begin_src emacs-lisp
+     (fset 'yes-or-no-p 'y-or-n-p)
+
+   #+end_src
+
+   #+RESULTS:
+   : y-or-n-p
+
 ** set adaptive-wrap
    #+BEGIN_SRC emacs-lisp
      (use-package adaptive-wrap
@@ -826,22 +835,22 @@
        :ensure t
        :config
        (progn    
-         (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-         (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
-         (use-package js2-refactor
-           :ensure t
-           :config
-           (progn
-             (add-hook 'js2-mode-hook #'js2-refactor-mode)
-             (js2r-add-keybindings-with-prefix "C-c C-r")
-             (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-         (use-package prettier-js
-           :ensure t
-           :config
-           (progn
-             (setq js-indent-level 2)
-             (add-hook 'js2-mode-hook 'prettier-js-mode)
-             (add-hook 'web-mode-hook 'prettier-js-mode)))))
+	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+	 (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+	 (use-package js2-refactor
+	   :ensure t
+	   :config
+	   (progn
+	     (add-hook 'js2-mode-hook #'js2-refactor-mode)
+	     (js2r-add-keybindings-with-prefix "C-c C-r")
+	     (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+	 (use-package prettier-js
+	   :ensure t
+	   :config
+	   (progn
+	     (setq js-indent-level 2)
+	     (add-hook 'js2-mode-hook 'prettier-js-mode)
+	     (add-hook 'web-mode-hook 'prettier-js-mode)))))
 
    #+END_SRC
 
@@ -888,7 +897,15 @@
    Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
    #+BEGIN_SRC emacs-lisp
      (use-package indium
-       :ensure t)
+       :ensure t
+       :config
+       (progn
+	 (add-hook 'js2-mode-hook
+		   (lambda ()
+		     (local-set-key (kbd "C-c c") #'indium-connect)
+		     (local-set-key (kbd "C-c b") #'indium-add-breakpoint)
+		     (local-set-key (kbd "C-c r") #'indium-remove-breakpoint)
+		     (local-set-key (kbd "C-c l") #'indium-launch)))))
    #+END_SRC
 
    #+RESULTS:
@@ -1151,3 +1168,10 @@
 
   #+RESULTS:
 
+* Magit
+  #+begin_src emacs-lisp
+    (use-package magit
+      :ensure t)
+  #+end_src
+
+  #+RESULTS:
