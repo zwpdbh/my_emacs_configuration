@@ -872,6 +872,8 @@ m
 	(progn
 	  (setq python-shell-interpreter "python3")
 	  (add-hook 'python-mode-hook #'lsp)
+	  (add-hook 'python-mode-hook (lambda ()
+					(setq lsp-enable-eldoc nil)))
 	  (use-package anaconda-mode
 	    :ensure t
 	    :config
