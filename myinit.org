@@ -688,15 +688,26 @@ m
 	:ensure t
 	:config
 	(progn
-	  (add-hook 'js2-mode-hook #'lsp-mode)
+	  (setq lsp-message-project-root-warning t)
 
 	  (use-package lsp-ui
 	    :ensure t
 	    :config
 	    (progn
+	      (setq lsp-ui-sideline-ignore-duplicate t)
 	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 	      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+
+	  (use-package company-lsp
+	    :ensure t
+	    :config
+	    (progn
+	      (setq company-lsp-cache-candidates nil)
+	      (setq company-lsp-async t)
+	      (setq company-lsp-enable-recompletion t)
+	      ;; add company-lsp as backed
+	      (add-to-list 'company-backend 'company-lsp)))
 
 	  (use-package dap-mode
 	    :ensure t
@@ -706,15 +717,7 @@ m
 	      (dap-ui-mode 1)
 	      (require 'dap-hydra)
 	      (require 'dap-gdb-lldb)
-	      (require 'dap-firefox)))
-
-	  (use-package company-lsp
-	    :ensure t
-	    :config
-	    (progn
-	      (setq company-lsp-cache-candidates nil)
-	      (setq company-lsp-async t)
-	      (setq company-lsp-enable-recompletion t)))))
+	      (require 'dap-firefox)))))
 
 	      #+end_src
 *** Aggressive-indent-mode
@@ -870,8 +873,9 @@ m
 	(progn
 	  (add-hook 'python-mode-hook #'anaconda-mode)
 	  (add-hook 'python-mode-hook #'anaconda-eldoc-mode)
-	  (add-hook 'python-mode-hooko #'lsp)
-    
+	  (add-hook 'python-mode-hooko (lambda ()
+					 (lsp-python-enable)))
+
 	  (use-package company-anaconda
 	    :ensure t
 	    :config
