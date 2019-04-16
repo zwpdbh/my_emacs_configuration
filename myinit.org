@@ -432,21 +432,6 @@
   #+RESULTS:
   : t
 
-* Aggressive-indent-mode
-  #+BEGIN_SRC emacs-lisp
-    (use-package aggressive-indent
-      :ensure t
-      :config
-      (progn
-        ;; active it for specific mode
-        (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-        ;; deactive it for specific mode
-        (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
-  #+END_SRC
-
-  #+RESULTS:
-  : t
-
 * Ace-window
   #+begin_src emacs-lisp
     (use-package ace-window
@@ -482,122 +467,6 @@
 
   #+RESULTS:
   : t
-
-* Lisp programming configuration
-** Eldoc to show argument list
-   #+begin_src emacs-lisp
-     (use-package eldoc
-       :defer t
-       :ensure t
-       :init
-       :config
-       (progn
-	 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-	 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-	 ;; highlight eldoc arguments in emacslisp
-	 (defun eldoc-get-arg-index ()
-	   (save-excursion
-	     (let ((fn (eldoc-fnsym-in-current-sexp))
-		   (i 0))
-	       (unless (memq (char-syntax (char-before)) '(32 39)) ; ? , ?'
-		 (condition-case err
-		     (backward-sexp)             ;for safety
-		   (error 1)))
-	       (condition-case err
-		   (while (not (equal fn (eldoc-current-symbol)))
-		     (setq i (1+ i))
-		     (backward-sexp))
-		 (error 1))
-	       (max 0 i))))
-
-	 (defun eldoc-highlight-nth-arg (doc n)
-	   (cond ((null doc) "")
-		 ((<= n 0) doc)
-		 (t
-		  (let ((i 0))
-		    (mapconcat
-		     (lambda (arg)
-		       (if (member arg '("&optional" "&rest"))
-			   arg
-			 (prog2
-			     (if (= i n)
-				 (put-text-property 0 (length arg) 'face 'underline arg))
-			     arg
-			   (setq i (1+ i)))))
-		     (split-string doc) " ")))))
-
-	 (defadvice eldoc-get-fnsym-args-string (around highlight activate)
-	   ""
-	   (setq ad-return-value (eldoc-highlight-nth-arg ad-do-it
-							  (eldoc-get-arg-index))))))
-   #+end_src
-
-   #+RESULTS:
-   : t
-
-** Common-lisp
-   #+begin_src emacs-lisp
-     (use-package sly
-       :ensure t
-       :config
-       (progn
-         ;; (setq sly-lisp-implementations
-         ;;       '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
-         ;;         ))
-         (setq inferior-lisp-program "clisp"
-               exec-path (append exec-path
-                                 '("/usr/local/bin")))))
-
-   #+end_src
-
-   #+RESULTS:
-   : t
-
-** Racket
-   #+begin_src emacs-lisp
-     (use-package racket-mode
-       :mode "\\.racket\\'"
-       :ensure t
-       :config
-       (progn
-	 (if (string-equal system-type "windows-nt")
-	     (setq racket-program "c:/Program Files/Racket/Racket.exe")
-	   (setq racket-program "/Applications/Racket_v7.0/bin/racket"))
-	 (add-hook 'racket-mode-hook
-		   (lambda ()
-		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
-	 (setq tab-always-indent 'complete)
-	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
-	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
-
-	 ;; setup file ending in ".scheme" to open in racket-mode 
-	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))))
-   #+end_src
-
-   #+RESULTS:
-   : t
-
-* Scala programming
-** ensime
-   #+begin_src emacs-lisp
-     (use-package ensime
-       :mode "\\.scala\\'"
-       :init 
-       (if (string-equal system-type "windows-nt")
-	   (progn
-	     (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
-	     (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
-	 (setq exec-path (append exec-path '("/usr/local/bin"))))
-       :ensure t
-       :config
-       (progn
-	 ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-	 (add-hook 'scala-mode-hook 'ensime-mode)))
-   #+end_src
-
-   #+RESULTS:
-   : t
 
 * Org mode enhancement
 ** key binding for org mode
@@ -807,180 +676,6 @@
       (setq web-mode-enable-css-colorization t))
 
   #+END_SRC
-* Typescript with Tide
-  #+BEGIN_SRC emacs-lisp
-    (use-package tide
-      :ensure t
-      :config
-      (progn
-        (defun setup-tide-mode ()
-          (interactive)
-          (tide-setup)
-          (flycheck-mode +1)
-          (setq flycheck-check-syntax-automatically '(save mode-enabled))
-          (eldoc-mode +1)
-          (tide-hl-identifier-mode +1)
-          (indent-guide-mode +1)
-          (company-mode +1))
-
-        ;; aligns annotation to the right hand side
-        (setq company-tooltip-align-annotations t)
-
-        ;; formats the buffer before saving
-        (add-hook 'before-save-hook 'tide-format-before-save)
-        (add-hook 'typescript-mode-hook #'setup-tide-mode)))
-  #+END_SRC
-
-  #+RESULTS:
-  : t
-
-* Javascript
-** setting up js2-mode
-   #+BEGIN_SRC emacs-lisp
-     (use-package js2-mode
-       :ensure t
-       :config
-       (progn    
-	 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-	 (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
-	 (use-package js2-refactor
-	   :ensure t
-	   :config
-	   (progn
-	     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-	     (js2r-add-keybindings-with-prefix "C-c C-r")
-	     (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-	 (use-package prettier-js
-	   :ensure t
-	   :config
-	   (progn
-	     (setq js-indent-level 2)
-	     (add-hook 'js2-mode-hook 'prettier-js-mode)
-	     (add-hook 'web-mode-hook 'prettier-js-mode)))))
-
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-
-
-   - Using js2-refactor
-     - It is a javascript refactoring libary for emacs
-     - see full list of keybindings [[https://github.com/magnars/js2-refactor.el][README]]
-   - Using xref-js2
-     - It supports for quickly jumping to function definitions or references to JavaScript projects in Emacs
-     - Keybindings
-       - M-. jump to definition
-       - M-? jump to references
-       - M-, Pop back to where M. was last invoked.
-
-** setting up term and company-mode for auto-completion
-   - Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
-   - You need to install tern on your localhost: npm install -g tern
-   #+BEGIN_SRC emacs-lisp
-     (use-package tern
-       :ensure t
-       :ensure company-tern
-       :config
-       (progn
-         (add-hook 'js2-mode-hook (lambda ()
-                                    (tern-mode)
-                                    (company-mode)))
-         
-         (use-package company-tern
-           :ensure t
-           :config
-           (progn
-             (add-to-list 'company-backend 'company-tern)))))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** setting up Indium
-   You need to run: "npm install -g indium gulp" to use it.
-   Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
-   #+BEGIN_SRC emacs-lisp
-     (use-package indium
-       :ensure t
-       :config
-       (progn
-	 (add-hook 'js2-mode-hook
-		   (lambda ()
-		     (local-set-key (kbd "C-c c") #'indium-connect)
-		     (local-set-key (kbd "C-c b") #'indium-add-breakpoint)
-		     (local-set-key (kbd "C-c r") #'indium-remove-breakpoint)
-		     (local-set-key (kbd "C-c l") #'indium-launch)))))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-* Python development
-** elpy
-   - simple usage
-     - show function signature, get docs: elpy-dock
-     - code navigation, navigate code by treating them as hyperlinks:
-       - elpy-goto-definition
-       - pop-tag-mar
-     - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
-     - [[https://elpy.readthedocs.io/en/latest/ide.html#][elpy ide features]]
-	 
-   #+BEGIN_SRC emacs-lisp
-     ;; need to pip install jedi epc
-     ;; use M-x elpy-config to check the corresponding configurations
-     (use-package elpy
-       :ensure t
-       :init
-       (progn
-         ;; Notic to check the jedi package may require the jedi to be installed via python2!
-         ;; pip install jedi epc
-         (use-package company-jedi
-           ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-           :ensure t
-           :config
-           (progn
-             (add-hook 'python-mode-hook (lambda ()
-                                           (progn
-                                             (jedi:setup)
-                                             (add-to-list 'company-backend 'company-jedi))))))
-
-         (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-         ;; (setq elpy-rpc-backed "company-jedi")
-         (elpy-enable))
-
-       :config
-       (progn
-         (add-hook 'python-mode-hook 'elpy-mode)
-         (with-eval-after-load 'elpy
-           (setq python-shell-interpreter "ipython"
-                 python-shell-interpreter-args "-i --simple-prompt")))
-
-       :bind
-       (("M-*" . pop-tag-mark)))
-   #+END_SRC
-
-   #+RESULTS:
-   : pop-tag-mark
-   
-** Debugging
-   Debugg using pdb
-   #+BEGIN_SRC python
-     # import ipd
-     # ipdb.set_trace ()
-   #+END_SRC
-
-** Test Integration
-   Configure your test Runner
-   M-x elpy-set-test-runner
-   C-c C-t  ;; runs test/ all tests
-
-** Virtual Environment
-   Elpy comes with pyvenv
-   - M-x pyvenv-workon
-   - M-x pyvenv-activate
-   - M-x pyvenv-deactive
 * JSON-mode
   Major mode for editing JSON files
   #+BEGIN_SRC emacs-lisp
@@ -990,172 +685,6 @@
   #+END_SRC
 
   #+RESULTS:
-
-* Clojure programming
-** CIDER
-   It is the Clojure(Script) Interactive Development Environment.
-   #+BEGIN_SRC emacs-lisp
-     (use-package cider
-       :ensure t
-       :config
-       (progn
-         (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-         (add-hook 'cider-repl-mode-hook #'subword-mode)
-         (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-         (use-package helm-cider
-           :ensure t
-           :config
-           (progn
-             (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-   
-** Clojure-mode
-   #+BEGIN_SRC emacs-lisp
-     (use-package clojure-mode
-       :ensure t
-       :config
-       (progn
-         (setq clojure-align-forms-automatically t)
-         ;; make moving between characters faster
-         (add-hook 'clojure-mode-hook #'subword-mode)
-         ;; use paredit or smartparens 
-         (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-         (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-         (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
-
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-   
-** Userful key-bindings in Clojure programming
-   - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
-   - M-. will navigate to the source code for the symbol under point
-   - M-, will return you to your original buffer and position
-   - C-c C-d C-a lets you search for arbitrary text across function names and documentation
-   - For paredit
-     - M-( Surround expression after point in parentheses (paredit-wrap-round).
-     - C-<left or right arrow>, surp or barf
-     - C-M-f, C-M-b Move to the opening/closing parenthesis.
-* C/C++ programming
-  - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
-  - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
-  - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (not read through yet)
-
-** Source code navigation using RTags
-   #+BEGIN_SRC emacs-lisp
-     (use-package rtags
-       :ensure t
-       :config
-       (use-package company-rtags
-         :ensure t
-         :config
-         (progn
-           (setq rtags-completions-enabled t)
-           (eval-after-load 'company
-             '(add-to-list
-               'company-backends 'company-rtags))
-           (setq rtags-autostart-diagnostics t)
-           (rtags-enable-standard-keybindings)
-           
-           (use-package helm-rtags
-             :ensure t)
-           (setq rtags-use-helm t))))
-
-     ;; Before using RTags you need to start rdm and index your project. In order to index your project, RTags requires you to export your project's compile commands with cmake.
-
-     ;; $ rdm &
-     ;; $ cd /path/to/project/root
-     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-     ;; $ rc -J .
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** Source code completion using Irony
-   #+BEGIN_SRC emacs-lisp
-     ;;  Like RTags, Irony requires a compilation database. To create one run the following:
-     ;; $ cd /path/to/project/root
-     ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-
-     (use-package irony
-       :ensure
-       :config
-       (progn
-         (add-hook 'c++-mode-hook 'irony-mode)
-         (add-hook 'c-mode-hook 'irony-mode)
-         
-         (defun my-irony-mode-hook ()
-           (define-key irony-mode-map [remap completion-at-point]
-             'irony-completion-at-point-async)
-           (define-key irony-mode-map [remap complete-symbol]
-             'irony-completion-at-point-async))
-         
-         (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-         (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
-
-     (use-package company-irony
-       :ensure t
-       :config
-       (progn
-         (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
-         (setq company-backend (delete 'company-semantic company-backend))
-         (use-package company-irony-c-headers
-           :ensure t)
-         (eval-after-load 'company
-           '(add-to-list 'company-backend '(company-irony-c-headers company-irony)))))
-
-
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** Syntax checking with Flycheck
-   #+BEGIN_SRC emacs-lisp
-     (use-package flycheck-rtags
-       :ensure t
-       :config
-       (progn
-         (add-hook 'c++-mode-hook 'flycheck-mode)
-         (add-hook 'c-mode-hook 'flycheck-mode)
-         
-         (defun my-flycheck-rtags-setup ()
-           (flycheck-select-checker 'rtags)
-           (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-           (setq-local flycheck-check-syntax-automatically nil))
-         
-         ;; c-mode-common-hook is also called by c++-mode
-         (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
-         
-         (eval-after-load 'flycheck
-           '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** CMake automation with cmake-ide   
-   #+BEGIN_SRC emacs-lisp
-     (use-package cmake-ide
-       :ensure t
-       :config
-       (progn
-         (cmake-ide-setup)))
-
-     ;; To have cmake-ide automatically create a compilation commands file in your project root create a .dir-locals.el containing the following:
-     ;; ((nil . ((cmake-ide-build-dir . "<PATH_TO_PROJECT_BUILD_DIRECTORY>"))))
-     ;; build your project using ~M-x cmake-ide-compile~. Additionally, cmake-ide will automatically update your RTags index as well.
-
-   #+END_SRC
-
-   #+RESULTS:
-   : t
 
 * Markdown 
   - sudo apt install pandoc
@@ -1181,4 +710,519 @@
   #+end_src
 
   #+RESULTS:
+
+* Programming
+** Common features
+*** lsp and dap
+    #+begin_src emacs-lisp
+     (use-package lsp-mode
+       :ensure t
+       :config
+       (progn
+	 (use-package lsp-ui
+	   :ensure t
+	   :config
+	   (progn
+	     (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+	     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+	     (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+    
+	 (use-package company-lsp
+	   :ensure t)
+    
+	 (use-package dap-mode
+	   :ensure t
+	   :config
+	   (progn
+	     (dap-mode)
+	     (dap-ui-mode)))))
+
+
+
+
+
+
+    #+end_src
+*** Aggressive-indent-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package aggressive-indent
+	:ensure t
+	:config
+	(progn
+	  ;; active it for specific mode
+	  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+	  (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
+	  ;; deactive it for specific mode
+	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+** Lisp programming configuration
+*** Eldoc to show argument list
+    #+begin_src emacs-lisp
+      (use-package eldoc
+	:defer t
+	:ensure t
+	:init
+	:config
+	(progn
+	  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+	  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+	  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+	  ;; highlight eldoc arguments in emacslisp
+	  (defun eldoc-get-arg-index ()
+	    (save-excursion
+	      (let ((fn (eldoc-fnsym-in-current-sexp))
+		    (i 0))
+		(unless (memq (char-syntax (char-before)) '(32 39)) ; ? , ?'
+		  (condition-case err
+		      (backward-sexp)             ;for safety
+		    (error 1)))
+		(condition-case err
+		    (while (not (equal fn (eldoc-current-symbol)))
+		      (setq i (1+ i))
+		      (backward-sexp))
+		  (error 1))
+		(max 0 i))))
+
+	  (defun eldoc-highlight-nth-arg (doc n)
+	    (cond ((null doc) "")
+		  ((<= n 0) doc)
+		  (t
+		   (let ((i 0))
+		     (mapconcat
+		      (lambda (arg)
+			(if (member arg '("&optional" "&rest"))
+			    arg
+			  (prog2
+			      (if (= i n)
+				  (put-text-property 0 (length arg) 'face 'underline arg))
+			      arg
+			    (setq i (1+ i)))))
+		      (split-string doc) " ")))))
+
+	  (defadvice eldoc-get-fnsym-args-string (around highlight activate)
+	    ""
+	    (setq ad-return-value (eldoc-highlight-nth-arg ad-do-it
+							   (eldoc-get-arg-index))))))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** Common-lisp
+    #+begin_src emacs-lisp
+      (use-package sly
+	:ensure t
+	:config
+	(progn
+          ;; (setq sly-lisp-implementations
+          ;;       '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
+          ;;         ))
+          (setq inferior-lisp-program "clisp"
+		exec-path (append exec-path
+                                  '("/usr/local/bin")))))
+
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** Racket
+    #+begin_src emacs-lisp
+      (use-package racket-mode
+	:mode "\\.racket\\'"
+	:ensure t
+	:config
+	(progn
+	  (if (string-equal system-type "windows-nt")
+	      (setq racket-program "c:/Program Files/Racket/Racket.exe")
+	    (setq racket-program "/Applications/Racket_v7.0/bin/racket"))
+	  (add-hook 'racket-mode-hook
+		    (lambda ()
+		      (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+	  (setq tab-always-indent 'complete)
+	  (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+	  (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+
+	  ;; setup file ending in ".scheme" to open in racket-mode 
+	  (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** Scheme
+    #+begin_src emacs-lisp
+      (use-package geiser
+	:ensure t
+	:config
+	(progn
+	  (add-hook 'scheme-mode-hook #'geiser-mode--maybe-activate)
+	  (setq geiser-active-implementations '(guile))
+	  (setq geiser-mode-start-repl-p t)))
+
+    #+end_src
+** Scala programming
+*** ensime
+    #+begin_src emacs-lisp
+      (use-package ensime
+	:mode "\\.scala\\'"
+	:init 
+	(if (string-equal system-type "windows-nt")
+	    (progn
+	      (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
+	      (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
+	  (setq exec-path (append exec-path '("/usr/local/bin"))))
+	:ensure t
+	:config
+	(progn
+	  ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+	  (add-hook 'scala-mode-hook 'ensime-mode)))
+    #+end_src
+
+    #+RESULTS:
+    : t
+    
+** Python development
+*** elpy
+    - simple usage
+      - show function signature, get docs: elpy-dock
+      - code navigation, navigate code by treating them as hyperlinks:
+	- elpy-goto-definition
+	- pop-tag-mar
+      - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
+      - [[https://elpy.readthedocs.io/en/latest/ide.html#][elpy ide features]]
+	 
+    #+BEGIN_SRC emacs-lisp
+      ;; need to pip install jedi epc
+      ;; use M-x elpy-config to check the corresponding configurations
+      (use-package elpy
+	:ensure t
+	:init
+	(progn
+          ;; Notic to check the jedi package may require the jedi to be installed via python2!
+          ;; pip install jedi epc
+          (use-package company-jedi
+            ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
+            :ensure t
+            :config
+            (progn
+              (add-hook 'python-mode-hook (lambda ()
+                                            (progn
+                                              (jedi:setup)
+                                              (add-to-list 'company-backend 'company-jedi))))))
+
+          (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+          ;; (setq elpy-rpc-backed "company-jedi")
+          (elpy-enable))
+
+	:config
+	(progn
+          (add-hook 'python-mode-hook 'elpy-mode)
+          (with-eval-after-load 'elpy
+            (setq python-shell-interpreter "ipython"
+                  python-shell-interpreter-args "-i --simple-prompt")))
+
+	:bind
+	(("M-*" . pop-tag-mark)))
+    #+END_SRC
+
+    #+RESULTS:
+    : pop-tag-mark
+   
+*** Debugging
+    Debugg using pdb
+    #+BEGIN_SRC python
+      # import ipd
+      # ipdb.set_trace ()
+    #+END_SRC
+
+*** Test Integration
+    Configure your test Runner
+    M-x elpy-set-test-runner
+    C-c C-t  ;; runs test/ all tests
+
+*** Virtual Environment
+    Elpy comes with pyvenv
+    - M-x pyvenv-workon
+    - M-x pyvenv-activate
+    - M-x pyvenv-deactive
+** Javascript
+*** setting up js2-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package js2-mode
+	:ensure t
+	:config
+	(progn    
+	  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+	  (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+	  (use-package js2-refactor
+	    :ensure t
+	    :config
+	    (progn
+	      (add-hook 'js2-mode-hook #'js2-refactor-mode)
+	      (js2r-add-keybindings-with-prefix "C-c C-r")
+	      (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+	  (use-package prettier-js
+	    :ensure t
+	    :config
+	    (progn
+	      (setq js-indent-level 2)
+	      (add-hook 'js2-mode-hook 'prettier-js-mode)
+	      (add-hook 'web-mode-hook 'prettier-js-mode)))))
+
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+
+
+    - Using js2-refactor
+      - It is a javascript refactoring libary for emacs
+      - see full list of keybindings [[https://github.com/magnars/js2-refactor.el][README]]
+    - Using xref-js2
+      - It supports for quickly jumping to function definitions or references to JavaScript projects in Emacs
+      - Keybindings
+	- M-. jump to definition
+	- M-? jump to references
+	- M-, Pop back to where M. was last invoked.
+
+*** setting up term and company-mode for auto-completion
+    - Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
+    - You need to install tern on your localhost: npm install -g tern
+    #+BEGIN_SRC emacs-lisp
+      (use-package tern
+	:ensure t
+	:ensure company-tern
+	:config
+	(progn
+          (add-hook 'js2-mode-hook (lambda ()
+                                     (tern-mode)
+                                     (company-mode)))
+         
+          (use-package company-tern
+            :ensure t
+            :config
+            (progn
+              (add-to-list 'company-backend 'company-tern)))))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** setting up Indium
+    You need to run: "npm install -g indium gulp" to use it.
+    Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
+    #+BEGIN_SRC emacs-lisp
+      (use-package indium
+	:ensure t
+	:config
+	(progn
+	  (add-hook 'js2-mode-hook
+		    (lambda ()
+		      (local-set-key (kbd "C-c c") #'indium-connect)
+		      (local-set-key (kbd "C-c b") #'indium-add-breakpoint)
+		      (local-set-key (kbd "C-c r") #'indium-remove-breakpoint)
+		      (local-set-key (kbd "C-c l") #'indium-launch)))))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+** Clojure programming
+*** CIDER
+    It is the Clojure(Script) Interactive Development Environment.
+    #+BEGIN_SRC emacs-lisp
+      (use-package cider
+	:ensure t
+	:config
+	(progn
+          (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+          (add-hook 'cider-repl-mode-hook #'subword-mode)
+          (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+          (use-package helm-cider
+            :ensure t
+            :config
+            (progn
+              (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+   
+*** Clojure-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package clojure-mode
+	:ensure t
+	:config
+	(progn
+          (setq clojure-align-forms-automatically t)
+          ;; make moving between characters faster
+          (add-hook 'clojure-mode-hook #'subword-mode)
+          ;; use paredit or smartparens 
+          (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+          (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
+
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+   
+*** Userful key-bindings in Clojure programming
+    - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
+    - M-. will navigate to the source code for the symbol under point
+    - M-, will return you to your original buffer and position
+    - C-c C-d C-a lets you search for arbitrary text across function names and documentation
+    - For paredit
+      - M-( Surround expression after point in parentheses (paredit-wrap-round).
+      - C-<left or right arrow>, surp or barf
+      - C-M-f, C-M-b Move to the opening/closing parenthesis.
+** C/C++ programming
+   - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
+   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
+   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (not read through yet)
+
+*** Source code navigation using RTags
+    #+BEGIN_SRC emacs-lisp
+      (use-package rtags
+	:ensure t
+	:config
+	(use-package company-rtags
+          :ensure t
+          :config
+          (progn
+            (setq rtags-completions-enabled t)
+            (eval-after-load 'company
+              '(add-to-list
+		'company-backends 'company-rtags))
+            (setq rtags-autostart-diagnostics t)
+            (rtags-enable-standard-keybindings)
+           
+            (use-package helm-rtags
+              :ensure t)
+            (setq rtags-use-helm t))))
+
+      ;; Before using RTags you need to start rdm and index your project. In order to index your project, RTags requires you to export your project's compile commands with cmake.
+
+      ;; $ rdm &
+      ;; $ cd /path/to/project/root
+      ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+      ;; $ rc -J .
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** Source code completion using Irony
+    #+BEGIN_SRC emacs-lisp
+      ;;  Like RTags, Irony requires a compilation database. To create one run the following:
+      ;; $ cd /path/to/project/root
+      ;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
+      (use-package irony
+	:ensure
+	:config
+	(progn
+          (add-hook 'c++-mode-hook 'irony-mode)
+          (add-hook 'c-mode-hook 'irony-mode)
+         
+          (defun my-irony-mode-hook ()
+            (define-key irony-mode-map [remap completion-at-point]
+              'irony-completion-at-point-async)
+            (define-key irony-mode-map [remap complete-symbol]
+              'irony-completion-at-point-async))
+         
+          (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+          (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
+
+      (use-package company-irony
+	:ensure t
+	:config
+	(progn
+          (add-hook 'irony-mode-hook #'company-irony-setup-begin-commands)
+          (setq company-backend (delete 'company-semantic company-backend))
+          (use-package company-irony-c-headers
+            :ensure t)
+          (eval-after-load 'company
+            '(add-to-list 'company-backend '(company-irony-c-headers company-irony)))))
+
+
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** Syntax checking with Flycheck
+    #+BEGIN_SRC emacs-lisp
+      (use-package flycheck-rtags
+	:ensure t
+	:config
+	(progn
+          (add-hook 'c++-mode-hook 'flycheck-mode)
+          (add-hook 'c-mode-hook 'flycheck-mode)
+         
+          (defun my-flycheck-rtags-setup ()
+            (flycheck-select-checker 'rtags)
+            (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+            (setq-local flycheck-check-syntax-automatically nil))
+         
+          ;; c-mode-common-hook is also called by c++-mode
+          (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+         
+          (eval-after-load 'flycheck
+            '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** CMake automation with cmake-ide   
+    #+BEGIN_SRC emacs-lisp
+      (use-package cmake-ide
+	:ensure t
+	:config
+	(progn
+          (cmake-ide-setup)))
+
+      ;; To have cmake-ide automatically create a compilation commands file in your project root create a .dir-locals.el containing the following:
+      ;; ((nil . ((cmake-ide-build-dir . "<PATH_TO_PROJECT_BUILD_DIRECTORY>"))))
+      ;; build your project using ~M-x cmake-ide-compile~. Additionally, cmake-ide will automatically update your RTags index as well.
+
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+** Typescript with Tide
+   #+BEGIN_SRC emacs-lisp
+     (use-package tide
+       :ensure t
+       :config
+       (progn
+         (defun setup-tide-mode ()
+           (interactive)
+           (tide-setup)
+           (flycheck-mode +1)
+           (setq flycheck-check-syntax-automatically '(save mode-enabled))
+           (eldoc-mode +1)
+           (tide-hl-identifier-mode +1)
+           (indent-guide-mode +1)
+           (company-mode +1))
+
+         ;; aligns annotation to the right hand side
+         (setq company-tooltip-align-annotations t)
+
+         ;; formats the buffer before saving
+         (add-hook 'before-save-hook 'tide-format-before-save)
+         (add-hook 'typescript-mode-hook #'setup-tide-mode)))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
 
