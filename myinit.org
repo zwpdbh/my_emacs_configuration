@@ -292,43 +292,6 @@
 
    #+RESULTS:
 
-** Autopair
-   It is good to use it to add extra characters for pairing in some specific language mode. such as Python and JS. See [[https://github.com/joaotavora/autopair][autopair]].
-   (disable it for already used smartparens)
-   #+BEGIN_SRC emacs-lisp
-     ;; (use-package autopair
-     ;;   :defer 2
-     ;;   :ensure t
-     ;;   :config
-     ;;   (progn
-     ;;     (defvar autopair-modes 
-     ;;       '(js-mode python-mode scala-mode))
-     ;;     (defun turn-on-autopair-mode () (autopair-mode 1))
-
-     ;;     (dolist (mode autopair-modes) 
-     ;;       (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode)
-     ;;       (add-hook (intern (concat (symbol-name mode) "-hook")) (lambda ()
-     ;;                                                                (push '(?\( . ?\))
-     ;;                                                                      (getf autopair-extra-pairs :code)))))
-
-     ;;     (add-hook 'typescript-mode-hook 'turn-on-autopair-mode)
-     ;;     (add-hook 'typescript-mode-hook (lambda ()
-     ;;                                       (push '(?( . ?)) 
-     ;;                                             (getf autopair-extra-pairs :code))))
-
-     ;;     ;; Autopair doesn’t make much sense when paredit-mode is turned on, 
-     ;;     ;; so it actually defers to paredit-mode when that is installed and enabled. 
-     ;;     ;; Therefore, disable autopair when paredit is turned on
-     ;;     (defadvice paredit-mode (around disable-autopairs-around (arg))
-     ;;       ad-do-it
-     ;;       (if (null ad-return-value)
-     ;;           (autopair-mode 1)
-     ;;         (autopair-mode 0)))
-     ;;     (ad-activate 'paredit-mode)))
-   #+END_SRC
-
-   #+RESULTS:
-   : t
 
 ** smartparens
    [[https://github.com/Fuco1/smartparens][smartparens]] is an excellent (newer) alternative to paredit. Many Clojure hackers have adopted it recently and you might want to give it a try as well.
@@ -469,7 +432,7 @@
   : t
 
 * Org mode enhancement
-** key binding for org mode
+** common settings
    #+BEGIN_SRC emacs-lisp
      (use-package org
        :ensure t
@@ -480,6 +443,10 @@
 	 (add-hook 'org-mode-hook
 		   (lambda () 
 		     (progn
+		       ; this function enables execution of specified language code blocks without prompting
+		       (defun my-org-confirm-babel-evaluate (lang body)
+			 (not (member lang '("emacs-lisp" "lisp"))))
+		       (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 		       (local-set-key (kbd "<f9>") #'org-global-cycle)
 		       (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))))
    #+END_SRC
@@ -497,6 +464,8 @@
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+
+
 
      (cond
       ((string-equal system-type "darwin")
@@ -892,6 +861,33 @@ m
     : t
     
 ** Python development
+*** use lsp 
+    #+begin_src emacs-lisp
+      (setq python-shell-interpreter "python3")
+      (use-package anaconda-mode
+	:ensure t
+	:config
+	(progn
+	  (add-hook 'python-mode-hook #'anaconda-mode)
+	  (add-hook 'python-mode-hook #'anaconda-eldoc-mode)
+	  (add-hook 'python-mode-hooko #'lsp)
+    
+	  (use-package company-anaconda
+	    :ensure t
+	    :config
+	    (progn
+	      (add-to-list 'company-backend 'company-anaconda)))))
+
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+    #+header 
+    #+begin_src shell
+      pip3 install python-language-server[all]
+    #+end_src
+
 *** elpy
     - simple usage
       - show function signature, get docs: elpy-dock
@@ -904,35 +900,35 @@ m
     #+BEGIN_SRC emacs-lisp
       ;; need to pip install jedi epc
       ;; use M-x elpy-config to check the corresponding configurations
-      (use-package elpy
-	:ensure t
-	:init
-	(progn
-          ;; Notic to check the jedi package may require the jedi to be installed via python2!
-          ;; pip install jedi epc
-          (use-package company-jedi
-            ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-            :ensure t
-            :config
-            (progn
-              (add-hook 'python-mode-hook (lambda ()
-                                            (progn
-                                              (jedi:setup)
-                                              (add-to-list 'company-backend 'company-jedi))))))
+      ;; (use-package elpy
+      ;;   :ensure t
+      ;;   :init
+      ;;   (progn
+      ;;     ;; Notic to check the jedi package may require the jedi to be installed via python2!
+      ;;     ;; pip install jedi epc
+      ;;     (use-package company-jedi
+      ;;       ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
+      ;;       :ensure t
+      ;;       :config
+      ;;       (progn
+      ;;         (add-hook 'python-mode-hook (lambda ()
+      ;;                                       (progn
+      ;;                                         (jedi:setup)
+      ;;                                         (add-to-list 'company-backend 'company-jedi))))))
 
-          (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-          ;; (setq elpy-rpc-backed "company-jedi")
-          (elpy-enable))
+      ;;     (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+      ;;     ;; (setq elpy-rpc-backed "company-jedi")
+      ;;     (elpy-enable))
 
-	:config
-	(progn
-          (add-hook 'python-mode-hook 'elpy-mode)
-          (with-eval-after-load 'elpy
-            (setq python-shell-interpreter "ipython"
-                  python-shell-interpreter-args "-i --simple-prompt")))
+      ;;   :config
+      ;;   (progn
+      ;;     (add-hook 'python-mode-hook 'elpy-mode)
+      ;;     (with-eval-after-load 'elpy
+      ;;       (setq python-shell-interpreter "ipython"
+      ;;             python-shell-interpreter-args "-i --simple-prompt")))
 
-	:bind
-	(("M-*" . pop-tag-mark)))
+      ;;   :bind
+      ;;   (("M-*" . pop-tag-mark)))
     #+END_SRC
 
     #+RESULTS:
