@@ -865,25 +865,25 @@ m
 ** Python development
 *** use lsp 
     #+begin_src emacs-lisp
-      (use-package python-mode
-	:ensure t
-	:config
-	(progn
-	  (setq python-shell-interpreter "python3")
-	  (add-hook 'python-mode-hook #'lsp)
-	  (add-hook 'python-mode-hook (lambda ()
-					(setq lsp-enable-eldoc nil)))
-	  (use-package anaconda-mode
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 'python-mode-hook #'anaconda-mode)
-	      (add-hook 'python-mode-hook #'anaconda-eldoc-mode)
-	      (use-package company-anaconda
-		:ensure t
-		:config
-		(progn
-		  (add-to-list 'company-backend 'company-anaconda)))))))
+      ;; (use-package python-mode
+      ;;   :ensure t
+      ;;   :config
+      ;;   (progn
+      ;;     (setq python-shell-interpreter "python3")
+      ;;     (add-hook 'python-mode-hook #'lsp)
+      ;;     (add-hook 'python-mode-hook (lambda ()
+      ;; 				  (setq lsp-enable-eldoc nil)))
+      ;;     (use-package anaconda-mode
+      ;;       :ensure t
+      ;;       :config
+      ;;       (progn
+      ;; 	(add-hook 'python-mode-hook #'anaconda-mode)
+      ;; 	(add-hook 'python-mode-hook #'anaconda-eldoc-mode)
+      ;; 	(use-package company-anaconda
+      ;; 	  :ensure t
+      ;; 	  :config
+      ;; 	  (progn
+      ;; 	    (add-to-list 'company-backend 'company-anaconda)))))))
     #+end_src
 
     #+RESULTS:
@@ -907,35 +907,36 @@ m
     #+BEGIN_SRC emacs-lisp
       ;; need to pip install jedi epc
       ;; use M-x elpy-config to check the corresponding configurations
-      ;; (use-package elpy
-      ;;   :ensure t
-      ;;   :init
-      ;;   (progn
-      ;;     ;; Notic to check the jedi package may require the jedi to be installed via python2!
-      ;;     ;; pip install jedi epc
-      ;;     (use-package company-jedi
-      ;;       ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-      ;;       :ensure t
-      ;;       :config
-      ;;       (progn
-      ;;         (add-hook 'python-mode-hook (lambda ()
-      ;;                                       (progn
-      ;;                                         (jedi:setup)
-      ;;                                         (add-to-list 'company-backend 'company-jedi))))))
 
-      ;;     (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-      ;;     ;; (setq elpy-rpc-backed "company-jedi")
-      ;;     (elpy-enable))
+      (use-package elpy
+	:ensure t
+	:init
+	(progn
+	  ;; Notic to check the jedi package may require the jedi to be installed via python2!
+	  ;; pip install jedi epc
+	  (use-package company-jedi
+	    ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
+	    :ensure t
+	    :config
+	    (progn
+	      (add-hook 'python-mode-hook (lambda ()
+					    (progn
+					      (jedi:setup)
+					      (add-to-list 'company-backend 'company-jedi))))))
 
-      ;;   :config
-      ;;   (progn
-      ;;     (add-hook 'python-mode-hook 'elpy-mode)
-      ;;     (with-eval-after-load 'elpy
-      ;;       (setq python-shell-interpreter "ipython"
-      ;;             python-shell-interpreter-args "-i --simple-prompt")))
+	  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+	  ;; (setq elpy-rpc-backed "company-jedi")
+	  (elpy-enable))
 
-      ;;   :bind
-      ;;   (("M-*" . pop-tag-mark)))
+	:config
+	(progn
+	  (add-hook 'python-mode-hook 'elpy-mode)
+	  (with-eval-after-load 'elpy
+	    (setq python-shell-interpreter "ipython"
+		  python-shell-interpreter-args "-i --simple-prompt")))
+
+	:bind
+	(("M-*" . pop-tag-mark)))
     #+END_SRC
 
     #+RESULTS:
