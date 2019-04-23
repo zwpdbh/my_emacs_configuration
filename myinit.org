@@ -418,20 +418,37 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-     (use-package org-plus-contrib
-       :ensure t
-       :config
-       (progn
-         (require 'org-eldoc)
-         (require 'org-tempo)
-         (add-hook 'org-mode-hook
-                   (lambda () 
-                     (progn
-                       (defun my-org-confirm-babel-evaluate (lang body)
-                         (not (member lang '("emacs-lisp" "lisp"))))
-                       (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-                       (local-set-key (kbd "<f9>") #'org-global-cycle)
-                       (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))))
+     (if (version< emacs-version "26")
+	 (progn
+	   (use-package org-plus-contrib
+	     :ensure t
+	     :config
+	     (progn
+	       (require 'org-eldoc)
+	       (require 'org-tempo)))))
+
+     (add-hook 'org-mode-hook (lambda ()
+				(progn
+				  (defun my-org-confirm-babel-evaluate (lang body)
+				    (not (member lang '("emacs-lisp" "lisp"))))
+				  (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+				  (local-set-key (kbd "<f9>") #'org-global-cycle)
+				  (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))
+
+     ;; (use-package org-plus-contrib
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (require 'org-eldoc)
+     ;;     (require 'org-tempo)
+     ;;     (add-hook 'org-mode-hook
+     ;;               (lambda () 
+     ;;                 (progn
+     ;;                   (defun my-org-confirm-babel-evaluate (lang body)
+     ;;                     (not (member lang '("emacs-lisp" "lisp"))))
+     ;;                   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+     ;;                   (local-set-key (kbd "<f9>") #'org-global-cycle)
+     ;;                   (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))))
    #+END_SRC
 
    #+RESULTS:
