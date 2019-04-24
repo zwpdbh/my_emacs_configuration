@@ -456,6 +456,8 @@
 
 
 ** make code-block could be executed in org-mode
+   If you find Org-Mode Evaluation of code is disabled, do:
+   ~find ~/.emacs.d/elpa/org* -name "*elc" -delete~
    #+begin_src emacs-lisp
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
