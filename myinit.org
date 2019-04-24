@@ -15,12 +15,20 @@
    | lambda | nil | (add-to-list (quote align-rules-list) (quote (text-column-whitespace (regexp . \(^\ | \S-\)\([ \n]+\)) (group . 2) (modes . align-text-modes) (repeat . t)))) |
 
 ** set font
+   - Install Monaco font in Ubuntu:
+     - check [[https://github.com/cstrap/monaco-font][How To]].
+     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     - ~mkdir ~/.fonts~
+     - ~cp Monaco_Linux.ttf ~/.fonts/~
    #+begin_src emacs-lisp
      ;; to adjust font dynamically
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
      (cond
       ((string-equal system-type "windows-nt")
-       (set-default-font "Consolas 11")))
+       (set-default-font "Consolas 10"))
+      ((string-equal system-type "gnu/linux")
+       (set-default-font "Monaco 10")))
    #+end_src
 
    #+RESULTS:
@@ -132,9 +140,9 @@
    #+end_src
 
    #+RESULTS:
-=(vbar . 1)
-==(vbar . 2)
-=** highlight current line
+
+
+** highlight current line
    #+begin_src emacs-lisp
      (global-hl-line-mode +1)
    #+end_src 
