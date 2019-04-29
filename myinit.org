@@ -746,6 +746,19 @@ m
     #+RESULTS:
     : t
 
+*** expand-region
+    #+begin_src emacs-lisp
+      (use-package expand-region
+	:ensure t
+	:config
+	(progn
+	  (global-set-key (kbd "C-=") 'er/expand-region)
+	  (global-set-key (kbd "C--") 'er/contract-region)))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
 ** Lisp programming configuration
 *** Eldoc to show argument list
     #+begin_src emacs-lisp
