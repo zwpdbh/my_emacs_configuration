@@ -409,14 +409,15 @@
   #+begin_src emacs-lisp
     ;; leuven-theme
     ;; gruvbox-theme
-    (use-package material-theme
+    ;; material-theme
+    (use-package flucui-themes
       :ensure t
       :config
       (progn
-        (load-theme 'material t)
-        ;; highlight matched parenthesis
-        ;; (set-face-foreground 'show-paren-match "red")
-        (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+	(load-theme 'flucui-dark t)
+	;; highlight matched parenthesis
+	;; (set-face-foreground 'show-paren-match "red")
+	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
 
   #+end_src
 
