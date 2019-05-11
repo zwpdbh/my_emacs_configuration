@@ -411,11 +411,12 @@
     ;; leuven-theme
     ;; gruvbox-theme
     ;; material-theme
-    (use-package flucui-themes
+    ;; flucui-themes
+    (use-package solarized-theme
       :ensure t
       :config
       (progn
-	(load-theme 'flucui-dark t)
+	(load-theme 'solarized-dark t)
 	;; highlight matched parenthesis
 	;; (set-face-foreground 'show-paren-match "red")
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
@@ -449,7 +450,8 @@
 
 ** make code-block could be executed in org-mode
    If you find Org-Mode Evaluation of code is disabled, do:
-   ~find ~/.emacs.d/elpa/org* -name "*elc" -delete~
+   =find ~/.emacs.d/elpa/org* -name "*elc" -delete=
+
    #+begin_src emacs-lisp
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
