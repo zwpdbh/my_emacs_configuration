@@ -313,7 +313,14 @@
 	(setq company-idle-delay 0.01)
 	(add-hook 'after-init-hook 'global-company-mode)
 	(define-key company-active-map [tab] 'company-complete-selection)
-	(define-key company-active-map (kbd "<tab>") 'company-complete-selection)))
+	(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+    
+	;; set default `company-backends'
+	(setq company-backends '((company-files          ; files & directory
+				  company-keywords       ; keywords
+				  company-capf
+				  company-yasnippet)
+				 (company-abbrev company-dabbrev)))))
   #+END_SRC
 
   #+RESULTS:
@@ -486,6 +493,8 @@
 	  '((shell . t)
 	    (lisp . t)
 	    (C . t))))))
+
+
 
    #+end_src
    
@@ -703,7 +712,7 @@ m
 	      (setq company-lsp-async t)
 	      (setq company-lsp-enable-recompletion t)
 	      ;; add company-lsp as backed
-	      (add-to-list 'company-backend 'company-lsp)))
+	      (add-to-list 'company-backends 'company-lsp)))
 
 	  (use-package dap-mode
 	    :ensure t
@@ -804,12 +813,13 @@ m
 	:ensure t
 	:config
 	(progn
-          ;; (setq sly-lisp-implementations
-          ;;       '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
-          ;;         ))
-          (setq inferior-lisp-program "clisp"
-		exec-path (append exec-path
-                                  '("/usr/local/bin")))))
+	  (setq sly-lisp-implementations
+		'((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
+		  ))
+	  ;; (setq inferior-lisp-program "clisp"
+	  ;; 	  exec-path (append exec-path
+	  ;;                         '("/usr/local/bin")))
+	  ))
 
     #+end_src
 
@@ -893,7 +903,7 @@ m
       ;; 	  :ensure t
       ;; 	  :config
       ;; 	  (progn
-      ;; 	    (add-to-list 'company-backend 'company-anaconda)))))))
+      ;; 	    (add-to-list 'company-backends 'company-anaconda)))))))
     #+end_src
 
     #+RESULTS:
@@ -929,10 +939,13 @@ m
 	    :ensure t
 	    :config
 	    (progn
-	      (add-hook 'python-mode-hook (lambda ()
-					    (progn
-					      (jedi:setup)
-					      (add-to-list 'company-backend 'company-jedi))))))
+	      (add-hook 'python-mode-hook 
+			(lambda ()
+			  (progn
+			    (jedi:setup)
+			    ;; (add-to-list 'company-backend 'company-jedi)
+			    (set (make-local-variable 'company-backends)
+				 '((company-dabbrev-code company-jedi))))))))
 
 	  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 	  ;; (setq elpy-rpc-backed "company-jedi")
@@ -1019,6 +1032,7 @@ m
       - M-( Surround expression after point in parentheses (paredit-wrap-round).
       - C-<left or right arrow>, surp or barf
       - C-M-f, C-M-b Move to the opening/closing parenthesis.
+
 ** C/C++ programming
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
    - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
@@ -1030,19 +1044,19 @@ m
 	:ensure t
 	:config
 	(use-package company-rtags
-          :ensure t
-          :config
-          (progn
-            (setq rtags-completions-enabled t)
-            (eval-after-load 'company
-              '(add-to-list
+	  :ensure t
+	  :config
+	  (progn
+	    (setq rtags-completions-enabled t)
+	    (eval-after-load 'company
+	      '(add-to-list
 		'company-backends 'company-rtags))
-            (setq rtags-autostart-diagnostics t)
-            (rtags-enable-standard-keybindings)
-           
-            (use-package helm-rtags
-              :ensure t)
-            (setq rtags-use-helm t))))
+	    (setq rtags-autostart-diagnostics t)
+	    (rtags-enable-standard-keybindings)
+
+	    (use-package helm-rtags
+	      :ensure t)
+	    (setq rtags-use-helm t))))
 
       ;; Before using RTags you need to start rdm and index your project. In order to index your project, RTags requires you to export your project's compile commands with cmake.
 
@@ -1212,15 +1226,16 @@ m
 	:ensure company-tern
 	:config
 	(progn
-          (add-hook 'js2-mode-hook (lambda ()
-                                     (tern-mode)
-                                     (company-mode)))
-         
-          (use-package company-tern
-            :ensure t
-            :config
-            (progn
-              (add-to-list 'company-backend 'company-tern)))))
+	  (use-package company-tern
+	    :ensure t)
+    
+	  (add-hook 'js2-mode-hook 
+		    (lambda ()
+		      (progn
+			(tern-mode)
+			(company-mode)
+			(set (make-local-variable 'company-backends)
+			     '((company-dabbrev-code company-tern))))))))
     #+END_SRC
 
     #+RESULTS:
@@ -1247,3 +1262,5 @@ m
 
 
 
+** Java programming
+   [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
