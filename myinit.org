@@ -1,18 +1,17 @@
 * Interface tweaks
 ** alight commands
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'align-load-hook (lambda ()
-				  (add-to-list 'align-rules-list
-					       '(text-column-whitespace
-						 (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
-						 (group   . 2)
-						 (modes   . align-text-modes)
-						 (repeat  . t)))))
-
+     (add-hook 'align-load-hook #'(lambda ()
+				    (add-to-list 'align-rules-list
+						 '(text-column-whitespace
+						   (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
+						   (group   . 2)
+						   (modes   . align-text-modes)
+						   (repeat  . t)))))
    #+END_SRC
 
    #+RESULTS:
-   | lambda | nil | (add-to-list (quote align-rules-list) (quote (text-column-whitespace (regexp . \(^\ | \S-\)\([ \n]+\)) (group . 2) (modes . align-text-modes) (repeat . t)))) |
+
 
 ** set font
    - Install Monaco font in Ubuntu:
@@ -292,8 +291,10 @@
        :ensure t
        :config
        (progn
-         (add-hook 'js-mode-hook #'smartparens-mode)
-         (add-hook 'python-mode-hook #'smartparens-mode)))
+	 (add-hook 'js-mode-hook #'smartparens-mode)
+	 (add-hook 'python-mode-hook #'smartparens-mode)
+	 (add-hook 'c-mode-hook #'smartparens-mode)
+	 (add-hook 'c++-mode-hook #'smartparens-mode)))
 
 
    #+END_SRC
@@ -330,12 +331,12 @@
 	      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
 	      helm-ff-file-name-history-use-recentf t
 	      helm-echo-input-in-header-line t
-	  
+
 	      ;; optional fuzzy matching for helm-M-x
 	      helm-M-x-fuzzy-match t
 	      helm-buffers-fuzzy-matching t
 	      helm-recentf-fuzzy-match t
-	  
+
 	      ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
 	      helm-semantic-fuzzy-match t
 	      helm-imenu-fuzzy-match t)
@@ -357,22 +358,29 @@
 	(setq helm-autoresize-max-height 0)
 	(setq helm-autoresize-min-height 20)
 	(helm-autoresize-mode 1)
-	(helm-mode 1)
-    
-	(use-package projectile
-	  :ensure t)
-
-	(use-package helm-projectile
-	  :ensure t
-	  :requires helm projectile
-	  :config
-	  (progn
-	    (setq projectile-completion-system 'helm)
-	    (helm-projectile-on)))))
+	(helm-mode 1)))
   #+END_SRC
 
   #+RESULTS:
   : t
+* Projectile
+  #+begin_src emacs-lisp
+    (use-package projectile
+      :ensure t
+      :bind ("C-c p" . projectile-command-map)
+      :config
+      (progn
+	(projectile-global-mode)
+	(setq projectile-completion-system 'helm)
+
+	(use-package helm-projectile
+	  :ensure t
+	  :config
+	  (helm-projectile-on))))
+  #+end_src
+
+  #+RESULTS:
+  : projectile-command-map
 
 * Company
   #+BEGIN_SRC emacs-lisp
@@ -384,8 +392,10 @@
 	(setq completion-ignore-case t)
 	(setq company-dabbrev-downcase 0)
 	(setq company-idle-delay 0.01)
+
 	;; Show suggestions after entering one character.
 	(setq company-minimum-prefix-length 1)
+
 	;; wrap around to the top of the list again
 	(setq company-selection-wrap-around t)
 
@@ -486,12 +496,15 @@
 				    (defun my-org-confirm-babel-evaluate (lang body)
 				      (not (member lang '("emacs-lisp" "lisp"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-				    (local-set-key (kbd "<f9>") #'org-global-cycle)
-				    (local-set-key (kbd "<f6>") #'org-toggle-inline-images))))
+				    ;; (local-set-key (kbd "<f9>") #'org-global-cycle)
+				    ;; (local-set-key (kbd "<f6>") #'org-toggle-inline-images)
+				    )))
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
-       '(define-key org-mode-map [f9] #'org-global-cycle))
+       #'(lambda ()
+	   (define-key org-mode-map [f9] #'org-global-cycle)
+	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
    #+END_SRC
 
    #+RESULTS:
@@ -1202,6 +1215,27 @@
     #+RESULTS:
     : t
 
+*** Clang format
+    Do not forget to install clang-format: =sudo apt install clang-format=.
+    #+begin_src emacs-lisp
+      (use-package clang-format
+	:ensure t
+	:config
+	(progn
+	  (add-hook 'clang-format-buffer-smart-on-save
+		    '(c-mode-hook c++-mode-hook))
+
+	  (dolist (hook '(c-mode-hook c++-mode-hook))
+	    (add-hook hook 
+		      #'(lambda ()
+			  (add-hook 'before-save-hook 
+				    #'(lambda ()
+					(when (f-exists? (expand-file-name ".clang-format" (projectile-project-info)))
+					  (clang-format-buffer)))))))))
+    #+end_src
+
+    #+RESULTS:
+    : t
 
 *** C and C++ mode hook
     #+begin_src emacs-lisp
