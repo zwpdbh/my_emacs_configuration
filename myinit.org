@@ -1087,7 +1087,10 @@
 ** C/C++ programming
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
-   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]] 
+   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
+   - Other options
+     - [[https://nilsdeppe.com/posts/emacs-c++-ide2][using YouCompleteMe]]
+     - [[https://onze.io/emacs/c++/2017/03/16/emacs-cpp.html][using ycmd]]
    - Dependencies
      - =sudo apt install cmake=
      - =sudo apt install libclang-dev=
