@@ -329,7 +329,16 @@
 	      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
 	      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
 	      helm-ff-file-name-history-use-recentf t
-	      helm-echo-input-in-header-line t)
+	      helm-echo-input-in-header-line t
+	  
+	      ;; optional fuzzy matching for helm-M-x
+	      helm-M-x-fuzzy-match t
+	      helm-buffers-fuzzy-matching t
+	      helm-recentf-fuzzy-match t
+	  
+	      ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
+	      helm-semantic-fuzzy-match t
+	      helm-imenu-fuzzy-match t)
 
 	(defun spacemacs//helm-hide-minibuffer-maybe ()
 	  "Hide minibuffer in Helm session if we use the header line as input field."
@@ -348,7 +357,18 @@
 	(setq helm-autoresize-max-height 0)
 	(setq helm-autoresize-min-height 20)
 	(helm-autoresize-mode 1)
-	(helm-mode 1)))
+	(helm-mode 1)
+    
+	(use-package projectile
+	  :ensure t)
+
+	(use-package helm-projectile
+	  :ensure t
+	  :requires helm projectile
+	  :config
+	  (progn
+	    (setq projectile-completion-system 'helm)
+	    (helm-projectile-on)))))
   #+END_SRC
 
   #+RESULTS:
@@ -364,9 +384,15 @@
 	(setq completion-ignore-case t)
 	(setq company-dabbrev-downcase 0)
 	(setq company-idle-delay 0.01)
+	;; Show suggestions after entering one character.
+	(setq company-minimum-prefix-length 1)
+	;; wrap around to the top of the list again
+	(setq company-selection-wrap-around t)
+
 	(add-hook 'after-init-hook 'global-company-mode)
 	(define-key company-active-map [tab] 'company-complete-selection)
 	(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+
 
 	;; set default `company-backends'
 	(setq company-backends '((company-files          ; files & directory
@@ -387,16 +413,10 @@
 							 (append (car company-backends) (list n)))
 						     ,mode-names))
 					      (t (cons ,mode-names (car company-backends))))))))))))
-
-    (eval-after-load 'semantic
-      (add-hook 'semantic-mode-hook
-		(lambda ()
-		  (dolist (x (default-value 'completion-at-point-functions))
-		    (when (string-prefix-p "semantic-" (symbol-name x))
-		      (remove-hook 'completion-at-point-functions x))))))
 		  #+END_SRC
 
   #+RESULTS:
+  : t
 
 * Rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
@@ -1053,8 +1073,8 @@
 
 ** C/C++ programming
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
-   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
-   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (not read through yet)
+   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
+   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]] 
    - Dependencies
      - =cmake=
      - =sudo apt-get install libclang-dev=
@@ -1072,6 +1092,7 @@
 	    (setq rtags-autostart-diagnostics t)
 	    (rtags-enable-standard-keybindings)
 
+	    ;; To enable Helm integration add:
 	    (use-package helm-rtags
 	      :ensure t)
 	    (setq rtags-use-helm t))))
