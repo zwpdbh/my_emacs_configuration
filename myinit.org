@@ -413,6 +413,7 @@
 
 	;; (set-company-backends 'python-mode-hook '(company-anaconda company-jedi) "end")
 	(defmacro hook-company-backends (hook-name mode-names &optional at)
+	  "hook-name: 'c-mode-hook, mode-name: '(company-ycmd)"
 	  `(add-hook ,hook-name #'(lambda ()
 				    (progn
 				      (let ((p (or ,at "front")))
@@ -743,6 +744,17 @@
 
 * Programming
 ** Common features
+*** yasnippet
+    #+begin_src emacs-lisp
+      (use-package yasnippet
+	:ensure t
+	:diminish yas-minor-mode
+	:config (yas-global-mode t))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
 *** lsp and dap
     #+begin_src emacs-lisp
       (use-package lsp-mode
@@ -1091,10 +1103,44 @@
    - Other options
      - [[https://nilsdeppe.com/posts/emacs-c++-ide2][using YouCompleteMe]]
      - [[https://onze.io/emacs/c++/2017/03/16/emacs-cpp.html][using ycmd]]
+     - A blog to read
+       https://ddavis.io/
    - Dependencies
      - =sudo apt install cmake=
      - =sudo apt install libclang-dev=
-     
+
+*** install ycmd 
+    - on macOS:
+      - =xcode-select --install=
+      - =homebrew install cmake=
+    - on ubuntu:
+      - =sudo aptinstall build-essential cmake python-dev=
+      - =sudo apt install ycmd=
+
+*** configure ycmd for code completion
+    #+begin_src emacs-lisp
+      (use-package ycmd
+	:ensure t
+	:config
+	(progn
+	  (add-hook 'c++-mode-hook #'ycmd-mode)
+	  (set-variable 'ycmd-server-command '("python2" "/usr/bin/ycmd"))
+	  (set-variable 'ycmd-global-config (expand-file-name "~/.ycmd/ycm_conf.py"))
+	  (set-variable 'ycmd-extra-conf-whitelist (expand-file-name
+						    ".ycm_conf.py" (projectile-project-info)))
+	  (use-package company-ycmd
+	    :ensure t
+	    :init (company-ycmd-setup)
+	    :config
+	    (progn
+	      (hook-company-backends 'c++-mode-hook '(company-ycmd))))))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** 
+
 *** Source code navigation using RTags
     #+BEGIN_SRC emacs-lisp
       (use-package rtags
