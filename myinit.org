@@ -763,10 +763,9 @@
 	    (progn
 	      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-
-	      (setq lsp-ui-sideline-ignore-duplicate t)
+q	      (setq lsp-ui-sideline-ignore-duplicate t)
+	      (setq lsp-ui-imenu-enable t)
 	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
-
 
 	  (use-package company-lsp
 	    :ensure t
