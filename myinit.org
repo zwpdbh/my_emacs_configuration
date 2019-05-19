@@ -292,7 +292,6 @@
        :config
        (progn
 	 (add-hook 'js-mode-hook #'smartparens-mode)
-	 (add-hook 'python-mode-hook #'smartparens-mode)
 	 (add-hook 'c-mode-hook #'smartparens-mode)
 	 (add-hook 'c++-mode-hook #'smartparens-mode)))
 
@@ -424,7 +423,7 @@
 							 (append (car company-backends) (list n)))
 						     ,mode-names))
 					      (t (cons ,mode-names (car company-backends))))))))))))
-		  #+END_SRC
+  #+END_SRC
 
   #+RESULTS:
   : t
@@ -658,24 +657,6 @@
   #+RESULTS:
   : t
 
-* Flycheck
-  #+BEGIN_SRC emacs-lisp
-    (use-package flycheck
-      :defer 2
-      :ensure t)
-
-    (use-package flycheck-yamllint
-      :defer t
-      :ensure t
-      :init
-      (progn
-	(eval-after-load 'flycheck
-	  '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
-
-  #+END_SRC
-
-  #+RESULTS:
-  | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
 
 * Web mode
   - Auto opening, Auto completion, Auto expanders, code folding, Naviation
@@ -743,6 +724,25 @@
 
 * Programming
 ** Common features
+*** Flycheck
+    #+BEGIN_SRC emacs-lisp
+    (use-package flycheck
+      :defer 2
+      :ensure t)
+
+    (use-package flycheck-yamllint
+      :defer t
+      :ensure t
+      :init
+      (progn
+	(eval-after-load 'flycheck
+	  '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+
+    #+END_SRC
+
+    #+RESULTS:
+    | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
+
 *** Lsp
     [[https://github.com/emacs-lsp/lsp-mode][see lsp-mode]]
     #+begin_src emacs-lisp
@@ -761,10 +761,11 @@
 	    :ensure t
 	    :config
 	    (progn
-	      (setq lsp-ui-sideline-ignore-duplicate t)
-	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 	      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+
+	      (setq lsp-ui-sideline-ignore-duplicate t)
+	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
 
 
 	  (use-package company-lsp
@@ -792,8 +793,7 @@
 	      (require 'dap-hydra)
 	      (require 'dap-gdb-lldb)
 	      (require 'dap-firefox)))))
-
-    #+end_src
+	      #+end_src
 
     #+RESULTS:
     : t
@@ -997,9 +997,27 @@
       - client: lsp-python-ms
       - installation
 	- install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
-	  
+	  - [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
 	- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
     - Configuration with emacs
+      #+begin_src emacs-lisp
+
+	(use-package lsp-python-ms
+	  :ensure t
+	  :config
+	  (progn
+	    ;; for dev build of language server
+	    (setq lsp-python-ms-dir
+		  (expand-file-name "~/python-language-server/output/bin/Release/"))
+
+	    (setq python-shell-interpreter "python3")
+	    (add-hook 'python-mode-hook #'lsp)
+	    (add-hook 'python-mode-hook #'smartparens-mode)))
+
+      #+end_src
+
+      #+RESULTS:
+      : t
 
     - An old on base anaconda (as backup)
       #+begin_src emacs-lisp
