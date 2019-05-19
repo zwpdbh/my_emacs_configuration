@@ -525,8 +525,6 @@
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 
-
-
      (cond
       ((string-equal system-type "darwin")
        (progn
@@ -542,7 +540,8 @@
 	 (org-babel-do-load-languages
 	  'org-babel-load-languages
 	  '((C . t)
-	    (lisp . t)))))
+	    (lisp . t)
+	    (sh . t)))))
       ((string-equal system-type "windows-nt")
        (progn
 	 (org-babel-do-load-languages
@@ -744,19 +743,20 @@
 
 * Programming
 ** Common features
-*** [[https://github.com/emacs-lsp/lsp-mode][lsp]]
+*** Lsp
+    [[https://github.com/emacs-lsp/lsp-mode][see lsp-mode]]
     #+begin_src emacs-lisp
       (use-package lsp-mode
 	:ensure t
 	:config
 	(progn
 	  (setq lsp-message-project-root-warning t)
-    
+
 	  ;; change nil to 't to enable logging of packets between emacs and the LS
 	  ;; this was invaluable for debugging communication with the MS Python Language Server
 	  ;; and comparing this with what vs.code is doing
 	  (setq lsp-print-io nil)
-    
+
 	  (use-package lsp-ui
 	    :ensure t
 	    :config
@@ -765,10 +765,7 @@
 	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 	      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
-    
-	  ;; make sure we have lsp-imenu everywhere we have LSP
-	  (require 'lsp-imenu)
-	  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
 
 	  (use-package company-lsp
 	    :ensure t
@@ -779,7 +776,13 @@
 	      (setq company-lsp-enable-recompletion t)
 	      ;; add company-lsp as backed
 	      (append (car company-backends) (list 'company-lsp))))
-    
+
+	  (use-package helm-lsp
+	    :ensure t
+	    :config
+	    (add-hook 'lsp-mode-hook #'helm-lsp-workspace-symbol))
+
+
 	  (use-package dap-mode
 	    :ensure t
 	    :config
@@ -791,6 +794,10 @@
 	      (require 'dap-firefox)))))
 
     #+end_src
+
+    #+RESULTS:
+    : t
+
 *** Clang format
     Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
@@ -983,95 +990,54 @@
     
 ** Python development
 *** with lsp 
-    - some configuration tutorials
-      - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]]
-    - =pip3 install python-language-server[all]=
-    - =pip3 install pyls-black=
+    - References
+      - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]] (using)
+    - Components
+      - server: Microsoft Python Language Server
+      - client: lsp-python-ms
+      - installation
+	- install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
+	  
+	- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
+    - Configuration with emacs
 
-    #+begin_src emacs-lisp
-      (use-package python-mode
-	:ensure t
-	:config
-	(progn
-	  (setq python-shell-interpreter "python3")
-	  (add-hook 'python-mode-hook #'lsp)
-	  (add-hook 'python-mode-hook (lambda ()
-					(setq lsp-enable-eldoc nil)))
-	  (use-package anaconda-mode
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 'python-mode-hook #'anaconda-mode)
-	      (add-hook 'python-mode-hook #'anaconda-eldoc-mode)
-	      (use-package company-anaconda
-		:ensure t
-		:config
-		(hook-company-backends 'python-mode-hook '(company-anaconda)))))))
-  
-  
-    #+end_src
+    - An old on base anaconda (as backup)
+      #+begin_src emacs-lisp
+	;; (use-package python-mode
+	;;   :ensure t
+	;;   :config
+	;;   (progn
+	;;     (setq python-shell-interpreter "python3")
+	;;     (add-hook 'python-mode-hook #'lsp)
+	;;     (add-hook 'python-mode-hook (lambda ()
+	;; 				  (setq lsp-enable-eldoc nil)))
+	;;     (use-package anaconda-mode
+	;;       :ensure t
+	;;       :config
+	;;       (progn
+	;; 	(add-hook 'python-mode-hook #'anaconda-mode)
+	;; 	(add-hook 'python-mode-hook #'anaconda-eldoc-mode)
+	;; 	(use-package company-anaconda
+	;; 	  :ensure t
+	;; 	  :config
+	;; 	  (hook-company-backends 'python-mode-hook '(company-anaconda)))))))
+      #+end_src
 
-    #+RESULTS:
-    : t
 
-# *** Or, with elpy
-#     - simple usage
-#       - show function signature, get docs: elpy-dock
-#       - code navigation, navigate code by treating them as hyperlinks:
-# 	- elpy-goto-definition
-# 	- pop-tag-mar
-#       - [[http://tkf.github.io/emacs-jedi/latest/#][jedi]] for auto-completion
-#       - [[https://elpy.readthedocs.io/en/latest/ide.html#][elpy ide features]]
-	 
-#     #+BEGIN_SRC emacs-lisp
-#       ;; need to pip install jedi epc
-#       ;; use M-x elpy-config to check the corresponding configurations
 
-#       (use-package elpy
-# 	:ensure t
-# 	:init
-# 	(progn
-# 	  ;; Notic to check the jedi package may require the jedi to be installed via python2!
-# 	  ;; pip install jedi epc
-# 	  (use-package company-jedi
-# 	    ;; use company-jedi instead of jedi, it is mutually exclusive with jedi.
-# 	    :ensure t
-# 	    :config
-# 	    (progn
-# 	      (add-hook 'python-mode-hook 
-# 			(lambda ()
-# 			  (jedi:setup)))
-# 	      (hook-company-backends 'python-mode-hook '(company-jedi))))
 
-# 	  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-# 	  ;; (setq elpy-rpc-backed "company-jedi")
-# 	  (elpy-enable))
-
-# 	:config
-# 	(progn
-# 	  (add-hook 'python-mode-hook 'elpy-mode)
-# 	  (with-eval-after-load 'elpy
-# 	    (setq python-shell-interpreter "ipython"
-# 		  python-shell-interpreter-args "-i --simple-prompt")))
-
-# 	:bind
-# 	(("M-*" . pop-tag-mark)))
-#     #+END_SRC
-
-#     #+RESULTS:
-#     : pop-tag-mark
    
-# *** Debugging
-#     Debugg using pdb
-#     #+BEGIN_SRC python
-#       # import ipd
-#       # ipdb.set_trace ()
-#     #+END_SRC
+*** Debugging
+    Debugg using pdb
+    #+BEGIN_SRC python
+      # import ipd
+      # ipdb.set_trace ()
+    #+END_SRC
 
-# *** Test Integration
-#     Configure your test Runner
-#     M-x elpy-set-test-runner
-#     C-c C-t  ;; runs test/ all tests
+*** Test Integration
+    Configure your test Runner
+    M-x elpy-set-test-runner
+    C-c C-t  ;; runs test/ all tests
 
 
 ** Clojure programming
