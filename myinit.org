@@ -1107,18 +1107,24 @@
       - C-M-f, C-M-b Move to the opening/closing parenthesis.
 
 ** C/C++ programming
-   - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
-   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
-   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
-   - Other options
-     - [[https://nilsdeppe.com/posts/emacs-c++-ide2][using YouCompleteMe]]
-     - [[https://onze.io/emacs/c++/2017/03/16/emacs-cpp.html][using ycmd]]
-     - A blog to read
-       https://ddavis.io/
+   - References
+     - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
+     - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
+     - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
+     - Other options
+       - [[https://nilsdeppe.com/posts/emacs-c++-ide2][using YouCompleteMe]]
+       - [[https://onze.io/emacs/c++/2017/03/16/emacs-cpp.html][using ycmd]]
+       - A blog to read
+	 https://ddavis.io/
 
-   - Dependencies
-     - =sudo apt install cmake=
-     - =sudo apt install libclang-dev=
+   - Components
+     - install clang: =sudo apt install clang=
+     - install clangd: [[https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd][Getting started with clangd]]
+     - Configuration with emacs
+       #+begin_src emacs-lisp
+	 (add-hook 'c-mode-hook #'lsp)
+	 (add-hook 'c++-mode-hook #'lsp)
+       #+end_src
 
 *** CMakeLists
     #+begin_src emacs-lisp
@@ -1132,26 +1138,6 @@
 
     #+RESULTS:
     : t
-
-*** install ycmd 
-    - on macOS:
-      - =xcode-select --install=
-      - =homebrew install cmake=
-    - on ubuntu:
-      - =sudo apt install build-essential cmake python-dev=
-      - =sudo apt install ycmd=
-
-
-*** C and C++ mode hook
-    #+begin_src emacs-lisp
-      (hook-company-backends 'c-mode-hook '(company-rtags company-irony company-irony-c-headers))
-      (hook-company-backends 'c++-mode-hook '(company-rtags company-irony company-irony-c-headers))
-    #+end_src
-
-    #+RESULTS:
-    | add-hook | c++-mode-hook | (function (lambda nil (progn (set (make-local-variable (quote company-backends)) (cond ((string-equal at end) (mapc (function (lambda (n) (append (car company-backends) (list n)))) (company-rtags company-irony company-irony-c-headers))) (t (cons (company-rtags company-irony company-irony-c-headers) (car company-backends)))))))) |
-
-
 
 
 ** Javascript
