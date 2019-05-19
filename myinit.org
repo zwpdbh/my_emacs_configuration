@@ -777,10 +777,8 @@
 	      ;; add company-lsp as backed
 	      (append (car company-backends) (list 'company-lsp))))
 
-	  (use-package helm-lsp
-	    :ensure t
-	    :config
-	    (add-hook 'lsp-mode-hook #'helm-lsp-workspace-symbol))
+	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
+	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
 
 	  (use-package dap-mode
@@ -1157,89 +1155,94 @@
 
 
 ** Javascript
-*** setting up js2-mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package js2-mode
-	:ensure t
-	:config
-	(progn    
-	  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-	  (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
-	  (use-package js2-refactor
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 'js2-mode-hook #'js2-refactor-mode)
-	      (js2r-add-keybindings-with-prefix "C-c C-r")
-	      (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-	  (use-package prettier-js
-	    :ensure t
-	    :config
-	    (progn
-	      (setq js-indent-level 2)
-	      (add-hook 'js2-mode-hook 'prettier-js-mode)
-	      (add-hook 'web-mode-hook 'prettier-js-mode)))))
+*** with lsp
+    - =sudo npm i -g javascript-typescript-langserver=
+    - emacs configuration
+      #+begin_src emacs-lisp
+	(add-hook 'js-mode-hook #'lsp)
+      #+end_src
 
-    #+END_SRC
+# *** setting up js2-mode
+#     #+BEGIN_SRC emacs-lisp
+#       (use-package js2-mode
+# 	:ensure t
+# 	:config
+# 	(progn    
+# 	  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+# 	  (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+# 	  (use-package js2-refactor
+# 	    :ensure t
+# 	    :config
+# 	    (progn
+# 	      (add-hook 'js2-mode-hook #'js2-refactor-mode)
+# 	      (js2r-add-keybindings-with-prefix "C-c C-r")
+# 	      (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+# 	  (use-package prettier-js
+# 	    :ensure t
+# 	    :config
+# 	    (progn
+# 	      (setq js-indent-level 2)
+# 	      (add-hook 'js2-mode-hook 'prettier-js-mode)
+# 	      (add-hook 'web-mode-hook 'prettier-js-mode)))))
 
-    #+RESULTS:
-    : t
+#     #+END_SRC
 
-
-
-    - Using js2-refactor
-      - It is a javascript refactoring libary for emacs
-      - see full list of keybindings [[https://github.com/magnars/js2-refactor.el][README]]
-    - Using xref-js2
-      - It supports for quickly jumping to function definitions or references to JavaScript projects in Emacs
-      - Keybindings
-	- M-. jump to definition
-	- M-? jump to references
-	- M-, Pop back to where M. was last invoked.
-
-*** setting up term and company-mode for auto-completion
-    - Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
-    - You need to install tern on your localhost: npm install -g tern
-    #+BEGIN_SRC emacs-lisp
-      (use-package tern
-	:ensure t
-	:ensure company-tern
-	:config
-	(progn
-	  (use-package company-tern
-	    :ensure t)
-
-	  (add-hook 'js2-mode-hook 
-		    (lambda ()
-		      (progn
-			(tern-mode)
-			(company-mode))))
-	  (hook-company-backends 'js2-mode-hook '(company-tern) nil)))
-    #+END_SRC
-
-    #+RESULTS:
-    : t
-
-*** setting up Indium
-    You need to run: "npm install -g indium gulp" to use it.
-    Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
-    #+BEGIN_SRC emacs-lisp
-      (use-package indium
-	:ensure t
-	:config
-	(progn
-	  (add-hook 'js2-mode-hook
-		    (lambda ()
-		      (local-set-key (kbd "C-c c") #'indium-connect)
-		      (local-set-key (kbd "C-c b") #'indium-add-breakpoint)
-		      (local-set-key (kbd "C-c r") #'indium-remove-breakpoint)
-		      (local-set-key (kbd "C-c l") #'indium-launch)))))
-    #+END_SRC
-
-    #+RESULTS:
-    : t
+#     #+RESULTS:
+#     : t
 
 
+
+#     - Using js2-refactor
+#       - It is a javascript refactoring libary for emacs
+#       - see full list of keybindings [[https://github.com/magnars/js2-refactor.el][README]]
+#     - Using xref-js2
+#       - It supports for quickly jumping to function definitions or references to JavaScript projects in Emacs
+#       - Keybindings
+# 	- M-. jump to definition
+# 	- M-? jump to references
+# 	- M-, Pop back to where M. was last invoked.
+
+# *** setting up term and company-mode for auto-completion
+#     - Check simple usage at [[https://emacs.cafe/emacs/javascript/setup/2017/05/09/emacs-setup-javascript-2.html][setting up Emacs for JavaScript]]
+#     - You need to install tern on your localhost: npm install -g tern
+#     #+BEGIN_SRC emacs-lisp
+#       (use-package tern
+# 	:ensure t
+# 	:ensure company-tern
+# 	:config
+# 	(progn
+# 	  (use-package company-tern
+# 	    :ensure t)
+
+# 	  (add-hook 'js2-mode-hook 
+# 		    (lambda ()
+# 		      (progn
+# 			(tern-mode)
+# 			(company-mode))))
+# 	  (hook-company-backends 'js2-mode-hook '(company-tern) nil)))
+#     #+END_SRC
+
+#     #+RESULTS:
+#     : t
+
+# *** setting up Indium
+#     You need to run: "npm install -g indium gulp" to use it.
+#     Then, set the ~.indium.json~ in the root of your project, see [[https://indium.readthedocs.io/en/latest/setup.html][details]].
+#     #+BEGIN_SRC emacs-lisp
+#       (use-package indium
+# 	:ensure t
+# 	:config
+# 	(progn
+# 	  (add-hook 'js2-mode-hook
+# 		    (lambda ()
+# 		      (local-set-key (kbd "C-c c") #'indium-connect)
+# 		      (local-set-key (kbd "C-c b") #'indium-add-breakpoint)
+# 		      (local-set-key (kbd "C-c r") #'indium-remove-breakpoint)
+# 		      (local-set-key (kbd "C-c l") #'indium-launch)))))
+#     #+END_SRC
+
+#     #+RESULTS:
+#     : t
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
