@@ -484,21 +484,19 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-     (use-package org-plus-contrib
-       :ensure t
-       :config
-       (progn
-	 (require 'org-eldoc)
-	 (require 'org-tempo)))
+     ;; (use-package org-plus-contrib
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (require 'org-eldoc)
+     ;;     (require 'org-tempo)))
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
+				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
 				    (defun my-org-confirm-babel-evaluate (lang body)
 				      (not (member lang '("emacs-lisp" "lisp"))))
-				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-				    ;; (local-set-key (kbd "<f9>") #'org-global-cycle)
-				    ;; (local-set-key (kbd "<f6>") #'org-toggle-inline-images)
-				    )))
+				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
@@ -508,7 +506,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : org-global-cycle
+   : org-toggle-inline-images
 
 
 ** make code-block could be executed in org-mode
@@ -539,8 +537,7 @@
 	 (org-babel-do-load-languages
 	  'org-babel-load-languages
 	  '((C . t)
-	    (lisp . t)
-	    (sh . t)))))
+	    (lisp . t)))))
       ((string-equal system-type "windows-nt")
        (progn
 	 (org-babel-do-load-languages
@@ -564,7 +561,7 @@
    #+END_SRC
 
    #+RESULTS:
-   : t
+   : [nil 0 2 0 nil require (htmlize nil t) idle 0]
    m
 * Treemacs
   #+begin_src emacs-lisp
