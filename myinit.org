@@ -796,22 +796,22 @@
     : t
 
 *** Clang format
-    Do not forget to install clang-format: =sudo apt install clang-format=.
+    !!! Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
       (use-package clang-format
 	:ensure t
 	:config
 	(progn
-	  (add-hook 'clang-format-buffer-smart-on-save
-		    '(c-mode-hook c++-mode-hook))
+	  (defun clang-format-buffer-smart ()
+	    "Reformat buffer if .clang-format exists in the projectile root."
+	    (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+	      (clang-format-buffer)))
 
-	  (dolist (hook '(c-mode-hook c++-mode-hook js-mode-hook))
-	    (add-hook hook 
-		      #'(lambda ()
-			  (add-hook 'before-save-hook 
-				    #'(lambda ()
-					(when (f-exists? (expand-file-name ".clang-format" (projectile-project-info)))
-					  (clang-format-buffer)))))))))
+	  (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
+	    (add-hook each-hook #'(lambda ()
+				    (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
+
+
     #+end_src
 
     #+RESULTS:
