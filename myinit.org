@@ -1243,3 +1243,7 @@ q	      (setq lsp-ui-sideline-ignore-duplicate t)
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
+
+* References
+** Good examples
+   - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
