@@ -467,15 +467,14 @@
     ;; gruvbox-theme
     ;; material-theme
     ;; flucui-themes
+    ;; solarized-theme
+
     (use-package solarized-theme
       :ensure t
       :config
       (progn
 	(load-theme 'solarized-dark t)
-	;; highlight matched parenthesis
-	;; (set-face-foreground 'show-paren-match "red")
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
-
   #+end_src
 
   #+RESULTS:
