@@ -1123,16 +1123,20 @@
     - emacs configuration
       #+begin_src emacs-lisp
 	(add-hook 'js-mode-hook #'lsp)
-      #+end_src
+				    #+end_src
 
-*** debug with dap
+      #+RESULTS:
+      | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
+
+*** with dap
     #+begin_src emacs-lisp
-      (require 'dap-chrome)
-      (require 'dap-node)
+      (add-hook 'js-mode-hook #'(lambda ()
+				  (require 'dap-chrome)
+				  (require 'dap-node)))
     #+end_src
 
     #+RESULTS:
-    : dap-firefox
+    | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
