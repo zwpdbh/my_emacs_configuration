@@ -1148,6 +1148,30 @@
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
 
+** R programming
+   #+begin_src emacs-lisp
+     (use-package ess
+       :ensure t
+       :init
+       ;;  :init (require 'ess-site)
+       :config
+       (progn
+	 (setq inferior-R-program-name "/usr/local/bin/R"
+	       comint-input-ring-size 1000
+	       ess-indent-level 4
+	       ess-arg-function-offset 4
+	       ess-else-offset 4
+	       ess-continued-statement-offset 2);
+
+	 (add-hook 'ess-mode-hook 
+		   (lambda () 
+		     (setq truncate-lines t)
+		     (auto-fill-mode)))))
+   #+end_src
+
+   #+RESULTS:
+   : t
+
 * References
 ** Good examples
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
