@@ -237,39 +237,39 @@
        :ensure t
        :init
        (progn
-         (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-         (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-         (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-         (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-         ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-         (add-hook 'sly-mode-hook             #'enable-paredit-mode)
-         (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-         (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-         (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+	 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+	 (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+	 ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+	 (add-hook 'sly-mode-hook             #'enable-paredit-mode)
+	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-         ;; paredit with eldoc
-         (require 'eldoc) ; if not already loaded
-         (eldoc-add-command
-          'paredit-backward-delete
-          'paredit-close-round)
+	 ;; paredit with eldoc
+	 (require 'eldoc) ; if not already loaded
+	 (eldoc-add-command
+	  'paredit-backward-delete
+	  'paredit-close-round)
 
-         ;; paredit with electric return
-         (defvar electrify-return-match
-           "[\]}\)\"]"
-           "If this regexp matches the text after the cursor, do an \"electric\"
+	 ;; paredit with electric return
+	 (defvar electrify-return-match
+	   "[\]}\)\"]"
+	   "If this regexp matches the text after the cursor, do an \"electric\"
        return.")
-         (defun electrify-return-if-match (arg)
-           "If the text after the cursor matches `electrify-return-match' then
+	 (defun electrify-return-if-match (arg)
+	   "If the text after the cursor matches `electrify-return-match' then
        open and indent an empty line between the cursor and the text.  Move the
        cursor to the new line."
-           (interactive "P")
-           (let ((case-fold-search nil))
-             (if (looking-at electrify-return-match)
-                 (save-excursion (newline-and-indent)))
-             (newline arg)
-             (indent-according-to-mode)))
-         ;; Using local-set-key in a mode-hook is a better idea.
-         (global-set-key (kbd "RET") 'electrify-return-if-match)))
+	   (interactive "P")
+	   (let ((case-fold-search nil))
+	     (if (looking-at electrify-return-match)
+		 (save-excursion (newline-and-indent)))
+	     (newline arg)
+	     (indent-according-to-mode)))
+	 ;; Using local-set-key in a mode-hook is a better idea.
+	 (global-set-key (kbd "RET") 'electrify-return-if-match)))
    #+end_src
 ** complements to paredit
    #+begin_src emacs-lisp
@@ -406,8 +406,7 @@
 	;;   :ensure t
 	;;   :config
 	;;   (add-hook 'company-mode-hook #'company-box-mode))
-    
-    
+
 	;; set default `company-backends'
 	(setq company-backends '((company-files          ; files & directory
 				  company-keywords       ; keywords
@@ -415,7 +414,7 @@
 				  company-yasnippet)
 				 (company-abbrev company-dabbrev)))
 
-	;; (set-company-backends 'python-mode-hook '(company-anaconda company-jedi) "end")
+	;; (set-company-backends 'python-mode-hook '(company-anaconda company-jedi))
 	(defmacro hook-company-backends (hook-name mode-names &optional at)
 	  "hook-name: 'c-mode-hook, mode-name: '(company-ycmd)"
 	  `(add-hook ,hook-name #'(lambda ()
@@ -427,7 +426,13 @@
 					       (mapc #'(lambda (n)
 							 (append (car company-backends) (list n)))
 						     ,mode-names))
-					      (t (cons ,mode-names (car company-backends))))))))))))
+					      (t
+					       (mapc #'(lambda (n)
+							 (setq company-backends
+							       (cons (cons n 
+									   (car company-backends)) 
+								     (cdr company-backends))))
+						     ,mode-names)))))))))))
   #+END_SRC
 
   #+RESULTS:
@@ -1123,48 +1128,95 @@
     #+RESULTS:
     | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
-*** web mode
-    - Auto opening, Auto completion, Auto expanders, code folding, Naviation
-      - Configure to support snippets, such as HTML/Django
-      - Context aware processing
-    - For Vue.js
-      - =npm install -g vue-language-server=
-      - =npm install -g vue=
-    #+BEGIN_SRC emacs-lisp
-      (use-package web-mode
-	:ensure t
-	:config
-	(progn
-	  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	  (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
+** web programming
+   - For Vue.js
+     - =npm install -g vue-language-server=
+     - =npm install -g vue=
+   - Configuration
+   #+BEGIN_SRC emacs-lisp
+     (use-package web-mode
+       :mode (("\\.html$" . web-mode)
+	      ("\\.djhtml$" . web-mode)
+	      ("\\.tsx$" . web-mode)
+	      ("\\.mustache\\'" . web-mode)
+	      ("\\.phtml\\'" . web-mode)
+	      ("\\.as[cp]x\\'" . web-mode)
+	      ("\\.erb\\'" . web-mode)
+	      ("\\.hbs\\'" . web-mode)
+	      ("\\.vue$" . web-mode))
+       :hook ((web-mode . company-mode))
+       :config
+       (progn
+	 ;; impatient mode: Live refresh of web pages
+	 ;; https://github.com/skeeto/impatient-mode
+	 (use-package impatient-mode
+	   :commands (impatient-mode))
 
-	  (setq web-mode-code-indent-offset 2)
-	  (setq web-mode-css-indent-offset 2)
-	  (setq web-mode-markup-indent-offset 2)
-	  (setq web-mode-enable-auto-quoting t)
-	  (setq web-mode-enable-auto-closing t)
-	  (setq web-mode-enable-auto-pairing t)
-	  (setq web-mode-enable-auto-expanding t)
-	  (setq web-mode-enable-css-colorization t)
-	  (setq web-mode-enable-current-element-highlight t)
-	  (setq web-mode-ac-sources-alist
-		'(("css" . (ac-source-css-property))
-		  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	 ;; emmet-mode: dynamic snippets for HTML
+	 ;; https://github.com/smihica/emmet-mode
+	 (use-package emmet-mode
+	   :bind
+	   ((:map emmet-mode-keymap
+		  ("C-c [" . emmet-prev-edit-point)
+		  ("C-c ]" . emmet-next-edit-point)))
+	   :config
+	   (setq emmet-move-cursor-between-quotes t)
+	   (setq emmet-indentation 2)
+	   (unbind-key "C-M-<left>" emmet-mode-keymap)
+	   (unbind-key "C-M-<right>" emmet-mode-keymap))
 
-	  ;; (defun my/sp-web-mode-is-code-context (id action context)
-	  ;;   (when (and (eq action 'insert)
-	  ;; 		 (not (or (get-text-property (point) 'part-side)
-	  ;; 			  (get-text-property (point) 'block-side))))
-	  ;; 	t))
-	  ;; (sp-local-pair 'web-mode "<" nil :when '(my/sp-web-mode-is-code-context))
-	  ;; (add-hook 'web-mode-hook #'smartparens-mode)
-    
-	  (add-hook 'web-mode-hook #'lsp)))
+	 (setq web-mode-markup-indent-offset 2)
+	 (setq web-mode-css-indent-offset 2)
+	 (setq web-mode-code-indent-offset 2)
 
-    #+END_SRC
+	 (setq web-mode-enable-html-entities-fontification t
+	       web-mode-auto-close-style 2)
 
-    #+RESULTS:
-    : t
+	 (with-eval-after-load "smartparens"
+	   ;; (defun +web-is-auto-close-style-3 (_id action _context)
+	   ;; 	(and (eq action 'insert)
+	   ;; 	     (eq web-mode-auto-close-style 3)))
+	   ;; (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
+
+	   ;; let smartparens handle these
+	   (setq web-mode-enable-auto-quoting nil
+		 web-mode-enable-auto-pairing t)
+
+	   ;; 1. Remove web-mode auto pairs whose end pair starts with a latter
+	   ;;    (truncated autopairs like <?p and hp ?>). Smartparens handles these
+	   ;;    better.
+	   ;; 2. Strips out extra closing pairs to prevent redundant characters
+	   ;;    inserted by smartparens.
+	   (dolist (alist web-mode-engines-auto-pairs)
+	     (setcdr alist
+		     (cl-loop for pair in (cdr alist)
+			      unless (string-match-p "^[a-z-]" (cdr pair))
+			      collect (cons (car pair)
+					    (string-trim-right (cdr pair) "\\(?:>\\|]\\|}\\)+")))))
+	   (setf (alist-get nil web-mode-engines-auto-pairs) nil))
+
+	 ;; highlight matching tag
+	 (setq web-mode-enable-current-element-highlight t)
+
+
+	 (defun lsp-html-setup ()
+	   "Function to setup `lsp-html'"
+	   (lsp)
+	   (setq-local lsp-highlight-symbol-at-point nil)
+	   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
+
+	 (add-hook 'web-mode-hook
+		   (lambda ()
+		     (pcase (file-name-extension buffer-file-name)
+		       ("html" (lsp-html-setup)))
+		     (smartparens-mode)))
+
+	 ;; colorize colors in buffers
+	 (setq web-mode-enable-css-colorization t)))
+   #+END_SRC
+
+   #+RESULTS:
+   : t
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
@@ -1197,6 +1249,7 @@
 ** Good general configurations
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
    - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
+   - [[https://github.com/CSRaghunandan/.emacs.d/tree/master/setup-files][a different way to organize configuration files]]
 ** C/C++ related
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
