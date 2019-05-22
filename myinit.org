@@ -1117,26 +1117,6 @@
     #+RESULTS:
     | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
-*** Vue.js
-    Don't foget to install: 
-    =sudo npm install vue vue-language-server -g=
-
-    #+begin_src emacs-lisp
-      (use-package vue-mode
-	:ensure t
-	:init
-	(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-	:config
-	(progn
-	  (add-hook 'vue-mode-hook #'lsp)
-	  (add-hook 'vue-mode-hook #'(lambda ()
-				       (progn
-					 (smartparens-mode))))))
-    #+end_src
-
-    #+RESULTS:
-    : t
-
 *** Web mode
     - Auto opening, Auto completion, Auto expanders, code folding, Naviation
       - Configure to support snippets, such as HTML/Django
@@ -1145,25 +1125,27 @@
       (use-package web-mode
 	:ensure t
 	:config
-	(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	;; (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
-	(setq web-mode-engines-alist
-	      '(("django"    . "\\.html\\'")))
-	(setq web-mode-ac-sources-alist
-	      '(("css" . (ac-source-css-p))))
+	(progn
+	  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	  (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
 
-	(setq web-mode-enable-auto-quoting t)
-	(setq web-mode-enable-auto-closing t)
+	  (setq web-mode-enable-auto-quoting t)
+	  (setq web-mode-enable-auto-closing t)
 
-	(setq web-mode-markup-indent-offset 2)
-	(setq web-mode-code-indent-offset 2)
-	(setq web-mode-css-indent-offset 2)
+	  (setq web-mode-markup-indent-offset 2)
+	  (setq web-mode-code-indent-offset 2)
+	  (setq web-mode-css-indent-offset 2)
 
-	(setq web-mode-enable-auto-pairing t)
-	(setq web-mode-enable-auto-expanding t)
-	(setq web-mode-enable-css-colorization t))
+	  (setq web-mode-enable-auto-pairing t)
+	  (setq web-mode-enable-auto-expanding t)
+	  (setq web-mode-enable-css-colorization t)
+
+	  (add-hook 'web-mode-hook #'lsp)))
 
     #+END_SRC
+
+    #+RESULTS:
+    : t
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
