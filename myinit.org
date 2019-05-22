@@ -1148,9 +1148,7 @@
 	(setq web-mode-engines-alist
 	      '(("django"    . "\\.html\\'")))
 	(setq web-mode-ac-sources-alist
-	      '(("css" . (ac-source-css-p))
-		("vue" . (car company-backends))
-		("html" . (car company-backends))))
+	      '(("css" . (ac-source-css-p))))
 
 	(setq web-mode-enable-auto-quoting t)
 	(setq web-mode-enable-auto-closing t)
