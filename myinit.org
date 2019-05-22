@@ -1118,7 +1118,9 @@
     | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
 *** Vue.js
-    Don't foget to install: =sudo npm install vue-language-server -g=
+    Don't foget to install: 
+    =sudo npm install vue vue-language-server -g=
+
     #+begin_src emacs-lisp
       (use-package vue-mode
 	:ensure t
