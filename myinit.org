@@ -402,7 +402,12 @@
 	(define-key company-active-map [tab] 'company-complete-selection)
 	(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
-
+	;; (use-package company-box
+	;;   :ensure t
+	;;   :config
+	;;   (add-hook 'company-mode-hook #'company-box-mode))
+    
+    
 	;; set default `company-backends'
 	(setq company-backends '((company-files          ; files & directory
 				  company-keywords       ; keywords
@@ -689,6 +694,8 @@
     [[https://github.com/emacs-lsp/lsp-mode][see lsp-mode]]
     #+begin_src emacs-lisp
       (use-package lsp-mode
+	:init
+	(require 'lsp-clients)
 	:ensure t
 	:config
 	(progn
@@ -1086,7 +1093,6 @@
     #+RESULTS:
     : t
 
-
 ** Javascript
 *** interface
     #+begin_src emacs-lisp
@@ -1117,10 +1123,13 @@
     #+RESULTS:
     | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
-*** Web mode
+*** web mode
     - Auto opening, Auto completion, Auto expanders, code folding, Naviation
       - Configure to support snippets, such as HTML/Django
       - Context aware processing
+    - For Vue.js
+      - =npm install -g vue-language-server=
+      - =npm install -g vue=
     #+BEGIN_SRC emacs-lisp
       (use-package web-mode
 	:ensure t
@@ -1129,17 +1138,27 @@
 	  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 	  (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
 
-	  (setq web-mode-enable-auto-quoting t)
-	  (setq web-mode-enable-auto-closing t)
-
-	  (setq web-mode-markup-indent-offset 2)
 	  (setq web-mode-code-indent-offset 2)
 	  (setq web-mode-css-indent-offset 2)
-
+	  (setq web-mode-markup-indent-offset 2)
+	  (setq web-mode-enable-auto-quoting t)
+	  (setq web-mode-enable-auto-closing t)
 	  (setq web-mode-enable-auto-pairing t)
 	  (setq web-mode-enable-auto-expanding t)
 	  (setq web-mode-enable-css-colorization t)
+	  (setq web-mode-enable-current-element-highlight t)
+	  (setq web-mode-ac-sources-alist
+		'(("css" . (ac-source-css-property))
+		  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
+	  ;; (defun my/sp-web-mode-is-code-context (id action context)
+	  ;;   (when (and (eq action 'insert)
+	  ;; 		 (not (or (get-text-property (point) 'part-side)
+	  ;; 			  (get-text-property (point) 'block-side))))
+	  ;; 	t))
+	  ;; (sp-local-pair 'web-mode "<" nil :when '(my/sp-web-mode-is-code-context))
+	  ;; (add-hook 'web-mode-hook #'smartparens-mode)
+    
 	  (add-hook 'web-mode-hook #'lsp)))
 
     #+END_SRC
@@ -1175,14 +1194,14 @@
    : t
 
 * References
-** Good examples
+** Good general configurations
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
+   - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
 ** C/C++ related
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
    - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
    - https://ddavis.io/
-
-	 
 ** Good Blogs related to emacs
    - [[http://blog.binchen.org/index.html][about many emacs articles]]
+
