@@ -408,31 +408,29 @@
 	;;   (add-hook 'company-mode-hook #'company-box-mode))
 
 	;; set default `company-backends'
-	(setq company-backends '((company-files          ; files & directory
-				  company-keywords       ; keywords
-				  company-capf
-				  company-yasnippet)
-				 (company-abbrev company-dabbrev)))
+	(defvar company-general-backends '((company-files          ; files & directory
+					    company-keywords       ; keywords
+					    company-capf
+					    company-yasnippet)
+					   (company-abbrev company-dabbrev)))
+	(setq company-backends company-general-backends)
 
-	;; (set-company-backends 'python-mode-hook '(company-anaconda company-jedi))
-	(defmacro hook-company-backends (hook-name mode-names &optional at)
-	  "hook-name: 'c-mode-hook, mode-name: '(company-ycmd)"
-	  `(add-hook ,hook-name #'(lambda ()
-				    (progn
-				      (let ((p (or ,at "front")))
-					(set (make-local-variable 'company-backends)
-					     (cond 
-					      ((string-equal p "end")
-					       (mapc #'(lambda (n)
-							 (append (car company-backends) (list n)))
-						     ,mode-names))
-					      (t
-					       (mapc #'(lambda (n)
-							 (setq company-backends
-							       (cons (cons n 
-									   (car company-backends)) 
-								     (cdr company-backends))))
-						     ,mode-names)))))))))))
+	(defmacro add-to-company-backends (company-xxx-names &optional at)
+	  "company-xxx-names: '(company-ycmd company-foo)"
+	  `(let ((p (or ,at "front")))
+	     (set (make-local-variable 'company-backends)
+		  (cond 
+		   ((string-equal p "end")
+		    (mapc #'(lambda (n)
+			      (append (car company-backends) (list n)))
+			  ,company-xxx-names))
+		   (t
+		    (mapc #'(lambda (n)
+			      (setq company-backends
+				    (cons (cons n 
+						(car company-backends)) 
+					  (cdr company-backends))))
+			  ,company-xxx-names))))))))
   #+END_SRC
 
   #+RESULTS:
@@ -727,9 +725,17 @@
 	    (progn
 	      (setq company-lsp-cache-candidates nil)
 	      (setq company-lsp-async t)
-	      (setq company-lsp-enable-recompletion t)
-	      ;; add company-lsp as backed
-	      (append (car company-backends) (list 'company-lsp))))
+	      (setq company-lsp-enable-recompletion t)))
+
+	  ;; make multiple source to do completion even in lsp-mode
+	  (defun reset-company-backends () 
+	    (interactive)
+	    (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
+    
+	  (defun my-setup-lsp ()
+	    (lsp)
+	    ;; set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends
+	    (reset-company-backends))
 
 	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -976,37 +982,13 @@
 		  (expand-file-name "~/python-language-server/output/bin/Release/"))
 
 	    (setq python-shell-interpreter "python3")
-	    (add-hook 'python-mode-hook #'lsp)
+	    (add-hook 'python-mode-hook #'my-setup-lsp)
 	    (add-hook 'python-mode-hook #'smartparens-mode)))
 
       #+end_src
 
       #+RESULTS:
       : t
-
-    - An old on base anaconda (as backup)
-      #+begin_src emacs-lisp
-	;; (use-package python-mode
-	;;   :ensure t
-	;;   :config
-	;;   (progn
-	;;     (setq python-shell-interpreter "python3")
-	;;     (add-hook 'python-mode-hook #'lsp)
-	;;     (add-hook 'python-mode-hook (lambda ()
-	;; 				  (setq lsp-enable-eldoc nil)))
-	;;     (use-package anaconda-mode
-	;;       :ensure t
-	;;       :config
-	;;       (progn
-	;; 	(add-hook 'python-mode-hook #'anaconda-mode)
-	;; 	(add-hook 'python-mode-hook #'anaconda-eldoc-mode)
-	;; 	(use-package company-anaconda
-	;; 	  :ensure t
-	;; 	  :config
-	;; 	  (hook-company-backends 'python-mode-hook '(company-anaconda)))))))
-      #+end_src
-
-
 
 
    
@@ -1081,8 +1063,8 @@
       - install clangd: [[https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd][Getting started with clangd]]
       - Configuration with emacs
 	#+begin_src emacs-lisp
-	  (add-hook 'c-mode-hook #'lsp)
-	  (add-hook 'c++-mode-hook #'lsp)
+	  (add-hook 'c-mode-hook #'my-setup-lsp)
+	  (add-hook 'c++-mode-hook #'my-setup-lsp)
 	#+end_src
 
 *** CMakeLists
@@ -1111,7 +1093,7 @@
     - =sudo npm i -g javascript-typescript-langserver=
     - emacs configuration
       #+begin_src emacs-lisp
-	(add-hook 'js-mode-hook #'lsp)
+	(add-hook 'js-mode-hook #'my-setup-lsp)
 
       #+end_src
 
@@ -1144,7 +1126,6 @@
 	      ("\\.erb\\'" . web-mode)
 	      ("\\.hbs\\'" . web-mode)
 	      ("\\.vue$" . web-mode))
-       :hook ((web-mode . company-mode))
        :config
        (progn
 	 ;; impatient mode: Live refresh of web pages
@@ -1164,6 +1145,7 @@
 	   (setq emmet-indentation 2)
 	   (unbind-key "C-M-<left>" emmet-mode-keymap)
 	   (unbind-key "C-M-<right>" emmet-mode-keymap))
+
 
 	 (setq web-mode-markup-indent-offset 2)
 	 (setq web-mode-css-indent-offset 2)
@@ -1198,18 +1180,36 @@
 	 ;; highlight matching tag
 	 (setq web-mode-enable-current-element-highlight t)
 
-
 	 (defun lsp-html-setup ()
 	   "Function to setup `lsp-html'"
-	   (lsp)
+	   (my-setup-lsp)
+	   (reset-company-backends)
 	   (setq-local lsp-highlight-symbol-at-point nil)
 	   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
 
-	 (add-hook 'web-mode-hook
-		   (lambda ()
-		     (pcase (file-name-extension buffer-file-name)
-		       ("html" (lsp-html-setup)))
-		     (smartparens-mode)))
+	 (defun lsp-vue-setup ()
+	   (my-setup-lsp)
+	   (reset-company-backends)
+	   (reset-com)
+	   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
+
+	 (add-hook 'web-mode-hook #'(lambda ()
+				      (pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
+				      (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
+				      (smartparens-mode)
+				      (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local)))
+
+
+	 ;; for .vue
+	 ;; (use-package vue-mode
+	 ;;   :ensure t
+	 ;;   :init
+	 ;;   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+	 ;;   :config
+	 ;;   (progn
+	 ;; 	(add-hook 'vue-mode-hook #'(lambda () (progn
+	 ;; 						(web-mode)
+	 ;; 						(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
 
 	 ;; colorize colors in buffers
 	 (setq web-mode-enable-css-colorization t)))
