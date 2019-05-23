@@ -388,24 +388,21 @@
       :ensure t
       :config
       (progn
-	(setq completion-ignore-case t)
-	(setq company-dabbrev-downcase 0)
-	(setq company-idle-delay 0.01)
-
-	;; Show suggestions after entering one character.
-	(setq company-minimum-prefix-length 1)
-
-	;; wrap around to the top of the list again
-	(setq company-selection-wrap-around t)
-
 	(add-hook 'after-init-hook 'global-company-mode)
-	(define-key company-active-map [tab] 'company-complete-selection)
-	(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
-	;; (use-package company-box
-	;;   :ensure t
-	;;   :config
-	;;   (add-hook 'company-mode-hook #'company-box-mode))
+	(setq company-auto-expand t) ;; 1個目を自動的に補完
+	(setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+	(setq company-idle-delay 0) ; 遅延なしにすぐ表示
+	(setq company-minimum-prefix-length 2) ; デフォルトは4
+	(setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+	(setq completion-ignore-case t)
+	(setq company-dabbrev-downcase nil)
+	(define-key company-active-map (kbd "C-n") 'company-select-next)
+	(define-key company-active-map (kbd "C-p") 'company-select-previous)
+	(define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
+	(define-key company-active-map (kbd "C-h") nil) ;; C-hはバックスペース割当のため無効化
+	(define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
+
 
 	;; set default `company-backends'
 	(defvar company-general-backends '((company-files          ; files & directory
@@ -430,7 +427,16 @@
 				    (cons (cons n 
 						(car company-backends)) 
 					  (cdr company-backends))))
-			  ,company-xxx-names))))))))
+			  ,company-xxx-names))))))
+
+	(use-package company-statistics
+	  :ensure t
+	  :config
+	  (progn
+	    (add-hook 'company-mode-hook #'company-statistics-mode)
+	    (setq company-transformers '(company-sort-by-statistics
+					 company-sort-by-backend-importance
+					 company-sort-prefer-same-case-prefix))))))
   #+END_SRC
 
   #+RESULTS:
