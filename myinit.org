@@ -394,10 +394,11 @@
 	(setq company-dabbrev-downcase nil)
 	(setq company-idle-delay 0.01)
 	;; Show suggestions after entering one character.
-	(setq company-minimum-prefix-length 2)
+	(setq company-minimum-prefix-length 1)
 	;; wrap around to the top of the list again
 	(setq company-selection-wrap-around t)
-    
+	(setq company-echo-delay 0)
+
 	(define-key company-active-map [tab] 'company-complete-selection)
 	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 	(define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -436,8 +437,13 @@
 	  (progn
 	    (add-hook 'company-mode-hook #'company-statistics-mode)
 	    (setq company-transformers '(company-sort-by-statistics
-					 company-sort-by-backend-importance
-					 company-sort-prefer-same-case-prefix))))))
+					 company-sort-by-backend-importance))))
+
+	(use-package company-posframe
+	  :ensure t
+	  :config
+	  (progn
+	    (add-hook 'company-mode #'company-posframe-mode)))))
   #+END_SRC
 
   #+RESULTS:
@@ -1254,11 +1260,12 @@
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
    - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
    - [[https://github.com/CSRaghunandan/.emacs.d/tree/master/setup-files][a different way to organize configuration files]]
+   - [[https://github.com/jerryhsieh/Emacs-config][jerryhsieh/Emacs-config]]
 ** C/C++ related
-   - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] (star one)
-   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]] (start one)
-   - [[https://oremacs.com/2017/03/28/emacs-cpp-ide/][Using Emacs as a C++ IDE]]
+   - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] 
+   - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]]
    - https://ddavis.io/
 ** Good Blogs related to emacs
    - [[http://blog.binchen.org/index.html][about many emacs articles]]
+   - [[https://blog.onionstudio.com.tw/][洋蔥部落格]]
 
