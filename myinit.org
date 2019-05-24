@@ -417,19 +417,19 @@
 	(defmacro add-to-company-backends (company-xxx-names &optional at)
 	  "company-xxx-names: '(company-ycmd company-foo)"
 	  `(let ((p (or ,at "front")))
-	     (set (make-local-variable 'company-backends)
-		  (cond 
-		   ((string-equal p "end")
-		    (mapc #'(lambda (n)
-			      (append (car company-backends) (list n)))
-			  ,company-xxx-names))
-		   (t
-		    (mapc #'(lambda (n)
-			      (setq company-backends
-				    (cons (cons n 
-						(car company-backends)) 
-					  (cdr company-backends))))
-			  ,company-xxx-names))))))
+	     (cond 
+	      ((string-equal p "end")
+	       (mapc #'(lambda (n)
+			 (append (car company-backends) (list n)))
+		     ,company-xxx-names))
+	      (t
+	       (mapc #'(lambda (n)
+			 (setq company-backends
+			       (cons (cons n 
+					   (car company-backends)) 
+				     (cdr company-backends))))
+		     ,company-xxx-names)))
+	     (setq company-backends (cons (remove-duplicates (car company-backends) :test 'eq) (cdr company-backends)))))
 
 	;; use statistics to better filter completion candidates
 	(use-package company-statistics
@@ -1212,14 +1212,13 @@
 
 	 (defun lsp-vue-setup ()
 	   (my-setup-lsp)
-	   (reset-company-backends)
-	   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
+	   (reset-company-backends))
 
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
 					(smartparens-mode)
 					(pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
-					(pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
+					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
 
 	 ;; colorize colors in buffers
