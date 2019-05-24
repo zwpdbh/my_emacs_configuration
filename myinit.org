@@ -392,12 +392,12 @@
 
 	(setq completion-ignore-case t)
 	(setq company-dabbrev-downcase nil)
-	(setq company-idle-delay 0.01)
 	;; Show suggestions after entering one character.
 	(setq company-minimum-prefix-length 1)
 	;; wrap around to the top of the list again
 	(setq company-selection-wrap-around t)
 	(setq company-echo-delay 0)
+	(setq company-idle-delay 0.2)
 
 	(define-key company-active-map [tab] 'company-complete-selection)
 	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
