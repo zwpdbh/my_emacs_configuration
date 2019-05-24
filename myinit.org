@@ -409,6 +409,7 @@
 	(defvar company-general-backends '((company-files ; files & directory
 					    company-keywords ; keywords
 					    company-capf
+					    company-dabbrev
 					    company-yasnippet)
 					   (company-abbrev company-dabbrev)))
 	(setq company-backends company-general-backends)
