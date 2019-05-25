@@ -41,10 +41,8 @@
      ;; use c-z to undo
      (global-set-key (kbd "C-z") #'undo)
 
-     ;; use cmd + / to comment region of code
-     (global-set-key (kbd "s-/") 'comment-region)
-     ;; use cmd + \ to uncomment region of code
-     (global-set-key (kbd "s-\\") 'uncomment-region)
+     ;; do code comment 
+     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
      ;; use c-c c-c to execute a lisp function
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
@@ -53,8 +51,8 @@
      (global-set-key (kbd "<f3>") (kbd "C-c '"))
      ;; use f10 to format whole buffer
      (global-set-key (kbd "<f10>") (progn
-                                     #'mark-whole-buffer
-                                     #'indent-region))
+				     #'mark-whole-buffer
+				     #'indent-region))
      ;; use f5 to revert the buffer
      (global-set-key (kbd "<f5>") 'revert-buffer)
    #+end_src
@@ -440,11 +438,17 @@
 	    (setq company-transformers '(company-sort-by-statistics
 					 company-sort-by-backend-importance))))
 
-	(use-package company-posframe
+	;; (use-package company-posframe
+	;;   :ensure t
+	;;   :config
+	;;   (progn
+	;; 	(add-hook 'company-mode #'company-posframe-mode)))
+
+	(use-package company-quickhelp
 	  :ensure t
 	  :config
 	  (progn
-	    (add-hook 'company-mode #'company-posframe-mode)))))
+	    (add-hook 'company-mode #'company-quickhelp-mode)))))
   #+END_SRC
 
   #+RESULTS:
