@@ -448,6 +448,7 @@
 	  :ensure t
 	  :config
 	  (progn
+	    (setq company-quickhelp-delay 1.0)
 	    (add-hook 'company-mode #'company-quickhelp-mode)))))
   #+END_SRC
 
