@@ -1168,10 +1168,10 @@
 	   (reset-company-backends))
 
 	 (with-eval-after-load "smartparens"
-	   ;; (defun +web-is-auto-close-style-3 (_id action _context)
-	   ;; 	(and (eq action 'insert)
-	   ;; 	     (eq web-mode-auto-close-style 3)))
-	   ;; (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
+	   (defun +web-is-auto-close-style-3 (_id action _context)
+	     (and (eq action 'insert)
+		  (eq web-mode-auto-close-style 3)))
+	   (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
 
 	   ;; let smartparens handle these
 	   (setq web-mode-enable-auto-quoting nil
@@ -1190,6 +1190,7 @@
 					    (string-trim-right (cdr pair) "\\(?:>\\|]\\|}\\)+")))))
 	   (setf (alist-get nil web-mode-engines-auto-pairs) nil))
 
+
 	 (setq web-mode-markup-indent-offset 2)
 	 (setq web-mode-css-indent-offset 2)
 	 (setq web-mode-code-indent-offset 2)
@@ -1205,16 +1206,6 @@
 	 ;; https://github.com/skeeto/impatient-mode
 	 (use-package impatient-mode
 	   :commands (impatient-mode))
-
-	 ;; emmet-mode: dynamic snippets for HTML
-	 ;; https://github.com/smihica/emmet-mode
-	 (use-package emmet-mode
-	   :ensure t
-	   :config
-	   (progn
-	     (setq emmet-move-cursor-between-quotes t)
-	     (setq emmet-indentation 2)
-	     (add-hook 'web-mode-hook #'emmet-mode)))
 
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
