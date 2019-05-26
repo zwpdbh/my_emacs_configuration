@@ -291,13 +291,12 @@
        (progn
 	 (add-hook 'js-mode-hook #'smartparens-mode)
 	 (add-hook 'c-mode-hook #'smartparens-mode)
-	 (add-hook 'c++-mode-hook #'smartparens-mode)))
-
-
+	 (add-hook 'c++-mode-hook #'smartparens-mode)
+	 (add-hook 'web-mode-hook #'smartparens-mode)))
    #+END_SRC
 
    #+RESULTS:
-   : t   
+   : t
 
 * Helm
   #+BEGIN_SRC emacs-lisp
@@ -1167,28 +1166,28 @@
 	   (my-setup-lsp)
 	   (reset-company-backends))
 
-	 (with-eval-after-load "smartparens"
-	   (defun +web-is-auto-close-style-3 (_id action _context)
-	     (and (eq action 'insert)
-		  (eq web-mode-auto-close-style 3)))
-	   (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
+	 ;; (with-eval-after-load "smartparens"
+	 ;;   (defun +web-is-auto-close-style-3 (_id action _context)
+	 ;; 	(and (eq action 'insert)
+	 ;; 	     (eq web-mode-auto-close-style 3)))
+	 ;;   (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
 
-	   ;; let smartparens handle these
-	   (setq web-mode-enable-auto-quoting nil
-		 web-mode-enable-auto-pairing t)
+	 ;;   ;; let smartparens handle these
+	 ;;   (setq web-mode-enable-auto-quoting nil
+	 ;; 	    web-mode-enable-auto-pairing t)
 
-	   ;; 1. Remove web-mode auto pairs whose end pair starts with a latter
-	   ;;    (truncated autopairs like <?p and hp ?>). Smartparens handles these
-	   ;;    better.
-	   ;; 2. Strips out extra closing pairs to prevent redundant characters
-	   ;;    inserted by smartparens.
-	   (dolist (alist web-mode-engines-auto-pairs)
-	     (setcdr alist
-		     (cl-loop for pair in (cdr alist)
-			      unless (string-match-p "^[a-z-]" (cdr pair))
-			      collect (cons (car pair)
-					    (string-trim-right (cdr pair) "\\(?:>\\|]\\|}\\)+")))))
-	   (setf (alist-get nil web-mode-engines-auto-pairs) nil))
+	 ;;   ;; 1. Remove web-mode auto pairs whose end pair starts with a latter
+	 ;;   ;;    (truncated autopairs like <?p and hp ?>). Smartparens handles these
+	 ;;   ;;    better.
+	 ;;   ;; 2. Strips out extra closing pairs to prevent redundant characters
+	 ;;   ;;    inserted by smartparens.
+	 ;;   (dolist (alist web-mode-engines-auto-pairs)
+	 ;; 	(setcdr alist
+	 ;; 		(cl-loop for pair in (cdr alist)
+	 ;; 			 unless (string-match-p "^[a-z-]" (cdr pair))
+	 ;; 			 collect (cons (car pair)
+	 ;; 				       (string-trim-right (cdr pair) "\\(?:>\\|]\\|}\\)+")))))
+	 ;;   (setf (alist-get nil web-mode-engines-auto-pairs) nil))
 
 
 	 (setq web-mode-markup-indent-offset 2)
@@ -1209,14 +1208,11 @@
 
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
-					(smartparens-mode)
 					(pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
 					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
    #+END_SRC
 
-   #+RESULTS:
-   : t
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
