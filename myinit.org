@@ -1171,8 +1171,8 @@
 
 	 ;; (with-eval-after-load "smartparens"
 	 ;;   (defun +web-is-auto-close-style-3 (_id action _context)
-	 ;; 	(and (eq action 'insert)
-	 ;; 	     (eq web-mode-auto-close-style 3)))
+	 ;;   	(and (eq action 'insert)
+	 ;;   	     (eq web-mode-auto-close-style 3)))
 	 ;;   (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
 
 	 ;;   ;; let smartparens handle these
@@ -1209,12 +1209,22 @@
 	 (use-package impatient-mode
 	   :commands (impatient-mode))
 
+	 (use-package emmet-mode
+	   :ensure t
+	   :config
+	   (progn
+	     (add-hook 'web-mode-hook #'emmet-mode)))
+
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
 					(pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
 					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
    #+END_SRC
+
+   #+RESULTS:
+
+
 
 
 ** Java programming
