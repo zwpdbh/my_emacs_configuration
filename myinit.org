@@ -414,6 +414,7 @@
 
 	(defmacro add-to-company-backends (company-xxx-names &optional at)
 	  "company-xxx-names: '(company-ycmd company-foo)"
+	  (interactive)
 	  `(let ((p (or ,at "front")))
 	     (cond 
 	      ((string-equal p "end")
@@ -747,14 +748,14 @@
 	      (setq company-lsp-enable-recompletion t)))
 
 	  ;; make multiple source to do completion even in lsp-mode
-	  (defun reset-company-backends () 
+	  (defun reset-company-backends-with-lsp () 
 	    (interactive)
 	    (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
-    
+
 	  (defun my-setup-lsp ()
 	    (lsp)
 	    ;; set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends
-	    (reset-company-backends))
+	    (reset-company-backends-with-lsp))
 
 	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -1158,17 +1159,38 @@
 	      ("\\.vue$" . web-mode))
        :config
        (progn
-	 (defun lsp-html-setup ()
-	   "Function to setup `lsp-html'"
-	   (my-setup-lsp)
-	   (reset-company-backends)
-	   (setq-local lsp-highlight-symbol-at-point nil)
-	   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
+	 ;; (defun lsp-html-setup ()
+	 ;;   "Function to setup `lsp-html'"
+	 ;;   (my-setup-lsp)
+	 ;;   (setq-local lsp-highlight-symbol-at-point nil)
+	 ;;   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
 
-	 (defun lsp-vue-setup ()
-	   (my-setup-lsp)
-	   (reset-company-backends))
+	 ;; (defun lsp-vue-setup ()
+	 ;;   (my-setup-lsp))
 
+	 (defun my/web-html-setup ()
+	   "Setup for web-mode html files."
+	   (message "web-mode use html related setup")
+	   ;; (flycheck-add-mode 'html-tidy 'web-mode)
+	   (add-to-list (make-local-variable 'company-backends)
+			(add-to-company-backends '(company-lsp))))
+
+	 (defun my/web-vue-setup ()
+	   "Setup for web-mode vue files."
+	   (message "web-mode use vue related setup")
+	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+	   ;; (flycheck-select-checker 'javascript-eslint)
+	   (my/use-eslint-from-node-modules)
+	   ;; (add-to-list (make-local-variable 'company-backends)
+	   ;; 		   (add-to-company-backends '(company-lsp)))
+	   (add-to-company-backends '(company-lsp)))
+
+	 (defun my/use-eslint-from-node-modules ()
+	   "Use local eslint from node_module before global"
+	   (let* ((root (locate-dominating-file (or (buffer-file-name) default-directory) "node_modules"))
+		  (eslint (and root (expand-file-name "node_modules/eslint/bin/eslint.js" root))))
+	     (when (and eslint (file-executable-p eslint))
+	       (setq-local flycheck-javascript-eslint-executable eslint))))
 	 ;; (with-eval-after-load "smartparens"
 	 ;;   (defun +web-is-auto-close-style-3 (_id action _context)
 	 ;;   	(and (eq action 'insert)
@@ -1203,6 +1225,7 @@
 	 (setq web-mode-enable-current-element-highlight t)
 	 ;; colorize colors in buffers
 	 (setq web-mode-enable-css-colorization t)
+	 (setq web-mode-content-types-alist '(("vue" . "\\.vue\\'")))
 
 	 ;; impatient mode: Live refresh of web pages
 	 ;; https://github.com/skeeto/impatient-mode
@@ -1217,7 +1240,11 @@
 
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
-					(pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
+					(cond ((equal web-mode-content-type "html")
+					       (my/web-html-setup))
+					      ((equal web-mode-content-type "vue")
+					       (my/web-vue-setup)))
+					;; (pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
 					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
    #+END_SRC
