@@ -290,6 +290,7 @@
        :config
        (progn
 	 (add-hook 'js-mode-hook #'smartparens-mode)
+	 (add-hook 'typescript-mode-hook #'smartparens)
 	 (add-hook 'c-mode-hook #'smartparens-mode)
 	 (add-hook 'c++-mode-hook #'smartparens-mode)
 	 (add-hook 'web-mode-hook #'smartparens-mode)))
@@ -1107,10 +1108,11 @@
     #+RESULTS:
     : t
 
-** Javascript
+** Javascript and typescript
 *** interface
     #+begin_src emacs-lisp
       (setq js-indent-level 2)
+      (setq typescript-indent-level 2)
     #+end_src
 
     #+RESULTS:
@@ -1118,10 +1120,11 @@
 
 *** with lsp
     - =sudo npm i -g javascript-typescript-langserver=
+    - =sudo npm install -g typescript-language-server typescript=
     - emacs configuration
       #+begin_src emacs-lisp
 	(add-hook 'js-mode-hook #'my-setup-lsp)
-
+	(add-hook 'typescript-mode-hook #'my-setup-lsp)
       #+end_src
 
       #+RESULTS:
