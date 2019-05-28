@@ -753,13 +753,19 @@
 	    (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
 
 	  (defun my-setup-lsp ()
+	    "set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends"
 	    (lsp)
-	    ;; set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends
 	    (reset-company-backends-with-lsp))
+
+	  (defmacro lsp-register-major-mode (client mode)
+	    "Registers major MODE to CLIENT. \(fn 'example-ls 'example-mode)"
+	    (gv-letplace (getter setter) `(lsp--client-major-modes (gethash ,client lsp-clients))
+	      `(unless (memq ,mode ,getter)
+		 (funcall ,setter (push ,mode ,getter)))))
 
 	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
+    
 
 	  (use-package dap-mode
 	    :ensure t
@@ -1156,65 +1162,10 @@
 	      ("\\.as[cp]x\\'" . web-mode)
 	      ("\\.erb\\'" . web-mode)
 	      ("\\.hbs\\'" . web-mode)
-	      ("\\.vue$" . web-mode))
+	      ("\\.vue\\'" . web-vue-mode)
+	      )
        :config
        (progn
-	 ;; (defun lsp-html-setup ()
-	 ;;   "Function to setup `lsp-html'"
-	 ;;   (my-setup-lsp)
-	 ;;   (setq-local lsp-highlight-symbol-at-point nil)
-	 ;;   (bind-key "C-c o b" #'browse-url-of-file (current-local-map)))
-
-	 ;; (defun lsp-vue-setup ()
-	 ;;   (my-setup-lsp))
-
-	 (defun my/web-html-setup ()
-	   "Setup for web-mode html files."
-	   (message "web-mode use html related setup")
-	   ;; (flycheck-add-mode 'html-tidy 'web-mode)
-	   (add-to-list (make-local-variable 'company-backends)
-			(add-to-company-backends '(company-lsp))))
-
-	 (defun my/web-vue-setup ()
-	   "Setup for web-mode vue files."
-	   (message "web-mode use vue related setup")
-	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-	   ;; (flycheck-select-checker 'javascript-eslint)
-	   (my/use-eslint-from-node-modules)
-	   ;; (add-to-list (make-local-variable 'company-backends)
-	   ;; 		   (add-to-company-backends '(company-lsp)))
-	   (add-to-company-backends '(company-lsp)))
-
-	 (defun my/use-eslint-from-node-modules ()
-	   "Use local eslint from node_module before global"
-	   (let* ((root (locate-dominating-file (or (buffer-file-name) default-directory) "node_modules"))
-		  (eslint (and root (expand-file-name "node_modules/eslint/bin/eslint.js" root))))
-	     (when (and eslint (file-executable-p eslint))
-	       (setq-local flycheck-javascript-eslint-executable eslint))))
-	 ;; (with-eval-after-load "smartparens"
-	 ;;   (defun +web-is-auto-close-style-3 (_id action _context)
-	 ;;   	(and (eq action 'insert)
-	 ;;   	     (eq web-mode-auto-close-style 3)))
-	 ;;   (sp-local-pair 'web-mode "<" nil :unless '(:add +web-is-auto-close-style-3))
-
-	 ;;   ;; let smartparens handle these
-	 ;;   (setq web-mode-enable-auto-quoting nil
-	 ;; 	    web-mode-enable-auto-pairing t)
-
-	 ;;   ;; 1. Remove web-mode auto pairs whose end pair starts with a latter
-	 ;;   ;;    (truncated autopairs like <?p and hp ?>). Smartparens handles these
-	 ;;   ;;    better.
-	 ;;   ;; 2. Strips out extra closing pairs to prevent redundant characters
-	 ;;   ;;    inserted by smartparens.
-	 ;;   (dolist (alist web-mode-engines-auto-pairs)
-	 ;; 	(setcdr alist
-	 ;; 		(cl-loop for pair in (cdr alist)
-	 ;; 			 unless (string-match-p "^[a-z-]" (cdr pair))
-	 ;; 			 collect (cons (car pair)
-	 ;; 				       (string-trim-right (cdr pair) "\\(?:>\\|]\\|}\\)+")))))
-	 ;;   (setf (alist-get nil web-mode-engines-auto-pairs) nil))
-
-
 	 (setq web-mode-markup-indent-offset 2)
 	 (setq web-mode-css-indent-offset 2)
 	 (setq web-mode-code-indent-offset 2)
@@ -1225,7 +1176,6 @@
 	 (setq web-mode-enable-current-element-highlight t)
 	 ;; colorize colors in buffers
 	 (setq web-mode-enable-css-colorization t)
-	 (setq web-mode-content-types-alist '(("vue" . "\\.vue\\'")))
 
 	 ;; impatient mode: Live refresh of web pages
 	 ;; https://github.com/skeeto/impatient-mode
@@ -1237,14 +1187,42 @@
 	   :config
 	   (progn
 	     (add-hook 'web-mode-hook #'emmet-mode)))
+    
+	 (defun my/web-html-setup ()
+	   "Setup for web-mode html files."
+	   (message "web-mode use html related setup")
+	   ;; (flycheck-add-mode 'html-tidy 'web-mode)
+	   ;; (add-to-list (make-local-variable 'company-backends)
+	   ;; 		   (add-to-company-backends '(company-lsp)))
+	   (my-setup-lsp))
+
+	 ;; setup for .vue
+	 (defun my/use-eslint-from-node-modules ()
+	   "Use local eslint from node_module before global"
+	   (let* ((root (locate-dominating-file (or (buffer-file-name) default-directory) "node_modules"))
+		  (eslint (and root (expand-file-name "node_modules/eslint/bin/eslint.js" root))))
+	     (when (and eslint (file-executable-p eslint))
+	       (setq-local flycheck-javascript-eslint-executable eslint))))
+	 (define-derived-mode web-vue-mode web-mode "WebVUE"
+	   "Major mode for editing Web & VUE templates.\\{web-vue-map}")
+	 (lsp-register-major-mode 'vls 'web-vue-mode)
+	 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-vue-mode))
+	 (defun my/web-vue-setup ()
+	   "Setup for web-mode vue files."
+	   (message "web-mode use vue related setup")
+	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+	   ;; (flycheck-select-checker 'javascript-eslint)
+	   (my/use-eslint-from-node-modules)
+	   (my-setup-lsp))
+	 (add-hook 'web-vue-mode-hook #'my/web-vue-setup)
 
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
-					(cond ((equal web-mode-content-type "html")
-					       (my/web-html-setup))
-					      ((equal web-mode-content-type "vue")
-					       (my/web-vue-setup)))
-					;; (pcase (file-name-extension buffer-file-name) ("html" (lsp-html-setup)))
+					;; (cond ((equal web-mode-content-type "html")
+					;; 	  (my/web-html-setup))
+					;; 	 ((equal web-mode-content-type "vue")
+					;; 	  (my/web-vue-setup)))
+					(pcase (file-name-extension buffer-file-name) ("html" (my/web-html-setup)))
 					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
    #+END_SRC
