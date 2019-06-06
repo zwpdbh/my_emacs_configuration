@@ -404,31 +404,31 @@
 
 
 	;; set default `company-backends'
-	(defvar company-general-backends '((company-files ; files & directory
-					    company-keywords ; keywords
-					    company-capf
-					    company-dabbrev
-					    company-yasnippet)
-					   (company-abbrev company-dabbrev)))
-	(setq company-backends company-general-backends)
+	;; (defvar company-original-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+	;; 						     (company-dabbrev-code company-gtags company-etags company-keywords)
+	;; 						     company-oddmuse company-dabbrev))
+	;; (defvar company-general-backends '((company-files ; files & directory
+	;; 					company-dabbrev)
+	;; 				       (company-abbrev company-dabbrev)))
+	;; (setq company-backends company-general-backends)
 
-	(defmacro add-to-company-backends (company-xxx-names &optional at)
-	  "company-xxx-names: '(company-ycmd company-foo)"
-	  (interactive)
-	  `(let ((p (or ,at "front")))
-	     (cond 
-	      ((string-equal p "end")
-	       (mapc #'(lambda (n)
-			 (append (car company-backends) (list n)))
-		     ,company-xxx-names))
-	      (t
-	       (mapc #'(lambda (n)
-			 (setq company-backends
-			       (cons (cons n 
-					   (car company-backends)) 
-				     (cdr company-backends))))
-		     ,company-xxx-names)))
-	     (setq company-backends (cons (remove-duplicates (car company-backends) :test 'eq) (cdr company-backends)))))
+	;; (defmacro add-to-company-backends (company-xxx-names &optional at)
+	;;   "company-xxx-names: '(company-ycmd company-foo)"
+	;;   (interactive)
+	;;   `(let ((p (or ,at "front")))
+	;; 	 (cond 
+	;; 	  ((string-equal p "end")
+	;; 	   (mapc #'(lambda (n)
+	;; 		     (append (car company-backends) (list n)))
+	;; 		 ,company-xxx-names))
+	;; 	  (t
+	;; 	   (mapc #'(lambda (n)
+	;; 		     (setq company-backends
+	;; 			   (cons (cons n 
+	;; 				       (car company-backends)) 
+	;; 				 (cdr company-backends))))
+	;; 		 ,company-xxx-names)))
+	;; 	 (setq company-backends (cons (remove-duplicates (car company-backends) :test 'eq) (cdr company-backends)))))
 
 	;; use statistics to better filter completion candidates
 	(use-package company-statistics
@@ -748,14 +748,13 @@
 	      (setq company-lsp-enable-recompletion t)))
 
 	  ;; make multiple source to do completion even in lsp-mode
-	  (defun reset-company-backends-with-lsp () 
-	    (interactive)
-	    (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
+	  ;; (defun reset-company-backends-with-lsp () 
+	  ;;   (interactive)
+	  ;;   (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
 
 	  (defun my-setup-lsp ()
 	    "set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends"
-	    (lsp)
-	    (reset-company-backends-with-lsp))
+	    (lsp))
 
 	  (defmacro lsp-register-major-mode (client mode)
 	    "Registers major MODE to CLIENT. \(fn 'example-ls 'example-mode)"
@@ -765,7 +764,7 @@
 
 	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-    
+
 
 	  (use-package dap-mode
 	    :ensure t
@@ -1067,13 +1066,13 @@
 	:ensure t
 	:config
 	(progn
-          (setq clojure-align-forms-automatically t)
-          ;; make moving between characters faster
-          (add-hook 'clojure-mode-hook #'subword-mode)
-          ;; use paredit or smartparens 
-          (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-          (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
+	  (setq clojure-align-forms-automatically t)
+	  ;; make moving between characters faster
+	  (add-hook 'clojure-mode-hook #'subword-mode)
+	  ;; use paredit or smartparens 
+	  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+	  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+	  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
 
     #+END_SRC
 
@@ -1187,14 +1186,15 @@
 	   :config
 	   (progn
 	     (add-hook 'web-mode-hook #'emmet-mode)))
-    
+
 	 (defun my/web-html-setup ()
 	   "Setup for web-mode html files."
 	   (message "web-mode use html related setup")
 	   ;; (flycheck-add-mode 'html-tidy 'web-mode)
 	   ;; (add-to-list (make-local-variable 'company-backends)
 	   ;; 		   (add-to-company-backends '(company-lsp)))
-	   (my-setup-lsp))
+	   ;; (my-setup-lsp)
+	   )
 
 	 ;; setup for .vue
 	 (defun my/use-eslint-from-node-modules ()
@@ -1205,7 +1205,8 @@
 	       (setq-local flycheck-javascript-eslint-executable eslint))))
 	 (define-derived-mode web-vue-mode web-mode "WebVUE"
 	   "Major mode for editing Web & VUE templates.\\{web-vue-map}")
-	 (lsp-register-major-mode 'vls 'web-vue-mode)
+	 ;; (lsp-register-major-mode 'vls 'web-vue-mode)
+	 (lsp-register-major-mode 'jsts-ls 'web-vue-mode)
 	 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-vue-mode))
 	 (defun my/web-vue-setup ()
 	   "Setup for web-mode vue files."
