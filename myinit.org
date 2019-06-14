@@ -497,11 +497,11 @@
     ;; flucui-themes
     ;; solarized-theme
 
-    (use-package solarized-theme
+    (use-package monokai-theme
       :ensure t
       :config
       (progn
-	(load-theme 'solarized-dark t)
+	(load-theme 'monokai t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
