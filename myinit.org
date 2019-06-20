@@ -515,21 +515,21 @@
        :ensure t
        :config
        (progn
-         (require 'org-eldoc)
-         (require 'org-tempo)))
+	 (require 'org-eldoc)
+	 (require 'org-tempo)))
 
      (add-hook 'org-mode-hook #'(lambda ()
-                                  (progn
-                                    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
-                                    (defun my-org-confirm-babel-evaluate (lang body)
-                                      (not (member lang '("emacs-lisp" "lisp"))))
-                                    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
+				  (progn
+				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
+				    (defun my-org-confirm-babel-evaluate (lang body)
+				      (not (member lang '("emacs-lisp" "lisp"))))
+				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
        #'(lambda ()
-           (define-key org-mode-map [f9] #'org-global-cycle)
-           (define-key org-mode-map [f6] #'org-toggle-inline-images)))
+	   (define-key org-mode-map [f9] #'org-global-cycle)
+	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
    #+END_SRC
 
    #+RESULTS:
@@ -857,15 +857,6 @@
     : t
 
 ** Lisp programming configuration
-*** lispy
-    #+begin_src emacs-lisp
-      (use-package lispy
-	:ensure t
-	:config
-	(progn
-	  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-	  (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))))
-    #+end_src
 *** Eldoc to show argument list
     #+begin_src emacs-lisp
       (use-package eldoc
@@ -874,7 +865,6 @@
 	:init
 	:config
 	(progn
-	  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 	  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 	  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 	  ;; highlight eldoc arguments in emacslisp
@@ -924,6 +914,7 @@
 	:ensure t
 	:config
 	(progn
+	  (setq inferior-lisp-program "sbcl")
 	  (setq sly-lisp-implementations
 		'((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
 		  ))
@@ -955,7 +946,7 @@
 	  (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
 
 	  ;; setup file ending in ".scheme" to open in racket-mode 
-	  (add-to-list 'auto-mode-alist '("\\.scheme\\'" . racket-mode))))
+	  (add-to-list 'auto-mode-alist '("\\.racket\\'" . racket-mode))))
     #+end_src
 
     #+RESULTS:
@@ -964,14 +955,92 @@
 *** Scheme
     #+begin_src emacs-lisp
       (use-package geiser
+	:init
+	(progn
+	  (setq geiser-active-implementations '(chez))
+    
+	  (defun scheme-split-window ()
+	    (cond
+	     ((= 1 (count-windows))
+	      (delete-other-windows)
+	      (split-window-vertically (floor (* 0.68 (window-height))))
+	      (other-window 1)
+	      (switch-to-buffer "*scheme*")
+	      (other-window 1))
+	     ((not (find "*scheme*"
+			 (mapcar (lambda (w) (buffer-name (window-buffer w)))
+				 (window-list))
+			 :test 'equal))
+	      (other-window 1)
+	      (switch-to-buffer "*scheme*")
+	      (other-window -1))))
+
+
+	  (defun scheme-send-last-sexp-split-window ()
+	    (interactive)
+	    (scheme-split-window)
+	    ;; (scheme-send-last-sexp)
+	    )
+
+	  (defun scheme-send-definition-split-window ()
+	    (interactive)
+	    (scheme-split-window)
+	    ;; (scheme-send-definition)
+	    ))
+  
 	:ensure t
 	:config
 	(progn
-	  (add-hook 'scheme-mode-hook #'geiser-mode--maybe-activate)
-	  (setq geiser-active-implementations '(guile))
-	  (setq geiser-mode-start-repl-p t)))
+	  (setq scheme-program-name "scheme")
+	  (setq geiser-mode-start-repl-p t)
+	  (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
+	  (add-hook 'scheme-mode-hook
+		    #'(lambda ()
+			(geiser-mode--maybe-activate)
+			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)))))
 
     #+end_src
+
+*** Common configuration 
+    #+begin_src emacs-lisp
+      (setq lisp-modes '(lisp-mode
+			 emacs-lisp-mode
+			 common-lisp-mode
+			 scheme-mode
+			 clojure-mode))
+
+      (defvar lisp-power-map (make-keymap))
+      (define-minor-mode lisp-power-mode "Fix keybindings; add power."
+	:lighter " (power)"
+	:keymap lisp-power-map
+	(paredit-mode t))
+      (define-key lisp-power-map [delete] 'paredit-forward-delete)
+      (define-key lisp-power-map [backspace] 'paredit-backward-delete)
+
+      (defun zwpdbh/engage-lisp-power ()
+	(lisp-power-mode t))
+
+
+      ;; use lispy
+      (use-package lispy
+	:ensure t)
+
+      (dolist (mode lisp-modes)
+	(add-hook (intern (format "%s-hook" mode))
+		  #'(lambda ()
+		      (zwpdbh/engage-lisp-power)
+		      (turn-on-eldoc-mode)
+		      (lispy-mode 1)
+		      (rainbow-delimiters-mode-enable)
+		      (aggressive-indent-mode))))
+
+    #+end_src
+
+
+
+
+
+
 ** Scala programming
 *** ensime
     #+begin_src emacs-lisp
@@ -1263,6 +1332,7 @@
 * References
 ** Good general configurations
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
+   - [[http://aaronbedra.com/emacs.d/][Aaron Bedra's Emacs 26 Configuration]]
    - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
    - [[https://github.com/CSRaghunandan/.emacs.d/tree/master/setup-files][a different way to organize configuration files]]
    - [[https://github.com/jerryhsieh/Emacs-config][jerryhsieh/Emacs-config]]
