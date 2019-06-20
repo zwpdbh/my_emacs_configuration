@@ -958,7 +958,7 @@
 	:init
 	(progn
 	  (setq geiser-active-implementations '(chez))
-    
+
 	  (defun scheme-split-window ()
 	    (cond
 	     ((= 1 (count-windows))
@@ -987,7 +987,7 @@
 	    (scheme-split-window)
 	    ;; (scheme-send-definition)
 	    ))
-  
+
 	:ensure t
 	:config
 	(progn
@@ -997,7 +997,11 @@
 	  (add-hook 'scheme-mode-hook
 		    #'(lambda ()
 			(geiser-mode--maybe-activate)
-			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)))))
+			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)))
+	  (add-hook 'geiser-repl-mode-hook
+		    #'(lambda ()
+			(paredit-mode)
+			(rainbow-delimiters-mode-enable)))))
 
     #+end_src
 
