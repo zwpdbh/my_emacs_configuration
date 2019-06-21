@@ -508,182 +508,6 @@
   #+RESULTS:
   : t
 
-* Org mode enhancement
-** common settings
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-plus-contrib
-       :ensure t
-       :config
-       (progn
-	 (require 'org-eldoc)
-	 (require 'org-tempo)))
-
-     (add-hook 'org-mode-hook #'(lambda ()
-				  (progn
-				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
-				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp"))))
-				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
-
-     ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
-     (eval-after-load 'org
-       #'(lambda ()
-	   (define-key org-mode-map [f9] #'org-global-cycle)
-	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
-   #+END_SRC
-
-   #+RESULTS:
-   : org-toggle-inline-images
-
-
-** make code-block could be executed in org-mode
-   If you find Org-Mode Evaluation of code is disabled, do:
-   =find ~/.emacs.d/elpa/org* -name "*elc" -delete=
-
-   #+begin_src emacs-lisp
-     ;; evaluation use sly instead of using slime, need to use org-plus-contrib
-     (setq org-babel-lisp-eval-fn #'sly-eval)
-
-     (require 'org-tempo)
-     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
-     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-
-     (cond
-      ((string-equal system-type "darwin")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t)))))
-      ;; the shell configuration for Linux could either be sh or shell 
-      ;; it is not same in different Linux system.
-      ((string-equal system-type "gnu/linux")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((C . t)
-	    (lisp . t)))))
-      ((string-equal system-type "windows-nt")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t))))))
-
-
-
-   #+end_src
-   
-   #+RESULTS:
-
-
-** htmlize --- convert buffer text and decorations to HTML
-   #+BEGIN_SRC emacs-lisp
-     (use-package htmlize
-       :defer 2
-       :ensure t)
-   #+END_SRC
-
-   #+RESULTS:
-   : [nil 0 2 0 nil require (htmlize nil t) idle 0]
-   m
-* Treemacs
-  #+begin_src emacs-lisp
-    (use-package treemacs
-      :defer t
-      :ensure t
-      :defer t
-      :init
-      (progn
-	(use-package lv
-	  :ensure t)
-	(use-package hydra
-	  :ensure t)
-	(with-eval-after-load 'winum
-	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
-      :config
-      (progn
-	;; (pcase (cons (not (null (executable-find "git")))
-	;;              (not (null (executable-find "python3"))))
-	;;   (`(t . t)
-	;;    (treemacs-git-mode 'deferred))
-	;;   (`(t . _)
-	;;    (treemacs-git-mode 'simple)))
-	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-	      treemacs-file-event-delay           5000
-	      treemacs-follow-after-init          t
-	      treemacs-follow-recenter-distance   0.1
-	      treemacs-goto-tag-strategy          'refetch-index
-	      treemacs-indentation                1
-	      ;; indent guide
-	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
-	      ;; treemacs-indentation-string         "|"
-	      treemacs-is-never-other-window      nil
-	      treemacs-no-png-images              nil
-	      treemacs-project-follow-cleanup     nil
-	      treemacs-recenter-after-file-follow nil
-	      treemacs-recenter-after-tag-follow  nil
-	      treemacs-show-hidden-files          t
-	      treemacs-silent-filewatch           nil
-	      treemacs-silent-refresh             nil
-	      treemacs-sorting                    'alphabetic-desc
-	      treemacs-tag-follow-cleanup         t
-	      treemacs-tag-follow-delay           1.5
-	      treemacs-width                      40
-	      treemacs-follow-mode                t
-	      treemacs-filewatch-mode             t
-	      treemacs-git-mode nil))
-      :bind
-      (:map global-map
-	    ([f8]        . treemacs)
-	    ("M-0"       . treemacs-select-window)
-	    ("C-x t 1"   . treemacs-delete-other-windows)
-	    ("C-x t t"   . treemacs)
-	    ("C-x t B"   . treemacs-bookmark)
-	    ("C-x t C-t" . treemacs-find-file)
-	    ("C-x t M-t" . treemacs-find-tag)))
-
-    (use-package treemacs-evil
-      :defer t
-      :after treemacs evil
-      :ensure t)
-
-    (use-package treemacs-projectile
-      :defer t
-      :after treemacs projectile
-      :ensure t)
-
-    (use-package treemacs-icons-dired
-      :defer t
-      :after treemacs dired
-      :ensure t
-      :config (treemacs-icons-dired-mode))
-
-
-  #+end_src
-
-  #+RESULTS:
-
-* Markdown 
-  - sudo apt install pandoc
-  #+BEGIN_SRC emacs-lisp
-    (use-package markdown-mode
-      :ensure t
-      :commands (markdown-mode gfm-mode)
-      :mode (("README\\.md\\'" . gfm-mode)
-             ("\\.md\\'" . markdown-mode)
-             ("\\.markdown\\'" . markdown-mode))
-      :init (setq markdown-command "multimarkdown")
-      :config
-      (progn
-        (setq markdown-command "/usr/bin/pandoc")))
-  #+END_SRC
-
-  #+RESULTS:
-
 * Magit
   #+begin_src emacs-lisp
     (use-package magit
@@ -957,7 +781,8 @@
       (use-package geiser
 	:init
 	(progn
-	  (setq geiser-active-implementations '(chez))
+	  (setq geiser-active-implementations '(chez guile))
+
 	  (defun scheme-split-window ()
 	    (cond
 	     ((= 1 (count-windows))
@@ -974,69 +799,68 @@
 	      (switch-to-buffer "*scheme*")
 	      (other-window -1))))
 
-
 	  (defun scheme-send-last-sexp-split-window ()
 	    (interactive)
 	    (scheme-split-window)
-	    ;; (scheme-send-last-sexp)
-	    )
+	    (scheme-send-last-sexp))
 
 	  (defun scheme-send-definition-split-window ()
 	    (interactive)
 	    (scheme-split-window)
-	    ;; (scheme-send-definition)
-	    ))
+	    (scheme-send-definition)))
 
 	:ensure t
 	:config
 	(progn
+	  ;; modify the Chez executable name both for scheme-mode and Geiser 
 	  (setq scheme-program-name "scheme")
+	  (setq geiser-chez-binary "scheme")
 	  (setq geiser-mode-start-repl-p t)
+
 	  (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	  (add-hook 'scheme-mode-hook
 		    #'(lambda ()
 			(geiser-mode--maybe-activate)
 			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)))
-	  (add-hook 'geiser-repl-mode-hook
-		    #'(lambda ()
-			(paredit-mode)
-			(rainbow-delimiters-mode-enable)))))
+	  ))
 
     #+end_src
 
 *** Common configuration 
     #+begin_src emacs-lisp
-      (setq lisp-modes '(lisp-mode
-			 emacs-lisp-mode
-			 common-lisp-mode
-			 scheme-mode
-			 clojure-mode))
+      (use-package lispy
+	:ensure t)
+
+      (setq lisp-mode-set '(lisp-mode
+			    emacs-lisp-mode
+			    common-lisp-mode
+			    scheme-mode
+			    clojure-mode
+			    geiser-repl-mode))
 
       (defvar lisp-power-map (make-keymap))
       (define-minor-mode lisp-power-mode "Fix keybindings; add power."
 	:lighter " (power)"
-	:keymap lisp-power-map
-	(paredit-mode t))
+	:keymap lisp-power-map)
+
       (define-key lisp-power-map [delete] 'paredit-forward-delete)
       (define-key lisp-power-map [backspace] 'paredit-backward-delete)
 
-      (defun zwpdbh/engage-lisp-power ()
-	(lisp-power-mode t))
+      (defun zwpdbh/enhance-lisp-power ()
+	(lisp-power-mode t)
+	(turn-on-eldoc-mode)
+	(paredit-mode t)
+	(lispy-mode 1)
+	(rainbow-delimiters-mode-enable)
+	(aggressive-indent-mode t))
 
+      (dolist (each-mode lisp-mode-set)
+	(add-hook (intern (format "%s-hook" each-mode))
+		  #'zwpdbh/enhance-lisp-power))
 
-      ;; use lispy
-      (use-package lispy
-	:ensure t)
-
-      (dolist (mode lisp-modes)
-	(add-hook (intern (format "%s-hook" mode))
-		  #'(lambda ()
-		      (zwpdbh/engage-lisp-power)
-		      (turn-on-eldoc-mode)
-		      (lispy-mode 1)
-		      (rainbow-delimiters-mode-enable)
-		      (aggressive-indent-mode))))
-
+      (add-hook 'inferior-Scheme-mode-hook
+		#'(lambda ()
+		    #'zwpdbh/enhance-lisp-power))
     #+end_src
 
 
@@ -1331,6 +1155,182 @@
 
    #+RESULTS:
    : t
+
+* Org mode enhancement
+** common settings
+   #+BEGIN_SRC emacs-lisp
+     (use-package org-plus-contrib
+       :ensure t
+       :config
+       (progn
+	 (require 'org-eldoc)
+	 (require 'org-tempo)))
+
+     (add-hook 'org-mode-hook #'(lambda ()
+				  (progn
+				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
+				    (defun my-org-confirm-babel-evaluate (lang body)
+				      (not (member lang '("emacs-lisp" "lisp"))))
+				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
+
+     ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
+     (eval-after-load 'org
+       #'(lambda ()
+	   (define-key org-mode-map [f9] #'org-global-cycle)
+	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
+   #+END_SRC
+
+   #+RESULTS:
+   : org-toggle-inline-images
+
+
+** make code-block could be executed in org-mode
+   If you find Org-Mode Evaluation of code is disabled, do:
+   =find ~/.emacs.d/elpa/org* -name "*elc" -delete=
+
+   #+begin_src emacs-lisp
+     ;; evaluation use sly instead of using slime, need to use org-plus-contrib
+     (setq org-babel-lisp-eval-fn #'sly-eval)
+
+     (require 'org-tempo)
+     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+
+     (cond
+      ((string-equal system-type "darwin")
+       (progn
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (lisp . t)
+	    (C . t)))))
+      ;; the shell configuration for Linux could either be sh or shell 
+      ;; it is not same in different Linux system.
+      ((string-equal system-type "gnu/linux")
+       (progn
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((C . t)
+	    (lisp . t)))))
+      ((string-equal system-type "windows-nt")
+       (progn
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((shell . t)
+	    (lisp . t)
+	    (C . t))))))
+
+
+
+   #+end_src
+   
+   #+RESULTS:
+
+
+** htmlize --- convert buffer text and decorations to HTML
+   #+BEGIN_SRC emacs-lisp
+     (use-package htmlize
+       :defer 2
+       :ensure t)
+   #+END_SRC
+
+   #+RESULTS:
+   : [nil 0 2 0 nil require (htmlize nil t) idle 0]
+   m
+* Treemacs
+  #+begin_src emacs-lisp
+    (use-package treemacs
+      :defer t
+      :ensure t
+      :defer t
+      :init
+      (progn
+	(use-package lv
+	  :ensure t)
+	(use-package hydra
+	  :ensure t)
+	(with-eval-after-load 'winum
+	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+      :config
+      (progn
+	;; (pcase (cons (not (null (executable-find "git")))
+	;;              (not (null (executable-find "python3"))))
+	;;   (`(t . t)
+	;;    (treemacs-git-mode 'deferred))
+	;;   (`(t . _)
+	;;    (treemacs-git-mode 'simple)))
+	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+	      treemacs-file-event-delay           5000
+	      treemacs-follow-after-init          t
+	      treemacs-follow-recenter-distance   0.1
+	      treemacs-goto-tag-strategy          'refetch-index
+	      treemacs-indentation                1
+	      ;; indent guide
+	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+	      ;; treemacs-indentation-string         "|"
+	      treemacs-is-never-other-window      nil
+	      treemacs-no-png-images              nil
+	      treemacs-project-follow-cleanup     nil
+	      treemacs-recenter-after-file-follow nil
+	      treemacs-recenter-after-tag-follow  nil
+	      treemacs-show-hidden-files          t
+	      treemacs-silent-filewatch           nil
+	      treemacs-silent-refresh             nil
+	      treemacs-sorting                    'alphabetic-desc
+	      treemacs-tag-follow-cleanup         t
+	      treemacs-tag-follow-delay           1.5
+	      treemacs-width                      40
+	      treemacs-follow-mode                t
+	      treemacs-filewatch-mode             t
+	      treemacs-git-mode nil))
+      :bind
+      (:map global-map
+	    ([f8]        . treemacs)
+	    ("M-0"       . treemacs-select-window)
+	    ("C-x t 1"   . treemacs-delete-other-windows)
+	    ("C-x t t"   . treemacs)
+	    ("C-x t B"   . treemacs-bookmark)
+	    ("C-x t C-t" . treemacs-find-file)
+	    ("C-x t M-t" . treemacs-find-tag)))
+
+    (use-package treemacs-evil
+      :defer t
+      :after treemacs evil
+      :ensure t)
+
+    (use-package treemacs-projectile
+      :defer t
+      :after treemacs projectile
+      :ensure t)
+
+    (use-package treemacs-icons-dired
+      :defer t
+      :after treemacs dired
+      :ensure t
+      :config (treemacs-icons-dired-mode))
+
+
+  #+end_src
+
+  #+RESULTS:
+
+* Markdown 
+  - sudo apt install pandoc
+  #+BEGIN_SRC emacs-lisp
+    (use-package markdown-mode
+      :ensure t
+      :commands (markdown-mode gfm-mode)
+      :mode (("README\\.md\\'" . gfm-mode)
+             ("\\.md\\'" . markdown-mode)
+             ("\\.markdown\\'" . markdown-mode))
+      :init (setq markdown-command "multimarkdown")
+      :config
+      (progn
+        (setq markdown-command "/usr/bin/pandoc")))
+  #+END_SRC
+
+  #+RESULTS:
 
 * References
 ** Good general configurations
