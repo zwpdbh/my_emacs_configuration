@@ -958,7 +958,6 @@
 	:init
 	(progn
 	  (setq geiser-active-implementations '(chez))
-
 	  (defun scheme-split-window ()
 	    (cond
 	     ((= 1 (count-windows))
