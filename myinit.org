@@ -187,6 +187,25 @@
        :ensure t)
    #+end_src
 
+* Set emacs theme
+  #+begin_src emacs-lisp
+    ;; leuven-theme
+    ;; gruvbox-theme
+    ;; material-theme
+    ;; flucui-themes
+    ;; solarized-theme
+
+    (use-package monokai-theme
+      :ensure t
+      :config
+      (progn
+	(load-theme 'monokai t)
+	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+  #+end_src
+
+  #+RESULTS:
+  : t
+
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
@@ -305,6 +324,9 @@
       :ensure t
       :config
       (progn
+	(use-package helm-xref
+	  :ensure t)
+
 	;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 	;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 	;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
@@ -338,6 +360,8 @@
 	      helm-semantic-fuzzy-match t
 	      helm-imenu-fuzzy-match t)
 
+	(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+
 	(defun spacemacs//helm-hide-minibuffer-maybe ()
 	  "Hide minibuffer in Helm session if we use the header line as input field."
 	  (when (with-helm-buffer helm-echo-input-in-header-line)
@@ -348,12 +372,11 @@
 			     `(:background ,bg-color :foreground ,bg-color)))
 	      (setq-local cursor-type nil))))
 
-
 	(add-hook 'helm-minibuffer-set-up-hook
 		  'spacemacs//helm-hide-minibuffer-maybe)
 
-	(setq helm-autoresize-max-height 0)
-	(setq helm-autoresize-min-height 20)
+	;; (setq helm-autoresize-max-height 0)
+	;; (setq helm-autoresize-min-height 20)
 	(helm-autoresize-mode 1)
 	(helm-mode 1)))
   #+END_SRC
@@ -394,8 +417,8 @@
 	(setq company-minimum-prefix-length 1)
 	;; wrap around to the top of the list again
 	(setq company-selection-wrap-around t)
-	(setq company-echo-delay 0)
-	(setq company-idle-delay 0.2)
+	(setq company-echo-delay 0.01)
+	(setq company-idle-delay 0.01)
 
 	(define-key company-active-map [tab] 'company-complete-selection)
 	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
@@ -449,7 +472,7 @@
 	  :ensure t
 	  :config
 	  (progn
-	    (setq company-quickhelp-delay 1.0)
+	    (setq company-quickhelp-delay 0.5)
 	    (add-hook 'company-mode #'company-quickhelp-mode)))))
   #+END_SRC
 
@@ -484,25 +507,6 @@
 	(custom-set-faces
 	 '(aw-leading-char-face
 	   ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
-  #+end_src
-
-  #+RESULTS:
-  : t
-
-* Set emacs theme
-  #+begin_src emacs-lisp
-    ;; leuven-theme
-    ;; gruvbox-theme
-    ;; material-theme
-    ;; flucui-themes
-    ;; solarized-theme
-
-    (use-package monokai-theme
-      :ensure t
-      :config
-      (progn
-	(load-theme 'monokai t)
-	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
   #+RESULTS:
@@ -559,8 +563,10 @@
 	    (progn
 	      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 	      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-	      (setq lsp-ui-sideline-ignore-duplicate t)
 	      (setq lsp-ui-imenu-enable t)
+	      (setq lsp-ui-sideline-ignore-duplicate t)
+	      (setq lsp-ui-sideline-enable nil)
+	      (setq lsp-ui-doc-enable nil)
 	      (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
 
 	  (use-package company-lsp
@@ -821,9 +827,8 @@
 	  (add-hook 'scheme-mode-hook
 		    #'(lambda ()
 			(geiser-mode--maybe-activate)
-			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)))
-	  ))
-
+			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
+			(define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)))))
     #+end_src
 
 *** Common configuration 
@@ -847,10 +852,11 @@
       (define-key lisp-power-map [backspace] 'paredit-backward-delete)
 
       (defun zwpdbh/enhance-lisp-power ()
+	(interactive)
 	(lisp-power-mode t)
 	(turn-on-eldoc-mode)
 	(paredit-mode t)
-	(lispy-mode 1)
+	;; (lispy-mode 1)
 	(rainbow-delimiters-mode-enable)
 	(aggressive-indent-mode t))
 
@@ -993,9 +999,25 @@
       - install clangd: [[https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd][Getting started with clangd]]
       - Configuration with emacs
 	#+begin_src emacs-lisp
-	  (add-hook 'c-mode-hook #'my-setup-lsp)
-	  (add-hook 'c++-mode-hook #'my-setup-lsp)
+	  (use-package cquery
+	    :init
+	    (progn
+	      (setq cquery-extra-init-params '(:completion (:detailedLabel t))))
+	    :ensure t
+	    :config
+	    (progn
+	      (setq cquery-executable "/usr/local/bin/cquery")
+    
+	      (defun cquery//enable ()
+		(condition-case nil
+		    (lsp)
+		  (user-error nil)))
+	      (add-hook 'c-mode-hook #'cquery//enable)
+	      (add-hook 'c++-mode-hook #'cquery//enable)))
 	#+end_src
+
+	#+RESULTS:
+	: t
 
 *** CMakeLists
     #+begin_src emacs-lisp
@@ -1343,6 +1365,9 @@
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] 
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]]
    - https://ddavis.io/
+   - [[http://maskray.me/blog/2017-12-03-c++-language-server-cquery][使用cquery：C++ language server]]
+** Python related
+   - [[https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/][Configuring Emacs, lsp-mode and the python language server]]
 ** Good Blogs related to emacs
    - [[http://blog.binchen.org/index.html][about many emacs articles]]
    - [[https://blog.onionstudio.com.tw/][洋蔥部落格]]
