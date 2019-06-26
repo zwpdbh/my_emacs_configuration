@@ -831,6 +831,98 @@
 			(define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)))))
     #+end_src
 
+*** Clojure programming
+**** CIDER
+     It is the Clojure(Script) Interactive Development Environment.
+     #+BEGIN_SRC emacs-lisp
+      (use-package cider
+	:ensure t
+	:config
+	(progn
+	  (setq cider-jack-in-default 'lein)
+    
+	  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+	  (add-hook 'cider-repl-mode-hook #'subword-mode)
+	  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+	  (use-package helm-cider
+	    :ensure t
+	    :config
+	    (progn
+	      (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
+     #+END_SRC
+
+     #+RESULTS:
+     : t
+     - Troubleshooting: Could not start nREPL server: java.io.IOException: Permission denied.
+       Solution: check the ~/.lein folder's permission, use chown to change it.
+   
+**** Clojure-mode
+     #+BEGIN_SRC emacs-lisp
+      (use-package clojure-mode
+	:ensure t
+	:config
+	(progn
+	  (setq clojure-align-forms-automatically t)
+	  ;; make moving between characters faster
+	  (add-hook 'clojure-mode-hook #'subword-mode)
+	  ;; use paredit or smartparens 
+	  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+	  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+	  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
+
+     #+END_SRC
+
+     #+RESULTS:
+     : t
+
+**** adoc-mode for reading [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]]   
+     #+begin_src emacs-lisp
+      (use-package adoc-mode
+	:ensure t
+	:config
+	(progn
+	  (defun increment-clojure-cookbook ()
+	    "When reading the Clojure cookbook, find the next section, and
+      close the buffer. If the next section is a sub-directory or in
+      the next chapter, open Dired so you can find it manually."
+	    (interactive)
+	    (let* ((cur (buffer-name))
+		   (split-cur (split-string cur "[-_]"))
+		   (chap (car split-cur))
+		   (rec (car (cdr split-cur)))
+		   (rec-num (string-to-number rec))
+		   (next-rec-num (1+ rec-num))
+		   (next-rec-s (number-to-string next-rec-num))
+		   (next-rec (if (< next-rec-num 10)
+				 (concat "0" next-rec-s)
+			       next-rec-s))
+		   (target (file-name-completion (concat chap "-" next-rec) "")))
+	      (progn 
+		(if (equal target nil)
+		    (dired (file-name-directory (buffer-file-name)))
+		  (find-file target))
+		(kill-buffer cur))))
+	  (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
+    
+	  (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
+	  (add-to-list 'auto-mode-alist (cons "\\.asciidoc\\'" 'adoc-mode))
+	  (add-hook 'adoc-mode-hook 'cider-mode)))
+
+     #+end_src
+
+     #+RESULTS:
+     : t
+
+**** Userful key-bindings in Clojure programming
+     - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
+     - M-. will navigate to the source code for the symbol under point
+     - M-, will return you to your original buffer and position
+     - C-c C-d C-a lets you search for arbitrary text across function names and documentation
+     - For paredit
+       - M-( Surround expression after point in parentheses (paredit-wrap-round).
+       - C-<left or right arrow>, surp or barf
+       - C-M-f, C-M-b Move to the opening/closing parenthesis.
+
 *** Common configuration 
     #+begin_src emacs-lisp
       (use-package lispy
@@ -939,97 +1031,6 @@
     Configure your test Runner
     M-x elpy-set-test-runner
     C-c C-t  ;; runs test/ all tests
-
-
-** Clojure programming
-*** CIDER
-    It is the Clojure(Script) Interactive Development Environment.
-    #+BEGIN_SRC emacs-lisp
-      (use-package cider
-	:ensure t
-	:config
-	(progn
-	  (setq cider-jack-in-default 'lein)
-    
-	  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-	  (add-hook 'cider-repl-mode-hook #'subword-mode)
-	  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-	  (use-package helm-cider
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
-    #+END_SRC
-
-    #+RESULTS:
-    : t
-   
-*** Clojure-mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package clojure-mode
-	:ensure t
-	:config
-	(progn
-	  (setq clojure-align-forms-automatically t)
-	  ;; make moving between characters faster
-	  (add-hook 'clojure-mode-hook #'subword-mode)
-	  ;; use paredit or smartparens 
-	  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-	  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-	  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
-
-    #+END_SRC
-
-    #+RESULTS:
-    : t
-
-*** adoc-mode for reading [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]]   
-    #+begin_src emacs-lisp
-      (use-package adoc-mode
-	:ensure t
-	:config
-	(progn
-	  (defun increment-clojure-cookbook ()
-	    "When reading the Clojure cookbook, find the next section, and
-      close the buffer. If the next section is a sub-directory or in
-      the next chapter, open Dired so you can find it manually."
-	    (interactive)
-	    (let* ((cur (buffer-name))
-		   (split-cur (split-string cur "[-_]"))
-		   (chap (car split-cur))
-		   (rec (car (cdr split-cur)))
-		   (rec-num (string-to-number rec))
-		   (next-rec-num (1+ rec-num))
-		   (next-rec-s (number-to-string next-rec-num))
-		   (next-rec (if (< next-rec-num 10)
-				 (concat "0" next-rec-s)
-			       next-rec-s))
-		   (target (file-name-completion (concat chap "-" next-rec) "")))
-	      (progn 
-		(if (equal target nil)
-		    (dired (file-name-directory (buffer-file-name)))
-		  (find-file target))
-		(kill-buffer cur))))
-	  (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
-    
-	  (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
-	  (add-to-list 'auto-mode-alist (cons "\\.asciidoc\\'" 'adoc-mode))
-	  (add-hook 'adoc-mode-hook 'cider-mode)))
-
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Userful key-bindings in Clojure programming
-    - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
-    - M-. will navigate to the source code for the symbol under point
-    - M-, will return you to your original buffer and position
-    - C-c C-d C-a lets you search for arbitrary text across function names and documentation
-    - For paredit
-      - M-( Surround expression after point in parentheses (paredit-wrap-round).
-      - C-<left or right arrow>, surp or barf
-      - C-M-f, C-M-b Move to the opening/closing parenthesis.
 
 ** C/C++ programming
 *** with lsp
@@ -1186,7 +1187,6 @@
    #+END_SRC
 
    #+RESULTS:
-
 
 
 
