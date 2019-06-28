@@ -512,14 +512,6 @@
   #+RESULTS:
   : t
 
-* Magit
-  #+begin_src emacs-lisp
-    (use-package magit
-      :ensure t)
-  #+end_src
-
-  #+RESULTS:
-
 * Programming
 ** Common features
 *** Flycheck
@@ -875,6 +867,14 @@
      #+RESULTS:
      : t
 
+**** Org-babel-clojure configuration
+     #+begin_src emacs-lisp
+       (setq org-babel-clojure-backend 'cider)
+     #+end_src
+
+     #+RESULTS:
+     : cider
+
 **** adoc-mode for reading [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]]   
      #+begin_src emacs-lisp
       (use-package adoc-mode
@@ -1217,15 +1217,28 @@
    #+RESULTS:
    : t
 
+* Magit
+  #+begin_src emacs-lisp
+    (use-package magit
+      :ensure t)
+  #+end_src
+
+  #+RESULTS:
+
+** configuration for smerge-mode
+   #+begin_src emacs-lisp
+     (setq smerge-command-prefix "\C-cv")
+   #+end_src
+
+   #+RESULTS:
+   : v
+
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-     (use-package org-plus-contrib
-       :ensure t
-       :config
-       (progn
-	 (require 'org-eldoc)
-	 (require 'org-tempo)))
+     ;; (use-package org-plus-contrib)
+     (require 'org-eldoc)
+     (require 'org-tempo)
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
@@ -1257,6 +1270,7 @@
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
 
      (cond
       ((string-equal system-type "darwin")
@@ -1273,7 +1287,8 @@
 	 (org-babel-do-load-languages
 	  'org-babel-load-languages
 	  '((C . t)
-	    (lisp . t)))))
+	    (lisp . t)
+	    (clojure . t)))))
       ((string-equal system-type "windows-nt")
        (progn
 	 (org-babel-do-load-languages
