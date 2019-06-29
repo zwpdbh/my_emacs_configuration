@@ -1272,6 +1272,7 @@
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
      (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
 
+
      (cond
       ((string-equal system-type "darwin")
        (progn
@@ -1279,7 +1280,8 @@
 	  'org-babel-load-languages
 	  '((shell . t)
 	    (lisp . t)
-	    (C . t)))))
+	    (C . t)
+	    (clojure . t)))))
       ;; the shell configuration for Linux could either be sh or shell 
       ;; it is not same in different Linux system.
       ((string-equal system-type "gnu/linux")
