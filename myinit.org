@@ -383,8 +383,8 @@
 	(add-hook 'helm-minibuffer-set-up-hook
 		  'spacemacs//helm-hide-minibuffer-maybe)
 
-	;; (setq helm-autoresize-max-height 0)
-	;; (setq helm-autoresize-min-height 20)
+	(setq helm-autoresize-max-height 0)
+	(setq helm-autoresize-min-height 20)
 	(helm-autoresize-mode 1)
 	(helm-mode 1)))
   #+END_SRC
@@ -1440,16 +1440,38 @@
       :ensure t
       :commands (markdown-mode gfm-mode)
       :mode (("README\\.md\\'" . gfm-mode)
-             ("\\.md\\'" . markdown-mode)
-             ("\\.markdown\\'" . markdown-mode))
-      :init (setq markdown-command "multimarkdown")
-      :config
-      (progn
-        (setq markdown-command "/usr/bin/pandoc")))
+	     ("\\.md\\'" . markdown-mode)
+	     ("\\.markdown\\'" . markdown-mode))
+      :init (setq markdown-command "multimarkdown"))
   #+END_SRC
 
   #+RESULTS:
 
+* Docker
+  #+begin_src emacs-lisp
+    ;; reference usage from http://manuel-uberti.github.io/emacs/2017/10/19/docker/
+    (use-package dockerfile-mode
+      :ensure t
+      :config
+      (progn
+	(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+	(setq dockerfile-mode-command "docker")))
+
+    (use-package docker-compose-mode
+      :ensure t)
+
+    (use-package docker-tramp
+      ;; C-x C-f /docker:user@container:/path/to/file, where:
+      ;; user is the user that you want to use
+      ;; container is the id or name of the container 
+      :ensure t)
+
+    (use-package eshell-bookmark
+      :defer
+      :after eshell
+      :config 
+      (add-hook 'eshell-mode-hook #'eshell-bookmark-setup))
+  #+end_src
 * References
 ** Good general configurations
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
@@ -1457,6 +1479,7 @@
    - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
    - [[https://github.com/CSRaghunandan/.emacs.d/tree/master/setup-files][a different way to organize configuration files]]
    - [[https://github.com/jerryhsieh/Emacs-config][jerryhsieh/Emacs-config]]
+   - [[https://justin.abrah.ms/dotfiles/emacs.html][Justin Abrahms]]
 ** C/C++ related
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] 
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]]
