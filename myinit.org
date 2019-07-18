@@ -858,17 +858,29 @@
    
 **** Clojure-mode
      #+BEGIN_SRC emacs-lisp
-      (use-package clojure-mode
-	:ensure t
-	:config
-	(progn
-	  (setq clojure-align-forms-automatically t)
-	  ;; make moving between characters faster
-	  (add-hook 'clojure-mode-hook #'subword-mode)
-	  ;; use paredit or smartparens 
-	  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-	  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-	  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
+       (use-package clojure-mode
+	 :ensure t
+	 :config
+	 (progn
+	   (setq clojure-align-forms-automatically t)
+    
+	   ;; set how code indent for some forms
+	   (define-clojure-indent
+	     (implement '(1 (1)))
+	     (letfn     '(1 ((:defn)) nil))
+	     (proxy     '(2 nil nil (1)))
+	     (reify     '(:defn (1)))
+	     (deftype   '(2 nil nil (1)))
+	     (defrecord '(2 nil nil (1)))
+	     (specify   '(1 (1)))
+	     (or 1))
+
+	   ;; make moving between characters faster
+	   (add-hook 'clojure-mode-hook #'subword-mode)
+	   ;; use paredit or smartparens 
+	   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+	   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+	   (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
 
      #+END_SRC
 
@@ -967,6 +979,9 @@
       (add-hook 'inferior-Scheme-mode-hook
 		#'(lambda ()
 		    #'zwpdbh/enhance-lisp-power))
+
+      ;; ;; set indentation, check 'lisp-indent-function
+      ;; (put 'if 'clojure-indent-function 1)
     #+end_src
 
 
