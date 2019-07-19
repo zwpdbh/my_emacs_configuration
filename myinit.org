@@ -1502,11 +1502,40 @@
    - [[http://maskray.me/blog/2017-12-03-c++-language-server-cquery][使用cquery：C++ language server]]
 ** Python related
    - [[https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/][Configuring Emacs, lsp-mode and the python language server]]
+** Good Blogs related to emacs
+   - [[http://blog.binchen.org/index.html][about many emacs articles]]
+   - [[https://blog.onionstudio.com.tw/][洋蔥部落格]]
+
 ** Use emacs to create blog sites
    - [[https://stackoverflow.com/questions/12052013/beautiful-websites-using-emacss-org-mode][beatiful websites using Emacs's org mode]]
    - [[http://alexott.net/en/writings/EmacsMuseMyPage.html][How this site was created]]
 
-** Good Blogs related to emacs
-   - [[http://blog.binchen.org/index.html][about many emacs articles]]
-   - [[https://blog.onionstudio.com.tw/][洋蔥部落格]]
+*** Org-mode to GitHub pages with Jekyll
+    - [[http://cute-jumper.github.io/emacs/2013/10/06/orgmode-to-github-pages-with-jekyll][Org-mode to GitHub pages with Jekyll]]
+    - [[https://github.com/masasam/emacs-easy-jekyll][easy-jekyll]]
+
+** Org-mode related
+   - [[https://orgmode.org/worg/org-web.html][Web pages made with org-mode]]
+     - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
+   - [[http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html][a very good example how to set org-mode: Another Org-Mode Configuration]]
+   - [[http://jr0cket.co.uk/2013/08/defining-custom-workflow-with-Emacs-org-mode.html.html][Defining Custom Task Workflows With Emacs Org-Mode]]
+   - [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][Beautifying Org Mode in Emacs]]
+
+** Knowledge from Shane
+*** tools
+    - ix.io
+      - [[http://aboumrad.info/faster-pastes-with-ix-io.html][Faster pastes with ix.io]]
+      - [[https://github.com/theanalyst/ix.el][emacs client for ix.io]]
+    - [[https://asciinema.org/][Record and share your terminal sessions, the right way.]]
+
+*** library
+    - [[https://github.com/github/semantic][Semantic]] is a Haskell library and command line tool for parsing, analyzing, and comparing source code.
+
+*** emancs 
+    - python debugging
+      - ~from IPython import embed; embed()~
+      - "gud gdb" is great for debugging, a very nice debugging system that works for many languages. anything that supports gdb
+
+*** video
+    - [[https://www.youtube.com/watch?v=6mTbuzafcII&fbclid=IwAR00MiTM7EZhvC5ew0DMxDSKoO7fyCJWzNOD9-ONkxBELCuwAqnjCU-ujmI][Transducers]]
 
