@@ -1504,7 +1504,7 @@
    - [[https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/][Configuring Emacs, lsp-mode and the python language server]]
 ** Good Blogs related to emacs
    - [[http://blog.binchen.org/index.html][about many emacs articles]]
-   - [[https://blog.onionstudio.com.tw/][洋蔥部落格]]
+   - [[https://www.cnblogs.com/holbrook/tag/emacs/][emacs notes from a cnblogs]]
 
 ** Use emacs to create blog sites
    - [[https://stackoverflow.com/questions/12052013/beautiful-websites-using-emacss-org-mode][beatiful websites using Emacs's org mode]]
