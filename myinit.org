@@ -12,6 +12,17 @@
 
    #+RESULTS:
 
+** adjust meta key
+   #+BEGIN_SRC emacs-lisp
+     ;;; I prefer cmd key for meta
+     (setq mac-option-key-is-meta nil
+	   mac-command-key-is-meta t
+	   mac-command-modifier 'meta
+	   mac-option-modifier 'none)
+   #+END_SRC
+
+   #+RESULTS:
+   : none
 
 ** set font
    - Install Monaco font in Ubuntu:
@@ -58,7 +69,7 @@
    #+end_src
 
    #+RESULTS:
-   : 
+   : revert-buffer
 
 ** set buffer and shell
    #+begin_src emacs-lisp
@@ -165,8 +176,8 @@
        :ensure t
        :config
        (progn
-         (setq highlight-indentation-blank-lines t)
-         (add-hook 'yaml-mode-hook #'highlight-indentation-mode)))
+	 (setq highlight-indentation-blank-lines t)
+	 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -202,14 +213,14 @@
     ;; material-theme
     ;; flucui-themes
     ;; solarized-theme
-    ;; monokai-theme
+    ;; monokai-Theme
 
-    (use-package gruvbox-theme
+    (use-package monokai-theme
       :ensure t
       :config
       (progn
-	(load-theme 'gruvbox-dark-hard t)
-	(set-face-attribute 'show-paren-match t :weight 'extra-bold)))
+	(load-theme 'monokai t)
+	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
   #+RESULTS:
@@ -1261,8 +1272,8 @@
 ** common settings
    #+BEGIN_SRC emacs-lisp
      ;; (use-package org-plus-contrib)
-     (require 'org-eldoc)
-     (require 'org-tempo)
+     ;; (require 'org-eldoc)
+     ;; (require 'org-tempo)
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
@@ -1290,7 +1301,7 @@
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
 
-     (require 'org-tempo)
+     ;; (require 'org-tempo)
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
@@ -1551,3 +1562,12 @@
 *** video
     - [[https://www.youtube.com/watch?v=6mTbuzafcII&fbclid=IwAR00MiTM7EZhvC5ew0DMxDSKoO7fyCJWzNOD9-ONkxBELCuwAqnjCU-ujmI][Transducers]]
 
+* Troubleshooting
+  - Emacs on Mac use ESC as Meta key
+    if somethings the Meta key is "ESC", to the following to make it become "alt"
+    Terminal->Preference->Profile->Your current using profile->Keyboard
+    Make sure "Use Option as Meta key" is selected
+  - Emacs on Mac's version
+    By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac:
+    1) Use [[https://emacsformacosx.com][Emacs on mac]].
+    2) Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
