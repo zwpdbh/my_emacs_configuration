@@ -1513,10 +1513,11 @@
     - [[https://orgmode.org/worg/org-web.html][Web pages made with org-mode]]
 
 *** Org-mode to GitHub pages with Jekyll
+    - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
     - [[http://cute-jumper.github.io/emacs/2013/10/06/orgmode-to-github-pages-with-jekyll][Org-mode to GitHub pages with Jekyll]]
       - [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyl]]
-    - [[https://github.com/masasam/emacs-easy-jekyll][easy-jekyll]]
-    - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
+      - [[https://github.com/masasam/emacs-easy-jekyll][easy-jekyll]]
+
 
 *** Steps of create 
 
