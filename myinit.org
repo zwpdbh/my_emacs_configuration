@@ -1507,16 +1507,17 @@
    - [[https://www.cnblogs.com/holbrook/tag/emacs/][emacs notes from a cnblogs]]
 
 ** Use emacs to create blog sites
-   - [[https://stackoverflow.com/questions/12052013/beautiful-websites-using-emacss-org-mode][beatiful websites using Emacs's org mode]]
-   - [[http://alexott.net/en/writings/EmacsMuseMyPage.html][How this site was created]]
+*** Examples of website created from Emacs's org-mode 
+    - [[https://stackoverflow.com/questions/12052013/beautiful-websites-using-emacss-org-mode][beatiful websites using Emacs's org mode]]
+    - [[http://alexott.net/en/writings/EmacsMuseMyPage.html][How this site was created]]
 
 *** Org-mode to GitHub pages with Jekyll
     - [[http://cute-jumper.github.io/emacs/2013/10/06/orgmode-to-github-pages-with-jekyll][Org-mode to GitHub pages with Jekyll]]
     - [[https://github.com/masasam/emacs-easy-jekyll][easy-jekyll]]
+    - [[https://orgmode.org/worg/org-web.html][Web pages made with org-mode]]
+      - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
 
 ** Org-mode related
-   - [[https://orgmode.org/worg/org-web.html][Web pages made with org-mode]]
-     - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
    - [[http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html][a very good example how to set org-mode: Another Org-Mode Configuration]]
    - [[http://jr0cket.co.uk/2013/08/defining-custom-workflow-with-Emacs-org-mode.html.html][Defining Custom Task Workflows With Emacs Org-Mode]]
    - [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][Beautifying Org Mode in Emacs]]
