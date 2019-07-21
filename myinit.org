@@ -202,13 +202,14 @@
     ;; material-theme
     ;; flucui-themes
     ;; solarized-theme
+    ;; monokai-theme
 
-    (use-package monokai-theme
+    (use-package gruvbox-theme
       :ensure t
       :config
       (progn
-	(load-theme 'monokai t)
-	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+	(load-theme 'gruvbox-dark-hard t)
+	(set-face-attribute 'show-paren-match t :weight 'extra-bold)))
   #+end_src
 
   #+RESULTS:
@@ -1512,14 +1513,20 @@
     - [[http://alexott.net/en/writings/EmacsMuseMyPage.html][How this site was created]]
     - [[https://orgmode.org/worg/org-web.html][Web pages made with org-mode]]
 
+*** [[https://orgmode.org/worg/org-blog-wiki.html][Different staitc site generators with org]] 
+
 *** Org-mode to GitHub pages with Jekyll
-    - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
     - [[http://cute-jumper.github.io/emacs/2013/10/06/orgmode-to-github-pages-with-jekyll][Org-mode to GitHub pages with Jekyll]]
       - [[https://orgmode.org/worg/org-tutorials/org-jekyll.html][Using org to Blog with Jekyl]]
       - [[https://github.com/masasam/emacs-easy-jekyll][easy-jekyll]]
+*** Org file to blog using: [[https://gohugo.io/][Hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://www.netlify.com/][Netlify]]
+    - [[https://www.zcl.space/tools/my-blog-workflow/][Blogging with Emcas Org]]
+    - [[https://rakhim.org/2018/09/moved-from-jekyll-to-hugo-and-ox-hugo/][Moved from Jekyll to Hugo and ox-hugo]]
+    - [[https://www.shanesveller.com/blog/2018/02/13/blogging-with-org-mode-and-ox-hugo/][Blogging with org-mode and ox-hugo]]
 
+*** Steps of create
+    - get familiar with [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
 
-*** Steps of create 
 
 ** Org-mode related
    - [[http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html][a very good example how to set org-mode: Another Org-Mode Configuration]]
