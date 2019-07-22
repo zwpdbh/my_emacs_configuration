@@ -1327,12 +1327,9 @@
    #+begin_src emacs-lisp
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
-
-     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
-     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
-     (add-to-list 'org-structure-template-alist '("r" . "src R"))
+     (require 'ob-js)
+     (use-package ob-http
+       :ensure t)
 
      (org-babel-do-load-languages
       'org-babel-load-languages
@@ -1340,7 +1337,17 @@
 	(clojure . t)
 	(C . t)
 	(shell . t)
-	(R . t)))
+	(js . t)
+	(R . t)
+	(http . t)))
+
+     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
+     (add-to-list 'org-structure-template-alist '("r" . "src R"))
+     (add-to-list 'org-structure-template-alist '("js" . "src js"))
+     (add-to-list 'org-structure-template-alist '("http" . "src http"))
 
 
      ;; (cond
