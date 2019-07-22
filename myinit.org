@@ -1229,28 +1229,37 @@
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
 
 ** R programming
-   #+begin_src emacs-lisp
-     (use-package ess
-       :ensure t
-       :init
-       ;;  :init (require 'ess-site)
-       :config
-       (progn
-	 (setq inferior-R-program-name "/usr/local/bin/R"
-	       comint-input-ring-size 1000
-	       ess-indent-level 4
-	       ess-arg-function-offset 4
-	       ess-else-offset 4
-	       ess-continued-statement-offset 2);
+*** configuration 
+    #+begin_src emacs-lisp
+      (use-package ess
+	:ensure t
+	:init
+	;;  :init (require 'ess-site)
+	:config
+	(progn
+	  (setq inferior-R-program-name "/usr/local/bin/R"
+		comint-input-ring-size 1000
+		ess-indent-level 4
+		ess-arg-function-offset 4
+		ess-else-offset 4
+		ess-continued-statement-offset 2
+		truncate-lines t
+		comment-column 4)		;
 
-	 (add-hook 'ess-mode-hook 
-		   (lambda () 
-		     (setq truncate-lines t)
-		     (auto-fill-mode)))))
-   #+end_src
+	  (use-package electric-spacing
+	    :ensure t)
 
-   #+RESULTS:
-   : t
+	  (add-hook 'ess-mode-hook 
+		    #'(lambda () 
+			(electric-spacing-mode)))))
+
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** references
+    - [[https://jmonlong.github.io/Hippocamplus/emacs/#for-r]]
 
 * Magit
   #+begin_src emacs-lisp
@@ -1311,7 +1320,7 @@
 
    #+RESULTS:
 
-** make code-block could be executed in org-mode
+** [[https://orgmode.org/worg/org-contrib/babel/how-to-use-Org-Babel-for-R.html][make code-block could be executed in org-mode]]
    If you find Org-Mode Evaluation of code is disabled, do:
    =find ~/.emacs.d/elpa/org* -name "*elc" -delete=
 
@@ -1323,34 +1332,43 @@
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
      (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
+     (add-to-list 'org-structure-template-alist '("r" . "src R"))
+
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((lisp . t)
+	(clojure . t)
+	(C . t)
+	(shell . t)
+	(R . t)))
 
 
-     (cond
-      ((string-equal system-type "darwin")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t)
-	    (clojure . t)))))
-      ;; the shell configuration for Linux could either be sh or shell 
-      ;; it is not same in different Linux system.
-      ((string-equal system-type "gnu/linux")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((C . t)
-	    (shell . t)
-	    (lisp . t)
-	    (clojure . t)))))
-      ((string-equal system-type "windows-nt")
-       (progn
-	 (org-babel-do-load-languages
-	  'org-babel-load-languages
-	  '((shell . t)
-	    (lisp . t)
-	    (C . t))))))
+     ;; (cond
+     ;;  ((string-equal system-type "darwin")
+     ;;   (progn
+     ;;     (org-babel-do-load-languages
+     ;;      'org-babel-load-languages
+     ;;      '((shell . t)
+     ;;        (lisp . t)
+     ;;        (C . t)
+     ;;        (clojure . t)))))
+     ;;  ;; the shell configuration for Linux could either be sh or shell 
+     ;;  ;; it is not same in different Linux system.
+     ;;  ((string-equal system-type "gnu/linux")
+     ;;   (progn
+     ;;     (org-babel-do-load-languages
+     ;;      'org-babel-load-languages
+     ;;      '((C . t)
+     ;;        (shell . t)
+     ;;        (lisp . t)
+     ;;        (clojure . t)))))
+     ;;  ((string-equal system-type "windows-nt")
+     ;;   (progn
+     ;;     (org-babel-do-load-languages
+     ;;      'org-babel-load-languages
+     ;;      '((shell . t)
+     ;;        (lisp . t)
+     ;;        (C . t))))))
 
 
 
