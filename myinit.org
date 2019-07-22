@@ -1272,8 +1272,10 @@
 ** common settings
    #+BEGIN_SRC emacs-lisp
      ;; (use-package org-plus-contrib)
-     ;; (require 'org-eldoc)
-     ;; (require 'org-tempo)
+     (require 'org)
+     (require 'ob)
+     (require 'org-eldoc)
+     (require 'org-tempo)
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
@@ -1285,13 +1287,29 @@
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
        #'(lambda ()
-	   (define-key org-mode-map [f9] #'org-global-cycle)
+	   ;; (define-key org-mode-map [f9] #'org-global-cycle) use shift + tab
 	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
+
+     (define-key global-map "\C-cl" 'org-store-link)
+     (define-key global-map "\C-ca" 'org-agenda)
+     (setq org-log-done t)
    #+END_SRC
 
    #+RESULTS:
-   : org-toggle-inline-images
+   : t
 
+** org-agenda-files
+   #+begin_src emacs-lisp
+     ;; make org-agenda to search all the TODOs in these three files
+     ;; (setq org-agenda-files (list "~/code/org/work.org"
+     ;; 			     "~/code/org/personal.org"
+     ;; 			     "~/code/org/home.org"))
+
+     ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
+     (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
+   #+end_src
+
+   #+RESULTS:
 
 ** make code-block could be executed in org-mode
    If you find Org-Mode Evaluation of code is disabled, do:
@@ -1301,7 +1319,6 @@
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
 
-     ;; (require 'org-tempo)
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
@@ -1519,6 +1536,7 @@
    - [[https://www.cnblogs.com/holbrook/tag/emacs/][emacs notes from a cnblogs]]
 
 ** Use emacs to create blog sites
+   - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
 *** Examples of website created from Emacs's org-mode 
     - [[https://stackoverflow.com/questions/12052013/beautiful-websites-using-emacss-org-mode][beatiful websites using Emacs's org mode]]
     - [[http://alexott.net/en/writings/EmacsMuseMyPage.html][How this site was created]]
@@ -1534,9 +1552,6 @@
     - [[https://www.zcl.space/tools/my-blog-workflow/][Blogging with Emcas Org]]
     - [[https://rakhim.org/2018/09/moved-from-jekyll-to-hugo-and-ox-hugo/][Moved from Jekyll to Hugo and ox-hugo]]
     - [[https://www.shanesveller.com/blog/2018/02/13/blogging-with-org-mode-and-ox-hugo/][Blogging with org-mode and ox-hugo]]
-
-*** Steps of create
-    - get familiar with [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing org-mode files to HTML]]
 
 
 ** Org-mode related
@@ -1571,3 +1586,4 @@
     By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac:
     1) Use [[https://emacsformacosx.com][Emacs on mac]].
     2) Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
+
