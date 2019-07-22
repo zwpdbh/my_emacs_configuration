@@ -1308,6 +1308,7 @@
    : t
 
 ** org-agenda-files
+   In case some org files is not listed in agenda files, run the code block again to refresh the file list.
    #+begin_src emacs-lisp
      ;; make org-agenda to search all the TODOs in these three files
      ;; (setq org-agenda-files (list "~/code/org/work.org"
@@ -1319,6 +1320,7 @@
    #+end_src
 
    #+RESULTS:
+   | /home/zw/code/org/kubernetes/use-kubernetes-api.org | /home/zw/code/org/blog-creation.org | /home/zw/code/org/chez-scheme.org | /home/zw/code/org/clojure.org | /home/zw/code/org/emacs.org | /home/zw/code/org/home.org | /home/zw/code/org/learning_statistics_using_R.org | /home/zw/code/org/personal.org | /home/zw/code/org/work.org |
 
 ** make code-block could be executed in org-mode
    If you find Org-Mode Evaluation of code is disabled, do:
