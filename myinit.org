@@ -1320,7 +1320,7 @@
 
    #+RESULTS:
 
-** [[https://orgmode.org/worg/org-contrib/babel/how-to-use-Org-Babel-for-R.html][make code-block could be executed in org-mode]]
+** make code-block could be executed in org-mode
    If you find Org-Mode Evaluation of code is disabled, do:
    =find ~/.emacs.d/elpa/org* -name "*elc" -delete=
 
@@ -1383,16 +1383,39 @@
    
    #+RESULTS:
 
-
-** htmlize --- convert buffer text and decorations to HTML
-   #+BEGIN_SRC emacs-lisp
+** Publishing Org-mode files to HTML
+   #+begin_src emacs-lisp
      (use-package htmlize
        :defer 2
        :ensure t)
-   #+END_SRC
+
+     ;; publish the ~/code/org/ project to HTML
+     (require 'ox-publish)
+     (setq org-publish-project-alist
+	   '(;; the netes components, it publishes all the org-mode files to HTML 
+	     ("org-notes"
+	      :base-directory "~/code/org/"
+	      :base-extension "org"
+	      :publishing-directory "~/code/public_html/"
+	      :recursive t
+	      :publishing-function org-html-publish-to-html
+	      :headline-levels 4
+	      :auto-preamble t)
+	     ("org-static"
+	      :base-directory "~/code/org/"
+	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	      :publishing-directory "~/public_html/"
+	      :recursive t
+	      :publishing-function org-publish-attachment)
+	     ("org" :components ("org-notes" "org-static"))))
+
+   #+end_src
 
    #+RESULTS:
-   : [nil 0 2 0 nil require (htmlize nil t) idle 0]
+   | org-notes  | :base-directory | ~/code/org/            | :base-extension | org  | :publishing-directory | ~/code/public_html/ | :recursive | t    | :publishing-function | org-html-publish-to-html | :headline-levels |   4 | :auto-preamble        | t              |            |   |                      |                        |
+   | org-static | :base-directory | ~/code/org/            | :base-extension | css\ | js\                   | png\                | jpg\       | gif\ | pdf\                 | mp3\                     | ogg\             | swf | :publishing-directory | ~/public_html/ | :recursive | t | :publishing-function | org-publish-attachment |
+   | org        | :components     | (org-notes org-static) |                 |      |                       |                     |            |      |                      |                          |                  |     |                       |                |            |   |                      |                        |
+
 
 ** Set the background of org-exported <code> blocks according to theme
    #+begin_src emacs-lisp
