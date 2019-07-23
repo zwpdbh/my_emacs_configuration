@@ -5,5 +5,9 @@
 # And all the file types you're interested in.
 !*.org
 .#*
+
+# Add all the files within folder org-templates
+!org-templates
+
 # Add all the files within the org-html-themes
 #!org-html-themes/*.*
