@@ -11,6 +11,7 @@
 
 # Add all snippet
 !snippets
+!snippets/**
 
 # Add all the files within the org-html-themes
 #!org-html-themes/*.*
