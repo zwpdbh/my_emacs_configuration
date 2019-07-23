@@ -9,5 +9,8 @@
 # Add all the files within folder org-templates
 !org-templates
 
+# Add all snippet
+!snippets
+
 # Add all the files within the org-html-themes
 #!org-html-themes/*.*
