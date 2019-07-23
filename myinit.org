@@ -1403,49 +1403,16 @@
 	      :publishing-function org-html-publish-to-html
 	      :headline-levels 4
 	      :auto-preamble t
-	      :auto-sitemap t                ; Generate sitemap.org automagically...
-	      :sitemap-filename "sitemap.org"  ; ... call it sitemap.org (it's the default)...
-	      :sitemap-title "Sitemap"         ; ... with title 'Sitemap'.
-	      )
+	      :auto-sitemap t                  
+	      :sitemap-filename "sitemap.org"  
+	      :sitemap-title "Sitemap")
 	     ("org-static"
 	      :base-directory "~/code/org/"
 	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	      :publishing-directory "~/public_html/"
 	      :recursive t
 	      :publishing-function org-publish-attachment)
-	     ("org" :components ("org-notes" "org-static"))
-
-	     ;; For More Projects
-	     ;; ("B-inherit"
-	     ;;  :base-directory "~/code/org/"
-	     ;;  :recursive t
-	     ;;  :base-extension "css\\|js"
-	     ;;  :publishing-directory "~/public_html/B/"
-	     ;;  :publishing-function org-publish-attachment
-	     ;;  )
-
-	     ;; ("B-org"
-	     ;;  :base-directory "~/code/B/"
-	     ;;  :auto-index t
-	     ;;  :index-filename "sitemap.org"
-	     ;;  :index-title "Sitemap"
-	     ;;  :recursive t
-	     ;;  :base-extension "org"
-	     ;;  :publishing-directory "~/code/public_html/B/"
-	     ;;  :publishing-function org-publish-org-to-html
-	     ;;  :headline-levels 3
-	     ;;  :auto-preamble t
-	     ;;  )
-	     ;; ("B-static"
-	     ;;  :base-directory "~/code/B/"
-	     ;;  :recursive t
-	     ;;  :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-	     ;;  :publishing-directory "~/public_html/B/"
-	     ;;  :publishing-function org-publish-attachment)
-
-	     ;; ("B" :components ("B-inherit" "B-notes" "B-static"))
-	
-	     ))
+	     ("org" :components ("org-notes" "org-static"))))
 
    #+end_src
 
