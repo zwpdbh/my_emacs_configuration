@@ -1464,29 +1464,29 @@
 
       (setq org-capture-templates
 	    '(
-	      ("t" "todo" entry (file "~/code/my-site/org/todo.org")
+	      ("t" "todo" entry (file "~/code/my-site/content-org/todo.org")
 	       "* TODO %? :TODO: \n Added:%T\n"
 	       :clock-in t :clock-resume t)
 
 	      ("h" "Hugo post")
 
 	      ("hc" "Computer-Science"
-	       entry (file+olp "~/code/my-site/org/computer-science.org" "Computer-Science")
+	       entry (file+olp "~/code/my-site/content-org/computer-science.org" "Computer-Science")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)
 
 	      ("hm" "Mathematics"
-	       entry (file+olp "~/code/my-site/org/mathematics.org" "Mathematics")
+	       entry (file+olp "~/code/my-site/content-org/mathematics.org" "Mathematics")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)
 
 	      ("hs" "Software-Engineering"
-	       entry (file+olp "~/code/my-site/org/software-engineering.org" "Software-Engineering")
+	       entry (file+olp "~/code/my-site/content-org/software-engineering.org" "Software-Engineering")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)
 
 	      ("ht" "Tools"
-	       entry (file+olp "~/code/my-site/org/tools.org" "Tools")
+	       entry (file+olp "~/code/my-site/content-org/tools.org" "Tools")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)))
 
