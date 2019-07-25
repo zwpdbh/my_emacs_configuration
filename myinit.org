@@ -1412,18 +1412,90 @@
 	      :publishing-directory "~/public_html/"
 	      :recursive t
 	      :publishing-function org-publish-attachment)
-	     ("org" :components ("org-notes" "org-static"))))
+	     ("org" :components ("org-notes" "org-static"))
+	
+	     ("hugo-notes"
+	      :base-directory "~/code/org/"
+	      :base-extension "org"
+	      :publishing-directory "~/code/my-site/content-org/"
+	      :recursive t)))
 
    #+end_src
 
    #+RESULTS:
 
 ** Hugo + ox-hugo + Netlify
-   #+begin_src emacs-lisp
+*** ox-hugo
+    #+begin_src emacs-lisp
      (use-package ox-hugo
        :ensure t            ;Auto-install the package from Melpa (optional)
        :after ox)
-   #+end_src
+    #+end_src
+
+*** org-capture
+    * create corresponding .org file within the org folder inside HUGO site
+    * each note/post will be inserted into the corresponding org file under second level headline (the first level is the corresponding file headline)
+    * edit config/menus.toml, create link to section
+    * edit content/home/<corresponding url name>.md, use computer-science.md as example:
+      * line 3: # This section displays recent blog posts from `content/computer-science/`.
+      * title = "Computer Science Posts"
+      * line 15: page_type = "computer-science"
+    * Note: need to mark the second level headline status as DONE to make it be visiable and searchable after being published.
+    
+    configuration for ~org-capture~
+    #+begin_src emacs-lisp
+      (defun org-hugo-new-subtree-post-capture-template ()
+	"Returns `org-capture' template string for new Hugo post.
+      See `org-capture-templates' for more information."
+	(let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+	       (date (format-time-string (org-time-stamp-format  :inactive) (org-current-time)))
+	       (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+	       (fname (org-hugo-slug title)))
+	  (mapconcat #'identity
+		     `(
+		       ,(concat "* TODO " title)
+		       ":PROPERTIES:"
+		       ,(concat ":EXPORT_FILE_NAME: " fname)
+		       ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+		       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":foo bar :baz zoo :alpha 1 :beta \"two words\" :gamma 10" )
+		       ":END:"
+		       "%?\n")          ;Place th
+		     "\n")))
+
+      (setq org-capture-templates
+	    '(
+	      ("t" "todo" entry (file "~/code/my-site/org/todo.org")
+	       "* TODO %? :TODO: \n Added:%T\n"
+	       :clock-in t :clock-resume t)
+
+	      ("h" "Hugo post")
+
+	      ("hc" "Computer-Science"
+	       entry (file+olp "~/code/my-site/org/computer-science.org" "Computer-Science")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("hm" "Mathematics"
+	       entry (file+olp "~/code/my-site/org/mathematics.org" "Mathematics")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("hs" "Software-Engineering"
+	       entry (file+olp "~/code/my-site/org/software-engineering.org" "Software-Engineering")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("ht" "Tools"
+	       entry (file+olp "~/code/my-site/org/tools.org" "Tools")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)))
+
+
+
+    #+end_src
+
+    #+RESULTS:
+    | t | todo | entry | (file ~/code/my-site/org/todo.org) | * TODO %? :TODO: |
 
 ** Set the background of org-exported <code> blocks according to theme
    #+begin_src emacs-lisp
