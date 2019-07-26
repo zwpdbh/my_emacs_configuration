@@ -1643,6 +1643,8 @@
       :config 
       (add-hook 'eshell-mode-hook #'eshell-bookmark-setup))
   #+end_src
+* TODO Lookup word definition
+  (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
 * References
 ** Good general configurations
    - [[https://ladicle.com/post/config/][Ladicle's Emacs Configuration]]
