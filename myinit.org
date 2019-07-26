@@ -1710,9 +1710,9 @@
     Terminal->Preference->Profile->Your current using profile->Keyboard
     Make sure "Use Option as Meta key" is selected
   * Emacs on Mac's version
-    By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac:
-    1) Use [[https://emacsformacosx.com][Emacs on mac]].
-    2) Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
+    By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac, two ways:
+    * Use [[https://emacsformacosx.com][Emacs on mac]]. 
+    * Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
   * UI
     * ~C-x C--~ or ~C-x C-=~ make font small or larger
   * Org
