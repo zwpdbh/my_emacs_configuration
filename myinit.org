@@ -1309,6 +1309,7 @@
 
 ** org-agenda-files
    In case some org files is not listed in agenda files, run the code block again to refresh the file list.
+   Another way is to invoke the function ~org-agenda-file-to-front~.
    #+begin_src emacs-lisp
      ;; make org-agenda to search all the TODOs in these three files
      ;; (setq org-agenda-files (list "~/code/org/work.org"
@@ -1490,9 +1491,6 @@
 	       entry (file+olp "~/code/my-site/content-org/tools.org" "Tools")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)))
-
-
-
     #+end_src
 
     #+RESULTS:
@@ -1707,12 +1705,41 @@
     - [[https://www.youtube.com/watch?v=6mTbuzafcII&fbclid=IwAR00MiTM7EZhvC5ew0DMxDSKoO7fyCJWzNOD9-ONkxBELCuwAqnjCU-ujmI][Transducers]]
 
 * Troubleshooting
-  - Emacs on Mac use ESC as Meta key
+  * Emacs on Mac use ESC as Meta key
     if somethings the Meta key is "ESC", to the following to make it become "alt"
     Terminal->Preference->Profile->Your current using profile->Keyboard
     Make sure "Use Option as Meta key" is selected
-  - Emacs on Mac's version
+  * Emacs on Mac's version
     By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac:
     1) Use [[https://emacsformacosx.com][Emacs on mac]].
     2) Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
+  * UI
+    * ~C-x C--~ or ~C-x C-=~ make font small or larger
+  * Org
+    * TODO items
+      * TODO items are always headlines
+      * org options
+	#+begin_src org
+	  ,#+SEQ_TODO: TODO ON_HOLD PROCESSING WAITING | DONE ABANDONED
+	  ,#+TAGS: emacs k8s clojure statistics mathematics network js
+	#+end_src
+	* The first "," is added automatically by this org code block
+	* Use ~C-c C-c~ to run the options
+
+      * ~shift  + tab~ to collapse headline and show it in a cycle way
+      * ~shift + left~ or ~shift + right~  to shift a headline's TODO status
+      * ~shift + up~ or ~shift + downe~ to cycle through priority states of a TODO item.
+      * ~C-c C-q~ to give headline a tag and that tag could be autocompleted through the tags you defined in the org file.
+      * Use "[ ]" in front of a item, and use "[0/0]" in front of headline, and run ~C-c C-c~ inside "[0/0]" it will mark how many todo has been done.
+    * AGENDA
+      * ~C-c a t~ to enter the global todo list. The Org-mode will scan the files configured in *org-agenda-files* and present a listing of all the open TODO items
+	- hit ~t~ to mark an item done
+	- hit ~RET~ to jump to the source file wehre the TODO is located
+      * Scheduling tasks and using the agenda
+	- Go to the next line under a TODO item, ~C-a C-s~ to insert a scheduled date
+	- ~C-c a~ list availabe commands related with agenda
+    * Hyper Links 
+      * link aonther org file into current org mode
+      * Go to the file you want to link, then ~C-c l~ to store the link to mark the position in the file
+      * Go back to the file you are editing, ~C-c C-l~ to insert the file linkxs
 
