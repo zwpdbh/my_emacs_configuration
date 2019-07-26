@@ -1350,6 +1350,7 @@
      (add-to-list 'org-structure-template-alist '("r" . "src R"))
      (add-to-list 'org-structure-template-alist '("js" . "src js"))
      (add-to-list 'org-structure-template-alist '("http" . "src http"))
+     (add-to-list 'org-structure-template-alist '("ex" . "example"))
 
 
      ;; (cond
