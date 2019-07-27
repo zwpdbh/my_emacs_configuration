@@ -1280,11 +1280,16 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
+     (cond
+      ((string-equal system-type "gnu/linux")
+       (require 'org-eldoc)
+       (require 'org-tempo)))
+
+
      ;; (use-package org-plus-contrib)
      (require 'org)
      (require 'ob)
-     (require 'org-eldoc)
-     (require 'org-tempo)
+
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
@@ -1352,34 +1357,6 @@
      (add-to-list 'org-structure-template-alist '("js" . "src js"))
      (add-to-list 'org-structure-template-alist '("http" . "src http"))
      (add-to-list 'org-structure-template-alist '("ex" . "example"))
-
-
-     ;; (cond
-     ;;  ((string-equal system-type "darwin")
-     ;;   (progn
-     ;;     (org-babel-do-load-languages
-     ;;      'org-babel-load-languages
-     ;;      '((shell . t)
-     ;;        (lisp . t)
-     ;;        (C . t)
-     ;;        (clojure . t)))))
-     ;;  ;; the shell configuration for Linux could either be sh or shell 
-     ;;  ;; it is not same in different Linux system.
-     ;;  ((string-equal system-type "gnu/linux")
-     ;;   (progn
-     ;;     (org-babel-do-load-languages
-     ;;      'org-babel-load-languages
-     ;;      '((C . t)
-     ;;        (shell . t)
-     ;;        (lisp . t)
-     ;;        (clojure . t)))))
-     ;;  ((string-equal system-type "windows-nt")
-     ;;   (progn
-     ;;     (org-babel-do-load-languages
-     ;;      'org-babel-load-languages
-     ;;      '((shell . t)
-     ;;        (lisp . t)
-     ;;        (C . t))))))
 
 
 
