@@ -446,14 +446,18 @@
 	(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
 
-	;; set default `company-backends'
-	;; (defvar company-original-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+	;; (defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 	;; 						     (company-dabbrev-code company-gtags company-etags company-keywords)
-	;; 						     company-oddmuse company-dabbrev))
-	;; (defvar company-general-backends '((company-files ; files & directory
+	;; 						     company-oddmuse company-dabbrev))    
+	;; (defvar company-general-backends '((company-files 
 	;; 					company-dabbrev)
 	;; 				       (company-abbrev company-dabbrev)))
-	;; (setq company-backends company-general-backends)
+    
+	;; adjust default backends
+	(defvar company-general-backends '(company-dabbrev compnay-files company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf
+							   (company-dabbrev-code company-gtags company-etags company-keywords)
+							   company-oddmuse company-dabbrev))
+	(setq company-backends company-general-backends)
 
 	;; (defmacro add-to-company-backends (company-xxx-names &optional at)
 	;;   "company-xxx-names: '(company-ycmd company-foo)"
@@ -1120,10 +1124,10 @@
 *** with lsp
     - =sudo npm i -g javascript-typescript-langserver=
     - =sudo npm install -g typescript-language-server typescript=
-    - emacs configuration
+    - configuration
       #+begin_src emacs-lisp
-	(add-hook 'js-mode-hook #'my-setup-lsp)
-	(add-hook 'typescript-mode-hook #'my-setup-lsp)
+	;; (add-hook 'js-mode-hook #'my-setup-lsp)
+	;; (add-hook 'typescript-mode-hook #'my-setup-lsp)
       #+end_src
 
       #+RESULTS:
@@ -1131,9 +1135,9 @@
 
 *** with dap
     #+begin_src emacs-lisp
-      (add-hook 'js-mode-hook #'(lambda ()
-				  (require 'dap-chrome)
-				  (require 'dap-node)))
+      ;; (add-hook 'js-mode-hook #'(lambda ()
+      ;; 			    (require 'dap-chrome)
+      ;; 			    (require 'dap-node)))
     #+end_src
 
     #+RESULTS:
@@ -1635,6 +1639,7 @@
       ;; C-x C-f /docker:user@container:/path/to/file, where:
       ;; user is the user that you want to use
       ;; container is the id or name of the container 
+      :defer t
       :ensure t)
 
     (use-package eshell-bookmark
@@ -1643,6 +1648,9 @@
       :config 
       (add-hook 'eshell-mode-hook #'eshell-bookmark-setup))
   #+end_src
+
+  #+RESULTS:
+
 * TODO Lookup word definition
   (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
 * References
