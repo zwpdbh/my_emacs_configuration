@@ -445,15 +445,15 @@
 	(define-key company-active-map (kbd "C-n") 'company-select-next)
 	(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-
 	;; (defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 	;; 						     (company-dabbrev-code company-gtags company-etags company-keywords)
 	;; 						     company-oddmuse company-dabbrev))    
+    
 	;; (defvar company-general-backends '((company-files 
 	;; 					company-dabbrev)
 	;; 				       (company-abbrev company-dabbrev)))
-    
-	;; adjust default backends
+
+	;; company-dabbrev and company-files are very useful. So, adjust default backends
 	(defvar company-general-backends '(company-dabbrev compnay-files company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf
 							   (company-dabbrev-code company-gtags company-etags company-keywords)
 							   company-oddmuse company-dabbrev))
