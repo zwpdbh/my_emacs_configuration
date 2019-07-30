@@ -134,8 +134,8 @@
        :config
        (progn
 	 ;; (setq-default adaptive-wrap-extra-indent 2)
-	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
-	 (global-visual-line-mode t)))
+	 (global-visual-line-mode t)
+	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
    #+END_SRC
 
    #+RESULTS:
