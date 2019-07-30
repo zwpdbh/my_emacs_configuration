@@ -445,16 +445,17 @@
 	(define-key company-active-map (kbd "C-n") 'company-select-next)
 	(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-    
+
 	(defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 							(company-dabbrev-code company-gtags company-etags company-keywords)
 							company-oddmuse company-dabbrev))    
-	;; company-dabbrev and company-files are very useful. So, adjust default backends
+    
+	;; company-capf, company-dabbrev and company-files are very useful. So, adjust default backends
 	(defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
 						   (company-dabbrev-code company-gtags company-etags company-keywords)
 						   company-oddmuse company-dabbrev))
 	(setq company-backends company-my-backends)
-    
+
 
 	;; (defmacro add-to-company-backends (company-xxx-names &optional at)
 	;;   "company-xxx-names: '(company-ycmd company-foo)"
@@ -1728,6 +1729,5 @@
    * link aonther org file into current org mode
    * Go to the file you want to link, then ~C-c l~ to store the link to mark the position in the file
    * Go back to the file you are editing, ~C-c C-l~ to insert the file linkxs
-
 
 
