@@ -134,8 +134,8 @@
        :config
        (progn
 	 ;; (setq-default adaptive-wrap-extra-indent 2)
-	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
-	 (global-visual-line-mode t)))
+	 (global-visual-line-mode t)
+	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -254,7 +254,6 @@
       :defer 1
       :ensure try
       :bind (("C-s" . swiper)
-	     ("C-r" . swiper)
 	     ("C-c C-r" . ivy-resume)
 	     ("M-x" . counsel-M-x)
 	     ("C-x C-f" . counsel-find-file))
