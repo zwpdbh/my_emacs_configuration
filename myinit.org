@@ -254,7 +254,6 @@
       :defer 1
       :ensure try
       :bind (("C-s" . swiper)
-	     ("C-r" . swiper)
 	     ("C-c C-r" . ivy-resume)
 	     ("M-x" . counsel-M-x)
 	     ("C-x C-f" . counsel-find-file))
