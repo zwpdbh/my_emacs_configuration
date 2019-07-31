@@ -1282,17 +1282,22 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-     (require 'org)
-     (require 'ob)
-     (require 'ob-js)
-     (require 'org-tempo)
      (cond
       ((string-equal system-type "gnu/linux")
        (require 'org-eldoc))
       ((string-equal system-type "darwin")
        ;; (use-package org-plus-contrib
        ;;   :ensure t)
-       ))
+       )
+      ((string-equal system-type "windows-nt")
+       (use-package org-plus-contrib
+	 :ensure t)))
+
+     (require 'org)
+     (require 'ob)
+     (require 'ob-js)
+     (require 'org-tempo)
+
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
