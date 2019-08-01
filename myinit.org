@@ -1,3 +1,23 @@
+* Set emacs theme
+  #+begin_src emacs-lisp
+    ;; leuven-theme
+    ;; gruvbox-theme
+    ;; material-theme
+    ;; flucui-themes
+    ;; solarized-theme
+    ;; monokai-Theme
+
+    (use-package kaolin-themes
+      :ensure t
+      :config
+      (progn
+	(load-theme 'kaolin-aurora t)
+	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+  #+end_src
+
+  #+RESULTS:
+  : t
+
 * Interface tweaks
 ** alight commands
    #+BEGIN_SRC emacs-lisp
@@ -38,7 +58,7 @@
       ((string-equal system-type "windows-nt")
        (set-default-font "Consolas 10"))
       ((string-equal system-type "gnu/linux")
-       (set-default-font "Monaco 10")))
+       (set-default-font "Monaco 12")))
    #+end_src
 
    #+RESULTS:
@@ -205,26 +225,6 @@
 
    #+RESULTS:
    : ssh
-
-* Set emacs theme
-  #+begin_src emacs-lisp
-    ;; leuven-theme
-    ;; gruvbox-theme
-    ;; material-theme
-    ;; flucui-themes
-    ;; solarized-theme
-    ;; monokai-Theme
-
-    (use-package monokai-theme
-      :ensure t
-      :config
-      (progn
-	(load-theme 'monokai t)
-	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
-  #+end_src
-
-  #+RESULTS:
-  : t
 
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
@@ -1245,7 +1245,7 @@
 
    #+RESULTS:
    : v
-
+   
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
