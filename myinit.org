@@ -5,13 +5,14 @@
     ;; material-theme
     ;; flucui-themes
     ;; solarized-theme
+    ;; kaolin-themes
     ;; monokai-Theme
 
-    (use-package kaolin-themes
+    (use-package monokai-theme
       :ensure t
       :config
       (progn
-	(load-theme 'kaolin-aurora t)
+	(load-theme 'monokai t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
@@ -19,6 +20,25 @@
   : t
 
 * Interface tweaks
+** set font
+   - Install Monaco font in Ubuntu:
+     - check [[https://github.com/cstrap/monaco-font][How To]].
+     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     - ~mkdir ~/.fonts~
+     - ~cp Monaco_Linux.ttf ~/.fonts/~
+   #+begin_src emacs-lisp
+     ;; to adjust font dynamically
+     ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
+     (cond
+      ((string-equal system-type "windows-nt")
+       (set-default-font "Consolas 10"))
+      ((string-equal system-type "gnu/linux")
+       (set-default-font "Monaco 12")))
+   #+end_src
+
+   #+RESULTS:
+
 ** alight commands
    #+BEGIN_SRC emacs-lisp
      (add-hook 'align-load-hook #'(lambda ()
@@ -43,25 +63,6 @@
 
    #+RESULTS:
    : none
-
-** set font
-   - Install Monaco font in Ubuntu:
-     - check [[https://github.com/cstrap/monaco-font][How To]].
-     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     - ~mkdir ~/.fonts~
-     - ~cp Monaco_Linux.ttf ~/.fonts/~
-   #+begin_src emacs-lisp
-     ;; to adjust font dynamically
-     ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-     (cond
-      ((string-equal system-type "windows-nt")
-       (set-default-font "Consolas 10"))
-      ((string-equal system-type "gnu/linux")
-       (set-default-font "Monaco 12")))
-   #+end_src
-
-   #+RESULTS:
 
 ** set global key-bindings
    Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
