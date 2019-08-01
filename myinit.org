@@ -444,7 +444,6 @@
 	(define-key company-active-map (kbd "C-n") 'company-select-next)
 	(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-
 	;; company-capf, company-dabbrev and company-files are very useful. So, adjust default backends
 	(defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 							(company-dabbrev-code company-gtags company-etags company-keywords)
@@ -453,7 +452,6 @@
 						   (company-dabbrev-code company-gtags company-etags company-keywords)
 						   company-oddmuse company-dabbrev))
 	(setq company-backends company-my-backends)
-
 
 	;; use statistics to better filter completion candidates
 	(use-package company-statistics
