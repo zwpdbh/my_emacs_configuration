@@ -1571,7 +1571,7 @@
       ;; C-x C-f /docker:user@container:/path/to/file, where:
       ;; user is the user that you want to use
       ;; container is the id or name of the container 
-      :defer t
+      ;; :defer t
       :ensure t)
 
     (use-package eshell-bookmark
