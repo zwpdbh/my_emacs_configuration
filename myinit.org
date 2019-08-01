@@ -1183,12 +1183,14 @@
 
 	 (defun my/web-html-setup ()
 	   "Setup for web-mode html files."
-	   (message "web-mode use html related setup")
-	   ;; (flycheck-add-mode 'html-tidy 'web-mode)
-	   ;; (add-to-list (make-local-variable 'company-backends)
-	   ;; 		   (add-to-company-backends '(company-lsp)))
-	   ;; (my-setup-lsp)
-	   )
+	   (message "web-mode use html related setup"))
+
+	 (defun my/web-vue-setup ()
+	   "Setup for web-mode vue files."
+	   (message "web-mode use vue related setup")
+	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+	   ;; (flycheck-select-checker 'javascript-eslint)
+	   (my/use-eslint-from-node-modules))
 
 	 ;; setup for .vue
 	 (defun my/use-eslint-from-node-modules ()
@@ -1197,27 +1199,19 @@
 		  (eslint (and root (expand-file-name "node_modules/eslint/bin/eslint.js" root))))
 	     (when (and eslint (file-executable-p eslint))
 	       (setq-local flycheck-javascript-eslint-executable eslint))))
+
 	 (define-derived-mode web-vue-mode web-mode "WebVUE"
 	   "Major mode for editing Web & VUE templates.\\{web-vue-map}")
-	 ;; (lsp-register-major-mode 'vls 'web-vue-mode)
-	 (lsp-register-major-mode 'jsts-ls 'web-vue-mode)
-	 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-vue-mode))
-	 (defun my/web-vue-setup ()
-	   "Setup for web-mode vue files."
-	   (message "web-mode use vue related setup")
-	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-	   ;; (flycheck-select-checker 'javascript-eslint)
-	   (my/use-eslint-from-node-modules)
-	   (my-setup-lsp))
-	 (add-hook 'web-vue-mode-hook #'my/web-vue-setup)
 
+	 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-vue-mode))
+	 (add-hook 'web-vue-mode-hook #'my/web-vue-setup)
 	 (add-hook 'web-mode-hook #'(lambda ()
 				      (progn
-					;; (cond ((equal web-mode-content-type "html")
-					;; 	  (my/web-html-setup))
-					;; 	 ((equal web-mode-content-type "vue")
-					;; 	  (my/web-vue-setup)))
-					(pcase (file-name-extension buffer-file-name) ("html" (my/web-html-setup)))
+					(cond ((equal web-mode-content-type "html")
+					       (my/web-html-setup))
+					      ((equal web-mode-content-type "vue")
+					       (my/web-vue-setup)))
+					;; (pcase (file-name-extension buffer-file-name) ("html" (my/web-html-setup)))
 					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
 					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
    #+END_SRC
