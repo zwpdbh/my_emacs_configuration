@@ -513,6 +513,314 @@
   #+RESULTS:
   : t
 
+* Org mode enhancement
+** common settings
+   #+BEGIN_SRC emacs-lisp
+     (use-package org
+       :ensure org-plus-contrib)
+     (require 'ob)
+     (require 'ob-js)
+     (require 'org-eldoc)
+     (require 'org-tempo)
+
+     ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
+     (eval-after-load 'org
+       #'(lambda ()
+	   ;; (define-key org-mode-map [f9] #'org-global-cycle) use shift + tab
+	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
+
+     (define-key global-map "\C-cl" 'org-store-link)
+     (define-key global-map "\C-ca" 'org-agenda)
+     (setq org-log-done t)
+   #+END_SRC
+
+   #+RESULTS:
+   : t
+
+** org-agenda-files
+   In case some org files is not listed in agenda files, run the code block again to refresh the file list.
+   Another way is to invoke the function ~org-agenda-file-to-front~.
+   #+begin_src emacs-lisp
+     ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
+     (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
+   #+end_src
+
+   #+RESULTS:
+   | /home/zw/code/org/kubernetes/use-kubernetes-api.org | /home/zw/code/org/blog-creation.org | /home/zw/code/org/chez-scheme.org | /home/zw/code/org/clojure.org | /home/zw/code/org/emacs.org | /home/zw/code/org/home.org | /home/zw/code/org/learning_statistics_using_R.org | /home/zw/code/org/personal.org | /home/zw/code/org/work.org |
+
+** make code-block could be executed in org-mode
+   #+begin_src emacs-lisp
+     ;; evaluation use sly instead of using slime, need to use org-plus-contrib
+     (setq org-babel-lisp-eval-fn #'sly-eval)
+     (use-package ob-http
+       :ensure t)
+
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((lisp . t)
+	(clojure . t)
+	(C . t)
+	(shell . t)
+	(js . t)
+	(python . t)
+	(R . t)
+	(http . t)))
+
+     (add-hook 'org-mode-hook #'(lambda ()
+				  (progn
+				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
+				    (defun my-org-confirm-babel-evaluate (lang body)
+				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C"))))
+				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
+
+     (eval-after-load 'org
+       #'(lambda ()
+	   (progn
+	     (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
+	     (add-to-list 'org-structure-template-alist '("py" . "src python"))
+	     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+	     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+	     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+	     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
+	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
+	     (add-to-list 'org-structure-template-alist '("js" . "src js"))
+	     (add-to-list 'org-structure-template-alist '("http" . "src http")))))
+   #+end_src
+
+
+** Publishing Org-mode files to HTML
+   #+begin_src emacs-lisp
+     (use-package htmlize
+       :defer 2
+       :ensure t)
+
+     ;; publish the ~/code/org/ project to HTML
+     (require 'ox-publish)
+     (setq org-publish-project-alist
+	   '(;; the netes components, it publishes all the org-mode files to HTML 
+	     ("org-notes"
+	      :base-directory "~/code/org/"
+	      :base-extension "org"
+	      :publishing-directory "~/code/public_html/"
+	      :recursive t
+	      :publishing-function org-html-publish-to-html
+	      :headline-levels 4
+	      :auto-preamble t
+	      :auto-sitemap t                  
+	      :sitemap-filename "sitemap.org"  
+	      :sitemap-title "Sitemap")
+	     ("org-static"
+	      :base-directory "~/code/org/"
+	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	      :publishing-directory "~/public_html/"
+	      :recursive t
+	      :publishing-function org-publish-attachment)
+	     ("org" :components ("org-notes" "org-static"))
+	
+	     ("hugo-notes"
+	      :base-directory "~/code/org/"
+	      :base-extension "org"
+	      :publishing-directory "~/code/my-site/content-org/"
+	      :recursive t)))
+
+   #+end_src
+
+   #+RESULTS:
+
+** Hugo + ox-hugo + Netlify
+*** ox-hugo
+    #+begin_src emacs-lisp
+     (use-package ox-hugo
+       :ensure t            ;Auto-install the package from Melpa (optional)
+       :after ox)
+    #+end_src
+
+*** org-capture
+    * create corresponding .org file within the org folder inside HUGO site
+    * each note/post will be inserted into the corresponding org file under second level headline (the first level is the corresponding file headline)
+    * edit config/menus.toml, create link to section
+    * edit content/home/<corresponding url name>.md, use computer-science.md as example:
+      * line 3: # This section displays recent blog posts from `content/computer-science/`.
+      * title = "Computer Science Posts"
+      * line 15: page_type = "computer-science"
+    * Note: need to mark the second level headline status as DONE to make it be visiable and searchable after being published.
+    
+    configuration for ~org-capture~
+    #+begin_src emacs-lisp
+      (defun org-hugo-new-subtree-post-capture-template ()
+	"Returns `org-capture' template string for new Hugo post.
+      See `org-capture-templates' for more information."
+	(let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+	       (date (format-time-string (org-time-stamp-format  :inactive) (org-current-time)))
+	       (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+	       (fname (org-hugo-slug title)))
+	  (mapconcat #'identity
+		     `(
+		       ,(concat "* TODO " title)
+		       ":PROPERTIES:"
+		       ,(concat ":EXPORT_FILE_NAME: " fname)
+		       ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+		       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":foo bar :baz zoo :alpha 1 :beta \"two words\" :gamma 10" )
+		       ":END:"
+		       "%?\n")          ;Place th
+		     "\n")))
+
+      (setq org-capture-templates
+	    '(
+	      ("t" "todo" entry (file "~/code/my-site/content-org/todo.org")
+	       "* TODO %? :TODO: \n Added:%T\n"
+	       :clock-in t :clock-resume t)
+
+	      ("h" "Hugo post")
+
+	      ("hc" "Computer-Science"
+	       entry (file+olp "~/code/my-site/content-org/computer-science.org" "Computer-Science")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("hm" "Mathematics"
+	       entry (file+olp "~/code/my-site/content-org/mathematics.org" "Mathematics")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("hs" "Software-Engineering"
+	       entry (file+olp "~/code/my-site/content-org/software-engineering.org" "Software-Engineering")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+
+	      ("ht" "Tools"
+	       entry (file+olp "~/code/my-site/content-org/tools.org" "Tools")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)))
+    #+end_src
+
+    #+RESULTS:
+    | t | todo | entry | (file ~/code/my-site/org/todo.org) | * TODO %? :TODO: |
+
+** Set the background of org-exported <code> blocks according to theme
+   #+begin_src emacs-lisp
+     (defun my/org-inline-css-hook (exporter)
+       "Insert custom inline css to automatically set the
+     background of code to whatever theme I'm using's background"
+       (when (eq exporter 'html)
+	 (let* ((my-pre-bg (face-background 'default))
+		(my-pre-fg (face-foreground 'default)))
+	   (setq
+	    org-html-head-extra
+	    (concat
+	     org-html-head-extra
+	     (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
+		     my-pre-bg my-pre-fg))))))
+
+     (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+   #+end_src
+
+   #+RESULTS:
+   | my/org-inline-css-hook |
+
+** Github Flavored Markdown
+   #+begin_src emacs-lisp
+     (use-package ox-gfm
+       :ensure t
+       :config
+       (progn
+	 (eval-after-load "org"
+	   '(require 'ox-gfm nil t))))
+   #+end_src
+
+* Magit
+  #+begin_src emacs-lisp
+    (use-package magit
+      :ensure t)
+  #+end_src
+
+  #+RESULTS:
+
+** configuration for smerge-mode
+   #+begin_src emacs-lisp
+     (setq smerge-command-prefix "\C-cv")
+   #+end_src
+
+   #+RESULTS:
+   : v
+   
+* Treemacs
+  #+begin_src emacs-lisp
+    (use-package treemacs
+      :defer t
+      :ensure t
+      :defer t
+      :init
+      (progn
+	(use-package lv
+	  :ensure t)
+	(use-package hydra
+	  :ensure t)
+	(with-eval-after-load 'winum
+	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+      :config
+      (progn
+	;; (pcase (cons (not (null (executable-find "git")))
+	;;              (not (null (executable-find "python3"))))
+	;;   (`(t . t)
+	;;    (treemacs-git-mode 'deferred))
+	;;   (`(t . _)
+	;;    (treemacs-git-mode 'simple)))
+	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+	      treemacs-file-event-delay           5000
+	      treemacs-follow-after-init          t
+	      treemacs-follow-recenter-distance   0.1
+	      treemacs-goto-tag-strategy          'refetch-index
+	      treemacs-indentation                1
+	      ;; indent guide
+	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+	      ;; treemacs-indentation-string         "|"
+	      treemacs-is-never-other-window      nil
+	      treemacs-no-png-images              nil
+	      treemacs-project-follow-cleanup     nil
+	      treemacs-recenter-after-file-follow nil
+	      treemacs-recenter-after-tag-follow  nil
+	      treemacs-show-hidden-files          t
+	      treemacs-silent-filewatch           nil
+	      treemacs-silent-refresh             nil
+	      treemacs-sorting                    'alphabetic-desc
+	      treemacs-tag-follow-cleanup         t
+	      treemacs-tag-follow-delay           1.5
+	      treemacs-width                      40
+	      treemacs-follow-mode                t
+	      treemacs-filewatch-mode             t
+	      treemacs-git-mode nil))
+      :bind
+      (:map global-map
+	    ([f8]        . treemacs)
+	    ("M-0"       . treemacs-select-window)
+	    ("C-x t 1"   . treemacs-delete-other-windows)
+	    ("C-x t t"   . treemacs)
+	    ("C-x t B"   . treemacs-bookmark)
+	    ("C-x t C-t" . treemacs-find-file)
+	    ("C-x t M-t" . treemacs-find-tag)))
+
+    (use-package treemacs-evil
+      :defer t
+      :after treemacs evil
+      :ensure t)
+
+    (use-package treemacs-projectile
+      :defer t
+      :after treemacs projectile
+      :ensure t)
+
+    (use-package treemacs-icons-dired
+      :defer t
+      :after treemacs dired
+      :ensure t
+      :config (treemacs-icons-dired-mode))
+
+
+  #+end_src
+
+  #+RESULTS:
+
 * Programming
 ** Common features
 *** Flycheck
@@ -1201,28 +1509,29 @@
 ** R programming
 *** configuration 
     #+begin_src emacs-lisp
-      (use-package ess
-	:ensure t
-	:init
-	;;  :init (require 'ess-site)
-	:config
-	(progn
-	  (setq inferior-R-program-name "/usr/local/bin/R"
-		comint-input-ring-size 1000
-		ess-indent-level 4
-		ess-arg-function-offset 4
-		ess-else-offset 4
-		ess-continued-statement-offset 2
-		truncate-lines t
-		comment-column 4)		;
+      (unless (string-equal system-type "gnu/linux")
+	;; current there is error when tring to use R in Ubuntu 18.04
+	;; It shows could not load ess package and crush other packages
+	(use-package ess
+	  :ensure t
+	  :init (require 'ess-site)
+	  :config
+	  (progn
+	    (setq inferior-R-program-name "/usr/local/bin/R"
+		  comint-input-ring-size 1000
+		  ess-indent-level 4
+		  ess-arg-function-offset 4
+		  ess-else-offset 4
+		  ess-continued-statement-offset 2
+		  truncate-lines t
+		  comment-column 4)		;
 
-	  (use-package electric-spacing
-	    :ensure t)
+	    (use-package electric-spacing
+	      :ensure t)
 
-	  (add-hook 'ess-mode-hook 
-		    #'(lambda () 
-			(electric-spacing-mode)))))
-
+	    (add-hook 'ess-mode-hook 
+		      #'(lambda () 
+			  (electric-spacing-mode))))))
     #+end_src
 
     #+RESULTS:
@@ -1230,314 +1539,6 @@
 
 *** references
     - [[https://jmonlong.github.io/Hippocamplus/emacs/#for-r]]
-
-* Magit
-  #+begin_src emacs-lisp
-    (use-package magit
-      :ensure t)
-  #+end_src
-
-  #+RESULTS:
-
-** configuration for smerge-mode
-   #+begin_src emacs-lisp
-     (setq smerge-command-prefix "\C-cv")
-   #+end_src
-
-   #+RESULTS:
-   : v
-   
-* Org mode enhancement
-** common settings
-   #+BEGIN_SRC emacs-lisp
-     (use-package org
-       :ensure org-plus-contrib)
-     (require 'ob)
-     (require 'ob-js)
-     (require 'org-eldoc)
-     (require 'org-tempo)
-
-     ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
-     (eval-after-load 'org
-       #'(lambda ()
-	   ;; (define-key org-mode-map [f9] #'org-global-cycle) use shift + tab
-	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
-
-     (define-key global-map "\C-cl" 'org-store-link)
-     (define-key global-map "\C-ca" 'org-agenda)
-     (setq org-log-done t)
-   #+END_SRC
-
-   #+RESULTS:
-   : t
-
-** org-agenda-files
-   In case some org files is not listed in agenda files, run the code block again to refresh the file list.
-   Another way is to invoke the function ~org-agenda-file-to-front~.
-   #+begin_src emacs-lisp
-     ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
-     (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
-   #+end_src
-
-   #+RESULTS:
-   | /home/zw/code/org/kubernetes/use-kubernetes-api.org | /home/zw/code/org/blog-creation.org | /home/zw/code/org/chez-scheme.org | /home/zw/code/org/clojure.org | /home/zw/code/org/emacs.org | /home/zw/code/org/home.org | /home/zw/code/org/learning_statistics_using_R.org | /home/zw/code/org/personal.org | /home/zw/code/org/work.org |
-
-** make code-block could be executed in org-mode
-   #+begin_src emacs-lisp
-     ;; evaluation use sly instead of using slime, need to use org-plus-contrib
-     (setq org-babel-lisp-eval-fn #'sly-eval)
-     (use-package ob-http
-       :ensure t)
-
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((lisp . t)
-	(clojure . t)
-	(C . t)
-	(shell . t)
-	(js . t)
-	(python . t)
-	(R . t)
-	(http . t)))
-
-     (add-hook 'org-mode-hook #'(lambda ()
-				  (progn
-				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
-				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C"))))
-				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
-
-     (eval-after-load 'org
-       #'(lambda ()
-	   (progn
-	     (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
-	     (add-to-list 'org-structure-template-alist '("py" . "src python"))
-	     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-	     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
-	     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-	     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
-	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
-	     (add-to-list 'org-structure-template-alist '("js" . "src js"))
-	     (add-to-list 'org-structure-template-alist '("http" . "src http")))))
-   #+end_src
-
-
-** Publishing Org-mode files to HTML
-   #+begin_src emacs-lisp
-     (use-package htmlize
-       :defer 2
-       :ensure t)
-
-     ;; publish the ~/code/org/ project to HTML
-     (require 'ox-publish)
-     (setq org-publish-project-alist
-	   '(;; the netes components, it publishes all the org-mode files to HTML 
-	     ("org-notes"
-	      :base-directory "~/code/org/"
-	      :base-extension "org"
-	      :publishing-directory "~/code/public_html/"
-	      :recursive t
-	      :publishing-function org-html-publish-to-html
-	      :headline-levels 4
-	      :auto-preamble t
-	      :auto-sitemap t                  
-	      :sitemap-filename "sitemap.org"  
-	      :sitemap-title "Sitemap")
-	     ("org-static"
-	      :base-directory "~/code/org/"
-	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-	      :publishing-directory "~/public_html/"
-	      :recursive t
-	      :publishing-function org-publish-attachment)
-	     ("org" :components ("org-notes" "org-static"))
-	
-	     ("hugo-notes"
-	      :base-directory "~/code/org/"
-	      :base-extension "org"
-	      :publishing-directory "~/code/my-site/content-org/"
-	      :recursive t)))
-
-   #+end_src
-
-   #+RESULTS:
-
-** Hugo + ox-hugo + Netlify
-*** ox-hugo
-    #+begin_src emacs-lisp
-     (use-package ox-hugo
-       :ensure t            ;Auto-install the package from Melpa (optional)
-       :after ox)
-    #+end_src
-
-*** org-capture
-    * create corresponding .org file within the org folder inside HUGO site
-    * each note/post will be inserted into the corresponding org file under second level headline (the first level is the corresponding file headline)
-    * edit config/menus.toml, create link to section
-    * edit content/home/<corresponding url name>.md, use computer-science.md as example:
-      * line 3: # This section displays recent blog posts from `content/computer-science/`.
-      * title = "Computer Science Posts"
-      * line 15: page_type = "computer-science"
-    * Note: need to mark the second level headline status as DONE to make it be visiable and searchable after being published.
-    
-    configuration for ~org-capture~
-    #+begin_src emacs-lisp
-      (defun org-hugo-new-subtree-post-capture-template ()
-	"Returns `org-capture' template string for new Hugo post.
-      See `org-capture-templates' for more information."
-	(let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
-	       (date (format-time-string (org-time-stamp-format  :inactive) (org-current-time)))
-	       (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
-	       (fname (org-hugo-slug title)))
-	  (mapconcat #'identity
-		     `(
-		       ,(concat "* TODO " title)
-		       ":PROPERTIES:"
-		       ,(concat ":EXPORT_FILE_NAME: " fname)
-		       ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
-		       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":foo bar :baz zoo :alpha 1 :beta \"two words\" :gamma 10" )
-		       ":END:"
-		       "%?\n")          ;Place th
-		     "\n")))
-
-      (setq org-capture-templates
-	    '(
-	      ("t" "todo" entry (file "~/code/my-site/content-org/todo.org")
-	       "* TODO %? :TODO: \n Added:%T\n"
-	       :clock-in t :clock-resume t)
-
-	      ("h" "Hugo post")
-
-	      ("hc" "Computer-Science"
-	       entry (file+olp "~/code/my-site/content-org/computer-science.org" "Computer-Science")
-	       (function org-hugo-new-subtree-post-capture-template)
-	       :clock-in t :clock-resume t)
-
-	      ("hm" "Mathematics"
-	       entry (file+olp "~/code/my-site/content-org/mathematics.org" "Mathematics")
-	       (function org-hugo-new-subtree-post-capture-template)
-	       :clock-in t :clock-resume t)
-
-	      ("hs" "Software-Engineering"
-	       entry (file+olp "~/code/my-site/content-org/software-engineering.org" "Software-Engineering")
-	       (function org-hugo-new-subtree-post-capture-template)
-	       :clock-in t :clock-resume t)
-
-	      ("ht" "Tools"
-	       entry (file+olp "~/code/my-site/content-org/tools.org" "Tools")
-	       (function org-hugo-new-subtree-post-capture-template)
-	       :clock-in t :clock-resume t)))
-    #+end_src
-
-    #+RESULTS:
-    | t | todo | entry | (file ~/code/my-site/org/todo.org) | * TODO %? :TODO: |
-
-** Set the background of org-exported <code> blocks according to theme
-   #+begin_src emacs-lisp
-     (defun my/org-inline-css-hook (exporter)
-       "Insert custom inline css to automatically set the
-     background of code to whatever theme I'm using's background"
-       (when (eq exporter 'html)
-	 (let* ((my-pre-bg (face-background 'default))
-		(my-pre-fg (face-foreground 'default)))
-	   (setq
-	    org-html-head-extra
-	    (concat
-	     org-html-head-extra
-	     (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
-		     my-pre-bg my-pre-fg))))))
-
-     (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
-   #+end_src
-
-   #+RESULTS:
-   | my/org-inline-css-hook |
-
-** Github Flavored Markdown
-   #+begin_src emacs-lisp
-     (use-package ox-gfm
-       :ensure t
-       :config
-       (progn
-	 (eval-after-load "org"
-	   '(require 'ox-gfm nil t))))
-   #+end_src
-
-* Treemacs
-  #+begin_src emacs-lisp
-    (use-package treemacs
-      :defer t
-      :ensure t
-      :defer t
-      :init
-      (progn
-	(use-package lv
-	  :ensure t)
-	(use-package hydra
-	  :ensure t)
-	(with-eval-after-load 'winum
-	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
-      :config
-      (progn
-	;; (pcase (cons (not (null (executable-find "git")))
-	;;              (not (null (executable-find "python3"))))
-	;;   (`(t . t)
-	;;    (treemacs-git-mode 'deferred))
-	;;   (`(t . _)
-	;;    (treemacs-git-mode 'simple)))
-	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-	      treemacs-file-event-delay           5000
-	      treemacs-follow-after-init          t
-	      treemacs-follow-recenter-distance   0.1
-	      treemacs-goto-tag-strategy          'refetch-index
-	      treemacs-indentation                1
-	      ;; indent guide
-	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
-	      ;; treemacs-indentation-string         "|"
-	      treemacs-is-never-other-window      nil
-	      treemacs-no-png-images              nil
-	      treemacs-project-follow-cleanup     nil
-	      treemacs-recenter-after-file-follow nil
-	      treemacs-recenter-after-tag-follow  nil
-	      treemacs-show-hidden-files          t
-	      treemacs-silent-filewatch           nil
-	      treemacs-silent-refresh             nil
-	      treemacs-sorting                    'alphabetic-desc
-	      treemacs-tag-follow-cleanup         t
-	      treemacs-tag-follow-delay           1.5
-	      treemacs-width                      40
-	      treemacs-follow-mode                t
-	      treemacs-filewatch-mode             t
-	      treemacs-git-mode nil))
-      :bind
-      (:map global-map
-	    ([f8]        . treemacs)
-	    ("M-0"       . treemacs-select-window)
-	    ("C-x t 1"   . treemacs-delete-other-windows)
-	    ("C-x t t"   . treemacs)
-	    ("C-x t B"   . treemacs-bookmark)
-	    ("C-x t C-t" . treemacs-find-file)
-	    ("C-x t M-t" . treemacs-find-tag)))
-
-    (use-package treemacs-evil
-      :defer t
-      :after treemacs evil
-      :ensure t)
-
-    (use-package treemacs-projectile
-      :defer t
-      :after treemacs projectile
-      :ensure t)
-
-    (use-package treemacs-icons-dired
-      :defer t
-      :after treemacs dired
-      :ensure t
-      :config (treemacs-icons-dired-mode))
-
-
-  #+end_src
-
-  #+RESULTS:
 
 * Markdown 
   - sudo apt install pandoc
