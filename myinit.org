@@ -8,11 +8,11 @@
     ;; kaolin-themes
     ;; monokai-Theme
 
-    (use-package monokai-theme
+    (use-package kaolin-themes
       :ensure t
       :config
       (progn
-	(load-theme 'monokai t)
+	(load-theme 'kaolin-galaxy t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
