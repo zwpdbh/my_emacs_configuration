@@ -1141,10 +1141,6 @@
     | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
 
 ** web programming
-   - For Vue.js
-     - =npm install -g vue-language-server=
-     - =npm install -g vue=
-   - Configuration
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
        :mode (("\\.html$" . web-mode)
@@ -1155,8 +1151,7 @@
 	      ("\\.as[cp]x\\'" . web-mode)
 	      ("\\.erb\\'" . web-mode)
 	      ("\\.hbs\\'" . web-mode)
-	      ("\\.vue\\'" . web-vue-mode)
-	      )
+	      ("\\.vue\\'" . web-vue-mode))
        :config
        (progn
 	 (setq web-mode-markup-indent-offset 2)
