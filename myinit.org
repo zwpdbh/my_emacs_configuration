@@ -1686,7 +1686,8 @@
      - hit ~t~ to mark an item done
      - hit ~RET~ to jump to the source file wehre the TODO is located
    * Scheduling tasks and using the agenda
-     - Go to the next line under a TODO item, ~C-a C-s~ to insert a scheduled date
+     - Go to the next line under a TODO item, ~C-c C-s~ to insert a scheduled date
+       Then, you could use Shift + arrow key to move the schedule date in the calendar.
      - ~C-c a~ list availabe commands related with agenda
 ** Hyper Links 
    * link aonther org file into current org mode
