@@ -21,12 +21,14 @@
 
 * Interface tweaks
 ** set font
-   - Install Monaco font in Ubuntu:
-     - check [[https://github.com/cstrap/monaco-font][How To]].
-     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     - ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     - ~mkdir ~/.fonts~
-     - ~cp Monaco_Linux.ttf ~/.fonts/~
+   * Install Monaco font in Ubuntu:
+     * check [[https://github.com/cstrap/monaco-font][How To]].
+     * ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     * ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
+     * ~mkdir ~/.fonts~
+     * ~cp Monaco_Linux.ttf ~/.fonts/~
+   * [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][how to find the current font used]]
+   * [[http://ergoemacs.org/emacs/emacs_unicode_fonts.html][best unicode fonts for programmer]]
    #+begin_src emacs-lisp
      ;; to adjust font dynamically
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
@@ -34,7 +36,11 @@
       ((string-equal system-type "windows-nt")
        (set-default-font "Consolas 10"))
       ((string-equal system-type "gnu/linux")
-       (set-default-font "Monaco 12")))
+       (set-default-font "Monaco 12"))
+      ((string-equal system-type "darwin")
+       (if (member "DejaVu Sans Mono" (font-family-list))
+	   (set-default-font "DejaVu Sans Mono 11")
+	 (set-default-font "Menlo 11"))))
    #+end_src
 
    #+RESULTS:
