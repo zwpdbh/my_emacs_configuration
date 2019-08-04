@@ -570,13 +570,14 @@
 	(js . t)
 	(python . t)
 	(R . t)
-	(http . t)))
+	(http . t)
+	(latex . t)))
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
 				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
 				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C"))))
+				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C" "latex"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      (eval-after-load 'org
@@ -590,7 +591,8 @@
 	     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
 	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
 	     (add-to-list 'org-structure-template-alist '("js" . "src js"))
-	     (add-to-list 'org-structure-template-alist '("http" . "src http")))))
+	     (add-to-list 'org-structure-template-alist '("http" . "src http"))
+	     (add-to-list 'org-structure-template-alist '("lt" . "LaTeX")))))
    #+end_src
 
 
@@ -1624,6 +1626,28 @@
   * If meet error: "dyld: Library not loaded: /usr/local/opt/mpfr/lib/libmpfr.4.dylib Referenced from: /usr/local/bin/gawk" during the compliation of pdf-tools.
     Solution: ~brew upgrade gawk~
 
+* Latex
+  * Reference
+    * [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
+    * [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
+  * Configuration
+    #+begin_src emacs-lisp
+      (use-package company-math
+	:ensure t)
+      ;; local configuration for TeX modes
+      (defun my-latex-mode-setup ()
+	(setq-local company-backends
+		    (append '((company-math-symbols-latex company-latex-commands))
+			    company-backends)))
+
+
+      (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
+      (add-hook 'LaTex-mode-hook (lambda ()
+				   (turn-on-reftex)
+				   (my-latex-mode-setup)))
+    #+end_src
+
+
 * TODO Lookup word definition
   (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
 * References
@@ -1668,6 +1692,7 @@
    - [[http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html][a very good example how to set org-mode: Another Org-Mode Configuration]]
    - [[http://jr0cket.co.uk/2013/08/defining-custom-workflow-with-Emacs-org-mode.html.html][Defining Custom Task Workflows With Emacs Org-Mode]]
    - [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][Beautifying Org Mode in Emacs]]
+   - [[http://ehneilsen.net/notebook/orgExamples/org-examples.html][Emacs org-mode examples and cookbook]]
 
 ** Knowledge from Shane
 *** tools
