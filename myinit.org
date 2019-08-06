@@ -533,7 +533,7 @@
      (eval-after-load 'org
        #'(lambda ()
 	   ;; (define-key org-mode-map [f9] #'org-global-cycle) use shift + tab
-	   (define-key org-mode-map [f6] #'org-toggle-inline-images)))
+	   (define-key org-mode-map [f9] #'org-toggle-inline-images)))
 
      (define-key global-map "\C-cl" 'org-store-link)
      (define-key global-map "\C-ca" 'org-agenda)
@@ -736,7 +736,7 @@
 	   '(require 'ox-gfm nil t))))
    #+end_src
 
-** screenshot
+** Capture screenshot within Emacs
    #+begin_src emacs-lisp
      (use-package org-attach-screenshot
        :ensure t
@@ -749,6 +749,15 @@
 				"_att")))
 	       org-attach-screenshot-relative-links t)))
    #+end_src
+
+** Org-download moving images from A to B
+   #+begin_src emacs-lisp
+     (use-package org-download
+       :defer t
+       :ensure t)
+   #+end_src
+
+   #+RESULTS:
 
 
 * Magit
