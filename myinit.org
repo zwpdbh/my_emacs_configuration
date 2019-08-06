@@ -736,6 +736,21 @@
 	   '(require 'ox-gfm nil t))))
    #+end_src
 
+** screenshot
+   #+begin_src emacs-lisp
+     (use-package org-attach-screenshot
+       :ensure t
+       :config
+       (progn
+	 (setq org-attach-screenshot-dirfunction
+	       (lambda () 
+		 (progn (assert (buffer-file-name))
+			(concat (file-name-sans-extension (buffer-file-name))
+				"_att")))
+	       org-attach-screenshot-relative-links t)))
+   #+end_src
+
+
 * Magit
   #+begin_src emacs-lisp
     (use-package magit
