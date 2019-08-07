@@ -571,13 +571,15 @@
 	(python . t)
 	(R . t)
 	(http . t)
-	(latex . t)))
+	(latex . t)
+	(dot . t)
+	(plantuml . t)))
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
 				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
 				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C" "latex"))))
+				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      (eval-after-load 'org
@@ -592,8 +594,13 @@
 	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
 	     (add-to-list 'org-structure-template-alist '("js" . "src js"))
 	     (add-to-list 'org-structure-template-alist '("http" . "src http"))
-	     (add-to-list 'org-structure-template-alist '("lt" . "LaTeX")))))
+	     (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
+	     (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
+	     (add-to-list 'org-structure-template-alist '("uml" . "src plantuml")))))
    #+end_src
+
+   #+RESULTS:
+   : ((uml . src plantuml) (dot . src dot) (lt . LaTeX) (http . src http) (js . src js) (r . src R) (clojure . src clojure) (sh . src sh) (lisp . src lisp) (el . src emacs-lisp) (py . src python) (py3 . src python3) (a . export ascii) (c . center) (C . comment) (e . example) (E . export) (h . export html) (l . export latex) (q . quote) (s . src) (v . verse))
 
 
 ** Publishing Org-mode files to HTML
@@ -759,6 +766,39 @@
 
    #+RESULTS:
 
+** graphviz
+   #+begin_src emacs-lisp
+     (use-package graphviz-dot-mode
+       :ensure t)
+   #+end_src
+
+   #+RESULTS:
+
+** plantuml
+   #+begin_src emacs-lisp
+     (use-package plantuml-mode
+       :ensure t
+       :init
+       :config
+       (progn
+	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
+	 (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
+	 (setq plantuml-exec-mode 'jar)
+	 ;; (setq plantuml-java-options "")
+	 (setq plantuml-default-exec-mode "jar")
+	 (plantuml-set-exec-mode "jar")
+	 ;; (setq plantuml-output-type "svg")
+	 (setq plantuml-options "-charset UTF-8")
+
+	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+	 (add-hook 'plantuml-mode-hook #'(lambda ()
+					   (progn
+					     (plantuml-init-once "jar")
+					     (plantuml-init "jar"))))))
+   #+end_src
+
+   #+RESULTS:
+   : t
 
 * Magit
   #+begin_src emacs-lisp
@@ -1541,29 +1581,50 @@
 ** R programming
 *** configuration 
     #+begin_src emacs-lisp
-      (unless (string-equal system-type "gnu/linux")
-	;; current there is error when tring to use R in Ubuntu 18.04
-	;; It shows could not load ess package and crush other packages
-	(use-package ess
-	  :ensure t
-	  :init (require 'ess-site)
-	  :config
-	  (progn
-	    (setq inferior-R-program-name "/usr/local/bin/R"
-		  comint-input-ring-size 1000
-		  ess-indent-level 4
-		  ess-arg-function-offset 4
-		  ess-else-offset 4
-		  ess-continued-statement-offset 2
-		  truncate-lines t
-		  comment-column 4)		;
+      ;; (unless (string-equal system-type "gnu/linux")
+      ;;   ;; current there is error when tring to use R in Ubuntu 18.04
+      ;;   ;; It shows could not load ess package and crush other packages
+      ;;   (use-package ess
+      ;;     :ensure t
+      ;;     :init (require 'ess-site)
+      ;;     :config
+      ;;     (progn
+      ;;       (setq inferior-R-program-name "/usr/local/bin/R"
+      ;; 	    comint-input-ring-size 1000
+      ;; 	    ess-indent-level 4
+      ;; 	    ess-arg-function-offset 4
+      ;; 	    ess-else-offset 4
+      ;; 	    ess-continued-statement-offset 2
+      ;; 	    truncate-lines t
+      ;; 	    comment-column 4)		;
 
-	    (use-package electric-spacing
-	      :ensure t)
+      ;;       (use-package electric-spacing
+      ;; 	:ensure t)
 
-	    (add-hook 'ess-mode-hook 
-		      #'(lambda () 
-			  (electric-spacing-mode))))))
+      ;;       (add-hook 'ess-mode-hook 
+      ;; 		#'(lambda () 
+      ;; 		    (electric-spacing-mode))))))
+
+      (use-package ess
+	:ensure t
+	:init (require 'ess-site)
+	:config
+	(progn
+	  (setq inferior-R-program-name "/usr/local/bin/R"
+		comint-input-ring-size 1000
+		ess-indent-level 4
+		ess-arg-function-offset 4
+		ess-else-offset 4
+		ess-continued-statement-offset 2
+		truncate-lines t
+		comment-column 4)		;
+
+	  (use-package electric-spacing
+	    :ensure t)
+
+	  (add-hook 'ess-mode-hook 
+		    #'(lambda () 
+			(electric-spacing-mode)))))
     #+end_src
 
     #+RESULTS:
