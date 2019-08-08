@@ -1503,6 +1503,7 @@
 ** web programming
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
+       :ensure t
        :mode (("\\.html$" . web-mode)
 	      ("\\.djhtml$" . web-mode)
 	      ("\\.tsx$" . web-mode)
