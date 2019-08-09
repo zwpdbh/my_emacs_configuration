@@ -187,11 +187,11 @@
 
 ** use indent-guide
    #+begin_src emacs-lisp
-     (use-package indent-guide
-       :ensure t
-       :config
-       (progn
-         (indent-guide-global-mode)))
+     ;; (use-package indent-guide
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (indent-guide-global-mode)))
    #+end_src 
 
    #+RESULTS:
@@ -204,7 +204,26 @@
        :config
        (progn
 	 (setq highlight-indentation-blank-lines t)
-	 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)))
+
+	 ;; define a global minor mode
+	 ;; see: https://stackoverflow.com/questions/16048231/how-to-enable-a-non-global-minor-mode-by-default-on-emacs-startup
+	 (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
+	   (lambda ()
+	     (highlight-indentation-mode 1)))
+
+	 ;; (add-hook 'yaml-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'js-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'emacs-lisp-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'web-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'clojure-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'c-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'c++-mode-hook #'highlight-indentation-mode)
+	 ;; (add-hook 'R-mode-hook #'highlight-indentation-mode)
+    
+	 ;; (set-face-background 'highlight-indentation-face "#e3e3d3")
+	 ;; (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
+	 (my-global-highlight-indentation-mode 1)))
+
    #+END_SRC
 
    #+RESULTS:
@@ -787,8 +806,7 @@
 	 ;; (setq plantuml-java-options "")
 	 (setq plantuml-default-exec-mode "jar")
 	 (plantuml-set-exec-mode "jar")
-	 ;; (setq plantuml-output-type "svg")
-	 (setq plantuml-options "-charset UTF-8")
+	 (setq plantuml-output-type "svg")
 
 	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 	 (add-hook 'plantuml-mode-hook #'(lambda ()
