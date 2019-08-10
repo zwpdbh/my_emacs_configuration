@@ -1506,74 +1506,54 @@
 
 ** web programming
    #+BEGIN_SRC emacs-lisp
+     (defun my/web-vue-setup()
+       "Setup for js related."
+       (message "web-mode use vue related setup")
+       ;; (setup-tide-mode)
+       (prettier-js-mode)
+       (flycheck-add-mode 'javascript-eslint 'web-mode)
+       (flycheck-select-checker 'javascript-eslint)
+       (my/use-eslint-from-node-modules)
+
+       (dolist (each-backend '(company-css company-web-html))
+	 (when (fboundp each-backend)
+	   (setq-local company-backends
+		       (append each-backend company-backends)))))
+
      (use-package web-mode
        :ensure t
-       :mode (("\\.html$" . web-mode)
-	      ("\\.djhtml$" . web-mode)
-	      ("\\.tsx$" . web-mode)
-	      ("\\.mustache\\'" . web-mode)
-	      ("\\.phtml\\'" . web-mode)
-	      ("\\.as[cp]x\\'" . web-mode)
-	      ("\\.erb\\'" . web-mode)
-	      ("\\.hbs\\'" . web-mode)
-	      ("\\.vue\\'" . web-vue-mode))
+       :mode ("\\.html\\'" "\\.vue\\'")
        :config
-       (progn
-	 (setq web-mode-markup-indent-offset 2)
-	 (setq web-mode-css-indent-offset 2)
-	 (setq web-mode-code-indent-offset 2)
-	 (setq web-mode-enable-html-entities-fontification t
-	       web-mode-auto-close-style 2)
+       (setq web-mode-markup-indent-offset 2)
+       (setq web-mode-css-indent-offset 2)
+       (setq web-mode-code-indent-offset 2)
+       (setq web-mode-enable-current-element-highlight t)
+       (setq web-mode-enable-css-colorization t)
+       (set-face-attribute 'web-mode-html-tag-face nil :foreground "royalblue")
+       (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "powderblue")
+       (set-face-attribute 'web-mode-doctype-face nil :foreground "lightskyblue")
+       (setq web-mode-content-types-alist
+	     '(("vue" . "\\.vue\\'")))
+       (use-package company-web
+	 :ensure t)
+       (add-hook 'web-mode-hook (lambda()
+				  (cond ((equal web-mode-content-type "html")
+					 (my/web-html-setup))
+					((member web-mode-content-type '("vue"))
+					 (my/web-vue-setup))))))
 
-	 ;; highlight matching tag
-	 (setq web-mode-enable-current-element-highlight t)
-	 ;; colorize colors in buffers
-	 (setq web-mode-enable-css-colorization t)
 
-	 ;; impatient mode: Live refresh of web pages
-	 ;; https://github.com/skeeto/impatient-mode
-	 (use-package impatient-mode
-	   :commands (impatient-mode))
-
-	 (use-package emmet-mode
-	   :ensure t
-	   :config
-	   (progn
-	     (add-hook 'web-mode-hook #'emmet-mode)))
-
-	 (defun my/web-html-setup ()
-	   "Setup for web-mode html files."
-	   (message "web-mode use html related setup"))
-
-	 (defun my/web-vue-setup ()
-	   "Setup for web-mode vue files."
-	   (message "web-mode use vue related setup")
-	   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-	   ;; (flycheck-select-checker 'javascript-eslint)
-	   (my/use-eslint-from-node-modules))
-
-	 ;; setup for .vue
-	 (defun my/use-eslint-from-node-modules ()
-	   "Use local eslint from node_module before global"
-	   (let* ((root (locate-dominating-file (or (buffer-file-name) default-directory) "node_modules"))
-		  (eslint (and root (expand-file-name "node_modules/eslint/bin/eslint.js" root))))
-	     (when (and eslint (file-executable-p eslint))
-	       (setq-local flycheck-javascript-eslint-executable eslint))))
-
-	 (define-derived-mode web-vue-mode web-mode "WebVUE"
-	   "Major mode for editing Web & VUE templates.\\{web-vue-map}")
-
-	 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-vue-mode))
-	 (add-hook 'web-vue-mode-hook #'my/web-vue-setup)
-	 (add-hook 'web-mode-hook #'(lambda ()
-				      (progn
-					(cond ((equal web-mode-content-type "html")
-					       (my/web-html-setup))
-					      ((equal web-mode-content-type "vue")
-					       (my/web-vue-setup)))
-					;; (pcase (file-name-extension buffer-file-name) ("html" (my/web-html-setup)))
-					;; (pcase (file-name-extension buffer-file-name) ("vue" (lsp-vue-setup)))
-					(add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))))
+     (defun my/use-eslint-from-node-modules ()
+       "Use local eslint from node_modules before global."
+       (let* ((root (locate-dominating-file
+		     (or (buffer-file-name) default-directory)
+		     "node_modules"))
+	      (eslint (and root
+			   (expand-file-name "node_modules/eslint/bin/eslint.js"
+					     root))))
+	 (when (and eslint (file-executable-p eslint))
+	   (setq-local flycheck-javascript-eslint-executable eslint))))
+     (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
    #+END_SRC
 
    #+RESULTS:
@@ -1686,29 +1666,32 @@
   #+begin_src emacs-lisp
     (setq exec-path (append exec-path '("/usr/local/bin")))
 
-    (use-package pdf-tools
-      ;; :pin manual
-      :init
-      (use-package tablist
-	:ensure t)
-      :ensure t
-      :config
-      ;; initialise
-      (pdf-tools-install)
-      ;; PDF Tools does not work well together with linum-mode
-      (add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
-      ;; more fine-grained zooming
-      ;; (setq pdf-view-resize-factor 1.1)
-      ;; open pdfs scaled to fit page
-      (setq-default pdf-view-display-size 'fit-width)
-      ;; automatically annotate highlights
-      (setq pdf-annot-activate-created-annotations t)
-  
-      ;; use normal isearch
-      (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+    (when (string-equal system-type "darwin")
+      ;; Haven't build pdf-tool dependencies on other system
+      (use-package pdf-tools
+	;; :pin manual
+	:init
+	(use-package tablist
+	  :ensure t)
+	:ensure t
+	:config
+	;; initialise
+	(pdf-tools-install)
+	;; PDF Tools does not work well together with linum-mode
+	(add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
+	;; more fine-grained zooming
+	;; (setq pdf-view-resize-factor 1.1)
+	;; open pdfs scaled to fit page
+	(setq-default pdf-view-display-size 'fit-width)
+	;; automatically annotate highlights
+	(setq pdf-annot-activate-created-annotations t)
 
-    (use-package org-pdfview
-      :ensure t)
+	;; use normal isearch
+	(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+
+      (use-package org-pdfview
+	:ensure t))
+
   #+end_src
 
   #+RESULTS:
