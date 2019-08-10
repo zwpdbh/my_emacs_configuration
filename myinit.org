@@ -901,18 +901,9 @@
 ** Common features
 *** Flycheck
     #+BEGIN_SRC emacs-lisp
-    (use-package flycheck
-      :defer 2
-      :ensure t)
-
-    (use-package flycheck-yamllint
-      :defer t
-      :ensure t
-      :init
-      (progn
-	(eval-after-load 'flycheck
-	  '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
-
+      (use-package flycheck
+	:defer 2
+	:ensure t)
     #+END_SRC
 
     #+RESULTS:
@@ -1509,16 +1500,13 @@
      (defun my/web-vue-setup()
        "Setup for js related."
        (message "web-mode use vue related setup")
+       (require 'company-css)
+       (setq-local company-backends (append '(company-web-html company-css) company-backends))
        ;; (setup-tide-mode)
-       (prettier-js-mode)
+       ;; (prettier-js-mode)
        (flycheck-add-mode 'javascript-eslint 'web-mode)
        (flycheck-select-checker 'javascript-eslint)
-       (my/use-eslint-from-node-modules)
-
-       (dolist (each-backend '(company-css company-web-html))
-	 (when (fboundp each-backend)
-	   (setq-local company-backends
-		       (append each-backend company-backends)))))
+       (my/use-eslint-from-node-modules))
 
      (use-package web-mode
        :ensure t
@@ -1557,6 +1545,7 @@
    #+END_SRC
 
    #+RESULTS:
+   | my/use-eslint-from-node-modules | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
 
 
 
