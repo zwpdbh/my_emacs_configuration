@@ -570,6 +570,7 @@
       'org-babel-load-languages
       '((lisp . t)
 	(clojure . t)
+	(scheme . t)
 	(C . t)
 	(shell . t)
 	(js . t)
@@ -584,7 +585,7 @@
 				  (progn
 				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
 				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
+				      (not (member lang '("emacs-lisp" "lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      (eval-after-load 'org
@@ -594,6 +595,7 @@
 	     (add-to-list 'org-structure-template-alist '("py" . "src python"))
 	     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 	     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+	     (add-to-list 'org-structure-template-alist '("scheme" . "src scheme"))
 	     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 	     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
 	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
@@ -1153,51 +1155,27 @@
 *** Scheme
     #+begin_src emacs-lisp
       (use-package geiser
-	:init
-	(progn
-	  (setq geiser-active-implementations '(chez guile))
-
-	  (defun scheme-split-window ()
-	    (cond
-	     ((= 1 (count-windows))
-	      (delete-other-windows)
-	      (split-window-vertically (floor (* 0.68 (window-height))))
-	      (other-window 1)
-	      (switch-to-buffer "*scheme*")
-	      (other-window 1))
-	     ((not (find "*scheme*"
-			 (mapcar (lambda (w) (buffer-name (window-buffer w)))
-				 (window-list))
-			 :test 'equal))
-	      (other-window 1)
-	      (switch-to-buffer "*scheme*")
-	      (other-window -1))))
-
-	  (defun scheme-send-last-sexp-split-window ()
-	    (interactive)
-	    (scheme-split-window)
-	    (scheme-send-last-sexp))
-
-	  (defun scheme-send-definition-split-window ()
-	    (interactive)
-	    (scheme-split-window)
-	    (scheme-send-definition)))
-
 	:ensure t
 	:config
 	(progn
+	  ;; append exec-path to include scheme
+	  (if (eq system-type 'windows-nt)
+	      (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
+	    nil)
+
 	  ;; modify the Chez executable name both for scheme-mode and Geiser 
 	  (setq scheme-program-name "scheme")
 	  (setq geiser-chez-binary "scheme")
 	  (setq geiser-mode-start-repl-p t)
-
+	  (setq geiser-active-implementations '(chez guile))
 	  (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	  (add-hook 'scheme-mode-hook
 		    #'(lambda ()
-			(geiser-mode--maybe-activate)
-			(define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
-			(define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)))))
+			(geiser-mode--maybe-activate)))))
     #+end_src
+
+    #+RESULTS:
+    : t
 
 *** Clojure programming
 **** CIDER
