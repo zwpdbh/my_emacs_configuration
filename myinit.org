@@ -5,7 +5,7 @@
     ;; material-theme
     ;; flucui-themes
     ;; solarized-theme
-    ;; kaolin-themes
+    ;; kaolin-themes with kaolin-galaxy
     ;; monokai-Theme
 
     (use-package kaolin-themes
