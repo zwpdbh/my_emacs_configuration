@@ -908,7 +908,7 @@
 
   #+RESULTS:
 
-* Lisp programming
+* Lisp Programming
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
      (use-package eldoc
@@ -1033,20 +1033,22 @@
 *** CIDER
     It is the Clojure(Script) Interactive Development Environment.
     #+BEGIN_SRC emacs-lisp
-     (use-package cider
-       :ensure t
-       :config
-       (progn
-	 (setq cider-jack-in-default 'lein)
-    
-	 (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-	 (add-hook 'cider-repl-mode-hook #'subword-mode)
-	 (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-	 (use-package helm-cider
-	   :ensure t
-	   :config
-	   (progn
-	     (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
+      (use-package cider
+	:ensure t
+	:config
+	(progn
+	  (setq cider-jack-in-default 'lein)
+	  (if (string-equal system-type "windows-nt")
+	      (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
+	    nil)
+	  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+	  (add-hook 'cider-repl-mode-hook #'subword-mode)
+	  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+	  (use-package helm-cider
+	    :ensure t
+	    :config
+	    (progn
+	      (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
     #+END_SRC
 
     #+RESULTS:
@@ -1175,7 +1177,6 @@
        (add-hook (intern (format "%s-hook" each-mode))
 		 #'zwpdbh/enhance-lisp-power))
    #+end_src
-
 
 
 
