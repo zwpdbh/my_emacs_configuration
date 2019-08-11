@@ -168,6 +168,16 @@
    #+RESULTS:
    : t
 
+** set scroll screen
+   #+begin_src emacs-lisp
+     (setq scroll-step 1)
+     (setq scroll-margin 1)
+     (setq scroll-conservatively 100000)
+   #+end_src
+
+   #+RESULTS:
+   : 100000
+
 ** change the cursor type and color
    #+begin_src emacs-lisp
      ;;(setq-default cursor-type '(hbar . 2))
@@ -175,7 +185,6 @@
    #+end_src
 
    #+RESULTS:
-
 
 ** highlight current line
    #+begin_src emacs-lisp
@@ -286,20 +295,20 @@
        :init
        (progn
 	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-	 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-	 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-	 (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-	 ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'sly-mode-hook             #'enable-paredit-mode)
-	 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-	 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-	 (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+	 ;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+	 ;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+	 ;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+	 ;; ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+	 ;; (add-hook 'sly-mode-hook             #'enable-paredit-mode)
+	 ;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+	 ;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+	 ;; (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
 	 ;; paredit with eldoc
-	 (require 'eldoc) ; if not already loaded
-	 (eldoc-add-command
-	  'paredit-backward-delete
-	  'paredit-close-round)
+	 ;; (require 'eldoc) 
+	 ;; (eldoc-add-command
+	 ;;  'paredit-backward-delete
+	 ;;  'paredit-close-round)
 
 	 ;; paredit with electric return
 	 (defvar electrify-return-match
@@ -899,7 +908,278 @@
 
   #+RESULTS:
 
-* Programming
+* Lisp programming
+** Eldoc to show argument list
+   #+begin_src emacs-lisp
+     (use-package eldoc
+       :defer t
+       :ensure t
+       :init
+       :config
+       (progn
+	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+	 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+	 ;; highlight eldoc arguments in emacslisp
+	 (defun eldoc-get-arg-index ()
+	   (save-excursion
+	     (let ((fn (eldoc-fnsym-in-current-sexp))
+		   (i 0))
+	       (unless (memq (char-syntax (char-before)) '(32 39)) ; ? , ?'
+		 (condition-case err
+		     (backward-sexp)             ;for safety
+		   (error 1)))
+	       (condition-case err
+		   (while (not (equal fn (eldoc-current-symbol)))
+		     (setq i (1+ i))
+		     (backward-sexp))
+		 (error 1))
+	       (max 0 i))))
+
+	 (defun eldoc-highlight-nth-arg (doc n)
+	   (cond ((null doc) "")
+		 ((<= n 0) doc)
+		 (t
+		  (let ((i 0))
+		    (mapconcat
+		     (lambda (arg)
+		       (if (member arg '("&optional" "&rest"))
+			   arg
+			 (prog2
+			     (if (= i n)
+				 (put-text-property 0 (length arg) 'face 'underline arg))
+			     arg
+			   (setq i (1+ i)))))
+		     (split-string doc) " ")))))
+
+	 (defadvice eldoc-get-fnsym-args-string (around highlight activate)
+	   ""
+	   (setq ad-return-value (eldoc-highlight-nth-arg ad-do-it
+							  (eldoc-get-arg-index))))))
+   #+end_src
+
+   #+RESULTS:
+   : t
+
+** Common-lisp
+   #+begin_src emacs-lisp
+     (use-package sly
+       :ensure t
+       :config
+       (progn
+	 (setq inferior-lisp-program "sbcl")
+	 (setq sly-lisp-implementations
+	       '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
+		 ))
+	 ;; (setq inferior-lisp-program "clisp"
+	 ;; 	  exec-path (append exec-path
+	 ;;                         '("/usr/local/bin")))
+	 ))
+
+   #+end_src
+
+   #+RESULTS:
+   : t
+
+** Racket
+   #+begin_src emacs-lisp
+     (use-package racket-mode
+       :mode "\\.racket\\'"
+       :ensure t
+       :config
+       (progn
+	 (if (string-equal system-type "windows-nt")
+	     (setq racket-program "c:/Program Files/Racket/Racket.exe")
+	   (setq racket-program "/Applications/Racket_v7.0/bin/racket"))
+	 (add-hook 'racket-mode-hook
+		   (lambda ()
+		     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+	 (setq tab-always-indent 'complete)
+	 (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+	 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+
+	 ;; setup file ending in ".scheme" to open in racket-mode 
+	 (add-to-list 'auto-mode-alist '("\\.racket\\'" . racket-mode))))
+   #+end_src
+
+   #+RESULTS:
+   : t
+
+** Scheme
+   #+begin_src emacs-lisp
+     (use-package geiser
+       :ensure t
+       :config
+       (progn
+	 ;; append exec-path to include scheme
+	 (if (eq system-type 'windows-nt)
+	     (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
+	   nil)
+
+	 ;; modify the Chez executable name both for scheme-mode and Geiser 
+	 (setq scheme-program-name "scheme")
+	 (setq geiser-chez-binary "scheme")
+	 (setq geiser-mode-start-repl-p t)
+	 (setq geiser-active-implementations '(chez guile racket))
+	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
+	 (add-hook 'scheme-mode-hook
+		   #'(lambda ()
+		       (geiser-mode--maybe-activate)))))
+   #+end_src
+
+   #+RESULTS:
+   : t
+
+** Clojure programming
+*** CIDER
+    It is the Clojure(Script) Interactive Development Environment.
+    #+BEGIN_SRC emacs-lisp
+     (use-package cider
+       :ensure t
+       :config
+       (progn
+	 (setq cider-jack-in-default 'lein)
+    
+	 (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+	 (add-hook 'cider-repl-mode-hook #'subword-mode)
+	 (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+	 (use-package helm-cider
+	   :ensure t
+	   :config
+	   (progn
+	     (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+    - Troubleshooting: Could not start nREPL server: java.io.IOException: Permission denied.
+      Solution: check the ~/.lein folder's permission, use chown to change it.
+   
+*** Clojure-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package clojure-mode
+	:ensure t
+	:config
+	(progn
+	  (setq clojure-align-forms-automatically t)
+    
+	  ;; set how code indent for some forms
+	  (define-clojure-indent
+	    (implement '(1 (1)))
+	    (letfn     '(1 ((:defn)) nil))
+	    (proxy     '(2 nil nil (1)))
+	    (reify     '(:defn (1)))
+	    (deftype   '(2 nil nil (1)))
+	    (defrecord '(2 nil nil (1)))
+	    (specify   '(1 (1)))
+	    (or 1))
+
+	  ;; make moving between characters faster
+	  (add-hook 'clojure-mode-hook #'subword-mode)
+	  ;; use paredit or smartparens 
+	  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+	  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+	  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
+
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
+*** Org-babel-clojure configuration
+    #+begin_src emacs-lisp
+      (setq org-babel-clojure-backend 'cider)
+    #+end_src
+
+    #+RESULTS:
+    : cider
+
+*** adoc-mode for reading [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]]   
+    #+begin_src emacs-lisp
+     (use-package adoc-mode
+       :ensure t
+       :config
+       (progn
+	 (defun increment-clojure-cookbook ()
+	   "When reading the Clojure cookbook, find the next section, and
+     close the buffer. If the next section is a sub-directory or in
+     the next chapter, open Dired so you can find it manually."
+	   (interactive)
+	   (let* ((cur (buffer-name))
+		  (split-cur (split-string cur "[-_]"))
+		  (chap (car split-cur))
+		  (rec (car (cdr split-cur)))
+		  (rec-num (string-to-number rec))
+		  (next-rec-num (1+ rec-num))
+		  (next-rec-s (number-to-string next-rec-num))
+		  (next-rec (if (< next-rec-num 10)
+				(concat "0" next-rec-s)
+			      next-rec-s))
+		  (target (file-name-completion (concat chap "-" next-rec) "")))
+	     (progn 
+	       (if (equal target nil)
+		   (dired (file-name-directory (buffer-file-name)))
+		 (find-file target))
+	       (kill-buffer cur))))
+	 (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
+    
+	 (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
+	 (add-to-list 'auto-mode-alist (cons "\\.asciidoc\\'" 'adoc-mode))
+	 (add-hook 'adoc-mode-hook 'cider-mode)))
+
+    #+end_src
+
+    #+RESULTS:
+    : t
+
+*** Userful key-bindings in Clojure programming
+    - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
+    - M-. will navigate to the source code for the symbol under point
+    - M-, will return you to your original buffer and position
+    - C-c C-d C-a lets you search for arbitrary text across function names and documentation
+    - For paredit
+      - M-( Surround expression after point in parentheses (paredit-wrap-round).
+      - C-<left or right arrow>, surp or barf
+      - C-M-f, C-M-b Move to the opening/closing parenthesis.
+
+** Common configuration 
+   #+begin_src emacs-lisp
+     ;; define additional minor mode to adjust keybindings without conflicts
+     (defvar my-lisp-power-map (make-keymap))
+     (define-minor-mode my-lisp-power-mode "Fix keybindings; add power."
+       :lighter " (power)"
+       :keymap my-lisp-power-map)
+     (define-key my-lisp-power-map [delete] 'paredit-forward-delete)
+     (define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
+
+     ;; define a group of common features needed by all lisp programming
+     (defun zwpdbh/enhance-lisp-power ()
+       (interactive)
+       (my-lisp-power-mode t)
+       (turn-on-eldoc-mode)
+       (paredit-mode t)
+       (rainbow-delimiters-mode-enable)
+       (aggressive-indent-mode t))
+     ;; define a group of different lisp modes, so we could apply features on on them 
+     (setq my-lisp-mode-set '(lisp-mode
+			      lisp-interaction-mode
+			      emacs-lisp-mode
+			      ielm-mode
+			      eval-expression-minibuffer-setup
+			      common-lisp-mode
+			      racket-mode
+			      racket-repl-mode
+			      scheme-mode
+			      clojure-mode
+			      geiser-repl-mode))
+     (dolist (each-mode my-lisp-mode-set)
+       (add-hook (intern (format "%s-hook" each-mode))
+		 #'zwpdbh/enhance-lisp-power))
+   #+end_src
+
+
+
+
+* Other Programming
 ** Common features
 *** Flycheck
     #+BEGIN_SRC emacs-lisp
@@ -1055,283 +1335,6 @@
 
     #+RESULTS:
     : t
-
-** Lisp programming configuration
-*** Eldoc to show argument list
-    #+begin_src emacs-lisp
-      (use-package eldoc
-	:defer t
-	:ensure t
-	:init
-	:config
-	(progn
-	  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-	  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-	  ;; highlight eldoc arguments in emacslisp
-	  (defun eldoc-get-arg-index ()
-	    (save-excursion
-	      (let ((fn (eldoc-fnsym-in-current-sexp))
-		    (i 0))
-		(unless (memq (char-syntax (char-before)) '(32 39)) ; ? , ?'
-		  (condition-case err
-		      (backward-sexp)             ;for safety
-		    (error 1)))
-		(condition-case err
-		    (while (not (equal fn (eldoc-current-symbol)))
-		      (setq i (1+ i))
-		      (backward-sexp))
-		  (error 1))
-		(max 0 i))))
-
-	  (defun eldoc-highlight-nth-arg (doc n)
-	    (cond ((null doc) "")
-		  ((<= n 0) doc)
-		  (t
-		   (let ((i 0))
-		     (mapconcat
-		      (lambda (arg)
-			(if (member arg '("&optional" "&rest"))
-			    arg
-			  (prog2
-			      (if (= i n)
-				  (put-text-property 0 (length arg) 'face 'underline arg))
-			      arg
-			    (setq i (1+ i)))))
-		      (split-string doc) " ")))))
-
-	  (defadvice eldoc-get-fnsym-args-string (around highlight activate)
-	    ""
-	    (setq ad-return-value (eldoc-highlight-nth-arg ad-do-it
-							   (eldoc-get-arg-index))))))
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Common-lisp
-    #+begin_src emacs-lisp
-      (use-package sly
-	:ensure t
-	:config
-	(progn
-	  (setq inferior-lisp-program "sbcl")
-	  (setq sly-lisp-implementations
-		'((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
-		  ))
-	  ;; (setq inferior-lisp-program "clisp"
-	  ;; 	  exec-path (append exec-path
-	  ;;                         '("/usr/local/bin")))
-	  ))
-
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Racket
-    #+begin_src emacs-lisp
-      (use-package racket-mode
-	:mode "\\.racket\\'"
-	:ensure t
-	:config
-	(progn
-	  (if (string-equal system-type "windows-nt")
-	      (setq racket-program "c:/Program Files/Racket/Racket.exe")
-	    (setq racket-program "/Applications/Racket_v7.0/bin/racket"))
-	  (add-hook 'racket-mode-hook
-		    (lambda ()
-		      (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
-	  (setq tab-always-indent 'complete)
-	  (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
-	  (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
-
-	  ;; setup file ending in ".scheme" to open in racket-mode 
-	  (add-to-list 'auto-mode-alist '("\\.racket\\'" . racket-mode))))
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Scheme
-    #+begin_src emacs-lisp
-      (use-package geiser
-	:ensure t
-	:config
-	(progn
-	  ;; append exec-path to include scheme
-	  (if (eq system-type 'windows-nt)
-	      (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
-	    nil)
-
-	  ;; modify the Chez executable name both for scheme-mode and Geiser 
-	  (setq scheme-program-name "scheme")
-	  (setq geiser-chez-binary "scheme")
-	  (setq geiser-mode-start-repl-p t)
-	  (setq geiser-active-implementations '(chez guile))
-	  (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
-	  (add-hook 'scheme-mode-hook
-		    #'(lambda ()
-			(geiser-mode--maybe-activate)))))
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Clojure programming
-**** CIDER
-     It is the Clojure(Script) Interactive Development Environment.
-     #+BEGIN_SRC emacs-lisp
-      (use-package cider
-	:ensure t
-	:config
-	(progn
-	  (setq cider-jack-in-default 'lein)
-    
-	  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-	  (add-hook 'cider-repl-mode-hook #'subword-mode)
-	  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-	  (use-package helm-cider
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 'cider-repl-mode-hook #'helm-cider-mode)))))
-     #+END_SRC
-
-     #+RESULTS:
-     : t
-     - Troubleshooting: Could not start nREPL server: java.io.IOException: Permission denied.
-       Solution: check the ~/.lein folder's permission, use chown to change it.
-   
-**** Clojure-mode
-     #+BEGIN_SRC emacs-lisp
-       (use-package clojure-mode
-	 :ensure t
-	 :config
-	 (progn
-	   (setq clojure-align-forms-automatically t)
-    
-	   ;; set how code indent for some forms
-	   (define-clojure-indent
-	     (implement '(1 (1)))
-	     (letfn     '(1 ((:defn)) nil))
-	     (proxy     '(2 nil nil (1)))
-	     (reify     '(:defn (1)))
-	     (deftype   '(2 nil nil (1)))
-	     (defrecord '(2 nil nil (1)))
-	     (specify   '(1 (1)))
-	     (or 1))
-
-	   ;; make moving between characters faster
-	   (add-hook 'clojure-mode-hook #'subword-mode)
-	   ;; use paredit or smartparens 
-	   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-	   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-	   (add-hook 'clojure-mode-hook #'aggressive-indent-mode)))
-
-     #+END_SRC
-
-     #+RESULTS:
-     : t
-
-**** Org-babel-clojure configuration
-     #+begin_src emacs-lisp
-       (setq org-babel-clojure-backend 'cider)
-     #+end_src
-
-     #+RESULTS:
-     : cider
-
-**** adoc-mode for reading [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]]   
-     #+begin_src emacs-lisp
-      (use-package adoc-mode
-	:ensure t
-	:config
-	(progn
-	  (defun increment-clojure-cookbook ()
-	    "When reading the Clojure cookbook, find the next section, and
-      close the buffer. If the next section is a sub-directory or in
-      the next chapter, open Dired so you can find it manually."
-	    (interactive)
-	    (let* ((cur (buffer-name))
-		   (split-cur (split-string cur "[-_]"))
-		   (chap (car split-cur))
-		   (rec (car (cdr split-cur)))
-		   (rec-num (string-to-number rec))
-		   (next-rec-num (1+ rec-num))
-		   (next-rec-s (number-to-string next-rec-num))
-		   (next-rec (if (< next-rec-num 10)
-				 (concat "0" next-rec-s)
-			       next-rec-s))
-		   (target (file-name-completion (concat chap "-" next-rec) "")))
-	      (progn 
-		(if (equal target nil)
-		    (dired (file-name-directory (buffer-file-name)))
-		  (find-file target))
-		(kill-buffer cur))))
-	  (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
-    
-	  (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
-	  (add-to-list 'auto-mode-alist (cons "\\.asciidoc\\'" 'adoc-mode))
-	  (add-hook 'adoc-mode-hook 'cider-mode)))
-
-     #+end_src
-
-     #+RESULTS:
-     : t
-
-**** Userful key-bindings in Clojure programming
-     - C-c C-d C-d will display documentation for the symbol under point, which can be a huge time-saver.
-     - M-. will navigate to the source code for the symbol under point
-     - M-, will return you to your original buffer and position
-     - C-c C-d C-a lets you search for arbitrary text across function names and documentation
-     - For paredit
-       - M-( Surround expression after point in parentheses (paredit-wrap-round).
-       - C-<left or right arrow>, surp or barf
-       - C-M-f, C-M-b Move to the opening/closing parenthesis.
-
-*** Common configuration 
-    #+begin_src emacs-lisp
-      (use-package lispy
-	:ensure t)
-
-      (setq lisp-mode-set '(lisp-mode
-			    emacs-lisp-mode
-			    common-lisp-mode
-			    scheme-mode
-			    clojure-mode
-			    geiser-repl-mode))
-
-      (defvar lisp-power-map (make-keymap))
-      (define-minor-mode lisp-power-mode "Fix keybindings; add power."
-	:lighter " (power)"
-	:keymap lisp-power-map)
-
-      (define-key lisp-power-map [delete] 'paredit-forward-delete)
-      (define-key lisp-power-map [backspace] 'paredit-backward-delete)
-
-      (defun zwpdbh/enhance-lisp-power ()
-	(interactive)
-	(lisp-power-mode t)
-	(turn-on-eldoc-mode)
-	(paredit-mode t)
-	;; (lispy-mode 1)
-	(rainbow-delimiters-mode-enable)
-	(aggressive-indent-mode t))
-
-      (dolist (each-mode lisp-mode-set)
-	(add-hook (intern (format "%s-hook" each-mode))
-		  #'zwpdbh/enhance-lisp-power))
-
-      (add-hook 'inferior-Scheme-mode-hook
-		#'(lambda ()
-		    #'zwpdbh/enhance-lisp-power))
-
-      ;; ;; set indentation, check 'lisp-indent-function
-      ;; (put 'if 'clojure-indent-function 1)
-    #+end_src
-
-
-
 
 
 
@@ -1698,6 +1701,7 @@
    - [[https://github.com/CSRaghunandan/.emacs.d/tree/master/setup-files][a different way to organize configuration files]]
    - [[https://github.com/jerryhsieh/Emacs-config][jerryhsieh/Emacs-config]]
    - [[https://justin.abrah.ms/dotfiles/emacs.html][Justin Abrahms]]
+   - [[https://heychenbin.github.io/post/emacs_config/#scheme][Chenbin's Emacs Configuration]]
 ** C/C++ related
    - [[http://syamajala.github.io/c-ide.html][Emacs as C++ IDE]] 
    - [[http://martinsosic.com/development/emacs/2017/12/09/emacs-cpp-ide.html#configuration][Emacs as a C++ IDE]]
