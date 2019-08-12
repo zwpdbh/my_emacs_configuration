@@ -459,6 +459,7 @@
 	(setq company-selection-wrap-around t)
 	(setq company-echo-delay 0.01)
 	(setq company-idle-delay 0.01)
+	(setq company-show-numbers t)
 
 	(define-key company-active-map [tab] 'company-complete-selection)
 	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
@@ -494,7 +495,13 @@
 	  :config
 	  (progn
 	    (setq company-quickhelp-delay 0.5)
-	    (add-hook 'company-mode #'company-quickhelp-mode)))))
+	    (add-hook 'company-mode #'company-quickhelp-mode)))
+
+	(use-package company-tabnine
+	  :ensure t
+	  :config
+	  (progn
+	    (add-to-list 'company-backends #'company-tabnine)))))
   #+END_SRC
 
   #+RESULTS:
