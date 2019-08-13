@@ -459,7 +459,6 @@
 	(setq company-selection-wrap-around t)
 	(setq company-echo-delay 0.01)
 	(setq company-idle-delay 0.01)
-	(setq company-show-numbers t)
 
 	(define-key company-active-map [tab] 'company-complete-selection)
 	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
@@ -470,7 +469,7 @@
 	(defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 							(company-dabbrev-code company-gtags company-etags company-keywords)
 							company-oddmuse company-dabbrev))    
-	(defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
+	(defvar company-my-backends '(company-capf company-files company-dabbrev company-semantic
 						   (company-dabbrev-code company-gtags company-etags company-keywords)
 						   company-oddmuse company-dabbrev))
 	(setq company-backends company-my-backends)
@@ -501,7 +500,8 @@
 	  :ensure t
 	  :config
 	  (progn
-	    (add-to-list 'company-backends #'company-tabnine)))))
+	    (add-to-list 'company-backends #'company-tabnine)))
+	))
   #+END_SRC
 
   #+RESULTS:
@@ -1169,7 +1169,8 @@
     #+RESULTS:
     : t
 
-** Javascript and typescript
+
+** web programming
 *** interface
     #+begin_src emacs-lisp
       (setq js-indent-level 2)
@@ -1178,30 +1179,35 @@
 
     #+RESULTS:
     : 2
-
-*** with lsp
-    - =sudo npm i -g javascript-typescript-langserver=
-    - =sudo npm install -g typescript-language-server typescript=
-    - configuration
+*** javascript with company-flow
+    * install [[https://github.com/facebook/flow][flow]]
+    * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]]
       #+begin_src emacs-lisp
-	;; (add-hook 'js-mode-hook #'my-setup-lsp)
-	;; (add-hook 'typescript-mode-hook #'my-setup-lsp)
+	(use-package company-flow
+	  :ensure t
+	  :config
+	  (progn
+	    ;; For best performance, you can set this to the actual flow binary in your project.
+	    (defun flow/set-flow-executable ()
+	      (interactive)
+	      (let* ((os (pcase system-type
+			   ('darwin "osx")
+			   ('gnu/linux "linux64")
+			   (_ nil)))
+		     (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
+		     (executable (car (file-expand-wildcards
+				       (concat root "node_modules/flow-bin/*" os "*/flow")))))
+		(setq-local company-flow-executable executable)
+		;; These are not necessary for this package, but a good idea if you use
+		;; these other packages
+		(setq-local flow-minor-default-binary executable)
+		(setq-local flycheck-javascript-flow-executable executable)
+		(setq-local company-backends (add-to-list 'company-backends #'company-flow))))
+	    ;; invoke company-flow for certain mode
+	    (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
       #+end_src
-
-      #+RESULTS:
-      | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
-
-*** with dap
-    #+begin_src emacs-lisp
-      ;; (add-hook 'js-mode-hook #'(lambda ()
-      ;; 			    (require 'dap-chrome)
-      ;; 			    (require 'dap-node)))
-    #+end_src
-
-    #+RESULTS:
-    | (lambda nil (require (quote dap-chrome)) (require (quote dap-node))) | lsp | er/add-js-mode-expansions | (lambda nil (add-hook (quote before-save-hook) (function clang-format-buffer-smart) nil (quote local))) | smartparens-mode |
-
-** web programming
+      
+*** web-mode for vue.js 
    #+BEGIN_SRC emacs-lisp
      (defun my/web-vue-setup()
        "Setup for js related."
