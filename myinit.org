@@ -1197,12 +1197,13 @@
 		     (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
 		     (executable (car (file-expand-wildcards
 				       (concat root "node_modules/flow-bin/*" os "*/flow")))))
-		(setq-local company-flow-executable executable)
-		;; These are not necessary for this package, but a good idea if you use
-		;; these other packages
-		(setq-local flow-minor-default-binary executable)
-		(setq-local flycheck-javascript-flow-executable executable)
-		(setq-local company-backends (add-to-list 'company-backends #'company-flow))))
+		(when executable
+		  (setq-local company-flow-executable executable)
+		  ;; These are not necessary for this package, but a good idea if you use
+		  ;; these other packages
+		  (setq-local flow-minor-default-binary executable)
+		  (setq-local flycheck-javascript-flow-executable executable)
+		  (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
 	    ;; invoke company-flow for certain mode
 	    (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
       #+end_src
