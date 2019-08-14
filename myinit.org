@@ -469,7 +469,7 @@
 	(defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
 							(company-dabbrev-code company-gtags company-etags company-keywords)
 							company-oddmuse company-dabbrev))    
-	(defvar company-my-backends '(company-capf company-files company-dabbrev company-semantic
+	(defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
 						   (company-dabbrev-code company-gtags company-etags company-keywords)
 						   company-oddmuse company-dabbrev))
 	(setq company-backends company-my-backends)
@@ -500,8 +500,7 @@
 	  :ensure t
 	  :config
 	  (progn
-	    (add-to-list 'company-backends #'company-tabnine)))
-	))
+	    (add-to-list 'company-backends #'company-tabnine)))))
   #+END_SRC
 
   #+RESULTS:
@@ -1676,9 +1675,9 @@
 * PDF 
   Use [[https://github.com/politza/pdf-tools][pdf-tools]], read the documentation to install dependencies according to your system.
   #+begin_src emacs-lisp
-    (setq exec-path (append exec-path '("/usr/local/bin")))
+    (add-to-list 'exec-path "/usr/local/bin")
 
-    (when (string-equal system-type "darwin")
+    (unless (string-equal system-type "windows-nt")
       ;; Haven't build pdf-tool dependencies on other system
       (use-package pdf-tools
 	;; :pin manual
@@ -1797,53 +1796,4 @@
 
 *** video
     - [[https://www.youtube.com/watch?v=6mTbuzafcII&fbclid=IwAR00MiTM7EZhvC5ew0DMxDSKoO7fyCJWzNOD9-ONkxBELCuwAqnjCU-ujmI][Transducers]]
-
-* Troubleshooting
-** Emacs on Mac use ESC as Meta key
-   if somethings the Meta key is "ESC", to the following to make it become "alt"
-   Terminal->Preference->Profile->Your current using profile->Keyboard
-   Make sure "Use Option as Meta key" is selected
-** Emacs on Mac's version
-   By default Emacs is installed on Mac, but it has a very old version. To install a latest emacs on mac, two ways:
-   * Use [[https://emacsformacosx.com][Emacs on mac]]. 
-   * Use [[https://stackoverflow.com/questions/44092539/how-can-i-install-emacs-correctly-on-os-x][~brew cask install emacs~]]
-** UI
-   * ~C-x C--~ or ~C-x C-=~ make font small or larger
-** Org
-*** "TODO" items
-    * TODO items are always headlines
-    * org options
-      #+begin_src org
-	,#+SEQ_TODO: TODO ON_HOLD PROCESSING WAITING | DONE ABANDONED
-	,#+TAGS: emacs k8s clojure statistics mathematics network js
-      #+end_src
-      * The first "," is added automatically by this org code block
-      * Use ~C-c C-c~ to run the options
-
-    * ~shift  + tab~ to collapse headline and show it in a cycle way
-    * ~shift + left~ or ~shift + right~  to shift a headline's TODO status
-    * ~shift + up~ or ~shift + downe~ to cycle through priority states of a TODO item.
-    * ~C-c C-q~ to give headline a tag and that tag could be autocompleted through the tags you defined in the org file.
-    * Use "[ ]" in front of a item, and use "[0/0]" in front of headline, and run ~C-c C-c~ inside "[0/0]" it will mark how many todo has been done.
-
-*** If you find Org-Mode Evaluation of code is disabled, do:
-    ~find ~/.emacs.d/elpa/org* -name "*elc" -delete~
-
-*** When try to use "<" invoke Org-mode template expansions
-    Error:org-try-structure-completion: Wrong type argument: listp, "src emacs-lisp"
-    <el
-
-** AGENDA
-   * ~C-c a t~ to enter the global todo list. The Org-mode will scan the files configured in *org-agenda-files* and present a listing of all the open TODO items
-     - hit ~t~ to mark an item done
-     - hit ~RET~ to jump to the source file wehre the TODO is located
-   * Scheduling tasks and using the agenda
-     - Go to the next line under a TODO item, ~C-c C-s~ to insert a scheduled date
-       Then, you could use Shift + arrow key to move the schedule date in the calendar.
-     - ~C-c a~ list availabe commands related with agenda
-** Hyper Links 
-   * link aonther org file into current org mode
-   * Go to the file you want to link, then ~C-c l~ to store the link to mark the position in the file
-   * Go back to the file you are editing, ~C-c C-l~ to insert the file linkxs
-
 
