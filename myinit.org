@@ -496,11 +496,13 @@
 	    (setq company-quickhelp-delay 0.5)
 	    (add-hook 'company-mode #'company-quickhelp-mode)))
 
+    
 	(use-package company-tabnine
 	  :ensure t
 	  :config
 	  (progn
-	    (add-to-list 'company-backends #'company-tabnine)))))
+	    (unless (string-equal system-type "windows-nt")
+	      (add-to-list 'company-backends #'company-tabnine))))))
   #+END_SRC
 
   #+RESULTS:
@@ -633,6 +635,22 @@
   #+RESULTS:
 
 * Lisp Programming
+** Aggressive-indent-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package aggressive-indent
+	:ensure t
+	:config
+	(progn
+	  ;; active it for specific mode
+	  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+	  (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
+	  ;; deactive it for specific mode
+	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
      (use-package eldoc
@@ -1027,22 +1045,6 @@
 	:diminish yas-minor-mode
 	:config (yas-global-mode t))
     #+end_src
-
-    #+RESULTS:
-    : t
-
-*** Aggressive-indent-mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package aggressive-indent
-	:ensure t
-	:config
-	(progn
-	  ;; active it for specific mode
-	  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-	  (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
-	  ;; deactive it for specific mode
-	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
-    #+END_SRC
 
     #+RESULTS:
     : t
@@ -1796,4 +1798,5 @@
 
 *** video
     - [[https://www.youtube.com/watch?v=6mTbuzafcII&fbclid=IwAR00MiTM7EZhvC5ew0DMxDSKoO7fyCJWzNOD9-ONkxBELCuwAqnjCU-ujmI][Transducers]]
+
 
