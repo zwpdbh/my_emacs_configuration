@@ -641,9 +641,6 @@
 	:ensure t
 	:config
 	(progn
-	  ;; active it for specific mode
-	  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-	  (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
 	  ;; deactive it for specific mode
 	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
     #+END_SRC
