@@ -13,5 +13,8 @@
 !snippets
 !snippets/**
 
+# Add plantuml.jar
+!plantuml.jar
+
 # Add all the files within the org-html-themes
 #!org-html-themes/*.*
