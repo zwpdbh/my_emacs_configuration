@@ -85,8 +85,10 @@
      ;; use c-c c-c to execute a lisp function
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-     ;; use f3 to use org-edit-special
-     (global-set-key (kbd "<f3>") (kbd "C-c '"))
+     ;; keyboard macro
+     (global-set-key (kbd "<f3>") #'kmacro-start-macro)
+     (global-set-key (kbd "<f4>") #'kmacro-end-macro)
+
      ;; use f10 to format whole buffer
      (global-set-key (kbd "<f10>") (progn
 				     #'mark-whole-buffer
@@ -97,7 +99,6 @@
 
    #+RESULTS:
    : revert-buffer
-
 ** set buffer and shell
    #+begin_src emacs-lisp
      ;; no need for prompt for confirm when execute code block in org-mode
@@ -1382,7 +1383,7 @@
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
        #'(lambda ()
-	   ;; (define-key org-mode-map [f9] #'org-global-cycle) use shift + tab
+	   (define-key org-mode-map [f3] (kbd "C-c '"))
 	   (define-key org-mode-map [f9] #'org-toggle-inline-images)))
 
      (define-key global-map "\C-cl" 'org-store-link)
