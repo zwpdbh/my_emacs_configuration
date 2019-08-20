@@ -636,17 +636,17 @@
 
 * Lisp Programming
 ** Aggressive-indent-mode
-    #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
       (use-package aggressive-indent
 	:ensure t
 	:config
 	(progn
 	  ;; deactive it for specific mode
 	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
-    #+END_SRC
+   #+END_SRC
 
-    #+RESULTS:
-    : t
+   #+RESULTS:
+   : t
 
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
@@ -1177,37 +1177,57 @@
 
     #+RESULTS:
     : 2
-*** javascript with company-flow
-    * install [[https://github.com/facebook/flow][flow]]
-    * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]]
-      #+begin_src emacs-lisp
-	(use-package company-flow
-	  :ensure t
-	  :config
-	  (progn
-	    ;; For best performance, you can set this to the actual flow binary in your project.
-	    (defun flow/set-flow-executable ()
-	      (interactive)
-	      (let* ((os (pcase system-type
-			   ('darwin "osx")
-			   ('gnu/linux "linux64")
-			   (_ nil)))
-		     (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
-		     (executable (car (file-expand-wildcards
-				       (concat root "node_modules/flow-bin/*" os "*/flow")))))
-		(when executable
-		  (setq-local company-flow-executable executable)
-		  ;; These are not necessary for this package, but a good idea if you use
-		  ;; these other packages
-		  (setq-local flow-minor-default-binary executable)
-		  (setq-local flycheck-javascript-flow-executable executable)
-		  (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
-	    ;; invoke company-flow for certain mode
-	    (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
-      #+end_src
-      
+*** javascript
+**** js2-mode
+     * js2-mode Improved JavaScript editing mode for GNU Emacs
+     * Tern is a stand-alone code-analysis engine for JavaScript
+     #+begin_src emacs-lisp
+       (use-package js2-mode
+	 :ensure t
+	 :config
+	 (progn
+	   (add-hook 'js-mode-hook 'js2-minor-mode)
+	   (use-package company-tern
+	     :ensure t
+	     :config
+	     (add-hook 'js-mode-hook #'(lambda ()
+					 (add-to-list 'company-backends 'company-tern))))))
+     #+end_src
+
+     #+RESULTS:
+     : t
+
+**** Company-flow 
+     * install [[https://github.com/facebook/flow][flow]]
+     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]]
+       #+begin_src emacs-lisp
+	 (use-package company-flow
+	   :ensure t
+	   :config
+	   (progn
+	     ;; For best performance, you can set this to the actual flow binary in your project.
+	     (defun flow/set-flow-executable ()
+	       (interactive)
+	       (let* ((os (pcase system-type
+			    ('darwin "osx")
+			    ('gnu/linux "linux64")
+			    (_ nil)))
+		      (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
+		      (executable (car (file-expand-wildcards
+					(concat root "node_modules/flow-bin/*" os "*/flow")))))
+		 (when executable
+		   (setq-local company-flow-executable executable)
+		   ;; These are not necessary for this package, but a good idea if you use
+		   ;; these other packages
+		   (setq-local flow-minor-default-binary executable)
+		   (setq-local flycheck-javascript-flow-executable executable)
+		   (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
+	     ;; invoke company-flow for certain mode
+	     (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
+       #+end_src
+
 *** web-mode for vue.js 
-   #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
      (defun my/web-vue-setup()
        "Setup for js related."
        (message "web-mode use vue related setup")
@@ -1253,10 +1273,10 @@
 	 (when (and eslint (file-executable-p eslint))
 	   (setq-local flycheck-javascript-eslint-executable eslint))))
      (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-   #+END_SRC
+    #+END_SRC
 
-   #+RESULTS:
-   | my/use-eslint-from-node-modules | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
+    #+RESULTS:
+    | my/use-eslint-from-node-modules | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
 
 
 ** go programming
