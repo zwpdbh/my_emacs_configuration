@@ -1169,8 +1169,8 @@
     : t
 
 
-** web programming
-*** interface
+** Web/Javascript programming
+*** Interface
     #+begin_src emacs-lisp
       (setq js-indent-level 2)
       (setq typescript-indent-level 2)
@@ -1178,8 +1178,8 @@
 
     #+RESULTS:
     : 2
-*** javascript
-**** js2-mode
+*** Javascript
+     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
      * js2-mode Improved JavaScript editing mode for GNU Emacs
      * Tern is a stand-alone code-analysis engine for JavaScript
      #+begin_src emacs-lisp
@@ -1188,19 +1188,40 @@
 	 :config
 	 (progn
 	   (add-hook 'js-mode-hook 'js2-minor-mode)
+
+	   (use-package company-flow
+	     :ensure t)
 	   (use-package company-tern
-	     :ensure t
-	     :config
-	     (add-hook 'js-mode-hook #'(lambda ()
-					 (add-to-list 'company-backends 'company-tern))))))
+	     :ensure t)
+
+	   (defun flow/set-flow-executable ()
+	     (interactive)
+	     (let* ((os (pcase system-type
+			  ('darwin "osx")
+			  ('gnu/linux "linux64")
+			  (_ nil)))
+		    (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
+		    (executable (car (file-expand-wildcards
+				      (concat root "node_modules/flow-bin/*" os "*/flow")))))
+	       (when executable
+		 (setq-local company-flow-executable executable)
+		 ;; These are not necessary for this package, but a good idea if you use
+		 ;; these other packages
+		 (setq-local flow-minor-default-binary executable)
+		 (setq-local flycheck-javascript-flow-executable executable))))
+
+	   (add-hook 'js-mode-hook 
+		     #'(lambda ()
+			 (flow/set-flow-executable)
+			 (setq-local company-backends (add-to-list 'company-backends 'company-flow))
+			 (setq-local company-backends (add-to-list 'company-backends 'company-tern))))))
      #+end_src
 
      #+RESULTS:
      : t
 
 **** Company-flow 
-     * install [[https://github.com/facebook/flow][flow]]
-     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]]
+
        #+begin_src emacs-lisp
 	 (use-package company-flow
 	   :ensure t
@@ -1227,7 +1248,7 @@
 	     (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
        #+end_src
 
-*** web-mode for vue.js 
+*** Web-mode for vue.js 
     #+BEGIN_SRC emacs-lisp
      (defun my/web-vue-setup()
        "Setup for js related."
@@ -1383,7 +1404,7 @@
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
        #'(lambda ()
-	   (define-key org-mode-map [f3] (kbd "C-c '"))
+	   (global-set-key (kbd "<f12>") (kbd "C-c '"))
 	   (define-key org-mode-map [f9] #'org-toggle-inline-images)))
 
      (define-key global-map "\C-cl" 'org-store-link)
