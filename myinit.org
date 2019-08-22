@@ -497,13 +497,14 @@
 	    (setq company-quickhelp-delay 0.5)
 	    (add-hook 'company-mode #'company-quickhelp-mode)))
 
-    
-	(use-package company-tabnine
-	  :ensure t
-	  :config
-	  (progn
-	    (unless (string-equal system-type "windows-nt")
-	      (add-to-list 'company-backends #'company-tabnine))))))
+
+	;; (use-package company-tabnine
+	;;   :ensure t
+	;;   :config
+	;;   (progn
+	;; 	(unless (string-equal system-type "windows-nt")
+	;; 	  (add-to-list 'company-backends #'company-tabnine))))
+	))
   #+END_SRC
 
   #+RESULTS:
@@ -1096,7 +1097,6 @@
 	- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
     - Configuration with emacs
       #+begin_src emacs-lisp
-
 	(use-package lsp-python-ms
 	  :ensure t
 	  :config
@@ -1104,11 +1104,11 @@
 	    ;; for dev build of language server
 	    (setq lsp-python-ms-dir
 		  (expand-file-name "~/python-language-server/output/bin/Release/"))
-
+	    (setq lsp-python-ms-executable
+		  "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
 	    (setq python-shell-interpreter "python3")
 	    (add-hook 'python-mode-hook #'my-setup-lsp)
 	    (add-hook 'python-mode-hook #'smartparens-mode)))
-
       #+end_src
 
       #+RESULTS:
@@ -1213,8 +1213,8 @@
 	   (add-hook 'js-mode-hook 
 		     #'(lambda ()
 			 (flow/set-flow-executable)
-			 (setq-local company-backends (add-to-list 'company-backends 'company-flow))
-			 (setq-local company-backends (add-to-list 'company-backends 'company-tern))))))
+			 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+			 (setq-local company-backends (add-to-list 'company-backends 'company-flow))))))
      #+end_src
 
      #+RESULTS:
