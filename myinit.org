@@ -658,8 +658,6 @@
        :init
        :config
        (progn
-	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-	 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 	 ;; highlight eldoc arguments in emacslisp
 	 (defun eldoc-get-arg-index ()
 	   (save-excursion
@@ -695,7 +693,10 @@
 	 (defadvice eldoc-get-fnsym-args-string (around highlight activate)
 	   ""
 	   (setq ad-return-value (eldoc-highlight-nth-arg ad-do-it
-							  (eldoc-get-arg-index))))))
+							  (eldoc-get-arg-index))))
+    
+	 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+	 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)))
    #+end_src
 
    #+RESULTS:
@@ -760,7 +761,7 @@
 	 (setq scheme-program-name "scheme")
 	 (setq geiser-chez-binary "scheme")
 	 (setq geiser-mode-start-repl-p t)
-	 (setq geiser-active-implementations '(chez guile racket))
+	 (setq geiser-active-implementations '(chez mit guile racket))
 	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	 (add-hook 'scheme-mode-hook
 		   #'(lambda ()
