@@ -756,16 +756,24 @@
 	 (if (eq system-type 'windows-nt)
 	     (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
 	   nil)
+    
+	 ;; (defun my-reset-eval-for-scheme ()
+	 ;;   (eval-after-load 'geiser
+	 ;; 	'(define-key geiser-mode-map (kbd "C-c C-c") 'eval-last-sexp)))
+	 ;; (add-hook 'geiser-mode-hook 'my-reset-eval-for-scheme)
 
 	 ;; modify the Chez executable name both for scheme-mode and Geiser 
-	 (setq scheme-program-name "scheme")
-	 (setq geiser-chez-binary "scheme")
+	 ;; (setq scheme-program-name "scheme")
+	 ;; (setq geiser-chez-binary "scheme")
+
 	 (setq geiser-mode-start-repl-p t)
-	 (setq geiser-active-implementations '(chez mit guile racket))
+	 (setq geiser-active-implementations '(mit))
 	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
+	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
 	 (add-hook 'scheme-mode-hook
 		   #'(lambda ()
-		       (geiser-mode--maybe-activate)))))
+		       (geiser-mode--maybe-activate)
+		       #'my-reset-eval-for-scheme))))
    #+end_src
 
    #+RESULTS:
