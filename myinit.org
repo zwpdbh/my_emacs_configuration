@@ -8,11 +8,11 @@
     ;; kaolin-themes with kaolin-galaxy
     ;; monokai-Theme
 
-    (use-package kaolin-themes
+    (use-package monokai-theme
       :ensure t
       :config
       (progn
-	(load-theme 'kaolin-galaxy t)
+	(load-theme 'monokai t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
@@ -34,7 +34,7 @@
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
      (cond
       ((string-equal system-type "windows-nt")
-       (set-default-font "Consolas 10"))
+       (set-default-font "Consolas 12"))
       ((string-equal system-type "gnu/linux")
        (set-default-font "Monaco 12"))
       ((string-equal system-type "darwin")
