@@ -8,11 +8,11 @@
     ;; kaolin-themes with kaolin-galaxy
     ;; monokai-Theme
 
-    (use-package monokai-theme
+    (use-package kaolin-themes
       :ensure t
       :config
       (progn
-	(load-theme 'monokai t)
+	(load-theme 'kaolin-galaxy t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
@@ -213,6 +213,9 @@
        :ensure t
        :config
        (progn
+	 (set-face-background 'highlight-indentation-face "#3C3D37")
+	 (set-face-background 'highlight-indentation-current-column-face "#808080")
+
 	 ;; (setq highlight-indentation-blank-lines t)
 	 ;; define a global minor mode
 	 (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
@@ -586,9 +589,9 @@
 	      treemacs-follow-after-init          t
 	      treemacs-follow-recenter-distance   0.1
 	      treemacs-goto-tag-strategy          'refetch-index
-	      treemacs-indentation                1
+	      treemacs-indentation                2
 	      ;; indent guide
-	      treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+	      ;; treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
 	      ;; treemacs-indentation-string         "|"
 	      treemacs-is-never-other-window      nil
 	      treemacs-no-png-images              nil
