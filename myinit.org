@@ -12,7 +12,7 @@
       :ensure t
       :config
       (progn
-	(load-theme 'kaolin-galaxy t)
+	(load-theme 'kaolin-aurora t)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
@@ -213,8 +213,8 @@
        :ensure t
        :config
        (progn
-	 (set-face-background 'highlight-indentation-face "#3C3D37")
-	 (set-face-background 'highlight-indentation-current-column-face "#808080")
+	 ;; (set-face-background 'highlight-indentation-face "#3C3D37")
+	 ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
 
 	 ;; (setq highlight-indentation-blank-lines t)
 	 ;; define a global minor mode
@@ -1040,11 +1040,9 @@
 	    :config
 	    (progn
 	      (add-hook 'yaml-mode-hook #'(lambda ()
-					    (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
-					    (add-hook 'before-save-hook #'newline-and-indent nil 'local)))))))
-
-
-    #+end_src
+					    (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))))
+					    
+#+end_src
 
     #+RESULTS:
     : t
