@@ -909,6 +909,7 @@
      ;; define a group of common features needed by all lisp programming
      (defun zwpdbh/enhance-lisp-power ()
        (interactive)
+       (highlight-indentation-mode t)
        (my-lisp-power-mode t)
        (turn-on-eldoc-mode)
        (paredit-mode t)
@@ -1660,6 +1661,8 @@
      (use-package plantuml-mode
        :ensure t
        :init
+       (progn
+	 (plantuml-init "jar"))
        :config
        (progn
 	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
@@ -1672,9 +1675,7 @@
 
 	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 	 (add-hook 'plantuml-mode-hook #'(lambda ()
-					   (progn
-					     (plantuml-init-once "jar")
-					     (plantuml-init "jar"))))))
+					   (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
 
    #+RESULTS:
