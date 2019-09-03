@@ -758,25 +758,27 @@
 	 ;; append exec-path to include scheme
 	 (if (eq system-type 'windows-nt)
 	     (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
-	   nil)
-    
-	 ;; (defun my-reset-eval-for-scheme ()
-	 ;;   (eval-after-load 'geiser
-	 ;; 	'(define-key geiser-mode-map (kbd "C-c C-c") 'eval-last-sexp)))
-	 ;; (add-hook 'geiser-mode-hook 'my-reset-eval-for-scheme)
+	   (setq exec-path (append exec-path '("/usr/bin"))))
+
+	 ;; set Library directories
+	 (cond ((eq system-type 'windows-nt)
+		(setenv "CHEZSCHEMELIBDIRS" "C:\\scheme\\lib;")
+		(setenv "CHEZSCHEMELIBEXTS" ".sc;;.so;"))
+	       ((eq system-type 'darwin)
+		(setenv "CHEZSCHEMELIBDIRS" "/usr/local/lib/raven")
+		(setenv "CHEZSCHEMELIBEXTS" ".sc::.so:"))
+	       (t
+		nil))
 
 	 ;; modify the Chez executable name both for scheme-mode and Geiser 
-	 ;; (setq scheme-program-name "scheme")
-	 ;; (setq geiser-chez-binary "scheme")
+	 (setq scheme-program-name "chezscheme9.5")
+	 (setq geiser-chez-binary "chezscheme9.5")
 
 	 (setq geiser-mode-start-repl-p t)
-	 (setq geiser-active-implementations '(mit))
+	 (setq geiser-active-implementations '(chez))
 	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
-	 (add-hook 'scheme-mode-hook
-		   #'(lambda ()
-		       (geiser-mode--maybe-activate)
-		       #'my-reset-eval-for-scheme))))
+	 (add-hook 'scheme-mode-hook #'geiser-mode--maybe-activate)))
    #+end_src
 
    #+RESULTS:
@@ -1660,18 +1662,13 @@
    #+begin_src emacs-lisp
      (use-package plantuml-mode
        :ensure t
-       :init
-       (progn
-	 (plantuml-init "jar"))
        :config
        (progn
-	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
+	 (setq plantuml-default-exec-mode 'jar)
 	 (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
-	 (setq plantuml-exec-mode 'jar)
-	 ;; (setq plantuml-java-options "")
-	 (setq plantuml-default-exec-mode "jar")
-	 (plantuml-set-exec-mode "jar")
 	 (setq plantuml-output-type "svg")
+	 ;; needed by ob-plantuml.el
+	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
 
 	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 	 (add-hook 'plantuml-mode-hook #'(lambda ()
