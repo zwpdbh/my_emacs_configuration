@@ -1443,12 +1443,14 @@
    #+begin_src emacs-lisp
      ;; evaluation use sly instead of using slime, need to use org-plus-contrib
      (setq org-babel-lisp-eval-fn #'sly-eval)
+
+     ;; http request in org-mode babel, requires curl
      (use-package ob-http
        :ensure t)
 
      (org-babel-do-load-languages
       'org-babel-load-languages
-      '((lisp . t)
+      '((emacs-lisp . t)
 	(clojure . t)
 	(scheme . t)
 	(C . t)
@@ -1465,7 +1467,7 @@
 				  (progn
 				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
 				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
+				      (not (member lang '("emacs-lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      (eval-after-load 'org
