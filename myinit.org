@@ -8,11 +8,21 @@
     ;; kaolin-themes with kaolin-galaxy
     ;; monokai-Theme
 
-    (use-package kaolin-themes
+    ;; (use-package kaolin-themes
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'kaolin-aurora t)
+    ;;     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+
+    (use-package doom-themes
       :ensure t
       :config
       (progn
-	(load-theme 'kaolin-aurora t)
+	(load-theme 'doom-sourcerer t)
+	;; (setq doom-themes-treemacs-theme "doom-colors")
+	;; (doom-themes-treemacs-config)
+	(doom-themes-org-config)
 	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
   #+end_src
 
@@ -195,33 +205,19 @@
    #+RESULTS:
    : t
 
-** use indent-guide
-   #+begin_src emacs-lisp
-     ;; (use-package indent-guide
-     ;;   :ensure t
-     ;;   :config
-     ;;   (progn
-     ;;     (indent-guide-global-mode)))
-   #+end_src 
-
-   #+RESULTS:
-   : t
-
 ** highlight-indentation
    #+BEGIN_SRC emacs-lisp
      (use-package highlight-indentation
        :ensure t
        :config
        (progn
-	 ;; (set-face-background 'highlight-indentation-face "#3C3D37")
-	 ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-
-	 ;; (setq highlight-indentation-blank-lines t)
+	 (setq highlight-indentation-blank-lines t)
+	 (set-face-background 'highlight-indentation-face "#262626")
+	 (set-face-background 'highlight-indentation-current-column-face "#808080")
 	 ;; define a global minor mode
 	 (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
 	   (lambda ()
 	     (highlight-indentation-mode 1)))
-
 	 (my-global-highlight-indentation-mode 1)))
    #+END_SRC
 
@@ -519,9 +515,8 @@
       :ensure t
       :config
       (progn
-        ;; (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-        (add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
-        (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
+	(add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
+	(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
   #+END_SRC
 
   #+RESULTS:
