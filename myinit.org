@@ -86,8 +86,10 @@
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
      ;; keyboard macro
-     (global-set-key (kbd "<f3>") #'kmacro-start-macro)
-     (global-set-key (kbd "<f4>") #'kmacro-end-macro)
+     (global-set-key (kbd "<f2>") #'kmacro-start-macro)
+     (global-set-key (kbd "<f3>") #'kmacro-end-macro)
+     (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
+
 
      ;; use f10 to format whole buffer
      (global-set-key (kbd "<f10>") (progn
