@@ -1311,7 +1311,22 @@
     #+RESULTS:
     | my/use-eslint-from-node-modules | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
 
+*** References    
+    #+begin_example
+      I am the best person to answer this question. If you are the js developer using Emacs, you are already running Emacs Lisp code written by me.
 
+      Now answer you question:
+
+      for project tree view. neotree is very popular. But advanced user don’t bother using file explorer, they just fuzzy search file in project. For file searching, most users use projectile. But I highly recommend find-file-in-project. It’s quick, easy to setup (no setup for most projects actually). find-file-in-project is endorsed by guys who developed elpy/hydra/swiper/ace-window/lispy/avy.
+      lint is done automatically by js2-mode, no setup needed. Extra tip, you may need tweak `js2-additional-externs` in `js2-post-parse-callbacks` when working on large legacy project.
+      I use mozrepl to refresh the firefox. I know all the related Emacs plugins. But I’ve made my choice to stick to mozrepl. For local http server, you can use simple-httpd. Firefox plugin keysnail make me 1000% faster on web development.
+      for code completion, you need install company-mode, you may need setup backend tern (if you use company-tern) or ctags (if you use company-etags). I prefer ctags way.
+      Extra tips:
+
+      If you use js2-mode, you’d better enable js2-imenu-extras-mode, then `M-x helm-imenu` (if you install helm) or `M-x counsel-imenu` (if you install counsel)
+
+      In js2-mode, you can also `M-x js2-print-json-path`
+    #+end_example
 ** go programming
    * [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
    * go-mode with ob-go
