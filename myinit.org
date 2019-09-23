@@ -47,7 +47,7 @@
       ((string-equal system-type "windows-nt")
        (set-default-font "Consolas 12"))
       ((string-equal system-type "gnu/linux")
-       (set-default-font "Monaco 11"))
+       (set-default-font "Ubuntu Mono 12"))
       ((string-equal system-type "darwin")
        (if (member "DejaVu Sans Mono" (font-family-list))
 	   (set-default-font "DejaVu Sans Mono 11")
