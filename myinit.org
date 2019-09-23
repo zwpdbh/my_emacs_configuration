@@ -214,7 +214,6 @@
        :ensure t
        :config
        (progn
-	 (setq highlight-indentation-blank-lines t)
 	 (set-face-background 'highlight-indentation-face "#262626")
 	 (set-face-background 'highlight-indentation-current-column-face "#808080")
 	 ;; define a global minor mode
