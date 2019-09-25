@@ -636,6 +636,19 @@
 
   #+RESULTS:
 
+* expand-region
+    #+begin_src emacs-lisp
+      (use-package expand-region
+	:ensure t
+	:config
+	(progn
+	  (global-set-key (kbd "C-=") 'er/expand-region)
+	  (global-set-key (kbd "C--") 'er/contract-region)))
+    #+end_src
+
+    #+RESULTS:
+    : t
+
 * Lisp Programming
 ** Aggressive-indent-mode
    #+BEGIN_SRC emacs-lisp
@@ -931,7 +944,6 @@
 		 #'zwpdbh/enhance-lisp-power))
    #+end_src
 
-
 * Other Programming
 ** Common features
 *** Flycheck
@@ -1057,21 +1069,6 @@
 
     #+RESULTS:
     : t
-
-*** expand-region
-    #+begin_src emacs-lisp
-      (use-package expand-region
-	:ensure t
-	:config
-	(progn
-	  (global-set-key (kbd "C-=") 'er/expand-region)
-	  (global-set-key (kbd "C--") 'er/contract-region)))
-    #+end_src
-
-    #+RESULTS:
-    : t
-
-
 
 ** Scala programming
 *** ensime
@@ -1604,6 +1601,11 @@
 
 	      ("ht" "Tools"
 	       entry (file+olp "~/code/my-site/content-org/tools.org" "Tools")
+	       (function org-hugo-new-subtree-post-capture-template)
+	       :clock-in t :clock-resume t)
+	
+	      ("hw" "Work-Notes"
+	       entry (file+olp "~/code/my-site/content-org/work-notes.org" "Work-Notes")
 	       (function org-hugo-new-subtree-post-capture-template)
 	       :clock-in t :clock-resume t)))
     #+end_src
