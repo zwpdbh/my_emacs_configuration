@@ -1011,25 +1011,8 @@
 	      (setq company-lsp-async t)
 	      (setq company-lsp-enable-recompletion t)))
 
-	  ;; make multiple source to do completion even in lsp-mode
-	  ;; (defun reset-company-backends-with-lsp () 
-	  ;;   (interactive)
-	  ;;   (setq company-backends (cons (cons 'company-lsp (car company-general-backends)) (cdr company-general-backends))))
-
-	  (defun my-setup-lsp ()
-	    "set the completion backends after lsp called, since it will simply push company-lsp at the beginning of the company-backends"
-	    (lsp))
-
-	  (defmacro lsp-register-major-mode (client mode)
-	    "Registers major MODE to CLIENT. \(fn 'example-ls 'example-mode)"
-	    (gv-letplace (getter setter) `(lsp--client-major-modes (gethash ,client lsp-clients))
-	      `(unless (memq ,mode ,getter)
-		 (funcall ,setter (push ,mode ,getter)))))
-
 	  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 	  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
-
 	  (use-package dap-mode
 	    :ensure t
 	    :config
@@ -1133,7 +1116,7 @@
 	    (setq lsp-python-ms-executable
 		  "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
 	    (setq python-shell-interpreter "python3")
-	    (add-hook 'python-mode-hook #'my-setup-lsp)
+	    (add-hook 'python-mode-hook 'lsp-mode)
 	    (add-hook 'python-mode-hook #'smartparens-mode)))
       #+end_src
 
