@@ -658,11 +658,7 @@
       (progn
 	(add-hook 'ggtags-mode-hook
 		  (lambda ()
-		    (setq-local company-backends (add-to-list 'company-backends 'company-gtags))))
-	(add-hook 'c-mode-common-hook
-		  (lambda ()
-		    (when (derived-mode-p 'c-mode 'c++-mode)
-		      (ggtags-mode 1))))))
+		    (setq-local company-backends (add-to-list 'company-backends 'company-gtags))))))
   #+end_src
 
   #+RESULTS:
@@ -1152,13 +1148,16 @@
 	    :config
 	    (progn
 	      (setq cquery-executable "/usr/local/bin/cquery")
-    
+
 	      (defun cquery//enable ()
 		(condition-case nil
 		    (lsp)
 		  (user-error nil)))
-	      (add-hook 'c-mode-hook #'cquery//enable)
-	      (add-hook 'c++-mode-hook #'cquery//enable)))
+	      (add-hook 'c-mode-common-hook
+			(lambda ()
+			  (when (derived-mode-p 'c-mode 'c++-mode)
+			    (ggtags-mode 1)
+			    (cquery//enable))))))
 	#+end_src
 
 	#+RESULTS:
