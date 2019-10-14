@@ -48,7 +48,7 @@
        (set-default-font "Consolas 12"))
       ((string-equal system-type "gnu/linux")
        (set-default-font "Ubuntu Mono 12"))
-      ((string-equal system-type "darwin")
+      ((string-equal system-type "darwinn")
        (if (member "DejaVu Sans Mono" (font-family-list))
 	   (set-default-font "DejaVu Sans Mono 11")
 	 (set-default-font "Menlo 11"))))
@@ -1776,6 +1776,16 @@
 				   (my-latex-mode-setup)))
     #+end_src
 
-
+* highlight-symbol
+  #+begin_src emacs-lisp
+    (use-package idle-highlight-mode
+      :ensure t
+      :config
+      (progn
+	(define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
+	  (lambda ()
+	    (idle-highlight-mode 1)))
+	(my-global-idle-highlight-mode 1)))
+  #+end_src
 * TODO Lookup word definition
   (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
