@@ -1198,7 +1198,9 @@
 	     :ensure t
 	     :config
 	     (progn
-	       (add-hook 'js-mode-hook 'js2-minor-mode)))
+	       (add-hook 'js-mode-hook 'js2-minor-mode)
+	       (add-hook 'json-mode-hook '(lambda ()
+					    (js2-minor-mode -1)))))
 	   (use-package js2-refactor
 	     :ensure t
 	     :config
