@@ -1194,6 +1194,11 @@
 	 :ensure t
 	 :config
 	 (progn
+	   (use-package js2-mode
+	     :ensure t
+	     :config
+	     (progn
+	       (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
 	   (setq tern-command (append tern-command '("--no-port-file")))
 	   (add-hook 'js-mode-hook 
 		     #'(lambda ()
