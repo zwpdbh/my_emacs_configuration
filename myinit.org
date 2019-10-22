@@ -790,19 +790,22 @@
 		(setenv "CHEZSCHEMELIBDIRS" "C:\\scheme\\lib;")
 		(setenv "CHEZSCHEMELIBEXTS" ".sc;;.so;"))
 	       ((eq system-type 'darwin)
+		;; raven is the chez scheme package management tool
 		(setenv "CHEZSCHEMELIBDIRS" "/usr/local/lib/raven")
 		(setenv "CHEZSCHEMELIBEXTS" ".sc::.so:"))
 	       (t
 		nil))
 
 	 ;; modify the Chez executable name both for scheme-mode and Geiser 
-	 (setq scheme-program-name "chezscheme9.5")
-	 (setq geiser-chez-binary "chezscheme9.5")
+	 ;; (setq geiser-chez-binary "chezscheme9.5")
+	 ;; (setq geiser-active-implementations '(guile chez))
 
+	 (setq geiser-scheme-implementation "guile")
 	 (setq geiser-mode-start-repl-p t)
-	 (setq geiser-active-implementations '(chez))
-	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
+	 (setq geiser-active-implementations '(guile))
+
 	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
+	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	 (add-hook 'scheme-mode-hook #'geiser-mode--maybe-activate)))
    #+end_src
 
