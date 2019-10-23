@@ -8,13 +8,17 @@
     ;; kaolin-themes with kaolin-galaxy
     ;; monokai-Theme
 
-    ;; (use-package kaolin-themes
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'kaolin-aurora t)
-    ;;     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
-
+    (use-package material-theme
+      :ensure t
+      :config
+      (progn
+	(load-theme 'material t)
+	(add-hook 'after-init-hook 
+		  #'(lambda ()
+		      (set-face-attribute 'show-paren-match nil
+					  :foreground "red"
+					  :background "gray"
+					  :weight 'extra-bold)))))
     ;; (use-package doom-themes
     ;;   :ensure t
     ;;   :config
@@ -24,17 +28,11 @@
     ;;     ;; (doom-themes-treemacs-config)
     ;;     (doom-themes-org-config)
     ;;     (set-face-attribute 'region nil :background "#666")))
+
   #+end_src
 
-** customize the highlight style of a matching parenthesis
-   #+begin_src emacs-lisp
-     (set-face-attribute 'show-paren-match nil
-			 :foreground "red"
-			 :background "yellow"
-			 :weight 'extra-bold)
-   #+end_src
-
-   #+RESULTS:
+  #+RESULTS:
+  : t
 
 * Interface tweaks
 ** set font
@@ -258,21 +256,17 @@
 
 ** display [[http://ergoemacs.org/emacs/emacs_pretty_lambda.html][pretty characters]]
    #+begin_src emacs-lisp
-     ;; display “lambda” as “λ”
-     (global-prettify-symbols-mode 1)
-
-     ;; define other pairs and add them as a hook for any major mode
-     (defun my-add-pretty-lambda ()
-       "make some word or string show as pretty Unicode symbols"
-       (setq prettify-symbols-alist
-	     '(
-	       ("lambda" . 955) ; λ
-	       ;; ("->" . 8594)    ; →
-	       ;; ("=>" . 8658)    ; ⇒
-	       ("map" . 8614)   ; ↦
-	       )))
-
-     (add-hook 'clojure-mode-hook 'my-add-pretty-lambda)
+     (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
+       (lambda ()
+	 (setq prettify-symbols-alist
+	       '(
+		 ("lambda" . 955) ; λ
+		 ("->" . 8594)    ; →
+		 ("=>" . 8658)    ; ⇒
+		 ("map" . 8614)   ; ↦
+		 ))
+	 (prettify-symbols-mode 1)))
+     (my-global-prettify-symbols-mode 1)
    #+end_src
 
    #+RESULTS:
