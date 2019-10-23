@@ -28,9 +28,9 @@
 
 ** customize the highlight style of a matching parenthesis
    #+begin_src emacs-lisp
-     (set-face-attribute 'show-paren-match nil 
-			 :foreground "red" 
-			 :background "yellow" 
+     (set-face-attribute 'show-paren-match nil
+			 :foreground "red"
+			 :background "yellow"
 			 :weight 'extra-bold)
    #+end_src
 
