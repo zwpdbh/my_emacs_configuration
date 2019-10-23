@@ -16,7 +16,7 @@
 	(add-hook 'after-init-hook 
 		  (lambda ()
 		    ;; M-x customize-face
-		    ;; show-paren-match to view different options
+		    ;; show-paren-match to view different options #D4FF00
 		    (set-face-attribute 'show-paren-match nil
 					:underline t
 					:foreground "#D4FF00"
