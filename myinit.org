@@ -6,19 +6,20 @@
     ;; flucui-themes
     ;; solarized-theme
     ;; kaolin-themes with kaolin-galaxy
-    ;; monokai-Theme
+    ;; monokai-theme
 
-    (use-package material-theme
+    (use-package gruvbox-theme
       :ensure t
       :config
       (progn
-	(load-theme 'material t)
+	(load-theme 'gruvbox-dark-medium t)
 	(add-hook 'after-init-hook 
-		  #'(lambda ()
-		      (set-face-attribute 'show-paren-match nil
-					  :foreground "red"
-					  :background "gray"
-					  :weight 'extra-bold)))))
+		  (lambda ()
+		    (set-face-attribute 'show-paren-match nil
+					:foreground "red"
+					:background "gray"
+					:weight 'extra-bold)))))
+
     ;; (use-package doom-themes
     ;;   :ensure t
     ;;   :config
