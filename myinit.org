@@ -249,6 +249,28 @@
    #+RESULTS:
    : ssh
 
+** display [[http://ergoemacs.org/emacs/emacs_pretty_lambda.html][pretty characters]]
+   #+begin_src emacs-lisp
+     ;; display “lambda” as “λ”
+     (global-prettify-symbols-mode 1)
+
+     ;; define other pairs and add them as a hook for any major mode
+     (defun my-add-pretty-lambda ()
+       "make some word or string show as pretty Unicode symbols"
+       (setq prettify-symbols-alist
+	     '(
+	       ("lambda" . 955) ; λ
+	       ("->" . 8594)    ; →
+	       ("=>" . 8658)    ; ⇒
+	       ("map" . 8614)   ; ↦
+	       )))
+
+     (add-hook 'clojure-mode-hook 'my-add-pretty-lambda)
+   #+end_src
+
+   #+RESULTS:
+   : t
+
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
@@ -780,11 +802,10 @@
        :ensure t
        :config
        (progn
-	 ;; append exec-path to include scheme
+	 ;; append exec-path to include chez scheme
 	 (if (eq system-type 'windows-nt)
 	     (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
 	   (setq exec-path (append exec-path '("/usr/bin"))))
-
 	 ;; set Library directories
 	 (cond ((eq system-type 'windows-nt)
 		(setenv "CHEZSCHEMELIBDIRS" "C:\\scheme\\lib;")
@@ -795,17 +816,12 @@
 		(setenv "CHEZSCHEMELIBEXTS" ".sc::.so:"))
 	       (t
 		nil))
+	 (setq geiser-chez-binary "chezscheme9.5")
 
-	 ;; modify the Chez executable name both for scheme-mode and Geiser 
-	 ;; (setq geiser-chez-binary "chezscheme9.5")
-	 ;; (setq geiser-active-implementations '(guile chez))
-
-	 (setq geiser-scheme-implementation "guile")
+	 (setq geiser-active-implementations '(guile chez))
 	 (setq geiser-mode-start-repl-p t)
-	 (setq geiser-active-implementations '(guile))
 
 	 (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
-	 (add-to-list 'auto-mode-alist '("\\.ss\\'" . scheme-mode))
 	 (add-hook 'scheme-mode-hook #'geiser-mode--maybe-activate)))
    #+end_src
 
