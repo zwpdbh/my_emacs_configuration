@@ -15,20 +15,26 @@
     ;;     (load-theme 'kaolin-aurora t)
     ;;     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
 
-    (use-package doom-themes
-      :ensure t
-      :config
-      (progn
-	(load-theme 'doom-sourcerer t)
-	;; (setq doom-themes-treemacs-theme "doom-colors")
-	;; (doom-themes-treemacs-config)
-	(doom-themes-org-config)
-	(set-face-attribute 'region nil :background "#666")
-	(set-face-attribute 'show-paren-match nil :weight 'extra-bold)))
+    ;; (use-package doom-themes
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'doom-sourcerer t)
+    ;;     ;; (setq doom-themes-treemacs-theme "doom-colors")
+    ;;     ;; (doom-themes-treemacs-config)
+    ;;     (doom-themes-org-config)
+    ;;     (set-face-attribute 'region nil :background "#666")))
   #+end_src
 
-  #+RESULTS:
-  : t
+** customize the highlight style of a matching parenthesis
+   #+begin_src emacs-lisp
+     (set-face-attribute 'show-paren-match nil 
+			 :foreground "red" 
+			 :background "yellow" 
+			 :weight 'extra-bold)
+   #+end_src
+
+   #+RESULTS:
 
 * Interface tweaks
 ** set font
@@ -43,15 +49,16 @@
    #+begin_src emacs-lisp
      ;; to adjust font dynamically
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-     (cond
-      ((string-equal system-type "windows-nt")
-       (set-default-font "Consolas 12"))
-      ((string-equal system-type "gnu/linux")
-       (set-default-font "Ubuntu Mono 12"))
-      ((string-equal system-type "darwinn")
-       (if (member "DejaVu Sans Mono" (font-family-list))
-	   (set-default-font "DejaVu Sans Mono 11")
-	 (set-default-font "Menlo 11"))))
+
+     ;; (cond
+     ;;  ((string-equal system-type "windows-nt")
+     ;;   (set-default-font "Consolas 12"))
+     ;;  ((string-equal system-type "gnu/linux")
+     ;;   (set-default-font "Ubuntu Mono 12"))
+     ;;  ((string-equal system-type "darwinn")
+     ;;   (if (member "DejaVu Sans Mono" (font-family-list))
+     ;;       (set-default-font "DejaVu Sans Mono 11")
+     ;;     (set-default-font "Menlo 11"))))
    #+end_src
 
    #+RESULTS:
@@ -214,8 +221,8 @@
        :ensure t
        :config
        (progn
-	 (set-face-background 'highlight-indentation-face "#262626")
-	 (set-face-background 'highlight-indentation-current-column-face "#808080")
+	 ;; (set-face-background 'highlight-indentation-face "#262626")
+	 ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
 	 ;; define a global minor mode
 	 (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
 	   (lambda ()
@@ -260,8 +267,8 @@
        (setq prettify-symbols-alist
 	     '(
 	       ("lambda" . 955) ; λ
-	       ("->" . 8594)    ; →
-	       ("=>" . 8658)    ; ⇒
+	       ;; ("->" . 8594)    ; →
+	       ;; ("=>" . 8658)    ; ⇒
 	       ("map" . 8614)   ; ↦
 	       )))
 
