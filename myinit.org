@@ -15,10 +15,13 @@
 	(load-theme 'gruvbox-dark-medium t)
 	(add-hook 'after-init-hook 
 		  (lambda ()
+		    ;; M-x customize-face
+		    ;; show-paren-match to view different options
 		    (set-face-attribute 'show-paren-match nil
-					:foreground "red"
-					:background "gray"
-					:weight 'extra-bold)))))
+					:underline t
+					:foreground "#D4FF00"
+					:background nil
+					:weight 'ultrabold)))))
 
     ;; (use-package doom-themes
     ;;   :ensure t
