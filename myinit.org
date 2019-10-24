@@ -52,15 +52,15 @@
      ;; to adjust font dynamically
      ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
 
-     ;; (cond
-     ;;  ((string-equal system-type "windows-nt")
-     ;;   (set-default-font "Consolas 12"))
-     ;;  ((string-equal system-type "gnu/linux")
-     ;;   (set-default-font "Ubuntu Mono 12"))
-     ;;  ((string-equal system-type "darwinn")
-     ;;   (if (member "DejaVu Sans Mono" (font-family-list))
-     ;;       (set-default-font "DejaVu Sans Mono 11")
-     ;;     (set-default-font "Menlo 11"))))
+     (cond
+      ((string-equal system-type "windows-nt")
+       (set-default-font "Consolas 12"))
+      ((string-equal system-type "gnu/linux")
+       (set-default-font "Ubuntu Mono 12"))
+      ((string-equal system-type "darwinn")
+       (if (member "DejaVu Sans Mono" (font-family-list))
+	   (set-default-font "DejaVu Sans Mono 11")
+	 (set-default-font "Menlo 11"))))
    #+end_src
 
    #+RESULTS:
