@@ -1748,7 +1748,12 @@
   #+RESULTS:
 
 * PDF 
-  Use [[https://github.com/politza/pdf-tools][pdf-tools]], read the documentation to install dependencies according to your system.
+  * Use [[https://github.com/politza/pdf-tools][pdf-tools]], read the documentation to install dependencies according to your system.
+  * Dependencies on Ubuntu
+    #+begin_src sh
+      sudo apt install autoconf automake g++ gcc libpng-dev libpoppler-dev libpoppler-glib-dev libpoppler-private-dev libz-dev make pkg-config
+    #+end_src
+  * Configuration 
   #+begin_src emacs-lisp
     (add-to-list 'exec-path "/usr/local/bin")
 
