@@ -1330,6 +1330,7 @@
 
       In js2-mode, you can also `M-x js2-print-json-path`
     #+end_example
+
 ** go programming
    * [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
    * go-mode with ob-go
