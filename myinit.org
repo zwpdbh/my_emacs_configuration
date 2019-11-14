@@ -1845,7 +1845,7 @@
 	(setq x-underline-at-descent-line t)
 	;; group tabs based on projectile
 	(centaur-tabs-group-by-projectile-project)
-    
+
 	;; hide some tabs for some buffers 
 	(defun centaur-tabs-hide-tab (x)
 	  (let ((name (format "%s" x)))
@@ -1855,8 +1855,7 @@
 	     (string-prefix-p "*Compile-Log*" name)
 	     (string-prefix-p "*lsp" name)
 	     (and (string-prefix-p "magit" name)
-		  (not (file-name-extension name)))
-	     ))))
+		  (not (file-name-extension name)))))))
       :bind
       ("C-<prior>" . centaur-tabs-backward)
       ("C-<next>" . centaur-tabs-forward))
