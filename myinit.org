@@ -1865,4 +1865,5 @@
   #+RESULTS:
   : centaur-tabs-forward
 * TODO Lookup word definition
-  (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
+  * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
+  
