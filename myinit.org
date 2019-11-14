@@ -1838,7 +1838,7 @@
 	(centaur-tabs-mode t)
 	(setq centaur-tabs-set-icons t)
 	(setq centaur-tabs-gray-out-icons 'buffer)
-    
+
 	(defun centaur-tabs-buffer-groups ()
 	  "`centaur-tabs-buffer-groups' control buffers' group rules. 
     Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'. 
