@@ -38,6 +38,14 @@
   #+RESULTS:
   : t
 
+* Set environment path
+  #+begin_src emacs-lisp
+    (if (string-equal system-type "windows-nt")
+	(progn
+	  (princ "set windows environment"))
+      (setq exec-path (append exec-path '("/usr/local/bin"))))
+  #+end_src
+
 * Interface tweaks
 ** set font
    * Install Monaco font in Ubuntu:
@@ -1488,7 +1496,7 @@
 
      (add-hook 'org-mode-hook #'(lambda ()
 				  (progn
-				    ;; all languages needed to be confirmed to execute except emacs-lisp and lisp
+				    ;; all languages needed to be confirmed to execute except:
 				    (defun my-org-confirm-babel-evaluate (lang body)
 				      (not (member lang '("emacs-lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
 				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
@@ -1762,8 +1770,6 @@
     #+end_src
   * Configuration 
   #+begin_src emacs-lisp
-    (add-to-list 'exec-path "/usr/local/bin")
-
     (unless (string-equal system-type "windows-nt")
       ;; Haven't build pdf-tool dependencies on other system
       (use-package pdf-tools
