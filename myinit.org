@@ -1519,6 +1519,16 @@
 	     (add-to-list 'org-structure-template-alist '("uml" . "src plantuml")))))
    #+end_src
 
+** align org tags
+   #+begin_src emacs-lisp
+     (add-hook 'focus-in-hook 
+	       (lambda () (progn 
+		       (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
+
+     (add-hook 'focus-out-hook 
+	       (lambda () (progn 
+		       (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
+   #+end_src
 
 ** Publishing Org-mode files to HTML
    #+begin_src emacs-lisp
