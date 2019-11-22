@@ -284,6 +284,7 @@
    #+RESULTS:
    : t
 
+
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
@@ -1454,6 +1455,9 @@
      (define-key global-map "\C-cl" 'org-store-link)
      (define-key global-map "\C-ca" 'org-agenda)
      (setq org-log-done t)
+
+     ;; set org to user the current window when edit src code
+     (setq org-src-window-setup 'current-window)
    #+END_SRC
 
    #+RESULTS:
