@@ -267,6 +267,10 @@
    : ssh
 
 ** display [[http://ergoemacs.org/emacs/emacs_pretty_lambda.html][pretty characters]]
+   * refs
+     * [[http://xahlee.info/comp/unicode_punctuation_symbols.html][common symbols]]
+     * [[https://www.fileformat.info/info/unicode/char/2264/index.htm][place to find the relation between unicode and symbol]]
+   * configuration
    #+begin_src emacs-lisp
      (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
        (lambda ()
@@ -274,7 +278,9 @@
 	       '(
 		 ("lambda" . 955) ; λ
 		 ("->" . 8594)    ; →
+		 ("<-" . 8592)    ; ←
 		 ("=>" . 8658)    ; ⇒
+		 ("<=" . 8656)    ; ⇐
 		 ("map" . 8614)   ; ↦
 		 ))
 	 (prettify-symbols-mode 1)))
