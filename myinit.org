@@ -1497,6 +1497,9 @@
      (use-package ob-http
        :ensure t)
 
+     ;; since yaml mode is not supported by org, create the command yourself
+     (defun org-babel-execute:yaml (body params) body)
+
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)
@@ -1534,6 +1537,7 @@
 	     (add-to-list 'org-structure-template-alist '("http" . "src http"))
 	     (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
 	     (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
+	     (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
 	     (add-to-list 'org-structure-template-alist '("uml" . "src plantuml")))))
    #+end_src
 
