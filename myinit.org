@@ -284,6 +284,14 @@
    #+RESULTS:
    : t
 
+** set window to prefer split vertically
+   #+begin_src emacs-lisp
+     (setq split-width-threshold 200)
+     (setq split-height-threshold 40)
+   #+end_src
+
+   #+RESULTS:
+   : 40
 
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
@@ -1525,10 +1533,10 @@
 
 ** align org tags
    #+begin_src emacs-lisp
-     (add-hook 'window-configuration-change-hook
-	       (lambda () (progn 
-		       (setq org-tags-column (- 7 (window-body-width)))
-		       (org-align-all-tags))))
+     ;; (add-hook 'window-configuration-change-hook
+     ;; 	  (lambda () (progn 
+     ;; 		  (setq org-tags-column (- 7 (window-body-width)))
+     ;; 		  (org-align-all-tags))))
    #+end_src
 
 ** Publishing Org-mode files to HTML
