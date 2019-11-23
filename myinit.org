@@ -1865,6 +1865,7 @@
 	(my-global-idle-highlight-mode 1)))
   #+end_src
 * centaur-tabs
+  * https://github.com/ema2159/centaur-tabs
   #+begin_src emacs-lisp
     (use-package centaur-tabs
       :demand
