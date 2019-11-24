@@ -1464,7 +1464,8 @@
      (eval-after-load 'org
        #'(lambda ()
 	   (global-set-key (kbd "<f12>") (kbd "C-c '"))
-	   (define-key org-mode-map [f9] #'org-toggle-inline-images)))
+	   (define-key org-mode-map [f9] #'org-toggle-inline-images)
+	   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
      (define-key global-map "\C-cl" 'org-store-link)
      (define-key global-map "\C-ca" 'org-agenda)
@@ -1475,7 +1476,6 @@
    #+END_SRC
 
    #+RESULTS:
-   : t
 
 ** org-agenda-files
    In case some org files is not listed in agenda files, run the code block again to refresh the file list.
