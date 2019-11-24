@@ -1,7 +1,7 @@
 * Set emacs theme
   #+begin_src emacs-lisp
     ;; leuven-theme
-    ;; gruvbox-theme
+    ;; Gruvbox-theme
     ;; material-theme
     ;; flucui-themes
     ;; solarized-theme
@@ -12,7 +12,7 @@
       :ensure t
       :config
       (progn
-	(load-theme 'gruvbox-dark-medium t)
+	(load-theme 'gruvbox-dark-hard t)
 	(add-hook 'after-init-hook 
 		  (lambda ()
 		    ;; M-x customize-face
@@ -33,6 +33,21 @@
     ;;     (doom-themes-org-config)
     ;;     (set-face-attribute 'region nil :background "#666")))
 
+
+    ;; (use-package monokai-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'monokai t)
+    ;;     (add-hook 'after-init-hook 
+    ;; 	      (lambda ()
+    ;; 		;; M-x customize-face
+    ;; 		;; show-paren-match to view different options #D4FF00
+    ;; 		(set-face-attribute 'show-paren-match nil
+    ;; 				    :underline t
+    ;; 				    ;; :foreground "#D4FF00"
+    ;; 				    ;; :background nil
+    ;; 				    :weight 'ultrabold)))))
   #+end_src
 
   #+RESULTS:
@@ -225,23 +240,54 @@
    #+RESULTS:
    : t
 
-** highlight-indentation
-   #+BEGIN_SRC emacs-lisp
-     (use-package highlight-indentation
-       :ensure t
-       :config
-       (progn
-	 ;; (set-face-background 'highlight-indentation-face "#262626")
-	 ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-	 ;; define a global minor mode
-	 (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
-	   (lambda ()
-	     (highlight-indentation-mode 1)))
-	 (my-global-highlight-indentation-mode 1)))
-   #+END_SRC
 
-   #+RESULTS:
-   : t
+** indent guide
+*** Refs   
+    * [[https://github.com/antonj/Highlight-Indentation-for-Emacs][Highlight-Indentation-for-Emacs]]
+    * [[https://github.com/DarthFennec/highlight-indent-guides][highlight-indent-guides]]
+    * [[https://github.com/zk-phi/indent-guide][indent-guide]]
+*** Highlight-Indentation-for-Emacs
+    #+BEGIN_SRC emacs-lisp
+      (use-package highlight-indentation
+	:ensure t
+	:config
+	(progn
+	  ;; (set-face-background 'highlight-indentation-face "#262626")
+	  ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
+	  ;; define a global minor mode
+	  (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
+	    (lambda ()
+	      (highlight-indentation-mode 1)))
+	  (my-global-highlight-indentation-mode 1)))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+*** highlight-indent-guides
+    #+begin_src emacs-lisp
+      ;; (use-package highlight-indent-guides
+      ;;   :ensure t
+      ;;   :config 
+      ;;   (progn
+      ;;     (setq highlight-indent-guides-delay 0.1)
+      ;;     (setq highlight-indent-guides-method 'character)
+      ;;     (setq highlight-indent-guides-character ?\|)
+      ;;     ;; (define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
+      ;;     ;;   (lambda ()
+      ;;     ;; 	(highlight-indent-guides-mode 1)))
+      ;;     ;; (my-global-highlight-indent-guides-mode 1)
+      ;;     (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)))
+    #+end_src
+
+*** indent-guide
+    #+begin_src emacs-lisp
+      ;; (use-package indent-guide
+      ;;   :ensure t
+      ;;   :config
+      ;;   (progn
+      ;;     (setq indent-guide-delay 0.1)
+      ;;     (indent-guide-global-mode)))
+    #+end_src
 
 ** which-key
    #+begin_src emacs-lisp
