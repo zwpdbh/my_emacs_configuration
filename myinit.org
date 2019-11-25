@@ -450,7 +450,6 @@
 	 (add-hook 'typescript-mode-hook #'smartparens)
 	 (add-hook 'c-mode-hook #'smartparens-mode)
 	 (add-hook 'c++-mode-hook #'smartparens-mode)
-	 (add-hook 'plantuml-mode-hook #'smartparens-mode)
 	 (add-hook 'web-mode-hook #'smartparens-mode)))
    #+END_SRC
 
@@ -1791,10 +1790,12 @@
 	 (setq plantuml-output-type "svg")
 	 ;; needed by ob-plantuml.el
 	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
-
 	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-	 (add-hook 'plantuml-mode-hook #'(lambda ()
-					   (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
+	 (add-hook 'plantuml-mode-hook '(lambda ()
+					  (smartparens-mode)
+					  (setq indent-tabs-mode t)
+					  (setq tab-width 4)
+					  (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
 
    #+RESULTS:
