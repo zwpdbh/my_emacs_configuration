@@ -1515,13 +1515,18 @@
 
      (define-key global-map "\C-cl" 'org-store-link)
      (define-key global-map "\C-ca" 'org-agenda)
-     (setq org-log-done t)
 
-     ;; set org to user the current window when edit src code
-     (setq org-src-window-setup 'current-window)
+     (add-hook 'org-mode-hook '(lambda ()
+				 (setq indent-tabs-mode t)
+				 (setq tab-width 4)
+				 ;; set org to user the current window when edit src code
+				 (setq org-src-window-setup 'current-window)
+				 (setq org-log-done t)))
+
    #+END_SRC
 
    #+RESULTS:
+   | (lambda nil (setq indent-tabs-mode t) (setq tab-width 4) (setq org-src-window-setup (quote current-window)) (setq org-log-done t)) | (lambda nil (progn (defalias (quote my-org-confirm-babel-evaluate) (function (lambda (lang body) (not (member lang (quote (emacs-lisp scheme clojure python R C latex dot plantuml))))))) (setq org-confirm-babel-evaluate (quote my-org-confirm-babel-evaluate)))) | org-tempo-setup | er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 ** org-agenda-files
    In case some org files is not listed in agenda files, run the code block again to refresh the file list.
