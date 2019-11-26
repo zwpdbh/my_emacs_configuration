@@ -711,7 +711,7 @@
 	      treemacs-git-mode nil))
       :bind
       (:map global-map
-	    ([f8]        . treemacs)
+	    ([f9]        . treemacs)
 	    ("M-0"       . treemacs-select-window)
 	    ("C-x t 1"   . treemacs-delete-other-windows)
 	    ("C-x t t"   . treemacs)
@@ -1517,7 +1517,7 @@
 		 (eval-after-load 'org
 			 #'(lambda ()
 				 (global-set-key (kbd "<f12>") (kbd "C-c '"))
-				 (define-key org-mode-map [f9] #'org-toggle-inline-images)
+				 (define-key org-mode-map [f8] #'org-toggle-inline-images)
 				 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
 		 (define-key global-map "\C-cl" 'org-store-link)
