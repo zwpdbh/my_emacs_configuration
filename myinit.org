@@ -116,30 +116,30 @@
 ** set global key-bindings
    Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
    #+begin_src emacs-lisp
-     ;; use cmd + n and cmd + p to select next and previous lines
-     (global-set-key (kbd "s-n") (kbd "C-S-n"))
-     (global-set-key (kbd "s-p") (kbd "C-S-p"))
-     ;; use c-z to undo
-     (global-set-key (kbd "C-z") #'undo)
+	 ;; use cmd + n and cmd + p to select next and previous lines
+	 (global-set-key (kbd "s-n") (kbd "C-S-n"))
+	 (global-set-key (kbd "s-p") (kbd "C-S-p"))
+	 ;; use c-z to undo
+	 (global-set-key (kbd "C-z") #'undo)
 
-     ;; do code comment 
-     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+	 ;; do code comment 
+	 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
-     ;; use c-c c-c to execute a lisp function
-     (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
+	 ;; use c-c c-c to execute a lisp function
+	 (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-     ;; keyboard macro
-     (global-set-key (kbd "<f2>") #'kmacro-start-macro)
-     (global-set-key (kbd "<f3>") #'kmacro-end-macro)
-     (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
+	 ;; keyboard macro
+	 (global-set-key (kbd "<f2>") #'kmacro-start-macro)
+	 (global-set-key (kbd "<f3>") #'kmacro-end-macro)
+	 (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
 
 
-     ;; use f10 to format whole buffer
-     (global-set-key (kbd "<f10>") (progn
-				     #'mark-whole-buffer
-				     #'indent-region))
-     ;; use f5 to revert the buffer
-     (global-set-key (kbd "<f5>") 'revert-buffer)
+	 ;; use f10 to format whole buffer
+	 (global-set-key (kbd "<f10>") (progn
+					 #'mark-whole-buffer
+					 #'indent-region))
+	 ;; use f5 to revert the buffer
+	 ;; (global-set-key (kbd "<f6>") 'revert-buffer)
    #+end_src
 
    #+RESULTS:
@@ -240,6 +240,13 @@
    #+RESULTS:
    : t
 
+** set tab width
+	 #+begin_src emacs-lisp
+		 (setq tab-width 4)
+	 #+end_src
+
+	 #+RESULTS:
+	 : 4
 
 ** indent guide
 *** Refs   
@@ -1499,34 +1506,32 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-     (use-package org
-       :ensure org-plus-contrib)
-     (require 'ob)
-     (require 'ob-js)
-     (require 'org-eldoc)
-     (require 'org-tempo)
+		 (use-package org
+			 :ensure org-plus-contrib)
+		 (require 'ob)
+		 (require 'ob-js)
+		 (require 'org-eldoc)
+		 (require 'org-tempo)
 
-     ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
-     (eval-after-load 'org
-       #'(lambda ()
-	   (global-set-key (kbd "<f12>") (kbd "C-c '"))
-	   (define-key org-mode-map [f9] #'org-toggle-inline-images)
-	   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
+		 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
+		 (eval-after-load 'org
+			 #'(lambda ()
+				 (global-set-key (kbd "<f12>") (kbd "C-c '"))
+				 (define-key org-mode-map [f9] #'org-toggle-inline-images)
+				 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
-     (define-key global-map "\C-cl" 'org-store-link)
-     (define-key global-map "\C-ca" 'org-agenda)
+		 (define-key global-map "\C-cl" 'org-store-link)
+		 (define-key global-map "\C-ca" 'org-agenda)
 
-     (add-hook 'org-mode-hook '(lambda ()
-				 (setq indent-tabs-mode t)
-				 (setq tab-width 4)
-				 ;; set org to user the current window when edit src code
-				 (setq org-src-window-setup 'current-window)
-				 (setq org-log-done t)))
+		 (add-hook 'org-mode-hook '(lambda ()
+							 (setq indent-tabs-mode t)			    
+							 ;; set org to user the current window when edit src code
+							 (setq org-src-window-setup 'current-window)
+							 (setq org-log-done t)))
 
    #+END_SRC
 
    #+RESULTS:
-   | (lambda nil (setq indent-tabs-mode t) (setq tab-width 4) (setq org-src-window-setup (quote current-window)) (setq org-log-done t)) | (lambda nil (progn (defalias (quote my-org-confirm-babel-evaluate) (function (lambda (lang body) (not (member lang (quote (emacs-lisp scheme clojure python R C latex dot plantuml))))))) (setq org-confirm-babel-evaluate (quote my-org-confirm-babel-evaluate)))) | org-tempo-setup | er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 ** org-agenda-files
    In case some org files is not listed in agenda files, run the code block again to refresh the file list.
@@ -1541,55 +1546,56 @@
 
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
-     ;; evaluation use sly instead of using slime, need to use org-plus-contrib
-     (setq org-babel-lisp-eval-fn #'sly-eval)
+	 ;; evaluation use sly instead of using slime, need to use org-plus-contrib
+	 (setq org-babel-lisp-eval-fn #'sly-eval)
 
-     ;; http request in org-mode babel, requires curl
-     (use-package ob-http
-       :ensure t)
+	 ;; http request in org-mode babel, requires curl
+	 (use-package ob-http
+	   :ensure t)
 
-     ;; since yaml mode is not supported by org, create the command yourself
-     (defun org-babel-execute:yaml (body params) body)
+	 ;; since yaml mode is not supported by org, create the command yourself
+	 (defun org-babel-execute:yaml (body params) body)
 
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-	(clojure . t)
-	(scheme . t)
-	(C . t)
-	(shell . t)
-	(js . t)
-	(python . t)
-	(R . t)
-	(http . t)
-	(latex . t)
-	(dot . t)
-	(plantuml . t)))
+	 (org-babel-do-load-languages
+	  'org-babel-load-languages
+	  '((emacs-lisp . t)
+		(clojure . t)
+		(scheme . t)
+		(C . t)
+		(shell . t)
+		(js . t)
+		(python . t)
+		(R . t)
+		(http . t)
+		(latex . t)
+		(dot . t)
+		(plantuml . t)))
 
-     (add-hook 'org-mode-hook #'(lambda ()
-				  (progn
-				    ;; all languages needed to be confirmed to execute except:
-				    (defun my-org-confirm-babel-evaluate (lang body)
-				      (not (member lang '("emacs-lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
-				    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
+	 (add-hook 'org-mode-hook #'(lambda ()
+					  (progn
+						;; all languages needed to be confirmed to execute except:
+						(defun my-org-confirm-babel-evaluate (lang body)
+					  (not (member lang '("emacs-lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
+						(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
-     (eval-after-load 'org
-       #'(lambda ()
-	   (progn
-	     (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
-	     (add-to-list 'org-structure-template-alist '("py" . "src python"))
-	     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-	     (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
-	     (add-to-list 'org-structure-template-alist '("scheme" . "src scheme"))
-	     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-	     (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
-	     (add-to-list 'org-structure-template-alist '("r" . "src R"))
-	     (add-to-list 'org-structure-template-alist '("js" . "src js"))
-	     (add-to-list 'org-structure-template-alist '("http" . "src http"))
-	     (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
-	     (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
-	     (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
-	     (add-to-list 'org-structure-template-alist '("uml" . "src plantuml")))))
+	 (eval-after-load 'org
+	   #'(lambda ()
+		   (progn
+		 (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
+		 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+		 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+		 (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+		 (add-to-list 'org-structure-template-alist '("scheme" . "src scheme"))
+		 (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+		 (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
+		 (add-to-list 'org-structure-template-alist '("r" . "src R"))
+		 (add-to-list 'org-structure-template-alist '("js" . "src js"))
+		 (add-to-list 'org-structure-template-alist '("http" . "src http"))
+		 (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
+		 (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
+		 (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+		 (add-to-list 'org-structure-template-alist '("json" . "src json"))
+		 (add-to-list 'org-structure-template-alist '("uml" . "src plantuml")))))
    #+end_src
 
 ** align org tags
@@ -1959,6 +1965,16 @@
 
   #+RESULTS:
   : centaur-tabs-forward
+* Folding
+  #+begin_src emacs-lisp
+	(use-package yafolding
+	  :ensure t
+	  :config
+	  (progn
+		(global-set-key (kbd "<f5>") 'yafolding-toggle-element)
+		(global-set-key (kbd "<f6>") 'yafolding-hide-parent-element)
+		(global-set-key (kbd "<f7>") 'yafolding-toggle-all)))
+  #+end_src
 * TODO Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
