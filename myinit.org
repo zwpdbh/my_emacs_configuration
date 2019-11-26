@@ -242,11 +242,11 @@
 
 ** set tab width
 	 #+begin_src emacs-lisp
-		 (setq tab-width 4)
+		 (setq tab-width 2)
 	 #+end_src
 
 	 #+RESULTS:
-	 : 4
+	 : 2
 
 ** indent guide
 *** Refs   
