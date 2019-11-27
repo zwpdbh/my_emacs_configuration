@@ -241,8 +241,7 @@
 
 ** set tab width
    #+begin_src emacs-lisp
-	   (add-hook 'after-init-hook '(lambda ()
-					 (setq tab-width 2)))
+	 (setq-default tab-width 2)
    #+end_src
 
    #+RESULTS:
@@ -255,17 +254,17 @@
     * [[https://github.com/zk-phi/indent-guide][indent-guide]]
 *** Highlight-Indentation-for-Emacs
     #+BEGIN_SRC emacs-lisp
-      (use-package highlight-indentation
-	:ensure t
-	:config
-	(progn
-	  ;; (set-face-background 'highlight-indentation-face "#262626")
-	  ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-	  ;; define a global minor mode
-	  (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
-	    (lambda ()
-	      (highlight-indentation-mode 1)))
-	  (my-global-highlight-indentation-mode 1)))
+	  (use-package highlight-indentation
+		:ensure t
+		:config
+		(progn
+		  ;; (set-face-background 'highlight-indentation-face "#262626")
+		  ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
+		  ;; define a global minor mode
+		  (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
+			(lambda ()
+		  (highlight-indentation-mode 1)))
+		  (my-global-highlight-indentation-mode 1)))
     #+END_SRC
 
     #+RESULTS:
@@ -1123,45 +1122,47 @@
 *** Format
     !!! Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
-      (use-package clang-format
-	:ensure t
-	:config
-	(progn
-	  (defun clang-format-buffer-smart ()
-	    "Reformat buffer if .clang-format exists in the projectile root."
-	    (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-	      (clang-format-buffer)))
+	  (use-package clang-format
+	  :ensure t
+	  :config
+	  (progn
+		  (defun clang-format-buffer-smart ()
+			  "Reformat buffer if .clang-format exists in the projectile root."
+			  (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+				  (clang-format-buffer)))
 
-	  (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
-	    (add-hook 
-	     each-hook 
-	     #'(lambda ()
-		 (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
+		  (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
+			  (add-hook 
+			   each-hook 
+			   #'(lambda ()
+					   (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
 
-	  (use-package yaml-mode
-	    :ensure t
-	    :config
-	    (progn
-	      (add-hook 
-	       'yaml-mode-hook 
-	       #'(lambda ()
-		   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
-
-	  ;; disable clang-format in json-mode
-	  (use-package json-mode
-	    :ensure t
-	    ;; :config
-	    ;; (progn
-	    ;; 	(add-hook 
-	    ;; 	 'json-mode-hook 
-	    ;; 	 #'(lambda ()
-	    ;; 	     (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
-	    ;; 	     (add-hook 'before-save-hook #'json-mode-beautify nil 'local))))
-	    )))
+		  (use-package yaml-mode
+			  :ensure t
+			  :config
+			  (progn
+				  (add-hook 
+				   'yaml-mode-hook 
+				   #'(lambda ()
+						   (setq yaml-indent-offset 2)
+						   (setq tab-width 2)
+						   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+	
+		  ;; disable clang-format in json-mode
+		  (use-package json-mode
+			  :ensure t
+			  ;; :config
+			  ;; (progn
+			  ;; 	(add-hook 
+			  ;; 	 'json-mode-hook 
+			  ;; 	 #'(lambda ()
+			  ;; 	     (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
+			  ;; 	     (add-hook 'before-save-hook #'json-mode-beautify nil 'local))))
+			  )))
     #+end_src
 
     #+RESULTS:
-    : t
+	: t
 
 *** yasnippet
     #+begin_src emacs-lisp
@@ -1196,6 +1197,14 @@
     : t
     
 ** Python development
+*** python-mode common settings
+	#+begin_src emacs-lisp
+	  (setq python-indent-offset 4)
+	  (defun python-custom-settings ()
+		(setq tab-width 4))
+
+	  (add-hook 'python-mode-hook 'python-custom-settings)
+	#+end_src
 *** with lsp 
     - References
       - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]] (using)
@@ -1293,28 +1302,28 @@
     #+RESULTS:
     : 2
 *** Javascript
-	  * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
-	  * Tern is a stand-alone code-analysis engine for JavaScript
-	    #+begin_src emacs-lisp
-	     (use-package company-tern
-	       :ensure t
-	       :config
-	       (progn
-		 (use-package js2-mode
-		   :ensure t
-		   :config
-		   (progn
-		     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-		     (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-		 (setq tern-command (append tern-command '("--no-port-file")))
-		 (add-hook 'js-mode-hook 
-			   #'(lambda ()
-			       (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-			       (tern-mode)))))
-	    #+end_src
+	* flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
+	* Tern is a stand-alone code-analysis engine for JavaScript
+	  #+begin_src emacs-lisp
+	   (use-package company-tern
+		 :ensure t
+		 :config
+		 (progn
+	   (use-package js2-mode
+		 :ensure t
+		 :config
+		 (progn
+		   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+		   (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
+	   (setq tern-command (append tern-command '("--no-port-file")))
+	   (add-hook 'js-mode-hook 
+			 #'(lambda ()
+				 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+				 (tern-mode)))))
+	  #+end_src
 
-	    #+RESULTS:
-	    : t
+	  #+RESULTS:
+	  : t
 
 **** Company-flow 
 
@@ -1507,7 +1516,7 @@
 ** common settings
    #+BEGIN_SRC emacs-lisp
 	 (use-package org
-	   :ensure org-plus-contrib)
+		 :ensure org-plus-contrib)
 	 (require 'ob)
 	 (require 'ob-js)
 	 (require 'org-eldoc)
@@ -1515,20 +1524,20 @@
 
 	 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
 	 (eval-after-load 'org
-	   #'(lambda ()
-		   (global-set-key (kbd "<f12>") (kbd "C-c '"))
-		   (define-key org-mode-map [f5] #'org-toggle-inline-images)
-		   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
+		 #'(lambda ()
+			 (global-set-key (kbd "<f12>") (kbd "C-c '"))
+			 (define-key org-mode-map [f5] #'org-toggle-inline-images)
+			 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
 	 (define-key global-map "\C-cl" 'org-store-link)
 	 (define-key global-map "\C-ca" 'org-agenda)
 
 	 (add-hook 'org-mode-hook '(lambda ()
-					 (setq tab-width 4)
-					 (setq indent-tabs-mode t)			    
-					 ;; set org to user the current window when edit src code
-					 (setq org-src-window-setup 'current-window)
-					 (setq org-log-done t)))
+															 (setq tab-width 2)
+															 (setq indent-tabs-mode t)			    
+															 ;; set org to user the current window when edit src code
+															 (setq org-src-window-setup 'current-window)
+															 (setq org-log-done t)))
 
    #+END_SRC
 
