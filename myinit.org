@@ -337,44 +337,44 @@
 * Keep parentheses balanced
 ** Paredit
    #+begin_src emacs-lisp
-     (use-package paredit
-       :defer 1
-       :ensure t
-       :init
-       (progn
-	 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-	 ;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-	 ;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-	 ;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-	 ;; ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-	 ;; (add-hook 'sly-mode-hook             #'enable-paredit-mode)
-	 ;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-	 ;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-	 ;; (add-hook 'racket-mode-hook           #'enable-paredit-mode)
+		 (use-package paredit
+			 :defer 1
+			 :ensure t
+			 :init
+			 (progn
+				 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+				 ;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+				 ;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+				 ;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+				 ;; ;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+				 ;; (add-hook 'sly-mode-hook             #'enable-paredit-mode)
+				 ;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+				 ;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+				 ;; (add-hook 'racket-mode-hook           #'enable-paredit-mode)
 
-	 ;; paredit with eldoc
-	 ;; (require 'eldoc) 
-	 ;; (eldoc-add-command
-	 ;;  'paredit-backward-delete
-	 ;;  'paredit-close-round)
+				 ;; paredit with eldoc
+				 ;; (require 'eldoc) 
+				 ;; (eldoc-add-command
+				 ;;  'paredit-backward-delete
+				 ;;  'paredit-close-round)
 
-	 ;; paredit with electric return
-	 (defvar electrify-return-match
-	   "[\]}\)\"]"
-	   "If this regexp matches the text after the cursor, do an \"electric\"
-       return.")
-	 (defun electrify-return-if-match (arg)
-	   "If the text after the cursor matches `electrify-return-match' then
-       open and indent an empty line between the cursor and the text.  Move the
-       cursor to the new line."
-	   (interactive "P")
-	   (let ((case-fold-search nil))
-	     (if (looking-at electrify-return-match)
-		 (save-excursion (newline-and-indent)))
-	     (newline arg)
-	     (indent-according-to-mode)))
-	 ;; Using local-set-key in a mode-hook is a better idea.
-	 (global-set-key (kbd "RET") 'electrify-return-if-match)))
+				 ;; paredit with electric return
+				 (defvar electrify-return-match
+					 "[\]}\)\"]"
+					 "If this regexp matches the text after the cursor, do an \"electric\"
+			 return.")
+				 (defun electrify-return-if-match (arg)
+					 "If the text after the cursor matches `electrify-return-match' then
+			 open and indent an empty line between the cursor and the text.  Move the
+			 cursor to the new line."
+					 (interactive "P")
+					 (let ((case-fold-search nil))
+						 (if (looking-at electrify-return-match)
+								 (save-excursion (newline-and-indent)))
+						 (newline arg)
+						 (indent-according-to-mode)))
+				 ;; Using local-set-key in a mode-hook is a better idea.
+				 (global-set-key (kbd "RET") 'electrify-return-if-match)))
    #+end_src
 ** complements to paredit
    #+begin_src emacs-lisp
@@ -968,38 +968,38 @@
 
 ** Common configuration 
    #+begin_src emacs-lisp
-     ;; define additional minor mode to adjust keybindings without conflicts
-     (defvar my-lisp-power-map (make-keymap))
-     (define-minor-mode my-lisp-power-mode "Fix keybindings; add power."
-       :lighter " (power)"
-       :keymap my-lisp-power-map)
-     (define-key my-lisp-power-map [delete] 'paredit-forward-delete)
-     (define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
+		 ;; define additional minor mode to adjust keybindings without conflicts
+		 (defvar my-lisp-power-map (make-keymap))
+		 (define-minor-mode my-lisp-power-mode "Fix keybindings; add power."
+			 :lighter " (power)"
+			 :keymap my-lisp-power-map)
+		 (define-key my-lisp-power-map [delete] 'paredit-forward-delete)
+		 (define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
 
-     ;; define a group of common features needed by all lisp programming
-     (defun zwpdbh/enhance-lisp-power ()
-       (interactive)
-       (highlight-indentation-mode t)
-       (my-lisp-power-mode t)
-       (turn-on-eldoc-mode)
-       (paredit-mode t)
-       (rainbow-delimiters-mode-enable)
-       (aggressive-indent-mode t))
-     ;; define a group of different lisp modes, so we could apply features on on them 
-     (setq my-lisp-mode-set '(lisp-mode
-			      lisp-interaction-mode
-			      emacs-lisp-mode
-			      ielm-mode
-			      eval-expression-minibuffer-setup
-			      common-lisp-mode
-			      racket-mode
-			      racket-repl-mode
-			      scheme-mode
-			      clojure-mode
-			      geiser-repl-mode))
-     (dolist (each-mode my-lisp-mode-set)
-       (add-hook (intern (format "%s-hook" each-mode))
-		 #'zwpdbh/enhance-lisp-power))
+		 ;; define a group of common features needed by all lisp programming
+		 (defun zwpdbh/enhance-lisp-power ()
+			 (interactive)
+			 (highlight-indentation-mode t)
+			 (my-lisp-power-mode t)
+			 (turn-on-eldoc-mode)
+			 (paredit-mode t)
+			 (rainbow-delimiters-mode-enable)
+			 (aggressive-indent-mode t))
+		 ;; define a group of different lisp modes, so we could apply features on on them 
+		 (setq my-lisp-mode-set '(lisp-mode
+						lisp-interaction-mode
+						emacs-lisp-mode
+						ielm-mode
+						eval-expression-minibuffer-setup
+						common-lisp-mode
+						racket-mode
+						racket-repl-mode
+						scheme-mode
+						clojure-mode
+						geiser-repl-mode))
+		 (dolist (each-mode my-lisp-mode-set)
+			 (add-hook (intern (format "%s-hook" each-mode))
+					 #'zwpdbh/enhance-lisp-power))
    #+end_src
 
 * Other Programming
@@ -1066,43 +1066,43 @@
 *** Format
     !!! Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
-	  (use-package clang-format
-	  :ensure t
-	  :config
-	  (progn
-		  (defun clang-format-buffer-smart ()
-			  "Reformat buffer if .clang-format exists in the projectile root."
-			  (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-				  (clang-format-buffer)))
+			(use-package clang-format
+			:ensure t
+			:config
+			(progn
+				(defun clang-format-buffer-smart ()
+					"Reformat buffer if .clang-format exists in the projectile root."
+					(when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+						(clang-format-buffer)))
 
-		  (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
-			  (add-hook 
-			   each-hook 
-			   #'(lambda ()
-					   (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
+				(dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
+					(add-hook 
+					 each-hook 
+					 #'(lambda ()
+							 (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
 
-		  (use-package yaml-mode
-			  :ensure t
-			  :config
-			  (progn
-				  (add-hook 
-				   'yaml-mode-hook 
-				   #'(lambda ()
-						   (setq yaml-indent-offset 2)
-						   (setq tab-width 2)
-						   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
-	
-		  ;; disable clang-format in json-mode
-		  (use-package json-mode
-			  :ensure t
-			  ;; :config
-			  ;; (progn
-			  ;; 	(add-hook 
-			  ;; 	 'json-mode-hook 
-			  ;; 	 #'(lambda ()
-			  ;; 	     (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
-			  ;; 	     (add-hook 'before-save-hook #'json-mode-beautify nil 'local))))
-			  )))
+				(use-package yaml-mode
+					:ensure t
+					:config
+					(progn
+						(add-hook 
+						 'yaml-mode-hook 
+						 #'(lambda ()
+								 (setq yaml-indent-offset 2)
+								 (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+
+				;; disable clang-format in json-mode
+				(use-package json-mode
+					:ensure t
+					:config
+					(progn
+						(add-hook 
+						 'json-mode-hook 
+						 #'(lambda ()
+								 (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
+								 ;; (add-hook 'before-save-hook #'json-mode-beautify nil 'local)
+								 )))
+					))) 
     #+end_src
 
     #+RESULTS:
@@ -1141,14 +1141,6 @@
     : t
     
 ** Python development
-*** python-mode common settings
-		#+begin_src emacs-lisp
-	  (setq python-indent-offset 4)
-	  (defun python-custom-settings ()
-		(setq tab-width 4))
-
-	  (add-hook 'python-mode-hook 'python-custom-settings)
-		#+end_src
 *** with lsp 
     - References
       - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]] (using)
@@ -1459,29 +1451,27 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-	 (use-package org
-		 :ensure org-plus-contrib)
-	 (require 'ob)
-	 (require 'ob-js)
-	 (require 'org-eldoc)
-	 (require 'org-tempo)
+		 (use-package org
+			 :ensure org-plus-contrib)
+		 (require 'ob)
+		 (require 'ob-js)
+		 (require 'org-eldoc)
+		 (require 'org-tempo)
 
-	 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
-	 (eval-after-load 'org
-		 #'(lambda ()
-			 (global-set-key (kbd "<f12>") (kbd "C-c '"))
-			 (define-key org-mode-map [f5] #'org-toggle-inline-images)
-			 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
+		 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
+		 (eval-after-load 'org
+			 #'(lambda ()
+				 (global-set-key (kbd "<f12>") (kbd "C-c '"))
+				 (define-key org-mode-map [f5] #'org-toggle-inline-images)
+				 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
-	 (define-key global-map "\C-cl" 'org-store-link)
-	 (define-key global-map "\C-ca" 'org-agenda)
+		 (define-key global-map "\C-cl" 'org-store-link)
+		 (define-key global-map "\C-ca" 'org-agenda)
 
-	 (add-hook 'org-mode-hook '(lambda ()
-															 (setq tab-width 2)
-															 (setq indent-tabs-mode t)			    
-															 ;; set org to user the current window when edit src code
-															 (setq org-src-window-setup 'current-window)
-															 (setq org-log-done t)))
+		 (add-hook 'org-mode-hook '(lambda ()
+																 ;; set org to user the current window when edit src code
+																 (setq org-src-window-setup 'current-window)
+																 (setq org-log-done t)))
 
    #+END_SRC
 
@@ -1746,21 +1736,19 @@
 
 ** plantuml
    #+begin_src emacs-lisp
-     (use-package plantuml-mode
-       :ensure t
-       :config
-       (progn
-	 (setq plantuml-default-exec-mode 'jar)
-	 (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
-	 (setq plantuml-output-type "svg")
-	 ;; needed by ob-plantuml.el
-	 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
-	 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-	 (add-hook 'plantuml-mode-hook '(lambda ()
-					  (smartparens-mode)
-					  (setq indent-tabs-mode t)
-					  (setq tab-width 4)
-					  (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
+		 (use-package plantuml-mode
+			 :ensure t
+			 :config
+			 (progn
+				 (setq plantuml-default-exec-mode 'jar)
+				 (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
+				 (setq plantuml-output-type "svg")
+				 ;; needed by ob-plantuml.el
+				 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
+				 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+				 (add-hook 'plantuml-mode-hook '(lambda ()
+									(smartparens-mode)
+									(setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
 
    #+RESULTS:
@@ -2016,7 +2004,7 @@
 
 		 ;; Language-Specific Tweaks
 		 (setq-default python-indent-offset custom-tab-width) ;; Python
-		 (setq-default js-indent-level custom-tab-width)      ;; Javascript
+		 ;; (setq-default js-indent-level custom-tab-width)      ;; Javascript
 
 		 ;; Making electric-indent behave sanely
 		 (setq-default electric-indent-inhibit t)
