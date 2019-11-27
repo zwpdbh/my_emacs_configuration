@@ -1918,9 +1918,6 @@
 	    ;; (global-set-key (kbd "<f7>") 'yafolding-toggle-all)
 	    ))
   #+end_src
-* Lookup word definition
-  * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
-  
 * Set indentation
 ** indent guide
 *** Refs   
@@ -1977,8 +1974,7 @@
       ;;     (indent-guide-global-mode)))
     #+end_src
 
-
-** set indentation tab/space
+** indentation using tab/space
 	 #+begin_src emacs-lisp
 		 ;; START TABS CONFIG
 		 ;; Create a variable for our preferred tab width
@@ -2025,3 +2021,6 @@
 
 		 ;; END TABS CONFIG
 	 #+end_src
+* Lookup word definition
+  * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
+  
