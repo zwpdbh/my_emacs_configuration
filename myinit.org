@@ -239,65 +239,6 @@
    #+RESULTS:
    : t
 
-** set tab width
-   #+begin_src emacs-lisp
-	 (setq-default tab-width 2)
-   #+end_src
-
-   #+RESULTS:
-   : 2
-
-** indent guide
-*** Refs   
-    * [[https://github.com/antonj/Highlight-Indentation-for-Emacs][Highlight-Indentation-for-Emacs]]
-    * [[https://github.com/DarthFennec/highlight-indent-guides][highlight-indent-guides]]
-    * [[https://github.com/zk-phi/indent-guide][indent-guide]]
-*** Highlight-Indentation-for-Emacs
-    #+BEGIN_SRC emacs-lisp
-	  ;; (use-package highlight-indentation
-	  ;;       :ensure t
-	  ;;       :config
-	  ;;       (progn
-	  ;; 	;; (set-face-background 'highlight-indentation-face "#262626")
-	  ;; 	;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-	  ;; 	;; define a global minor mode
-	  ;; 	(define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
-	  ;; 	      (lambda ()
-	  ;; 	(highlight-indentation-mode 1)))
-	  ;; 	(my-global-highlight-indentation-mode 1)))
-    #+END_SRC
-
-    #+RESULTS:
-    : t
-*** highlight-indent-guides
-    #+begin_src emacs-lisp
-			(use-package highlight-indent-guides
-			:ensure t
-			:config 
-			(progn
-				(setq highlight-indent-guides-delay 0.1)
-
-				;; (setq highlight-indent-guides-method 'character)
-				;; (setq highlight-indent-guides-character ?\|)
-				;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
-
-				(define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
-					(lambda ()
-						(highlight-indent-guides-mode 1)
-						(add-hook 'org-mode-hook '(lambda () (highlight-indent-guides-mode -1)))))
-				(my-global-highlight-indent-guides-mode 1)))
-    #+end_src
-
-*** indent-guide
-    #+begin_src emacs-lisp
-      ;; (use-package indent-guide
-      ;;   :ensure t
-      ;;   :config
-      ;;   (progn
-      ;;     (setq indent-guide-delay 0.1)
-      ;;     (indent-guide-global-mode)))
-    #+end_src
-
 ** which-key
    #+begin_src emacs-lisp
      (use-package which-key
@@ -1992,3 +1933,107 @@
 * Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
+* Set indentation
+** indent guide
+*** Refs   
+    * [[https://github.com/antonj/Highlight-Indentation-for-Emacs][Highlight-Indentation-for-Emacs]]
+    * [[https://github.com/DarthFennec/highlight-indent-guides][highlight-indent-guides]]
+    * [[https://github.com/zk-phi/indent-guide][indent-guide]]
+*** Highlight-Indentation-for-Emacs
+    #+BEGIN_SRC emacs-lisp
+	  ;; (use-package highlight-indentation
+	  ;;       :ensure t
+	  ;;       :config
+	  ;;       (progn
+	  ;; 	;; (set-face-background 'highlight-indentation-face "#262626")
+	  ;; 	;; (set-face-background 'highlight-indentation-current-column-face "#808080")
+	  ;; 	;; define a global minor mode
+	  ;; 	(define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
+	  ;; 	      (lambda ()
+	  ;; 	(highlight-indentation-mode 1)))
+	  ;; 	(my-global-highlight-indentation-mode 1)))
+    #+END_SRC
+
+    #+RESULTS:
+    : t
+*** highlight-indent-guides
+    #+begin_src emacs-lisp
+			(use-package highlight-indent-guides
+			:ensure t
+			:config 
+			(progn
+				(setq highlight-indent-guides-delay 0.1)
+
+				;; (setq highlight-indent-guides-method 'character)
+				;; (setq highlight-indent-guides-character ?\|)
+				(add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+				(add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
+				(add-hook 'json-mode-hook 'highlight-indent-guides-mode)
+				(add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
+	
+				;; (define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
+				;; 	(lambda ()
+				;; 		(highlight-indent-guides-mode 1)
+				;; 		(add-hook 'org-mode-hook '(lambda () (highlight-indent-guides-mode -1)))))
+				;; (my-global-highlight-indent-guides-mode 1)
+				))
+    #+end_src
+
+*** indent-guide
+    #+begin_src emacs-lisp
+      ;; (use-package indent-guide
+      ;;   :ensure t
+      ;;   :config
+      ;;   (progn
+      ;;     (setq indent-guide-delay 0.1)
+      ;;     (indent-guide-global-mode)))
+    #+end_src
+
+
+** set indentation tab/space
+	 #+begin_src emacs-lisp
+		 ;; START TABS CONFIG
+		 ;; Create a variable for our preferred tab width
+		 (setq custom-tab-width 2)
+
+		 ;; Two callable functions for enabling/disabling tabs in Emacs
+		 (defun disable-tabs () (setq indent-tabs-mode nil))
+		 (defun enable-tabs  ()
+			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+			 (setq indent-tabs-mode t)
+			 (setq tab-width custom-tab-width))
+
+		 ;; Hooks to Enable Tabs
+		 (add-hook 'prog-mode-hook 'enable-tabs)
+		 (add-hook 'org-mode-hook 'enable-tabs)
+		 (add-hook 'plantuml-mode-hook 'enable-tabs)
+		 (add-hook 'yaml-mode-hook 'enable-tabs)
+		 (add-hook 'json-mode-hook 'enable-tabs)
+
+		 ;; Hooks to Disable Tabs
+		 (add-hook 'lisp-mode-hook 'disable-tabs)
+		 (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+
+		 ;; Language-Specific Tweaks
+		 (setq-default python-indent-offset custom-tab-width) ;; Python
+		 (setq-default js-indent-level custom-tab-width)      ;; Javascript
+
+		 ;; Making electric-indent behave sanely
+		 (setq-default electric-indent-inhibit t)
+
+		 ;; Make the backspace properly erase the tab instead of
+		 ;; removing 1 space at a time.
+		 (setq backward-delete-char-untabify-method 'hungry)
+
+		 ;; ;; WARNING: This will change your life
+		 ;; ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
+		 ;; ;; This will also show trailing characters as they are useful to spot.
+		 ;; (setq whitespace-style '(face tabs tab-mark trailing))
+		 ;; (custom-set-faces
+		 ;;  '(whitespace-tab ((t (:foreground "#636363")))))
+		 ;; (setq whitespace-display-mappings
+		 ;;   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+		 ;; (global-whitespace-mode) ; Enable whitespace mode everywhere
+
+		 ;; END TABS CONFIG
+	 #+end_src
