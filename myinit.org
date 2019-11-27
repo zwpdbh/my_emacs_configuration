@@ -116,30 +116,29 @@
 ** set global key-bindings
    Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
    #+begin_src emacs-lisp
-	 ;; use cmd + n and cmd + p to select next and previous lines
-	 (global-set-key (kbd "s-n") (kbd "C-S-n"))
-	 (global-set-key (kbd "s-p") (kbd "C-S-p"))
-	 ;; use c-z to undo
-	 (global-set-key (kbd "C-z") #'undo)
+     ;; use cmd + n and cmd + p to select next and previous lines
+     (global-set-key (kbd "s-n") (kbd "C-S-n"))
+     (global-set-key (kbd "s-p") (kbd "C-S-p"))
+     ;; use c-z to undo
+     (global-set-key (kbd "C-z") #'undo)
 
-	 ;; do code comment 
-	 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+     ;; do code comment 
+     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
-	 ;; use c-c c-c to execute a lisp function
-	 (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
+     ;; use c-c c-c to execute a lisp function
+     (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-	 ;; keyboard macro
-	 (global-set-key (kbd "<f2>") #'kmacro-start-macro)
-	 (global-set-key (kbd "<f3>") #'kmacro-end-macro)
-	 (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
+     ;; keyboard macro
+     (global-set-key (kbd "<f2>") #'kmacro-start-macro)
+     (global-set-key (kbd "<f3>") #'kmacro-end-macro)
+     (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
 
 
-	 ;; use f10 to format whole buffer
-	 (global-set-key (kbd "<f10>") (progn
-					 #'mark-whole-buffer
-					 #'indent-region))
-	 ;; use f5 to revert the buffer
-	 ;; (global-set-key (kbd "<f6>") 'revert-buffer)
+     ;; use f10 to format whole buffer
+     (global-set-key (kbd "<f10>") (progn
+				     #'mark-whole-buffer
+				     #'indent-region))
+     ;; (global-set-key (kbd "<f6>") 'revert-buffer)
    #+end_src
 
    #+RESULTS:
@@ -241,12 +240,13 @@
    : t
 
 ** set tab width
-	 #+begin_src emacs-lisp
-		 (setq tab-width 2)
-	 #+end_src
+   #+begin_src emacs-lisp
+	   (add-hook 'after-init-hook '(lambda ()
+					 (setq tab-width 2)))
+   #+end_src
 
-	 #+RESULTS:
-	 : 2
+   #+RESULTS:
+   : 2
 
 ** indent guide
 *** Refs   
@@ -711,7 +711,7 @@
 	      treemacs-git-mode nil))
       :bind
       (:map global-map
-	    ([f9]        . treemacs)
+	    ([f8]        . treemacs)
 	    ("M-0"       . treemacs-select-window)
 	    ("C-x t 1"   . treemacs-delete-other-windows)
 	    ("C-x t t"   . treemacs)
@@ -741,17 +741,17 @@
   #+RESULTS:
 
 * expand-region
-    #+begin_src emacs-lisp
+  #+begin_src emacs-lisp
       (use-package expand-region
 	:ensure t
 	:config
 	(progn
 	  (global-set-key (kbd "C-=") 'er/expand-region)
 	  (global-set-key (kbd "C--") 'er/contract-region)))
-    #+end_src
+  #+end_src
 
-    #+RESULTS:
-    : t
+  #+RESULTS:
+  : t
 
 * ggtags
   #+begin_src emacs-lisp
@@ -1158,7 +1158,7 @@
 	    ;; 	     (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
 	    ;; 	     (add-hook 'before-save-hook #'json-mode-beautify nil 'local))))
 	    )))
-#+end_src
+    #+end_src
 
     #+RESULTS:
     : t
@@ -1293,32 +1293,32 @@
     #+RESULTS:
     : 2
 *** Javascript
-     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
-     * Tern is a stand-alone code-analysis engine for JavaScript
-     #+begin_src emacs-lisp
-       (use-package company-tern
-	 :ensure t
-	 :config
-	 (progn
-	   (use-package js2-mode
-	     :ensure t
-	     :config
-	     (progn
-	       (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-	       (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-	   (setq tern-command (append tern-command '("--no-port-file")))
-	   (add-hook 'js-mode-hook 
-		     #'(lambda ()
-			 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-			 (tern-mode)))))
-     #+end_src
+	  * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
+	  * Tern is a stand-alone code-analysis engine for JavaScript
+	    #+begin_src emacs-lisp
+	     (use-package company-tern
+	       :ensure t
+	       :config
+	       (progn
+		 (use-package js2-mode
+		   :ensure t
+		   :config
+		   (progn
+		     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+		     (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
+		 (setq tern-command (append tern-command '("--no-port-file")))
+		 (add-hook 'js-mode-hook 
+			   #'(lambda ()
+			       (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+			       (tern-mode)))))
+	    #+end_src
 
-     #+RESULTS:
-     : t
+	    #+RESULTS:
+	    : t
 
 **** Company-flow 
 
-       #+begin_src emacs-lisp
+     #+begin_src emacs-lisp
 	 (use-package company-flow
 	   :ensure t
 	   :config
@@ -1342,7 +1342,7 @@
 		   (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
 	     ;; invoke company-flow for certain mode
 	     (add-hook 'js-mode-hook #'flow/set-flow-executable t)))
-       #+end_src
+     #+end_src
 
 *** Web-mode for vue.js 
     #+BEGIN_SRC emacs-lisp
@@ -1506,28 +1506,29 @@
 * Org mode enhancement
 ** common settings
    #+BEGIN_SRC emacs-lisp
-		 (use-package org
-			 :ensure org-plus-contrib)
-		 (require 'ob)
-		 (require 'ob-js)
-		 (require 'org-eldoc)
-		 (require 'org-tempo)
+	 (use-package org
+	   :ensure org-plus-contrib)
+	 (require 'ob)
+	 (require 'ob-js)
+	 (require 'org-eldoc)
+	 (require 'org-tempo)
 
-		 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
-		 (eval-after-load 'org
-			 #'(lambda ()
-				 (global-set-key (kbd "<f12>") (kbd "C-c '"))
-				 (define-key org-mode-map [f8] #'org-toggle-inline-images)
-				 (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
+	 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
+	 (eval-after-load 'org
+	   #'(lambda ()
+		   (global-set-key (kbd "<f12>") (kbd "C-c '"))
+		   (define-key org-mode-map [f5] #'org-toggle-inline-images)
+		   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
 
-		 (define-key global-map "\C-cl" 'org-store-link)
-		 (define-key global-map "\C-ca" 'org-agenda)
+	 (define-key global-map "\C-cl" 'org-store-link)
+	 (define-key global-map "\C-ca" 'org-agenda)
 
-		 (add-hook 'org-mode-hook '(lambda ()
-							 (setq indent-tabs-mode t)			    
-							 ;; set org to user the current window when edit src code
-							 (setq org-src-window-setup 'current-window)
-							 (setq org-log-done t)))
+	 (add-hook 'org-mode-hook '(lambda ()
+					 (setq tab-width 4)
+					 (setq indent-tabs-mode t)			    
+					 ;; set org to user the current window when edit src code
+					 (setq org-src-window-setup 'current-window)
+					 (setq org-log-done t)))
 
    #+END_SRC
 
@@ -1967,13 +1968,14 @@
   : centaur-tabs-forward
 * Folding
   #+begin_src emacs-lisp
-	(use-package yafolding
-	  :ensure t
-	  :config
-	  (progn
-		(global-set-key (kbd "<f5>") 'yafolding-toggle-element)
-		(global-set-key (kbd "<f6>") 'yafolding-hide-parent-element)
-		(global-set-key (kbd "<f7>") 'yafolding-toggle-all)))
+    (use-package yafolding
+      :ensure t
+      :config
+      (progn
+	    (global-set-key (kbd "<f9>") 'yafolding-toggle-element)
+	    ;; (global-set-key (kbd "<f6>") 'yafolding-hide-parent-element)
+	    ;; (global-set-key (kbd "<f7>") 'yafolding-toggle-all)
+	    ))
   #+end_src
 * TODO Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
