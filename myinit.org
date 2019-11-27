@@ -979,7 +979,7 @@
 		 ;; define a group of common features needed by all lisp programming
 		 (defun zwpdbh/enhance-lisp-power ()
 			 (interactive)
-			 (highlight-indentation-mode t)
+			 (highlight-indent-guides-mode t)
 			 (my-lisp-power-mode t)
 			 (turn-on-eldoc-mode)
 			 (paredit-mode t)
@@ -987,19 +987,19 @@
 			 (aggressive-indent-mode t))
 		 ;; define a group of different lisp modes, so we could apply features on on them 
 		 (setq my-lisp-mode-set '(lisp-mode
-						lisp-interaction-mode
-						emacs-lisp-mode
-						ielm-mode
-						eval-expression-minibuffer-setup
-						common-lisp-mode
-						racket-mode
-						racket-repl-mode
-						scheme-mode
-						clojure-mode
-						geiser-repl-mode))
+															lisp-interaction-mode
+															emacs-lisp-mode
+															ielm-mode
+															eval-expression-minibuffer-setup
+															common-lisp-mode
+															racket-mode
+															racket-repl-mode
+															scheme-mode
+															clojure-mode
+															geiser-repl-mode))
 		 (dolist (each-mode my-lisp-mode-set)
 			 (add-hook (intern (format "%s-hook" each-mode))
-					 #'zwpdbh/enhance-lisp-power))
+								 #'zwpdbh/enhance-lisp-power))
    #+end_src
 
 * Other Programming
