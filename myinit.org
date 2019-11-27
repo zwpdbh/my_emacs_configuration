@@ -1989,6 +1989,6 @@
 	    ;; (global-set-key (kbd "<f7>") 'yafolding-toggle-all)
 	    ))
   #+end_src
-* TODO Lookup word definition
+* Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
