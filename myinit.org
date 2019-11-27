@@ -254,35 +254,38 @@
     * [[https://github.com/zk-phi/indent-guide][indent-guide]]
 *** Highlight-Indentation-for-Emacs
     #+BEGIN_SRC emacs-lisp
-	  (use-package highlight-indentation
-		:ensure t
-		:config
-		(progn
-		  ;; (set-face-background 'highlight-indentation-face "#262626")
-		  ;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-		  ;; define a global minor mode
-		  (define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
-			(lambda ()
-		  (highlight-indentation-mode 1)))
-		  (my-global-highlight-indentation-mode 1)))
+	  ;; (use-package highlight-indentation
+	  ;;       :ensure t
+	  ;;       :config
+	  ;;       (progn
+	  ;; 	;; (set-face-background 'highlight-indentation-face "#262626")
+	  ;; 	;; (set-face-background 'highlight-indentation-current-column-face "#808080")
+	  ;; 	;; define a global minor mode
+	  ;; 	(define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
+	  ;; 	      (lambda ()
+	  ;; 	(highlight-indentation-mode 1)))
+	  ;; 	(my-global-highlight-indentation-mode 1)))
     #+END_SRC
 
     #+RESULTS:
     : t
 *** highlight-indent-guides
     #+begin_src emacs-lisp
-      ;; (use-package highlight-indent-guides
-      ;;   :ensure t
-      ;;   :config 
-      ;;   (progn
-      ;;     (setq highlight-indent-guides-delay 0.1)
-      ;;     (setq highlight-indent-guides-method 'character)
-      ;;     (setq highlight-indent-guides-character ?\|)
-      ;;     ;; (define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
-      ;;     ;;   (lambda ()
-      ;;     ;; 	(highlight-indent-guides-mode 1)))
-      ;;     ;; (my-global-highlight-indent-guides-mode 1)
-      ;;     (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)))
+			(use-package highlight-indent-guides
+			:ensure t
+			:config 
+			(progn
+				(setq highlight-indent-guides-delay 0.1)
+
+				;; (setq highlight-indent-guides-method 'character)
+				;; (setq highlight-indent-guides-character ?\|)
+				;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+
+				(define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
+					(lambda ()
+						(highlight-indent-guides-mode 1)
+						(add-hook 'org-mode-hook '(lambda () (highlight-indent-guides-mode -1)))))
+				(my-global-highlight-indent-guides-mode 1)))
     #+end_src
 
 *** indent-guide
@@ -754,13 +757,13 @@
 
 * ggtags
   #+begin_src emacs-lisp
-    (use-package ggtags
-      :ensure t
-      :config
-      (progn
-	(add-hook 'ggtags-mode-hook
-		  (lambda ()
-		    (setq-local company-backends (add-to-list 'company-backends 'company-gtags))))))
+		(use-package ggtags
+			:ensure t
+			:config
+			(progn
+				(add-hook 'ggtags-mode-hook
+									(lambda ()
+										(setq-local company-backends (add-to-list 'company-backends 'company-gtags))))))
   #+end_src
 
   #+RESULTS:
@@ -1162,7 +1165,7 @@
     #+end_src
 
     #+RESULTS:
-	: t
+		: t
 
 *** yasnippet
     #+begin_src emacs-lisp
@@ -1198,13 +1201,13 @@
     
 ** Python development
 *** python-mode common settings
-	#+begin_src emacs-lisp
+		#+begin_src emacs-lisp
 	  (setq python-indent-offset 4)
 	  (defun python-custom-settings ()
 		(setq tab-width 4))
 
 	  (add-hook 'python-mode-hook 'python-custom-settings)
-	#+end_src
+		#+end_src
 *** with lsp 
     - References
       - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]] (using)
@@ -1212,30 +1215,30 @@
       - server: Microsoft Python Language Server
       - client: lsp-python-ms
       - installation
-	- install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
-	  - [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
-	- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
-    - Configuration with emacs
-      #+begin_src emacs-lisp
-	(use-package lsp-python-ms
-	  :ensure t
-	  :config
-	  (progn
-	    ;; for dev build of language server
-	    (setq lsp-python-ms-dir
-		  (expand-file-name "~/python-language-server/output/bin/Release/"))
-	    (setq lsp-python-ms-executable
-		  "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
-	    (setq python-shell-interpreter "python3")
-	    (add-hook 'python-mode-hook 'lsp-mode)
-	    (add-hook 'python-mode-hook #'smartparens-mode)))
-      #+end_src
+		- install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
+			- [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
+		- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
+			- Configuration with emacs
+				#+begin_src emacs-lisp
+		(use-package lsp-python-ms
+			:ensure t
+			:config
+			(progn
+				;; for dev build of language server
+				(setq lsp-python-ms-dir
+				(expand-file-name "~/python-language-server/output/bin/Release/"))
+				(setq lsp-python-ms-executable
+				"~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
+				(setq python-shell-interpreter "python3")
+				(add-hook 'python-mode-hook 'lsp-mode)
+				(add-hook 'python-mode-hook #'smartparens-mode)))
+				#+end_src
 
-      #+RESULTS:
-      : t
+				#+RESULTS:
+				: t
 
 
-   
+
 *** Debugging
     Debugg using pdb
     #+BEGIN_SRC python
@@ -1254,7 +1257,7 @@
       - install clang: =sudo apt install clang=
       - install clangd: [[https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd][Getting started with clangd]]
       - Configuration with emacs
-	#+begin_src emacs-lisp
+		#+begin_src emacs-lisp
 	  (use-package cquery
 	    :init
 	    (progn
@@ -1273,10 +1276,10 @@
 			  (when (derived-mode-p 'c-mode 'c++-mode)
 			    (ggtags-mode 1)
 			    (cquery//enable))))))
-	#+end_src
+		#+end_src
 
-	#+RESULTS:
-	: t
+		#+RESULTS:
+		: t
 
 *** CMakeLists
     #+begin_src emacs-lisp
@@ -1302,28 +1305,28 @@
     #+RESULTS:
     : 2
 *** Javascript
-	* flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
-	* Tern is a stand-alone code-analysis engine for JavaScript
-	  #+begin_src emacs-lisp
-	   (use-package company-tern
-		 :ensure t
-		 :config
-		 (progn
-	   (use-package js2-mode
-		 :ensure t
-		 :config
-		 (progn
-		   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-		   (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-	   (setq tern-command (append tern-command '("--no-port-file")))
-	   (add-hook 'js-mode-hook 
-			 #'(lambda ()
-				 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-				 (tern-mode)))))
-	  #+end_src
+		* flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
+		* Tern is a stand-alone code-analysis engine for JavaScript
+			#+begin_src emacs-lisp
+			 (use-package company-tern
+			 :ensure t
+			 :config
+			 (progn
+			 (use-package js2-mode
+			 :ensure t
+			 :config
+			 (progn
+				 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+				 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
+			 (setq tern-command (append tern-command '("--no-port-file")))
+			 (add-hook 'js-mode-hook 
+				 #'(lambda ()
+					 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+					 (tern-mode)))))
+			#+end_src
 
-	  #+RESULTS:
-	  : t
+			#+RESULTS:
+			: t
 
 **** Company-flow 
 
