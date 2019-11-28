@@ -1994,12 +1994,12 @@
 		 (add-hook 'prog-mode-hook 'enable-tabs)
 		 (add-hook 'org-mode-hook 'enable-tabs)
 		 (add-hook 'plantuml-mode-hook 'enable-tabs)
-		 (add-hook 'yaml-mode-hook 'enable-tabs)
 		 (add-hook 'json-mode-hook 'enable-tabs)
 
 		 ;; Hooks to Disable Tabs
 		 (add-hook 'lisp-mode-hook 'disable-tabs)
 		 (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+		 (add-hook 'yaml-mode-hook 'disable-tabs)
 
 		 ;; Language-Specific Tweaks
 		 (setq-default python-indent-offset custom-tab-width) ;; Python
