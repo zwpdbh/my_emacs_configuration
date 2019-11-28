@@ -268,23 +268,24 @@
      * [[https://www.fileformat.info/info/unicode/char/2264/index.htm][place to find the relation between unicode and symbol]]
    * configuration
    #+begin_src emacs-lisp
-     (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
-       (lambda ()
-	 (setq prettify-symbols-alist
-	       '(
-		 ("lambda" . 955) ; λ
-		 ("->" . 8594)    ; →
-		 ("<-" . 8592)    ; ←
-		 ("=>" . 8658)    ; ⇒
-		 ("<=" . 8656)    ; ⇐
-		 ("map" . 8614)   ; ↦
-		 ))
-	 (prettify-symbols-mode 1)))
-     (my-global-prettify-symbols-mode 1)
+		 (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
+			 (lambda ()
+				 (setq prettify-symbols-alist
+							 '(
+								 ("lambda" . 955) ; λ
+								 ("->" . 8594)    ; →
+								 ("<-" . 8592)    ; ←
+								 ("=>" . 8658)    ; ⇒
+								 ("<=" . 8656)    ; ⇐
+								 ("map" . 8614)   ; ↦
+								 ("checkmark" . 10003)   ; ✓             
+								 ))
+				 (prettify-symbols-mode 1)))
+		 (my-global-prettify-symbols-mode 1)
    #+end_src
 
    #+RESULTS:
-   : t
+	 : t
 
 ** set window to prefer split vertically
    #+begin_src emacs-lisp
