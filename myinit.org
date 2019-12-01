@@ -285,7 +285,7 @@
    #+end_src
 
    #+RESULTS:
-	 : t
+   : t
 
 ** set window to prefer split vertically
    #+begin_src emacs-lisp
@@ -1109,7 +1109,7 @@
     #+end_src
 
     #+RESULTS:
-		: t
+    : t
 
 *** yasnippet
     #+begin_src emacs-lisp
@@ -1151,27 +1151,27 @@
       - server: Microsoft Python Language Server
       - client: lsp-python-ms
       - installation
-		- install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
-			- [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
-		- clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
-			- Configuration with emacs
-				#+begin_src emacs-lisp
-		(use-package lsp-python-ms
-			:ensure t
-			:config
-			(progn
-				;; for dev build of language server
-				(setq lsp-python-ms-dir
-				(expand-file-name "~/python-language-server/output/bin/Release/"))
-				(setq lsp-python-ms-executable
-				"~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
-				(setq python-shell-interpreter "python3")
-				(add-hook 'python-mode-hook 'lsp-mode)
-				(add-hook 'python-mode-hook #'smartparens-mode)))
-				#+end_src
+        - install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
+          - [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
+        - clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
+          - Configuration with emacs
+            #+begin_src emacs-lisp
+  (use-package lsp-python-ms
+          :ensure t
+          :config
+          (progn
+                  ;; for dev build of language server
+                  (setq lsp-python-ms-dir
+                  (expand-file-name "~/python-language-server/output/bin/Release/"))
+                  (setq lsp-python-ms-executable
+                  "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
+                  (setq python-shell-interpreter "python3")
+                  (add-hook 'python-mode-hook 'lsp-mode)
+                  (add-hook 'python-mode-hook #'smartparens-mode)))
+            #+end_src
 
-				#+RESULTS:
-				: t
+            #+RESULTS:
+            : t
 
 
 
@@ -1193,7 +1193,7 @@
       - install clang: =sudo apt install clang=
       - install clangd: [[https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd][Getting started with clangd]]
       - Configuration with emacs
-		#+begin_src emacs-lisp
+	#+begin_src emacs-lisp
 	  (use-package cquery
 	    :init
 	    (progn
@@ -1212,10 +1212,10 @@
 			  (when (derived-mode-p 'c-mode 'c++-mode)
 			    (ggtags-mode 1)
 			    (cquery//enable))))))
-		#+end_src
+	#+end_src
 
-		#+RESULTS:
-		: t
+	#+RESULTS:
+	: t
 
 *** CMakeLists
     #+begin_src emacs-lisp
@@ -1241,28 +1241,28 @@
     #+RESULTS:
     : 2
 *** Javascript
-		* flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
-		* Tern is a stand-alone code-analysis engine for JavaScript
-			#+begin_src emacs-lisp
-			 (use-package company-tern
-			 :ensure t
-			 :config
-			 (progn
-			 (use-package js2-mode
-			 :ensure t
-			 :config
-			 (progn
-				 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-				 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-			 (setq tern-command (append tern-command '("--no-port-file")))
-			 (add-hook 'js-mode-hook 
-				 #'(lambda ()
-					 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-					 (tern-mode)))))
-			#+end_src
+    * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
+    * Tern is a stand-alone code-analysis engine for JavaScript
+      #+begin_src emacs-lisp
+             (use-package company-tern
+             :ensure t
+             :config
+             (progn
+             (use-package js2-mode
+             :ensure t
+             :config
+             (progn
+                     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+                     (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
+             (setq tern-command (append tern-command '("--no-port-file")))
+             (add-hook 'js-mode-hook 
+                     #'(lambda ()
+                             (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+                             (tern-mode)))))
+      #+end_src
 
-			#+RESULTS:
-			: t
+      #+RESULTS:
+      : t
 
 **** Company-flow 
 
@@ -1978,52 +1978,54 @@
     #+end_src
 
 ** indentation using tab/space
-	 #+begin_src emacs-lisp
-		 ;; START TABS CONFIG
-		 ;; Create a variable for our preferred tab width
-		 (setq custom-tab-width 2)
+   #+begin_src emacs-lisp
+     ;; START TABS CONFIG
+     ;; Create a variable for our preferred tab width
+     (setq custom-tab-width 2)
 
-		 ;; Two callable functions for enabling/disabling tabs in Emacs
-		 (defun disable-tabs () (setq indent-tabs-mode nil))
-		 (defun enable-tabs  ()
-			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-			 (setq indent-tabs-mode t)
-			 (setq tab-width custom-tab-width))
+     ;; Two callable functions for enabling/disabling tabs in Emacs
+     (defun disable-tabs () (setq indent-tabs-mode nil))
+     (defun enable-tabs  ()
+       (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+       (setq indent-tabs-mode t)
+       (setq tab-width custom-tab-width))
 
-		 ;; Hooks to Enable Tabs
-		 (add-hook 'prog-mode-hook 'enable-tabs)
-		 (add-hook 'org-mode-hook 'enable-tabs)
-		 (add-hook 'plantuml-mode-hook 'enable-tabs)
-		 (add-hook 'json-mode-hook 'enable-tabs)
+     ;; Hooks to Enable Tabs
+     ;; (add-hook 'prog-mode-hook 'enable-tabs)
+     (add-hook 'prog-mode-hook 'disable-tabs)
+     ;; (add-hook 'org-mode-hook 'enable-tabs)
+     (add-hook 'org-mode-hook 'disable-tabs)
+     (add-hook 'plantuml-mode-hook 'disable-tabs)
+     (add-hook 'json-mode-hook 'disable-tabs)
 
-		 ;; Hooks to Disable Tabs
-		 (add-hook 'lisp-mode-hook 'disable-tabs)
-		 (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
-		 (add-hook 'yaml-mode-hook 'disable-tabs)
+     ;; Hooks to Disable Tabs
+     (add-hook 'lisp-mode-hook 'disable-tabs)
+     (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+     (add-hook 'yaml-mode-hook 'disable-tabs)
 
-		 ;; Language-Specific Tweaks
-		 (setq-default python-indent-offset custom-tab-width) ;; Python
-		 ;; (setq-default js-indent-level custom-tab-width)      ;; Javascript
+     ;; Language-Specific Tweaks
+     (setq-default python-indent-offset custom-tab-width) ;; Python
+     ;; (setq-default js-indent-level custom-tab-width)      ;; Javascript
 
-		 ;; Making electric-indent behave sanely
-		 (setq-default electric-indent-inhibit t)
+     ;; Making electric-indent behave sanely
+     (setq-default electric-indent-inhibit t)
 
-		 ;; Make the backspace properly erase the tab instead of
-		 ;; removing 1 space at a time.
-		 (setq backward-delete-char-untabify-method 'hungry)
+     ;; Make the backspace properly erase the tab instead of
+     ;; removing 1 space at a time.
+     (setq backward-delete-char-untabify-method 'hungry)
 
-		 ;; ;; WARNING: This will change your life
-		 ;; ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
-		 ;; ;; This will also show trailing characters as they are useful to spot.
-		 ;; (setq whitespace-style '(face tabs tab-mark trailing))
-		 ;; (custom-set-faces
-		 ;;  '(whitespace-tab ((t (:foreground "#636363")))))
-		 ;; (setq whitespace-display-mappings
-		 ;;   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
-		 ;; (global-whitespace-mode) ; Enable whitespace mode everywhere
+     ;; ;; WARNING: This will change your life
+     ;; ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
+     ;; ;; This will also show trailing characters as they are useful to spot.
+     ;; (setq whitespace-style '(face tabs tab-mark trailing))
+     ;; (custom-set-faces
+     ;;  '(whitespace-tab ((t (:foreground "#636363")))))
+     ;; (setq whitespace-display-mappings
+     ;;   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+     ;; (global-whitespace-mode) ; Enable whitespace mode everywhere
 
-		 ;; END TABS CONFIG
-	 #+end_src
+     ;; END TABS CONFIG
+   #+end_src
 * Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
