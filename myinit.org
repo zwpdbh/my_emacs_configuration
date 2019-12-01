@@ -1068,44 +1068,44 @@
 *** Format
     !!! Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
-			(use-package clang-format
-			:ensure t
-			:config
-			(progn
-				(defun clang-format-buffer-smart ()
-					"Reformat buffer if .clang-format exists in the projectile root."
-					(when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-						(clang-format-buffer)))
+      (use-package clang-format
+        :ensure t
+        :config
+        (progn
+          (defun clang-format-buffer-smart ()
+            "Reformat buffer if .clang-format exists in the projectile root."
+            (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+              (clang-format-buffer)))
 
-				(dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
-					(add-hook 
-					 each-hook 
-					 #'(lambda ()
-							 (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
+          (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
+            (add-hook 
+             each-hook 
+             #'(lambda ()
+                 (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
 
-				(use-package yaml-mode
-					:ensure t
-					:config
-					(progn
-						(add-hook 
-						 'yaml-mode-hook 
-						 #'(lambda ()
-								 (setq yaml-indent-offset 2)
-								 (smartparens-mode)
-								 (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+          (use-package yaml-mode
+            :ensure t
+            :config
+            (progn
+              (add-hook 
+               'yaml-mode-hook 
+               #'(lambda ()
+                   (setq yaml-indent-offset 2)
+                   (smartparens-mode)
+                   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
 
-				;; disable clang-format in json-mode
-				(use-package json-mode
-					:ensure t
-					:config
-					(progn
-						(add-hook 
-						 'json-mode-hook 
-						 #'(lambda ()
-								 (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
-								 ;; (add-hook 'before-save-hook #'json-mode-beautify nil 'local)
-								 )))
-					))) 
+          ;; disable clang-format in json-mode
+          (use-package json-mode
+            :ensure t
+            :config
+            (progn
+              (add-hook 
+               'json-mode-hook 
+               #'(lambda ()
+                   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
+                   ;; (add-hook 'before-save-hook #'json-mode-beautify nil 'local)
+                   )))
+            ))) 
     #+end_src
 
     #+RESULTS:
@@ -1424,25 +1424,25 @@
       ;; 		    (electric-spacing-mode))))))
 
       (use-package ess
-	:ensure t
-	:init (require 'ess-site)
-	:config
-	(progn
-	  (setq inferior-R-program-name "/usr/local/bin/R"
-		comint-input-ring-size 1000
-		ess-indent-level 4
-		ess-arg-function-offset 4
-		ess-else-offset 4
-		ess-continued-statement-offset 2
-		truncate-lines t
-		comment-column 4)		;
+        :ensure t
+        :init (require 'ess-site)
+        :config
+        (progn
+          (setq inferior-R-program-name "/usr/local/bin/R"
+                comint-input-ring-size 1000
+                ess-indent-level 4
+                ess-arg-function-offset 4
+                ess-else-offset 4
+                ess-continued-statement-offset 2
+                truncate-lines t
+                comment-column 4)		;
 
-	  (use-package electric-spacing
-	    :ensure t)
+          (use-package electric-spacing
+            :ensure t)
 
-	  (add-hook 'ess-mode-hook 
-		    #'(lambda () 
-			(electric-spacing-mode)))))
+          (add-hook 'ess-mode-hook 
+                    #'(lambda () 
+                        (electric-spacing-mode)))))
     #+end_src
 
     #+RESULTS:
@@ -1739,19 +1739,20 @@
 
 ** plantuml
    #+begin_src emacs-lisp
-		 (use-package plantuml-mode
-			 :ensure t
-			 :config
-			 (progn
-				 (setq plantuml-default-exec-mode 'jar)
-				 (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
-				 (setq plantuml-output-type "svg")
-				 ;; needed by ob-plantuml.el
-				 (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
-				 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-				 (add-hook 'plantuml-mode-hook '(lambda ()
-									(smartparens-mode)
-									(setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
+     (use-package plantuml-mode
+       :ensure t
+       :config
+       (progn
+         (setq plantuml-default-exec-mode 'jar)
+         (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
+         (setq plantuml-output-type "svg")
+         ;; needed by ob-plantuml.el
+         (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
+         (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+         (add-hook 'plantuml-mode-hook '(lambda ()
+                                          (setq plantuml-indent-level 2)
+                                          (smartparens-mode)
+                                          (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
 
    #+RESULTS:
@@ -1946,25 +1947,22 @@
     : t
 *** highlight-indent-guides
     #+begin_src emacs-lisp
-			(use-package highlight-indent-guides
-			:ensure t
-			:config 
-			(progn
-				(setq highlight-indent-guides-delay 0.1)
+      (use-package highlight-indent-guides
+        :ensure t
+        :config 
+        (progn
+          (setq highlight-indent-guides-delay 0.1)
 
-				;; (setq highlight-indent-guides-method 'character)
-				;; (setq highlight-indent-guides-character ?\|)
-				(add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
-				(add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
-				(add-hook 'json-mode-hook 'highlight-indent-guides-mode)
-				(add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
-	
-				;; (define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
-				;; 	(lambda ()
-				;; 		(highlight-indent-guides-mode 1)
-				;; 		(add-hook 'org-mode-hook '(lambda () (highlight-indent-guides-mode -1)))))
-				;; (my-global-highlight-indent-guides-mode 1)
-				))
+          ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+          ;; (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
+          ;; (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
+          ;; (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
+
+          (define-globalized-minor-mode my-global-highlight-indent-guides-mode highlight-indent-guides-mode
+            (lambda ()
+              (highlight-indent-guides-mode 1)
+              (add-hook 'org-mode-hook '(lambda () (highlight-indent-guides-mode -1)))))
+          (my-global-highlight-indent-guides-mode 1)))
     #+end_src
 
 *** indent-guide
@@ -1984,21 +1982,28 @@
      (setq custom-tab-width 2)
 
      ;; Two callable functions for enabling/disabling tabs in Emacs
-     (defun disable-tabs () (setq indent-tabs-mode nil))
+     (defun disable-tabs () 
+       (progn
+         (setq-default indent-tabs-mode nil)
+         (setq indent-tabs-mode nil)))
+
      (defun enable-tabs  ()
-       (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-       (setq indent-tabs-mode t)
-       (setq tab-width custom-tab-width))
+       (progn
+         (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+         (setq-default tab-width custom-tab-width)
+         (setq tab-width custom-tab-width)
+         (setq indent-tabs-mode t)))
 
      ;; Hooks to Enable Tabs
      ;; (add-hook 'prog-mode-hook 'enable-tabs)
-     (add-hook 'prog-mode-hook 'disable-tabs)
      ;; (add-hook 'org-mode-hook 'enable-tabs)
+     ;; (add-hook 'plantuml-mode-hook 'enable-tabs)
+
+     ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
+     (add-hook 'prog-mode-hook 'disable-tabs)
      (add-hook 'org-mode-hook 'disable-tabs)
      (add-hook 'plantuml-mode-hook 'disable-tabs)
      (add-hook 'json-mode-hook 'disable-tabs)
-
-     ;; Hooks to Disable Tabs
      (add-hook 'lisp-mode-hook 'disable-tabs)
      (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
      (add-hook 'yaml-mode-hook 'disable-tabs)
@@ -2008,7 +2013,7 @@
      ;; (setq-default js-indent-level custom-tab-width)      ;; Javascript
 
      ;; Making electric-indent behave sanely
-     (setq-default electric-indent-inhibit t)
+     (setq-default electric-indent-inhibit nil)
 
      ;; Make the backspace properly erase the tab instead of
      ;; removing 1 space at a time.
@@ -2026,6 +2031,10 @@
 
      ;; END TABS CONFIG
    #+end_src
+
+   #+RESULTS:
+   : hungry
+
 * Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
