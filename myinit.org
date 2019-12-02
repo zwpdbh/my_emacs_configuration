@@ -278,7 +278,7 @@
                  ("=>" . 8658)    ; ⇒
                  ("<=" . 8656)    ; ⇐
                  ("map" . 8614)   ; ↦
-                 ("checkmark" . 10004)   ; ✔    
+                 ("checkmark" . 10003)   ; ✓
                  ))
          (prettify-symbols-mode 1)))
      (my-global-prettify-symbols-mode 1)
