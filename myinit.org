@@ -1750,7 +1750,6 @@
          (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
          (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
          (add-hook 'plantuml-mode-hook '(lambda ()
-                                          (setq plantuml-indent-level 2)
                                           (smartparens-mode)
                                           (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
@@ -1972,7 +1971,7 @@
    #+begin_src emacs-lisp
      ;; START TABS CONFIG
      ;; Create a variable for our preferred tab width
-     (setq custom-tab-width 2)
+     (setq custom-indent-width 2)
 
      ;; Two callable functions for enabling/disabling tabs in Emacs
      (defun disable-tabs () 
@@ -1982,28 +1981,33 @@
 
      (defun enable-tabs  ()
        (progn
-         (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-         (setq-default tab-width custom-tab-width)
-         (setq tab-width custom-tab-width)
+         ;; (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+         (setq-default tab-width custom-indent-width)
+         (setq tab-width custom-indent-width)
          (setq indent-tabs-mode t)))
 
      ;; Hooks to Enable Tabs
      ;; (add-hook 'prog-mode-hook 'enable-tabs)
      ;; (add-hook 'org-mode-hook 'enable-tabs)
-     ;; (add-hook 'plantuml-mode-hook 'enable-tabs)
+     (add-hook 'plantuml-mode-hook '(lambda ()
+                                      ;; plantuml seems always use tabs to do indent format
+                                      (enable-tabs)
+                                      (setq plantuml-indent-level custom-indent-width)))
 
      ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
      (add-hook 'prog-mode-hook 'disable-tabs)
      (add-hook 'org-mode-hook 'disable-tabs)
-     (add-hook 'plantuml-mode-hook 'disable-tabs)
      (add-hook 'json-mode-hook 'disable-tabs)
      (add-hook 'lisp-mode-hook 'disable-tabs)
      (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
      (add-hook 'yaml-mode-hook 'disable-tabs)
 
      ;; Language-Specific Tweaks
-     (setq-default python-indent-offset custom-tab-width) ;; Python
-     ;; (setq-default js-indent-level custom-tab-width)      ;; Javascript
+     (add-hook 'python-mode-hook '(lambda ()
+                                    (setq-default python-indent-offset custom-indent-width)
+                                    (setq python-indent-offset custom-indent-width)))
+
+     ;; (setq-default js-indent-level custom-indent-width)      ;; Javascript
 
      ;; Making electric-indent behave sanely
      (setq-default electric-indent-inhibit nil)
