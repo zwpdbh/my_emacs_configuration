@@ -1630,6 +1630,25 @@
                        "%?\n")          ;Place th
                      "\n")))
 
+
+      (defun org-hugo-new-post-capture-template ()
+        "Returns `org-capture' template string for new Hugo post.
+      See `org-capture-templates' for more information."
+        (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+               (date (format-time-string (org-time-stamp-format  :inactive) (org-current-time)))
+               (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+               (fname (org-hugo-slug title)))
+          (mapconcat #'identity
+                     `(
+                       ,(concat "* TODO " title)
+                       ":PROPERTIES:"
+                       ,(concat ":EXPORT_FILE_NAME: " fname)
+                       ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+                       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":foo bar :baz zoo :alpha 1 :beta \"two words\" :gamma 10" )
+                       ":END:"
+                       "%?\n")          ;Place th
+                     "\n")))
+
       (defvar hugo-org-path "~/code/my-site/content-org/"
         "define the place where we put our org files for hugo")
       (defvar org-capture-todo (concat hugo-org-path "todo.org"))
@@ -1639,7 +1658,7 @@
       (defvar org-capture-software (concat hugo-org-path "software-engineering.org"))
       (defvar org-capture-tools (concat hugo-org-path "tools.org"))
       (defvar org-capture-work (concat hugo-org-path "work-notes.org"))
-
+      (defvar org-capture-test (concat hugo-org-path "test.org"))
       ;; (defvar hugo-capture-orgs
       ;;   (list
       ;;    (cons 'computer (concat hugo-org-path "computer-science.org"))
@@ -1653,6 +1672,10 @@
             '(
               ("t" "todo" entry (file org-capture-todo)
                "* TODO %? :TODO: \n Added:%T\n"
+               :clock-in t :clock-resume t)
+        
+              ("ht" "test" entry (file org-capture-test)
+               (function org-hugo-new-post-capture-template)
                :clock-in t :clock-resume t)
 
               ("h" "Hugo post")
