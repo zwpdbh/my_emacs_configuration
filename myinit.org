@@ -1649,15 +1649,16 @@
       ;;    (cons 'tools (concat hugo-org-path "tools.org"))
       ;;    (cons 'work (concat hugo-org-path "work-notes.org"))))
 
+      (setq org-export-with-author nil)
       (setq org-capture-templates
             '(
               ("t" "todo" entry (file org-capture-todo)
                "* TODO %? :TODO: \n Added:%T\n"
                :clock-in t :clock-resume t)
 
-              ("ht" "test" entry (file org-capture-test)
-               (function org-hugo-new-subtree-post-capture-template)
-               :clock-in t :clock-resume t)
+              ;; ("ht" "test" entry (file org-capture-test)
+              ;;  (function org-hugo-new-subtree-post-capture-template)
+              ;;  :clock-in t :clock-resume t)
 
               ("h" "Hugo post")
 
