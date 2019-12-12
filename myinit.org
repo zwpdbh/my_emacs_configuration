@@ -1630,7 +1630,7 @@
                        "%?\n")          ;Place th
                      "\n")))
 
-      (defvar hugo-org-path "~/code/my-site/content-org/"
+      (defvar hugo-org-path "~/code/capture-org/"
         "define the place where we put our org files for hugo")
       (defvar org-capture-todo (concat hugo-org-path "todo.org"))
       (defvar org-capture-computer-science (concat hugo-org-path "computer-science.org"))
