@@ -1625,7 +1625,7 @@
                        ":PROPERTIES:"
                        ,(concat ":EXPORT_FILE_NAME: " fname)
                        ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
-                       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":foo bar :baz zoo :alpha 1 :beta \"two words\" :gamma 10" )
+                       ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":weight 10 :autoCollapseToc true :mathjax true :contentCopyright MIT :author \"Z wei\"")
                        ":END:"
                        "%?\n")          ;Place th
                      "\n")))
