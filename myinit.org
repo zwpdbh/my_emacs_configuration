@@ -113,13 +113,19 @@
 
    #+RESULTS:
 
-** Powerline
+** Mode line
    #+begin_src emacs-lisp
      (use-package powerline
        :ensure t
        :config
        (progn
          (powerline-default-theme)))
+
+     (use-package smart-mode-line
+       :ensure t
+       :config
+       (setq sml/theme 'dark)
+       (sml/setup))
    #+end_src
 
 ** alight commands
