@@ -124,9 +124,12 @@
      (use-package smart-mode-line
        :ensure t
        :config
-       (setq sml/theme 'dark)
+       (setq sml/no-confirm-load-theme t)
        (sml/setup))
    #+end_src
+
+   #+RESULTS:
+   : t
 
 ** alight commands
    #+BEGIN_SRC emacs-lisp
@@ -186,7 +189,7 @@
 ** set buffer and shell
    #+begin_src emacs-lisp
      ;; no need for prompt for confirm when execute code block in org-mode
-     (setq org-confirm-babel-evaluate nil)
+     ;; (setq org-confirm-babel-evaluate nil)
 
      ;; make sure environment variables inside Emacs look the same as in the user's shell
      (use-package exec-path-from-shell

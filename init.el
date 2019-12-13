@@ -1,3 +1,4 @@
+(setq gc-cons-threshold 10000000)
 (require 'cl)
 (require 'package)
 (setq package-enable-at-startup nil)
