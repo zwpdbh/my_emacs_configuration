@@ -113,6 +113,15 @@
 
    #+RESULTS:
 
+** Powerline
+   #+begin_src emacs-lisp
+     (use-package powerline
+       :ensure t
+       :config
+       (progn
+         (powerline-default-theme)))
+   #+end_src
+
 ** alight commands
    #+BEGIN_SRC emacs-lisp
      (add-hook 'align-load-hook #'(lambda ()
@@ -2034,18 +2043,6 @@
 
    #+RESULTS:
    : hungry
-
-* Powerline
-  #+begin_src emacs-lisp
-    (use-package powerline
-      :ensure t
-      :config
-      (progn
-        (powerline-default-theme)))
-  #+end_src
-
-  #+RESULTS:
-  : t
 
 * Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
