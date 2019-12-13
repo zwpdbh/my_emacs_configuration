@@ -8,20 +8,37 @@
     ;; kaolin-themes with kaolin-galaxy
     ;; monokai-theme
 
-    (use-package gruvbox-theme
+    ;; (use-package gruvbox-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'gruvbox-dark-hard t)
+    ;;     (add-hook 'after-init-hook 
+    ;;               (lambda ()
+    ;;                 ;; M-x customize-face
+    ;;                 ;; show-paren-match to view different options #D4FF00
+    ;;                 (set-face-attribute 'show-paren-match nil
+    ;;                                     :underline t
+    ;;                                     :foreground "#D4FF00"
+    ;;                                     :background nil
+    ;;                                     :weight 'ultrabold)))))
+
+
+    (use-package one-themes
       :ensure t
       :config
       (progn
-	(load-theme 'gruvbox-dark-hard t)
-	(add-hook 'after-init-hook 
-		  (lambda ()
-		    ;; M-x customize-face
-		    ;; show-paren-match to view different options #D4FF00
-		    (set-face-attribute 'show-paren-match nil
-					:underline t
-					:foreground "#D4FF00"
-					:background nil
-					:weight 'ultrabold)))))
+        (load-theme 'one-light t)
+        (add-hook 'after-init-hook 
+                  (lambda ()
+                    ;; M-x customize-face
+                    ;; show-paren-match to view different options #D4FF00
+                    (set-face-attribute 'show-paren-match nil
+                                        :underline t
+                                        :foreground "green"
+                                        :background nil
+                                        :weight 'ultrabold)))))
+
 
     ;; (use-package doom-themes
     ;;   :ensure t
@@ -1244,21 +1261,21 @@
     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
     * Tern is a stand-alone code-analysis engine for JavaScript
       #+begin_src emacs-lisp
-             (use-package company-tern
-             :ensure t
-             :config
-             (progn
-             (use-package js2-mode
-             :ensure t
-             :config
-             (progn
-                     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-                     (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-             (setq tern-command (append tern-command '("--no-port-file")))
-             (add-hook 'js-mode-hook 
-                     #'(lambda ()
-                             (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-                             (tern-mode)))))
+        (use-package company-tern
+        :ensure t
+        :config
+        (progn
+        (use-package js2-mode
+        :ensure t
+        :config
+        (progn
+                (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+                (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
+        (setq tern-command (append tern-command '("--no-port-file")))
+        (add-hook 'js-mode-hook 
+                #'(lambda ()
+                        (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+                        (tern-mode)))))
       #+end_src
 
       #+RESULTS:
@@ -1502,21 +1519,22 @@
 
      ;; since yaml mode is not supported by org, create the command yourself
      (defun org-babel-execute:yaml (body params) body)
+     (defun org-babel-execute:json (body params) body)
 
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)
-            (clojure . t)
-            (scheme . t)
-            (C . t)
-            (shell . t)
-            (js . t)
-            (python . t)
-            (R . t)
-            (http . t)
-            (latex . t)
-            (dot . t)
-            (plantuml . t)))
+        (clojure . t)
+        (scheme . t)
+        (C . t)
+        (shell . t)
+        (js . t)
+        (python . t)
+        (R . t)
+        (http . t)
+        (latex . t)
+        (dot . t)
+        (plantuml . t)))
 
      (add-hook 'org-mode-hook #'(lambda ()
                                       (progn
