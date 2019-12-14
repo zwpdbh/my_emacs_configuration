@@ -153,6 +153,7 @@
 
      ;; make sure environment variables inside Emacs look the same as in the user's shell
      (use-package exec-path-from-shell
+       :defer 2
        :ensure t
        :config
        (progn
@@ -326,7 +327,8 @@
 
 
     (use-package swiper
-      :defer 1
+      :after (ivy counsel)
+      :defer
       :ensure try
       :bind (("C-s" . swiper)
              ("C-c C-r" . ivy-resume)
@@ -387,9 +389,8 @@
      ;; Show matching arenthesis
      (show-paren-mode 1)
      (setq show-paren-delay 0)
-
      (require 'paren)
-     (set-face-background 'show-paren-match (face-background 'default))
+     ;; (set-face-background 'show-paren-match (face-background 'default))
    #+end_src
 
    #+RESULTS:
@@ -398,16 +399,17 @@
 ** smartparens
    [[https://github.com/Fuco1/smartparens][smartparens]] is an excellent (newer) alternative to paredit. Many Clojure hackers have adopted it recently and you might want to give it a try as well.
    #+BEGIN_SRC emacs-lisp
-		 (use-package smartparens
-			 :ensure t
-			 :config
-			 (progn
-				 (add-hook 'js-mode-hook #'smartparens-mode)
-				 (add-hook 'typescript-mode-hook #'smartparens)
-				 (add-hook 'c-mode-hook #'smartparens-mode)
-				 (add-hook 'c++-mode-hook #'smartparens-mode)
-				 (add-hook 'web-mode-hook #'smartparens-mode)
-				 (add-hook 'shell-script-mode 'smartparens-mode)))
+     (use-package smartparens
+       :defer
+       :ensure t
+       :config
+       (progn
+         (add-hook 'js-mode-hook #'smartparens-mode)
+         (add-hook 'typescript-mode-hook #'smartparens)
+         (add-hook 'c-mode-hook #'smartparens-mode)
+         (add-hook 'c++-mode-hook #'smartparens-mode)
+         (add-hook 'web-mode-hook #'smartparens-mode)
+         (add-hook 'shell-script-mode 'smartparens-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -452,7 +454,7 @@
               helm-recentf-fuzzy-match t
               helm-completion-in-region-fuzzy-match t
               helm-imenu-fuzzy-match t
-          
+
               ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
               helm-semantic-fuzzy-match t)
 
