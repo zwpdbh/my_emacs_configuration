@@ -29,11 +29,11 @@
     ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package almost-mono-themes
+    (use-package zeno-theme
       :ensure t
       :config
       (progn
-        (load-theme 'almost-mono-white t)
+        (load-theme 'zeno t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
@@ -1989,7 +1989,7 @@
         (progn
           (setq highlight-indent-guides-delay 0.1)
 
-          ;; (setq highlight-indent-guides-responsive "top")
+          (setq highlight-indent-guides-responsive "top")
           ;; (setq highlight-indent-guides-auto-odd-face-perc 0)
           ;; (setq highlight-indent-guides-auto-even-face-perc 0)
 
