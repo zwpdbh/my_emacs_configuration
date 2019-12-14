@@ -618,46 +618,40 @@
       :defer t
       :ensure t
       :init
-      (progn
-        (use-package lv
-          :ensure t)
-        (use-package hydra
-          :ensure t)
-        (with-eval-after-load 'winum
-          (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+      (use-package lv
+        :defer t
+        :ensure t)
+      (use-package hydra
+        :defer t
+        :ensure t)
+      (with-eval-after-load 'winum
+        (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+      (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+            treemacs-file-event-delay           5000
+            treemacs-follow-after-init          t
+            treemacs-follow-recenter-distance   0.1
+            treemacs-goto-tag-strategy          'refetch-index
+            treemacs-indentation                2
+            ;; indent guide
+            ;; treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+            ;; treemacs-indentation-string         "|"
+            treemacs-is-never-other-window      nil
+            treemacs-no-png-images              nil
+            treemacs-project-follow-cleanup     nil
+            treemacs-file-follow-delay          nil
+            treemacs-recenter-after-file-follow nil
+            treemacs-recenter-after-tag-follow  nil
+            treemacs-show-hidden-files          t
+            treemacs-silent-filewatch           nil
+            treemacs-silent-refresh             nil
+            treemacs-sorting                    'alphabetic-desc
+            treemacs-tag-follow-cleanup         t
+            treemacs-tag-follow-delay           1.5
+            treemacs-width                      40
+            treemacs-follow-mode                t
+            treemacs-filewatch-mode             t
+            treemacs-git-mode nil)
       :config
-      (progn
-        ;; (pcase (cons (not (null (executable-find "git")))
-        ;;              (not (null (executable-find "python3"))))
-        ;;   (`(t . t)
-        ;;    (treemacs-git-mode 'deferred))
-        ;;   (`(t . _)
-        ;;    (treemacs-git-mode 'simple)))
-        (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-              treemacs-file-event-delay           5000
-              treemacs-follow-after-init          t
-              treemacs-follow-recenter-distance   0.1
-              treemacs-goto-tag-strategy          'refetch-index
-              treemacs-indentation                2
-              ;; indent guide
-              ;; treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
-              ;; treemacs-indentation-string         "|"
-              treemacs-is-never-other-window      nil
-              treemacs-no-png-images              nil
-              treemacs-project-follow-cleanup     nil
-              treemacs-file-follow-delay          nil
-              treemacs-recenter-after-file-follow nil
-              treemacs-recenter-after-tag-follow  nil
-              treemacs-show-hidden-files          t
-              treemacs-silent-filewatch           nil
-              treemacs-silent-refresh             nil
-              treemacs-sorting                    'alphabetic-desc
-              treemacs-tag-follow-cleanup         t
-              treemacs-tag-follow-delay           1.5
-              treemacs-width                      40
-              treemacs-follow-mode                t
-              treemacs-filewatch-mode             t
-              treemacs-git-mode nil))
       :bind
       (:map global-map
             ([f8]        . treemacs)
@@ -670,21 +664,19 @@
 
     (use-package treemacs-evil
       :defer t
-      :after treemacs evil
+      :after (treemacs evil) 
       :ensure t)
 
     (use-package treemacs-projectile
       :defer t
-      :after treemacs projectile
+      :after (treemacs projectile)
       :ensure t)
 
     (use-package treemacs-icons-dired
       :defer t
-      :after treemacs dired
+      :after (treemacs dired)
       :ensure t
       :config (treemacs-icons-dired-mode))
-
-
   #+end_src
 
   #+RESULTS:
