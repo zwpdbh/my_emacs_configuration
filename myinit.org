@@ -1522,6 +1522,8 @@
 
      ;; http request in org-mode babel, requires curl
      (use-package ob-http
+       :after (org)
+       :defer t
        :ensure t)
 
      ;; since yaml mode is not supported by org, create the command yourself
@@ -1552,7 +1554,7 @@
 
      (eval-after-load 'org
        #'(lambda ()
-               (progn
+           (progn
              (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
              (add-to-list 'org-structure-template-alist '("py" . "src python"))
              (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
