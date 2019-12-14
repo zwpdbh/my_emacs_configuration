@@ -565,11 +565,12 @@
 * Rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
+      :defer
       :ensure t
       :config
       (progn
-	(add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
-	(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
+        (add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
+        (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
   #+END_SRC
 
   #+RESULTS:
@@ -597,6 +598,7 @@
 * Magit
   #+begin_src emacs-lisp
     (use-package magit
+      :bind (("C-x g" . magit))
       :ensure t)
   #+end_src
 
