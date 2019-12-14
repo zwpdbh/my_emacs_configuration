@@ -1965,12 +1965,11 @@
 * Folding
   #+begin_src emacs-lisp
     (use-package yafolding
-      :ensure t
-      :config
-      (progn
-        ;; (global-set-key (kbd "<f6>") 'yafolding-hide-parent-element)
-        ;; (global-set-key (kbd "<f7>") 'yafolding-toggle-all)
-        (global-set-key (kbd "<f9>") 'yafolding-toggle-element)))
+      :defer t
+      :init (global-set-key (kbd "<f9>") 'yafolding-toggle-element)
+      :commands (yafolding-toggle-element)
+      :ensure t)
+
   #+end_src
 * Indentation
 ** indent guide
