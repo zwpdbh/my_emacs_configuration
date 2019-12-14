@@ -8,20 +8,31 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package plan9-theme
-      :ensure t
-      :config
-      (progn
-        (load-theme 'plan9 t)
-        (add-hook 'after-init-hook 
-                  (lambda ()
-                    ;; M-x customize-face
-                    ;; show-paren-match to view different options #D4FF00
-                    (set-face-attribute 'show-paren-match nil
-                                        :underline t
-                                        :foreground "SteelBlue"
-                                        :background nil
-                                        :weight 'ultrabold)))))
+    ;; (use-package plan9-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'plan9 t)
+    ;;     (add-hook 'after-init-hook 
+    ;;               (lambda ()
+    ;;                 ;; M-x customize-face
+    ;;                 ;; show-paren-match to view different options #D4FF00
+    ;;                 (set-face-attribute 'show-paren-match nil
+    ;;                                     :underline t
+    ;;                                     :foreground "SteelBlue"
+    ;;                                     :background nil
+    ;;                                     :weight 'ultrabold)))))
+
+    (add-hook 'after-init-hook 
+              (lambda ()
+                ;; M-x customize-face
+                ;; show-paren-match to view different options #D4FF00
+                (set-background-color "honeydew")
+                (set-face-attribute 'show-paren-match nil
+                                    :underline t
+                                    :foreground "HotPink"
+                                    :background nil
+                                    :weight 'ultrabold)))
   #+end_src
 
   #+RESULTS:
@@ -155,28 +166,29 @@
 ** set line number
    #+BEGIN_SRC emacs-lisp
      (use-package nlinum
+       :defer 1
        :ensure t
        :config
        (progn
-	 (global-nlinum-mode t)
-	 ;; Preset `nlinum-format' for minimum width.
-	 (defun my-nlinum-mode-hook ()
-	   (when nlinum-mode
-	     (setq-local nlinum-format
-			 (concat "%" (number-to-string
-				      ;; Guesstimate number of buffer lines.
-				      (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-				 "d"))))
-	 (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
+         (global-nlinum-mode t)
+         ;; Preset `nlinum-format' for minimum width.
+         (defun my-nlinum-mode-hook ()
+           (when nlinum-mode
+             (setq-local nlinum-format
+                         (concat "%" (number-to-string
+                                      ;; Guesstimate number of buffer lines.
+                                      (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+                                 "d"))))
+         (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
 
-	 ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
-	 (defun initialize-nlinum (&optional frame)
-	   (require 'nlinum)
-	   (add-hook 'prog-mode-hook 'nlinum-mode))
-	 (when (daemonp)
-	   (add-hook 'window-setup-hook 'initialize-nlinum)
-	   (defadvice make-frame (around toggle-nlinum-mode compile activate)
-	     (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
+         ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
+         (defun initialize-nlinum (&optional frame)
+           (require 'nlinum)
+           (add-hook 'prog-mode-hook 'nlinum-mode))
+         (when (daemonp)
+           (add-hook 'window-setup-hook 'initialize-nlinum)
+           (defadvice make-frame (around toggle-nlinum-mode compile activate)
+             (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
    #+END_SRC
 
    #+RESULTS:
@@ -194,12 +206,13 @@
 ** set adaptive-wrap
    #+BEGIN_SRC emacs-lisp
      (use-package adaptive-wrap
+       :defer 1
        :ensure t
        :config
        (progn
-	 ;; (setq-default adaptive-wrap-extra-indent 2)
-	 (global-visual-line-mode t)
-	 (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
+         ;; (setq-default adaptive-wrap-extra-indent 2)
+         (global-visual-line-mode t)
+         (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
    #+END_SRC
 
    #+RESULTS:
