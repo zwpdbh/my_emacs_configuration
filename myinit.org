@@ -29,11 +29,11 @@
     ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package plan9-theme
+    (use-package solarized-theme
       :ensure t
       :config
       (progn
-        (load-theme 'plan9 t)
+        (load-theme 'solarized-gruvbox-dark t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
