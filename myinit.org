@@ -12,11 +12,13 @@
     ;; material-theme
     ;; kaolin-themes with kaolin-galaxy
 
-    ;; (use-package gruvbox-theme
+    ;; (use-package nord-theme
+    ;;   :init
+    ;;   (setq nord-region-highlight "frost")
     ;;   :ensure t
-    ;;   :config
+    ;;   :config 
     ;;   (progn
-    ;;     (load-theme 'gruvbox-dark-hard t)
+    ;;     (load-theme 'nord t)
     ;;     (add-hook 'after-init-hook 
     ;;               (lambda ()
     ;;                 ;; M-x customize-face
@@ -24,16 +26,14 @@
     ;;                 (set-face-attribute 'show-paren-match nil
     ;;                                     :underline t
     ;;                                     :foreground "#D4FF00"
-    ;;                                     :Background nil
+    ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package nord-theme
-      :init
-      (setq nord-region-highlight "frost")
+    (use-package sexy-monochrome-theme
       :ensure t
-      :config 
+      :config
       (progn
-        (load-theme 'nord t)
+        (load-theme 'sexy-monochrome t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
@@ -43,32 +43,6 @@
                                         :foreground "#D4FF00"
                                         :background nil
                                         :weight 'ultrabold)))))
-
-    ;; (use-package doom-themes
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'doom-sourcerer t)
-    ;;     ;; (setq doom-themes-treemacs-theme "doom-colors")
-    ;;     ;; (doom-themes-treemacs-config)
-    ;;     (doom-themes-org-config)
-    ;;     (set-face-attribute 'region nil :background "#666")))
-
-
-    ;; (use-package monokai-theme
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'monokai t)
-    ;;     (add-hook 'after-init-hook 
-    ;; 	      (lambda ()
-    ;; 		;; M-x customize-face
-    ;; 		;; show-paren-match to view different options #D4FF00
-    ;; 		(set-face-attribute 'show-paren-match nil
-    ;; 				    :underline t
-    ;; 				    ;; :foreground "#D4FF00"
-    ;; 				    ;; :background nil
-    ;; 				    :weight 'ultrabold)))))
   #+end_src
 
   #+RESULTS:
