@@ -29,11 +29,11 @@
     ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package zeno-theme
+    (use-package plan9-theme
       :ensure t
       :config
       (progn
-        (load-theme 'zeno t)
+        (load-theme 'plan9 t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
@@ -1140,18 +1140,18 @@
 *** ensime
     #+begin_src emacs-lisp
       (use-package ensime
-	:mode "\\.scala\\'"
-	:init 
-	(if (string-equal system-type "windows-nt")
-	    (progn
-	      (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
-	      (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
-	  (setq exec-path (append exec-path '("/usr/local/bin"))))
-	:ensure t
-	:config
-	(progn
-	  ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-	  (add-hook 'scala-mode-hook 'ensime-mode)))
+        :mode "\\.scala\\'"
+        :init 
+        (if (string-equal system-type "windows-nt")
+            (progn
+              (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
+              (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
+          (setq exec-path (append exec-path '("/usr/local/bin"))))
+        :ensure t
+        :config
+        (progn
+          ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+          (add-hook 'scala-mode-hook 'ensime-mode)))
     #+end_src
 
     #+RESULTS:
