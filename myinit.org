@@ -75,9 +75,9 @@
        (set-default-font "Consolas 12"))
       ((string-equal system-type "gnu/linux")
        (set-default-font "Ubuntu Mono 12"))
-      ((string-equal system-type "darwinn")
+      ((string-equal system-type "darwin")
        (if (member "Source Code Pro" (font-family-list))
-           (set-default-font "Source Code Pro 13")
+           (set-default-font "Source Code Pro 12")
          (set-default-font "Menlo 11"))))
    #+end_src
 
