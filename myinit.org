@@ -167,7 +167,7 @@
 ** set line number
    #+BEGIN_SRC emacs-lisp
      (use-package nlinum
-       :defer 1
+       :defer t
        :ensure t
        :config
        (progn
@@ -190,6 +190,8 @@
            (add-hook 'window-setup-hook 'initialize-nlinum)
            (defadvice make-frame (around toggle-nlinum-mode compile activate)
              (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
+
+     (add-hook 'after-init-hook 'nlinum-mode)
    #+END_SRC
 
    #+RESULTS:
@@ -508,8 +510,6 @@
       :ensure t
       :config
       (progn
-        (add-hook 'after-init-hook 'global-company-mode)
-
         (setq completion-ignore-case t)
         (setq company-dabbrev-downcase nil)
         ;; Show suggestions after entering one character.
@@ -557,6 +557,8 @@
       :after (company)
       :defer t
       :ensure t)
+
+    (add-hook 'after-init-hook 'global-company-mode)
   #+END_SRC
 
   #+RESULTS:
@@ -1901,7 +1903,11 @@
   * Configuration
     #+begin_src emacs-lisp
       (use-package company-math
+        :commands (tex-mode)
+        :defer t 
         :ensure t)
+
+
       ;; local configuration for TeX modes
       (defun my-latex-mode-setup ()
         (setq-local company-backends
