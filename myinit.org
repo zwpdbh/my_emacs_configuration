@@ -1479,15 +1479,18 @@
 ** common settings
    #+BEGIN_SRC emacs-lisp
      (use-package org
+       :defer t
        :ensure org-plus-contrib)
-     (require 'ob)
-     (require 'ob-js)
-     (require 'org-eldoc)
-     (require 'org-tempo)
+
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
        #'(lambda ()
+           (require 'ob)
+           (require 'ob-js)
+           (require 'org-eldoc)
+           (require 'org-tempo)
+
            (global-set-key (kbd "<f12>") (kbd "C-c '"))
            (define-key org-mode-map [f5] #'org-toggle-inline-images)
            (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)))
@@ -1499,10 +1502,7 @@
                                  ;; set org to user the current window when edit src code
                                  (setq org-src-window-setup 'current-window)
                                  (setq org-log-done t)))
-
    #+END_SRC
-
-   #+RESULTS:
 
 ** org-agenda-files
    In case some org files is not listed in agenda files, run the code block again to refresh the file list.
