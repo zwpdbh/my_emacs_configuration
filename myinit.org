@@ -29,11 +29,11 @@
     ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package solarized-theme
+    (use-package exotica-theme
       :ensure t
       :config
       (progn
-        (load-theme 'solarized-gruvbox-dark t)
+        (load-theme 'exotica t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
