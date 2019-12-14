@@ -9,12 +9,8 @@
 * Set emacs theme
   #+begin_src emacs-lisp
     ;; leuven-theme
-    ;; Gruvbox-theme
     ;; material-theme
-    ;; flucui-themes
-    ;; solarized-theme
     ;; kaolin-themes with kaolin-galaxy
-    ;; monokai-theme
 
     ;; (use-package gruvbox-theme
     ;;   :ensure t
@@ -28,25 +24,25 @@
     ;;                 (set-face-attribute 'show-paren-match nil
     ;;                                     :underline t
     ;;                                     :foreground "#D4FF00"
-    ;;                                     :background nil
+    ;;                                     :Background nil
     ;;                                     :weight 'ultrabold)))))
 
-
-    (use-package one-themes
+    (use-package nord-theme
+      :init
+      (setq nord-region-highlight "frost")
       :ensure t
-      :config
+      :config 
       (progn
-        (load-theme 'one-light t)
+        (load-theme 'nord t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
                     ;; show-paren-match to view different options #D4FF00
                     (set-face-attribute 'show-paren-match nil
                                         :underline t
-                                        :foreground "green"
+                                        :foreground "#D4FF00"
                                         :background nil
                                         :weight 'ultrabold)))))
-
 
     ;; (use-package doom-themes
     ;;   :ensure t
@@ -488,11 +484,11 @@
               helm-M-x-fuzzy-match t
               helm-buffers-fuzzy-matching t
               helm-recentf-fuzzy-match t
-
-              ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
-              helm-semantic-fuzzy-match t
+              helm-completion-in-region-fuzzy-match t
               helm-imenu-fuzzy-match t
-              helm-completion-in-region-fuzzy-match t)
+          
+              ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
+              helm-semantic-fuzzy-match t)
 
         (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 
@@ -744,13 +740,13 @@
 
 * ggtags
   #+begin_src emacs-lisp
-		(use-package ggtags
-			:ensure t
-			:config
-			(progn
-				(add-hook 'ggtags-mode-hook
-									(lambda ()
-										(setq-local company-backends (add-to-list 'company-backends 'company-gtags))))))
+    (use-package ggtags
+      :ensure t
+      :config
+      (progn
+        (add-hook 'ggtags-mode-hook
+                  (lambda ()
+                    (setq-local company-backends (add-to-list 'company-backends 'company-gtags))))))
   #+end_src
 
   #+RESULTS:
@@ -1880,29 +1876,28 @@
     (unless (string-equal system-type "windows-nt")
       ;; Haven't build pdf-tool dependencies on other system
       (use-package pdf-tools
-	;; :pin manual
-	:init
-	(use-package tablist
-	  :ensure t)
-	:ensure t
-	:config
-	;; initialise
-	(pdf-tools-install)
-	;; PDF Tools does not work well together with linum-mode
-	(add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
-	;; more fine-grained zooming
-	;; (setq pdf-view-resize-factor 1.1)
-	;; open pdfs scaled to fit page
-	(setq-default pdf-view-display-size 'fit-width)
-	;; automatically annotate highlights
-	(setq pdf-annot-activate-created-annotations t)
+        ;; :pin manual
+        :init
+        (use-package tablist
+          :ensure t)
+        :ensure t
+        :config
+        ;; initialise
+        (pdf-tools-install)
+        ;; PDF Tools does not work well together with linum-mode
+        (add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
+        ;; more fine-grained zooming
+        ;; (setq pdf-view-resize-factor 1.1)
+        ;; open pdfs scaled to fit page
+        (setq-default pdf-view-display-size 'fit-width)
+        ;; automatically annotate highlights
+        (setq pdf-annot-activate-created-annotations t)
 
-	;; use normal isearch
-	(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+        ;; use normal isearch
+        (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
       (use-package org-pdfview
-	:ensure t))
-
+        :ensure t))
   #+end_src
 
   #+RESULTS:
@@ -1937,10 +1932,10 @@
       :ensure t
       :config
       (progn
-	(define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
-	  (lambda ()
-	    (idle-highlight-mode 1)))
-	(my-global-idle-highlight-mode 1)))
+        (define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
+          (lambda ()
+            (idle-highlight-mode 1)))
+        (my-global-idle-highlight-mode 1)))
   #+end_src
 * centaur-tabs
   * https://github.com/ema2159/centaur-tabs
@@ -1950,28 +1945,28 @@
       :demand
       :config
       (progn
-	(centaur-tabs-mode t)
-	(setq centaur-tabs-set-icons t)
-	(setq centaur-tabs-gray-out-icons 'buffer)
-	(setq centaur-tabs-style "rounded")
-	(setq centaur-tabs-set-bar 'under)
-	;; Note: If you're not using Spacmeacs, in order for the underline to display
-	;; correctly you must add the following line:
-	(setq x-underline-at-descent-line t)
-	;; group tabs based on projectile
-	(centaur-tabs-group-by-projectile-project)
+        (centaur-tabs-mode t)
+        (setq centaur-tabs-set-icons t)
+        (setq centaur-tabs-gray-out-icons 'buffer)
+        (setq centaur-tabs-style "rounded")
+        (setq centaur-tabs-set-bar 'under)
+        ;; Note: If you're not using Spacmeacs, in order for the underline to display
+        ;; correctly you must add the following line:
+        (setq x-underline-at-descent-line t)
+        ;; group tabs based on projectile
+        (centaur-tabs-group-by-projectile-project)
 
-	;; hide some tabs for some buffers 
-	(defun centaur-tabs-hide-tab (x)
-	  (let ((name (format "%s" x)))
-	    (or
-	     (string-prefix-p "*epc" name)
-	     (string-prefix-p "*helm" name)
-	     (string-prefix-p "*Compile-Log*" name)
-	     (string-prefix-p "*lsp" name)
-	     (string-prefix-p "magit" name)
-	     (and (string-prefix-p "magit" name)
-		  (not (file-name-extension name)))))))
+        ;; hide some tabs for some buffers 
+        (defun centaur-tabs-hide-tab (x)
+          (let ((name (format "%s" x)))
+            (or
+             (string-prefix-p "*epc" name)
+             (string-prefix-p "*helm" name)
+             (string-prefix-p "*Compile-Log*" name)
+             (string-prefix-p "*lsp" name)
+             (string-prefix-p "magit" name)
+             (and (string-prefix-p "magit" name)
+                  (not (file-name-extension name)))))))
       :bind
       ("C-<prior>" . centaur-tabs-backward)
       ("C-<next>" . centaur-tabs-forward))
