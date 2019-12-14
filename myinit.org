@@ -2038,26 +2038,27 @@
          (setq tab-width custom-indent-width)
          (setq indent-tabs-mode t)))
 
-     ;; Hooks to Enable Tabs
-     ;; (add-hook 'prog-mode-hook 'enable-tabs)
-     ;; (add-hook 'org-mode-hook 'enable-tabs)
-     (add-hook 'plantuml-mode-hook '(lambda ()
-                                      ;; plantuml seems always use tabs to do indent format
-                                      (enable-tabs)
-                                      (setq plantuml-indent-level custom-indent-width)))
+     (add-hook 'after-init-hook '(lambda ()
+                                   ;; Hooks to Enable Tabs
+                                   ;; (add-hook 'prog-mode-hook 'enable-tabs)
+                                   ;; (add-hook 'org-mode-hook 'enable-tabs)
+                                   (add-hook 'plantuml-mode-hook '(lambda ()
+                                                                    ;; plantuml seems always use tabs to do indent format
+                                                                    (enable-tabs)
+                                                                    (setq plantuml-indent-level custom-indent-width)))
 
-     ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
-     (add-hook 'prog-mode-hook 'disable-tabs)
-     (add-hook 'org-mode-hook 'disable-tabs)
-     (add-hook 'json-mode-hook 'disable-tabs)
-     (add-hook 'lisp-mode-hook 'disable-tabs)
-     (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
-     (add-hook 'yaml-mode-hook 'disable-tabs)
+                                   ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
+                                   (add-hook 'prog-mode-hook 'disable-tabs)
+                                   (add-hook 'org-mode-hook 'disable-tabs)
+                                   (add-hook 'json-mode-hook 'disable-tabs)
+                                   (add-hook 'lisp-mode-hook 'disable-tabs)
+                                   (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
+                                   (add-hook 'yaml-mode-hook 'disable-tabs)
 
-     ;; Language-Specific Tweaks
-     (add-hook 'python-mode-hook '(lambda ()
-                                    (setq-default python-indent-offset custom-indent-width)
-                                    (setq python-indent-offset custom-indent-width)))
+                                   ;; Language-Specific Tweaks
+                                   (add-hook 'python-mode-hook '(lambda ()
+                                                                  (setq-default python-indent-offset custom-indent-width)
+                                                                  (setq python-indent-offset custom-indent-width)))))
 
      ;; (setq-default js-indent-level custom-indent-width)      ;; Javascript
 
