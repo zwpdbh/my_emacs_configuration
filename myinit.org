@@ -250,15 +250,14 @@
 ** which-key
    #+begin_src emacs-lisp
      (use-package which-key
-       :defer 2
-       :ensure t
-       :config (which-key-mode))
+       :commands (which-key-mode)
+       :ensure t)
    #+end_src
 
 ** try
    #+begin_src emacs-lisp
      (use-package try
-       :defer 2
+       :commands (try)
        :ensure t)
    #+end_src
 
@@ -289,7 +288,9 @@
                  ("checkmark" . 10003)   ; ✓
                  ))
          (prettify-symbols-mode 1)))
-     (my-global-prettify-symbols-mode 1)
+
+     (add-hook 'after-init-hook '(lambda ()
+                                   (my-global-prettify-symbols-mode 1)))
    #+end_src
 
    #+RESULTS:
