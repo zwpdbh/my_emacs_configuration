@@ -250,8 +250,9 @@
 ** which-key
    #+begin_src emacs-lisp
      (use-package which-key
-       :commands (which-key-mode)
-       :ensure t)
+       :defer 2
+       :ensure t
+       :config (which-key-mode))
    #+end_src
 
 ** try
