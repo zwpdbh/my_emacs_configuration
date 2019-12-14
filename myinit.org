@@ -1252,20 +1252,28 @@
     * Tern is a stand-alone code-analysis engine for JavaScript
       #+begin_src emacs-lisp
         (use-package company-tern
-        :ensure t
-        :config
-        (progn
-        (use-package js2-mode
-        :ensure t
-        :config
-        (progn
-                (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-                (add-to-list 'interpreter-mode-alist '("node" . js2-mode))))
-        (setq tern-command (append tern-command '("--no-port-file")))
+          :defer t
+          :after (company tern)
+          :commands (company-tern)
+          :ensure t
+          :init 
+          (setq tern-command (append tern-command '("--no-port-file"))))
+
+        (use-package tern
+          :ensure t
+          :defer t)
+
+        (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+        (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
         (add-hook 'js-mode-hook 
-                #'(lambda ()
-                        (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-                        (tern-mode)))))
+                  #'(lambda ()
+                      (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+                      (tern-mode)))
+
+        (use-package js2-mode
+          :defer t
+          :init
+          :ensure t)
       #+end_src
 
       #+RESULTS:
