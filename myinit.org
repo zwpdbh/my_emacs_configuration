@@ -1624,9 +1624,11 @@
 ** Hugo + ox-hugo + Netlify
 *** ox-hugo
     #+begin_src emacs-lisp
-     (use-package ox-hugo
-       :ensure t            ;Auto-install the package from Melpa (optional)
-       :after ox)
+      (use-package ox-hugo
+        :commands (org-export-dispatch)
+        :defer t
+        :ensure t            ;Auto-install the package from Melpa (optional)
+        :after ox)
     #+end_src
 
 *** org-capture
@@ -1749,11 +1751,12 @@
 ** Github Flavored Markdown
    #+begin_src emacs-lisp
      (use-package ox-gfm
+       :defer t
        :ensure t
        :config
        (progn
-	 (eval-after-load "org"
-	   '(require 'ox-gfm nil t))))
+         (eval-after-load "org"
+           '(require 'ox-gfm nil t))))
    #+end_src
 
 ** Capture screenshot within Emacs
