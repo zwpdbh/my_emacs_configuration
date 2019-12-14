@@ -1988,11 +1988,7 @@
         :config 
         (progn
           (setq highlight-indent-guides-delay 0.1)
-
-          (setq highlight-indent-guides-responsive "top")
-          ;; (setq highlight-indent-guides-auto-odd-face-perc 0)
-          ;; (setq highlight-indent-guides-auto-even-face-perc 0)
-
+    
           (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
           (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
           (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
