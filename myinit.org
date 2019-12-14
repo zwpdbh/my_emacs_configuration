@@ -1918,13 +1918,13 @@
 * highlight-symbol
   #+begin_src emacs-lisp
     (use-package idle-highlight-mode
+      :defer 2
       :ensure t
-      :config
-      (progn
-        (define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
-          (lambda ()
-            (idle-highlight-mode 1)))
-        (my-global-idle-highlight-mode 1)))
+      :init 
+      (define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
+        (lambda ()
+          (idle-highlight-mode 1)))
+      (my-global-idle-highlight-mode 1))
   #+end_src
 * centaur-tabs
   * https://github.com/ema2159/centaur-tabs
