@@ -8,11 +8,11 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package dracula-theme
+    (use-package sexy-monochrome-theme
       :ensure t
       :config
       (progn
-        (load-theme 'dracula t)
+        (load-theme 'sexy-monochrome t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
@@ -469,17 +469,18 @@
 * Projectile
   #+begin_src emacs-lisp
     (use-package projectile
+      :init
+      (setq projectile-completion-system 'helm)
       :ensure t
-      :bind ("C-c p" . projectile-command-map)
-      :config
-      (progn
-	(projectile-global-mode)
-	(setq projectile-completion-system 'helm)
+      :bind ("C-c p" . projectile-command-map))
 
-	(use-package helm-projectile
-	  :ensure t
-	  :config
-	  (helm-projectile-on))))
+    (use-package helm-projectile
+      :after (projectile helm)
+      :ensure t)
+
+    (add-hook 'after-init-hook '(lambda ()
+                                  (helm-projectile-on)
+                                  (projectile-global-mode)))
   #+end_src
 
   #+RESULTS:
@@ -492,61 +493,55 @@
       :ensure t
       :config
       (progn
-	(add-hook 'after-init-hook 'global-company-mode)
+        (add-hook 'after-init-hook 'global-company-mode)
 
-	(setq completion-ignore-case t)
-	(setq company-dabbrev-downcase nil)
-	;; Show suggestions after entering one character.
-	(setq company-minimum-prefix-length 1)
-	;; wrap around to the top of the list again
-	(setq company-selection-wrap-around t)
-	(setq company-echo-delay 0.01)
-	(setq company-idle-delay 0.01)
+        (setq completion-ignore-case t)
+        (setq company-dabbrev-downcase nil)
+        ;; Show suggestions after entering one character.
+        (setq company-minimum-prefix-length 1)
+        ;; wrap around to the top of the list again
+        (setq company-selection-wrap-around t)
+        (setq company-echo-delay 0.01)
+        (setq company-idle-delay 0.01)
 
-	(define-key company-active-map [tab] 'company-complete-selection)
-	;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
-	(define-key company-active-map (kbd "C-n") 'company-select-next)
-	(define-key company-active-map (kbd "C-p") 'company-select-previous)
+        (define-key company-active-map [tab] 'company-complete-selection)
+        ;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+        (define-key company-active-map (kbd "C-n") 'company-select-next)
+        (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-	;; company-capf, company-dabbrev and company-files are very useful. So, adjust default backends
-	(defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-							(company-dabbrev-code company-gtags company-etags company-keywords)
-							company-oddmuse company-dabbrev))    
-	(defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
-						   (company-dabbrev-code company-gtags company-etags company-keywords)
-						   company-oddmuse company-dabbrev))
-	(setq company-backends company-my-backends)
+        ;; company-capf, company-dabbrev and company-files are very useful. So, adjust default backends
+        (defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+                                                        (company-dabbrev-code company-gtags company-etags company-keywords)
+                                                        company-oddmuse company-dabbrev))    
+        (defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
+                                                   (company-dabbrev-code company-gtags company-etags company-keywords)
+                                                   company-oddmuse company-dabbrev))
+        (setq company-backends company-my-backends)))
 
-	;; use statistics to better filter completion candidates
-	(use-package company-statistics
-	  :ensure t
-	  :config
-	  (progn
-	    (add-hook 'company-mode-hook #'company-statistics-mode)
-	    (setq company-transformers '(company-sort-by-statistics
-					 company-sort-by-backend-importance))))
+    ;; use statistics to better filter completion candidates
+    (use-package company-statistics
+      :defer t
+      :ensure t
+      :config
+      (progn
+        (add-hook 'company-mode-hook #'company-statistics-mode)
+        (setq company-transformers '(company-sort-by-statistics
+                                     company-sort-by-backend-importance))))
 
-	(use-package company-posframe
-	  :ensure t
-	  :config
-	  (progn
-	    (add-hook 'company-mode #'company-posframe-mode)))
+    (use-package company-posframe
+      :defer t
+      :ensure t
+      :config
+      (progn
+        (add-hook 'company-mode #'company-posframe-mode)))
 
-	(use-package company-quickhelp
-	  :ensure t
-	  :config
-	  (progn
-	    (setq company-quickhelp-delay 0.5)
-	    (add-hook 'company-mode #'company-quickhelp-mode)))
-
-
-	;; (use-package company-tabnine
-	;;   :ensure t
-	;;   :config
-	;;   (progn
-	;; 	(unless (string-equal system-type "windows-nt")
-	;; 	  (add-to-list 'company-backends #'company-tabnine))))
-	))
+    (use-package company-quickhelp
+      :defer t
+      :ensure t
+      :config
+      (progn
+        (setq company-quickhelp-delay 0.5)
+        (add-hook 'company-mode #'company-quickhelp-mode)))
   #+END_SRC
 
   #+RESULTS:
@@ -605,57 +600,56 @@
     (use-package treemacs
       :defer t
       :ensure t
-      :defer t
       :init
       (progn
-	(use-package lv
-	  :ensure t)
-	(use-package hydra
-	  :ensure t)
-	(with-eval-after-load 'winum
-	  (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+        (use-package lv
+          :ensure t)
+        (use-package hydra
+          :ensure t)
+        (with-eval-after-load 'winum
+          (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
       :config
       (progn
-	;; (pcase (cons (not (null (executable-find "git")))
-	;;              (not (null (executable-find "python3"))))
-	;;   (`(t . t)
-	;;    (treemacs-git-mode 'deferred))
-	;;   (`(t . _)
-	;;    (treemacs-git-mode 'simple)))
-	(setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-	      treemacs-file-event-delay           5000
-	      treemacs-follow-after-init          t
-	      treemacs-follow-recenter-distance   0.1
-	      treemacs-goto-tag-strategy          'refetch-index
-	      treemacs-indentation                2
-	      ;; indent guide
-	      ;; treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
-	      ;; treemacs-indentation-string         "|"
-	      treemacs-is-never-other-window      nil
-	      treemacs-no-png-images              nil
-	      treemacs-project-follow-cleanup     nil
-	      treemacs-file-follow-delay          nil
-	      treemacs-recenter-after-file-follow nil
-	      treemacs-recenter-after-tag-follow  nil
-	      treemacs-show-hidden-files          t
-	      treemacs-silent-filewatch           nil
-	      treemacs-silent-refresh             nil
-	      treemacs-sorting                    'alphabetic-desc
-	      treemacs-tag-follow-cleanup         t
-	      treemacs-tag-follow-delay           1.5
-	      treemacs-width                      40
-	      treemacs-follow-mode                t
-	      treemacs-filewatch-mode             t
-	      treemacs-git-mode nil))
+        ;; (pcase (cons (not (null (executable-find "git")))
+        ;;              (not (null (executable-find "python3"))))
+        ;;   (`(t . t)
+        ;;    (treemacs-git-mode 'deferred))
+        ;;   (`(t . _)
+        ;;    (treemacs-git-mode 'simple)))
+        (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+              treemacs-file-event-delay           5000
+              treemacs-follow-after-init          t
+              treemacs-follow-recenter-distance   0.1
+              treemacs-goto-tag-strategy          'refetch-index
+              treemacs-indentation                2
+              ;; indent guide
+              ;; treemacs-indentation-string (propertize " | " 'face 'font-lock-comment-face)
+              ;; treemacs-indentation-string         "|"
+              treemacs-is-never-other-window      nil
+              treemacs-no-png-images              nil
+              treemacs-project-follow-cleanup     nil
+              treemacs-file-follow-delay          nil
+              treemacs-recenter-after-file-follow nil
+              treemacs-recenter-after-tag-follow  nil
+              treemacs-show-hidden-files          t
+              treemacs-silent-filewatch           nil
+              treemacs-silent-refresh             nil
+              treemacs-sorting                    'alphabetic-desc
+              treemacs-tag-follow-cleanup         t
+              treemacs-tag-follow-delay           1.5
+              treemacs-width                      40
+              treemacs-follow-mode                t
+              treemacs-filewatch-mode             t
+              treemacs-git-mode nil))
       :bind
       (:map global-map
-	    ([f8]        . treemacs)
-	    ("M-0"       . treemacs-select-window)
-	    ("C-x t 1"   . treemacs-delete-other-windows)
-	    ("C-x t t"   . treemacs)
-	    ("C-x t B"   . treemacs-bookmark)
-	    ("C-x t C-t" . treemacs-find-file)
-	    ("C-x t M-t" . treemacs-find-tag)))
+            ([f8]        . treemacs)
+            ("M-0"       . treemacs-select-window)
+            ("C-x t 1"   . treemacs-delete-other-windows)
+            ("C-x t t"   . treemacs)
+            ("C-x t B"   . treemacs-bookmark)
+            ("C-x t C-t" . treemacs-find-file)
+            ("C-x t M-t" . treemacs-find-tag)))
 
     (use-package treemacs-evil
       :defer t
@@ -1738,10 +1732,11 @@
 ** Org-download moving images from A to B
    #+begin_src emacs-lisp
      (use-package org-download
+       :defer 2
        :ensure t
        :config
        (progn
-	 (add-hook 'dired-mode-hook 'org-download-enable)))
+         (add-hook 'dired-mode-hook 'org-download-enable)))
    #+end_src
 
    #+RESULTS:
@@ -1750,6 +1745,7 @@
 ** graphviz
    #+begin_src emacs-lisp
      (use-package graphviz-dot-mode
+       :commands (graphviz-dot-mode)
        :ensure t)
    #+end_src
 
@@ -1758,6 +1754,7 @@
 ** plantuml
    #+begin_src emacs-lisp
      (use-package plantuml-mode
+       :commands (plantuml-mode)
        :ensure t
        :config
        (progn
@@ -1826,31 +1823,31 @@
     #+end_src
   * Configuration 
   #+begin_src emacs-lisp
-    (unless (string-equal system-type "windows-nt")
-      ;; Haven't build pdf-tool dependencies on other system
-      (use-package pdf-tools
-        ;; :pin manual
-        :init
-        (use-package tablist
-          :ensure t)
-        :ensure t
-        :config
-        ;; initialise
-        (pdf-tools-install)
-        ;; PDF Tools does not work well together with linum-mode
-        (add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
-        ;; more fine-grained zooming
-        ;; (setq pdf-view-resize-factor 1.1)
-        ;; open pdfs scaled to fit page
-        (setq-default pdf-view-display-size 'fit-width)
-        ;; automatically annotate highlights
-        (setq pdf-annot-activate-created-annotations t)
+    ;; (unless (string-equal system-type "windows-nt")
+    ;;   ;; Haven't build pdf-tool dependencies on other system
+    ;;   (use-package pdf-tools
+    ;;     ;; :pin manual
+    ;;     :init
+    ;;     (use-package tablist
+    ;;       :ensure t)
+    ;;     :ensure t
+    ;;     :config
+    ;;     ;; initialise
+    ;;     (pdf-tools-install)
+    ;;     ;; PDF Tools does not work well together with linum-mode
+    ;;     (add-hook 'pdf-view-mode-hook (lambda() (nlinum-mode -1)))
+    ;;     ;; more fine-grained zooming
+    ;;     ;; (setq pdf-view-resize-factor 1.1)
+    ;;     ;; open pdfs scaled to fit page
+    ;;     (setq-default pdf-view-display-size 'fit-width)
+    ;;     ;; automatically annotate highlights
+    ;;     (setq pdf-annot-activate-created-annotations t)
 
-        ;; use normal isearch
-        (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+    ;;     ;; use normal isearch
+    ;;     (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
-      (use-package org-pdfview
-        :ensure t))
+    ;;   (use-package org-pdfview
+    ;;     :ensure t))
   #+end_src
 
   #+RESULTS:
@@ -1865,18 +1862,18 @@
   * Configuration
     #+begin_src emacs-lisp
       (use-package company-math
-	:ensure t)
+        :ensure t)
       ;; local configuration for TeX modes
       (defun my-latex-mode-setup ()
-	(setq-local company-backends
-		    (append '((company-math-symbols-latex company-latex-commands))
-			    company-backends)))
+        (setq-local company-backends
+                    (append '((company-math-symbols-latex company-latex-commands))
+                            company-backends)))
 
 
       (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
       (add-hook 'LaTex-mode-hook (lambda ()
-				   (turn-on-reftex)
-				   (my-latex-mode-setup)))
+                                   (turn-on-reftex)
+                                   (my-latex-mode-setup)))
     #+end_src
 
 * highlight-symbol
