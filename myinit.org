@@ -1511,11 +1511,8 @@
    Another way is to invoke the function ~org-agenda-file-to-front~.
    #+begin_src emacs-lisp
      ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
-     (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
+     ;; (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
    #+end_src
-
-   #+RESULTS:
-   | /home/zw/code/org/kubernetes/use-kubernetes-api.org | /home/zw/code/org/blog-creation.org | /home/zw/code/org/chez-scheme.org | /home/zw/code/org/clojure.org | /home/zw/code/org/emacs.org | /home/zw/code/org/home.org | /home/zw/code/org/learning_statistics_using_R.org | /home/zw/code/org/personal.org | /home/zw/code/org/work.org |
 
 ** make code-block could be executed in org-mode
    #+begin_src emacs-lisp
