@@ -1078,6 +1078,7 @@
     !!! Do not forget to install clang-format: =sudo apt install clang-format=.
     #+begin_src emacs-lisp
       (use-package clang-format
+        :defer t
         :ensure t
         :config
         (progn
@@ -1087,34 +1088,33 @@
               (clang-format-buffer)))
 
           (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
-            (add-hook 
-             each-hook 
-             #'(lambda ()
-                 (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local))))
+            (add-hook each-hook 
+                      #'(lambda ()
+                          (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local)))))) 
 
-          (use-package yaml-mode
-            :ensure t
-            :config
-            (progn
-              (add-hook 
-               'yaml-mode-hook 
-               #'(lambda ()
-                   (setq yaml-indent-offset 2)
-                   (smartparens-mode)
-                   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+      (use-package json-mode
+        :defer t
+        :ensure t
+        :config
+        (progn
+          (add-hook 
+           'json-mode-hook 
+           #'(lambda ()
+               (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
+               ;; (add-hook 'before-save-hook #'json-mode-beautify nil 'local)
+               ))))
 
-          ;; disable clang-format in json-mode
-          (use-package json-mode
-            :ensure t
-            :config
-            (progn
-              (add-hook 
-               'json-mode-hook 
-               #'(lambda ()
-                   (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)
-                   ;; (add-hook 'before-save-hook #'json-mode-beautify nil 'local)
-                   )))
-            ))) 
+      (use-package yaml-mode
+        :defer t
+        :ensure t
+        :config
+        (progn
+          (add-hook 
+           'yaml-mode-hook 
+           #'(lambda ()
+               (setq yaml-indent-offset 2)
+               (smartparens-mode)
+               (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
     #+end_src
 
     #+RESULTS:
