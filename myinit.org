@@ -1123,9 +1123,10 @@
 *** yasnippet
     #+begin_src emacs-lisp
       (use-package yasnippet
-	:ensure t
-	:diminish yas-minor-mode
-	:config (yas-global-mode t))
+        :defer 1
+        :ensure t
+        :diminish yas-minor-mode
+        :config (yas-global-mode t))
     #+end_src
 
     #+RESULTS:
@@ -1135,6 +1136,7 @@
 *** ensime
     #+begin_src emacs-lisp
       (use-package ensime
+        :defer t
         :mode "\\.scala\\'"
         :init 
         (if (string-equal system-type "windows-nt")
@@ -1165,18 +1167,17 @@
         - clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
           - Configuration with emacs
             #+begin_src emacs-lisp
-  (use-package lsp-python-ms
-          :ensure t
-          :config
-          (progn
-                  ;; for dev build of language server
-                  (setq lsp-python-ms-dir
-                  (expand-file-name "~/python-language-server/output/bin/Release/"))
-                  (setq lsp-python-ms-executable
-                  "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
-                  (setq python-shell-interpreter "python3")
-                  (add-hook 'python-mode-hook 'lsp-mode)
-                  (add-hook 'python-mode-hook #'smartparens-mode)))
+              (use-package lsp-python-ms
+                :defer t
+                :init 
+                (setq python-shell-interpreter "python3")
+                (setq lsp-python-ms-dir
+                      (expand-file-name "~/python-language-server/output/bin/Release/"))
+                (setq lsp-python-ms-executable
+                      "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
+                (add-hook 'python-mode-hook 'lsp-mode)
+                (add-hook 'python-mode-hook #'smartparens-mode)
+                :ensure t)
             #+end_src
 
             #+RESULTS:
