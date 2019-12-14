@@ -29,18 +29,18 @@
     ;;                                     :background nil
     ;;                                     :weight 'ultrabold)))))
 
-    (use-package sexy-monochrome-theme
+    (use-package parchment-theme
       :ensure t
       :config
       (progn
-        (load-theme 'sexy-monochrome t)
+        (load-theme 'parchment t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
                     ;; show-paren-match to view different options #D4FF00
                     (set-face-attribute 'show-paren-match nil
                                         :underline t
-                                        :foreground "#D4FF00"
+                                        :foreground "red"
                                         :background nil
                                         :weight 'ultrabold)))))
   #+end_src
@@ -1958,7 +1958,7 @@
         ;; (global-set-key (kbd "<f7>") 'yafolding-toggle-all)
         (global-set-key (kbd "<f9>") 'yafolding-toggle-element)))
   #+end_src
-* Set indentation
+* Indentation
 ** indent guide
 *** Refs   
     * [[https://github.com/antonj/Highlight-Indentation-for-Emacs][Highlight-Indentation-for-Emacs]]
@@ -1988,6 +1988,10 @@
         :config 
         (progn
           (setq highlight-indent-guides-delay 0.1)
+
+          ;; (setq highlight-indent-guides-responsive "top")
+          ;; (setq highlight-indent-guides-auto-odd-face-perc 0)
+          ;; (setq highlight-indent-guides-auto-even-face-perc 0)
 
           (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
           (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
