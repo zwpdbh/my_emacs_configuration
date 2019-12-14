@@ -1759,21 +1759,22 @@
 ** Capture screenshot within Emacs
    #+begin_src emacs-lisp
      (use-package org-attach-screenshot
+       :commands (org-mode)
        :ensure t
        :config
        (progn
-	 (setq org-attach-screenshot-dirfunction
-	       (lambda () 
-		 (progn (assert (buffer-file-name))
-			(concat (file-name-sans-extension (buffer-file-name))
-				"_att")))
-	       org-attach-screenshot-relative-links t)))
+         (setq org-attach-screenshot-dirfunction
+               (lambda () 
+                 (progn (assert (buffer-file-name))
+                        (concat (file-name-sans-extension (buffer-file-name))
+                                "_att")))
+               org-attach-screenshot-relative-links t)))
    #+end_src
 
 ** Org-download moving images from A to B
    #+begin_src emacs-lisp
      (use-package org-download
-       :defer 2
+       :commands (org-mode)
        :ensure t
        :config
        (progn
@@ -1820,8 +1821,8 @@
       :ensure t
       :commands (markdown-mode gfm-mode)
       :mode (("README\\.md\\'" . gfm-mode)
-	     ("\\.md\\'" . markdown-mode)
-	     ("\\.markdown\\'" . markdown-mode))
+             ("\\.md\\'" . markdown-mode)
+             ("\\.markdown\\'" . markdown-mode))
       :init (setq markdown-command "multimarkdown"))
   #+END_SRC
 
