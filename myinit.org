@@ -697,6 +697,7 @@
 * ggtags
   #+begin_src emacs-lisp
     (use-package ggtags
+      :defer t
       :ensure t
       :config
       (progn
@@ -711,12 +712,10 @@
 * Lisp Programming
 ** Aggressive-indent-mode
    #+BEGIN_SRC emacs-lisp
-      (use-package aggressive-indent
-	:ensure t
-	:config
-	(progn
-	  ;; deactive it for specific mode
-	  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)))
+     (use-package aggressive-indent
+       :ensure t
+       :config
+       (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
    #+END_SRC
 
    #+RESULTS:
