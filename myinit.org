@@ -19,7 +19,7 @@
                     ;; show-paren-match to view different options #D4FF00
                     (set-face-attribute 'show-paren-match nil
                                         :underline t
-                                        :foreground "red"
+                                        :foreground "#D4FF00"
                                         :background nil
                                         :weight 'ultrabold)))))
   #+end_src
