@@ -535,28 +535,28 @@
 
     ;; use statistics to better filter completion candidates
     (use-package company-statistics
+      :init
+      (add-hook 'company-mode-hook #'company-statistics-mode)
+      (setq company-transformers '(company-sort-by-statistics
+                                   company-sort-by-backend-importance))
+      :after (company)
       :defer t
-      :ensure t
-      :config
-      (progn
-        (add-hook 'company-mode-hook #'company-statistics-mode)
-        (setq company-transformers '(company-sort-by-statistics
-                                     company-sort-by-backend-importance))))
+      :ensure t)
 
     (use-package company-posframe
+      :init 
+      (add-hook 'company-mode #'company-posframe-mode)
+      :after (company)
       :defer t
-      :ensure t
-      :config
-      (progn
-        (add-hook 'company-mode #'company-posframe-mode)))
+      :ensure t)
 
     (use-package company-quickhelp
+      :init
+      (setq company-quickhelp-delay 0.5)
+      (add-hook 'company-mode #'company-quickhelp-mode)
+      :after (company)
       :defer t
-      :ensure t
-      :config
-      (progn
-        (setq company-quickhelp-delay 0.5)
-        (add-hook 'company-mode #'company-quickhelp-mode)))
+      :ensure t)
   #+END_SRC
 
   #+RESULTS:
