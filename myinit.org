@@ -76,9 +76,9 @@
       ((string-equal system-type "gnu/linux")
        (set-default-font "Ubuntu Mono 12"))
       ((string-equal system-type "darwinn")
-       (if (member "DejaVu Sans Mono" (font-family-list))
-	   (set-default-font "DejaVu Sans Mono 11")
-	 (set-default-font "Menlo 11"))))
+       (if (member "Source Code Pro" (font-family-list))
+           (set-default-font "Source Code Pro 13")
+         (set-default-font "Menlo 11"))))
    #+end_src
 
    #+RESULTS:
