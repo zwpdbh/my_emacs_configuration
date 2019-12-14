@@ -1532,31 +1532,30 @@
      (defun org-babel-execute:yaml (body params) body)
      (defun org-babel-execute:json (body params) body)
 
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-        (clojure . t)
-        (scheme . t)
-        (C . t)
-        (shell . t)
-        (js . t)
-        (python . t)
-        (R . t)
-        (http . t)
-        (latex . t)
-        (dot . t)
-        (plantuml . t)))
-
      (add-hook 'org-mode-hook #'(lambda ()
-                                      (progn
-                                            ;; all languages needed to be confirmed to execute except:
-                                            (defun my-org-confirm-babel-evaluate (lang body)
+                                  (progn
+                                    ;; all languages needed to be confirmed to execute except:
+                                    (defun my-org-confirm-babel-evaluate (lang body)
                                       (not (member lang '("emacs-lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
-                                            (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
+                                    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
      (eval-after-load 'org
        #'(lambda ()
            (progn
+             (org-babel-do-load-languages
+              'org-babel-load-languages
+              '((emacs-lisp . t)
+                (clojure . t)
+                (scheme . t)
+                (C . t)
+                (shell . t)
+                (js . t)
+                (python . t)
+                (R . t)
+                (http . t)
+                (latex . t)
+                (dot . t)
+                (plantuml . t)))
              (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
              (add-to-list 'org-structure-template-alist '("py" . "src python"))
              (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
