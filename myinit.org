@@ -8,32 +8,11 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    ;; leuven-theme
-    ;; material-theme
-    ;; kaolin-themes with kaolin-galaxy
-
-    ;; (use-package nord-theme
-    ;;   :init
-    ;;   (setq nord-region-highlight "frost")
-    ;;   :ensure t
-    ;;   :config 
-    ;;   (progn
-    ;;     (load-theme 'nord t)
-    ;;     (add-hook 'after-init-hook 
-    ;;               (lambda ()
-    ;;                 ;; M-x customize-face
-    ;;                 ;; show-paren-match to view different options #D4FF00
-    ;;                 (set-face-attribute 'show-paren-match nil
-    ;;                                     :underline t
-    ;;                                     :foreground "#D4FF00"
-    ;;                                     :background nil
-    ;;                                     :weight 'ultrabold)))))
-
-    (use-package zeno-theme
+    (use-package dracula-theme
       :ensure t
       :config
       (progn
-        (load-theme 'zeno t)
+        (load-theme 'dracula t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
