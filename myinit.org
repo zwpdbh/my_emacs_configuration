@@ -1385,22 +1385,24 @@
    * [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
    * go-mode with ob-go
      #+begin_src emacs-lisp
+       (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+
        (use-package go-mode
-	 :ensure t
-	 :config
-	 (progn
-	   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-	   (if (string-equal system-type "gnu/linux")
-	       (add-to-list 'exec-path "/usr/local/go/bin")
-	     nil)
-    
-	   (use-package ob-go
-	     :ensure t
-	     :config
-	     (add-to-list 'org-structure-template-alist '("go" . "src go"))
-	     (org-babel-do-load-languages
-	      'org-babel-load-languages
-	      '((go . t))))))
+         :defer t
+         :init 
+         (if (string-equal system-type "gnu/linux")
+             (add-to-list 'exec-path "/usr/local/go/bin")
+           nil)
+         :ensure t)
+
+       (use-package ob-go
+         :defer 2 
+         :ensure t
+         :config
+         (add-to-list 'org-structure-template-alist '("go" . "src go"))
+         (org-babel-do-load-languages
+          'org-babel-load-languages
+          '((go . t))))
      #+end_src
 
      #+RESULTS:
@@ -1410,7 +1412,8 @@
      #+end_src
 
      #+RESULTS:
-     : Hello, 世界
+
+
 
 
 ** Java programming
@@ -1443,26 +1446,27 @@
       ;; 		#'(lambda () 
       ;; 		    (electric-spacing-mode))))))
 
+      (use-package electric-spacing
+        :after (ess)
+        :defer t
+        :ensure t)
+
       (use-package ess
+        :defer t
         :ensure t
-        :init (require 'ess-site)
-        :config
-        (progn
-          (setq inferior-R-program-name "/usr/local/bin/R"
-                comint-input-ring-size 1000
-                ess-indent-level 4
-                ess-arg-function-offset 4
-                ess-else-offset 4
-                ess-continued-statement-offset 2
-                truncate-lines t
-                comment-column 4)		;
-
-          (use-package electric-spacing
-            :ensure t)
-
-          (add-hook 'ess-mode-hook 
-                    #'(lambda () 
-                        (electric-spacing-mode)))))
+        :init 
+        (require 'ess-site)
+        (setq inferior-R-program-name "/usr/local/bin/R"
+              comint-input-ring-size 1000
+              ess-indent-level 4
+              ess-arg-function-offset 4
+              ess-else-offset 4
+              ess-continued-statement-offset 2
+              truncate-lines t
+              comment-column 4)		
+        (add-hook 'ess-mode-hook 
+                  '(lambda () 
+                     (electric-spacing-mode))))
     #+end_src
 
     #+RESULTS:
