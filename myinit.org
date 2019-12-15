@@ -8,18 +8,18 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package dracula-theme
+    (use-package sexy-monochrome-theme
       :ensure t
       :config
       (progn
-        (load-theme 'dracula t)
+        (load-theme 'sexy-monochrome t)
         (add-hook 'after-init-hook 
                   (lambda ()
                     ;; M-x customize-face
                     ;; show-paren-match to view different options #D4FF00
                     (set-face-attribute 'show-paren-match nil
                                         :underline t
-                                        :foreground "SteelBlue"
+                                        :foreground "#D4FF00"
                                         :background nil
                                         :weight 'ultrabold)))))
 
