@@ -8,31 +8,33 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    (use-package sexy-monochrome-theme
-      :ensure t
-      :config
-      (progn
-        (load-theme 'sexy-monochrome t)
-        (add-hook 'after-init-hook 
-                  (lambda ()
-                    ;; M-x customize-face
-                    ;; show-paren-match to view different options #D4FF00
-                    (set-face-attribute 'show-paren-match nil
-                                        :underline t
-                                        :foreground "#D4FF00"
-                                        :background nil
-                                        :weight 'ultrabold)))))
+    ;; (use-package dakrone-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (load-theme 'dakrone t)
+    ;;     (add-hook 'after-init-hook 
+    ;;               (lambda ()
+    ;;                 ;; M-x customize-face
+    ;;                 ;; show-paren-match to view different options #D4FF00
+    ;;                 (set-face-attribute 'show-paren-match nil
+    ;;                                     :underline t
+    ;;                                     :foreground "#D4FF00"
+    ;;                                     :background nil
+    ;;                                     :weight 'ultrabold)))))
 
-    ;; (add-hook 'after-init-hook 
-    ;;           (lambda ()
-    ;;             ;; M-x customize-face
-    ;;             ;; show-paren-match to view different options #D4FF00
-    ;;             (set-background-color "honeydew")
-    ;;             (set-face-attribute 'show-paren-match nil
-    ;;                                 :underline t
-    ;;                                 :foreground "HotPink"
-    ;;                                 :background nil
-    ;;                                 :weight 'ultrabold)))
+    (load-theme 'wombat)
+    (add-hook 'after-init-hook 
+              (lambda ()
+                ;; M-x customize-face
+                ;; show-paren-match to view different options #D4FF00
+                (set-face-attribute 'show-paren-match nil
+                                    :underline t
+                                    :foreground "HotPink"
+                                    :background nil
+                                    :weight 'ultrabold)
+                (set-face-attribute 'hl-line nil
+                                    :underline nil)))
   #+end_src
 
   #+RESULTS:
