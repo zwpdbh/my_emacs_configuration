@@ -8,31 +8,31 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    ;; (use-package plan9-theme
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'plan9 t)
-    ;;     (add-hook 'after-init-hook 
-    ;;               (lambda ()
-    ;;                 ;; M-x customize-face
-    ;;                 ;; show-paren-match to view different options #D4FF00
-    ;;                 (set-face-attribute 'show-paren-match nil
-    ;;                                     :underline t
-    ;;                                     :foreground "SteelBlue"
-    ;;                                     :background nil
-    ;;                                     :weight 'ultrabold)))))
+    (use-package dracula-theme
+      :ensure t
+      :config
+      (progn
+        (load-theme 'dracula t)
+        (add-hook 'after-init-hook 
+                  (lambda ()
+                    ;; M-x customize-face
+                    ;; show-paren-match to view different options #D4FF00
+                    (set-face-attribute 'show-paren-match nil
+                                        :underline t
+                                        :foreground "SteelBlue"
+                                        :background nil
+                                        :weight 'ultrabold)))))
 
-    (add-hook 'after-init-hook 
-              (lambda ()
-                ;; M-x customize-face
-                ;; show-paren-match to view different options #D4FF00
-                (set-background-color "honeydew")
-                (set-face-attribute 'show-paren-match nil
-                                    :underline t
-                                    :foreground "HotPink"
-                                    :background nil
-                                    :weight 'ultrabold)))
+    ;; (add-hook 'after-init-hook 
+    ;;           (lambda ()
+    ;;             ;; M-x customize-face
+    ;;             ;; show-paren-match to view different options #D4FF00
+    ;;             (set-background-color "honeydew")
+    ;;             (set-face-attribute 'show-paren-match nil
+    ;;                                 :underline t
+    ;;                                 :foreground "HotPink"
+    ;;                                 :background nil
+    ;;                                 :weight 'ultrabold)))
   #+end_src
 
   #+RESULTS:
