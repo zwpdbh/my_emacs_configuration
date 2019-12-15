@@ -34,7 +34,10 @@
                                     :background nil
                                     :weight 'ultrabold)
                 (set-face-attribute 'hl-line nil
-                                    :underline nil)))
+                                    :underline nil)
+                (set-face-attribute 'region nil :background "#666")
+                (set-cursor-color "#D4FF00") 
+                (setq-default cursor-type '(bar . 2))))
   #+end_src
 
   #+RESULTS:
@@ -232,14 +235,6 @@
 
    #+RESULTS:
    : 100000
-
-** change the cursor type and color
-   #+begin_src emacs-lisp
-     ;;(setq-default cursor-type '(hbar . 2))
-     (setq-default cursor-type '(bar . 2))
-   #+end_src
-
-   #+RESULTS:
 
 ** highlight current line
    #+begin_src emacs-lisp
