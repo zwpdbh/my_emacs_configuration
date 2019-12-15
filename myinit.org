@@ -8,11 +8,11 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    ;; (use-package dakrone-theme
+    ;; (use-package solarized-theme
     ;;   :ensure t
     ;;   :config
     ;;   (progn
-    ;;     (load-theme 'dakrone t)
+    ;;     (load-theme 'solarized-wombat-dark t)
     ;;     (add-hook 'after-init-hook 
     ;;               (lambda ()
     ;;                 ;; M-x customize-face
