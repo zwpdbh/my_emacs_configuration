@@ -1944,6 +1944,7 @@
   * If it shows error ~use-package centaur-tabs error~, just wait it for a while it will be ok (Probably restart Emacs). 
   #+begin_src emacs-lisp
     (use-package centaur-tabs
+      :ensure t
       :demand
       :config
       (progn
