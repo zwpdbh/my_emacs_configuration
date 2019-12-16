@@ -33,8 +33,12 @@
                                     :foreground "HotPink"
                                     :background nil
                                     :weight 'ultrabold)
+                ;; specify the highlight line 
                 (set-face-attribute 'hl-line nil
                                     :underline nil)
+                ;; specify the highlight, such as current line 
+                (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)
+                ;; specify the selection region
                 (set-face-attribute 'region nil :background "#666")
                 (set-cursor-color "#D4FF00") 
                 (setq-default cursor-type '(bar . 2))))
