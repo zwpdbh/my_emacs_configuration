@@ -17,25 +17,27 @@
                           :background nil
                           :weight 'ultrabold)
 
-      ;; (set-face-attribute 'hl-line nil
-      ;;                     :underline nil
-      ;;                     :foreground 'unspecified
-      ;;                     :background "#3e4446")
-      ;; (set-face-attribute 'highligh
-      ;;                     t nil :background "#3e4446" :foreground 'unspecified)
-      ;; ;; specify the selection region
-      ;; (set-face-attribute 'region nil :background "#666")
+      (set-face-attribute 'hl-line nil
+                          :underline nil
+                          :foreground 'unspecified
+                          :background "#3e4446")
+      (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)
+
+      ;; specify the selection region
+      (set-face-attribute 'region nil :background "#666")
 
       (set-cursor-color "#D4FF00") 
       (setq-default cursor-type '(bar . 2)))
 
+    (load-theme 'wombat)
+    (add-hook 'after-init-hook 'my-customize-for-theme)
 
-    (use-package solarized-theme
-    :ensure t
-    :config
-    (progn
-      (load-theme 'solarized-dark-high-contrast t)
-      (add-hook 'after-init-hook 'my-customize-for-theme)))
+    ;; (use-package solarized-theme
+    ;; :ensure t
+    ;; :config
+    ;; (progn
+    ;;   (load-theme 'solarized-dark-high-contrast t)
+    ;;   (add-hook 'after-init-hook 'my-customize-for-theme)))
   #+end_src
 
   #+RESULTS:
@@ -2009,7 +2011,7 @@
         (progn
           (setq highlight-indent-guides-delay 0.1)
 
-          ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+          (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
           (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
           (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
           (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
