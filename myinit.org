@@ -8,40 +8,44 @@
 
 * Set emacs theme
   #+begin_src emacs-lisp
-    ;; (use-package solarized-theme
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn
-    ;;     (load-theme 'solarized-wombat-dark t)
-    ;;     (add-hook 'after-init-hook 
-    ;;               (lambda ()
-    ;;                 ;; M-x customize-face
-    ;;                 ;; show-paren-match to view different options #D4FF00
-    ;;                 (set-face-attribute 'show-paren-match nil
-    ;;                                     :underline t
-    ;;                                     :foreground "#D4FF00"
-    ;;                                     :background nil
-    ;;                                     :weight 'ultrabold)))))
+    (use-package solarized-theme
+      :ensure t
+      :config
+      (progn
+        (load-theme 'solarized-wombat-dark t)
+        (add-hook 'after-init-hook 
+                  (lambda ()
+                    ;; M-x customize-face
+                    ;; show-paren-match to view different options #D4FF00
+                    (set-face-attribute 'show-paren-match nil
+                                        :underline t
+                                        :foreground "#D4FF00"
+                                        :background nil
+                                        :weight 'ultrabold)
+                    (set-cursor-color "#D4FF00") 
+                    (setq-default cursor-type '(bar . 2))
+                    ;; specify the highlight, such as current line 
+                    (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)))))
 
-    (load-theme 'wombat)
-    (add-hook 'after-init-hook 
-              (lambda ()
-                ;; M-x customize-face
-                ;; show-paren-match to view different options #D4FF00
-                (set-face-attribute 'show-paren-match nil
-                                    :underline t
-                                    :foreground "HotPink"
-                                    :background nil
-                                    :weight 'ultrabold)
-                ;; specify the highlight line 
-                (set-face-attribute 'hl-line nil
-                                    :underline nil)
-                ;; specify the highlight, such as current line 
-                (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)
-                ;; specify the selection region
-                (set-face-attribute 'region nil :background "#666")
-                (set-cursor-color "#D4FF00") 
-                (setq-default cursor-type '(bar . 2))))
+    ;; (load-theme 'wombat)
+    ;; (add-hook 'after-init-hook 
+    ;;           (lambda ()
+    ;;             ;; M-x customize-face
+    ;;             ;; show-paren-match to view different options #D4FF00
+    ;;             (set-face-attribute 'show-paren-match nil
+    ;;                                 :underline t
+    ;;                                 :foreground "HotPink"
+    ;;                                 :background nil
+    ;;                                 :weight 'ultrabold)
+    ;;             ;; specify the highlight line 
+    ;;             (set-face-attribute 'hl-line nil
+    ;;                                 :underline nil)
+    ;;             ;; specify the highlight, such as current line 
+    ;;             (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)
+    ;;             ;; specify the selection region
+    ;;             (set-face-attribute 'region nil :background "#666")
+    ;;             (set-cursor-color "#D4FF00") 
+    ;;             (setq-default cursor-type '(bar . 2))))
   #+end_src
 
   #+RESULTS:
@@ -1514,7 +1518,7 @@
    Another way is to invoke the function ~org-agenda-file-to-front~.
    #+begin_src emacs-lisp
      ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
-     ;; (setq org-agenda-files (directory-files-recursively "~/code/org/" "\\.org$"))
+     (setq org-agenda-files (directory-files-recursively "~/code/capture-org/" "\\.org$"))
    #+end_src
 
 ** make code-block could be executed in org-mode
