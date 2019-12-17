@@ -682,12 +682,12 @@
 
 * expand-region
   #+begin_src emacs-lisp
-      (use-package expand-region
-	:ensure t
-	:config
-	(progn
-	  (global-set-key (kbd "C-=") 'er/expand-region)
-	  (global-set-key (kbd "C--") 'er/contract-region)))
+    (use-package expand-region
+      :ensure t
+      :config
+      (progn
+        (global-set-key (kbd "C-=") 'er/expand-region)
+        (global-set-key (kbd "C--") 'er/contract-region)))
   #+end_src
 
   #+RESULTS:
