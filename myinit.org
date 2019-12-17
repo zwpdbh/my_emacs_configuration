@@ -22,10 +22,16 @@
                                         :foreground "#D4FF00"
                                         :background nil
                                         :weight 'ultrabold)
+                
+                
+                    (set-face-attribute 'hl-line nil
+                                        :underline nil
+                                        :foreground 'unspecified
+                                        :background "#3e4446")
+                    (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)
+
                     (set-cursor-color "#D4FF00") 
-                    (setq-default cursor-type '(bar . 2))
-                    ;; specify the highlight, such as current line 
-                    (set-face-attribute 'highlight nil :background "#3e4446" :foreground 'unspecified)))))
+                    (setq-default cursor-type '(bar . 2))))))
 
     ;; (load-theme 'wombat)
     ;; (add-hook 'after-init-hook 
