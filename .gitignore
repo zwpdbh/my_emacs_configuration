@@ -7,7 +7,7 @@
 
 # Add all my .el configuration
 !lisp/
-!lisp/** 
+!lisp/*.el
 !my-init.el
 
 # Add all the files within folder org-templates
