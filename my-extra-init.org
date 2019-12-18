@@ -1173,14 +1173,14 @@
 
 
 ** Web/Javascript programming
-*** Interface
-    #+begin_src emacs-lisp
-      (setq js-indent-level 2)
-      (setq typescript-indent-level 2)
-    #+end_src
+# *** Interface
+#     #+begin_src emacs-lisp
+#       (setq js-indent-level 2)
+#       (setq typescript-indent-level 2)
+#     #+end_src
 
-    #+RESULTS:
-    : 2
+#     #+RESULTS:
+#     : 2
 *** Javascript
     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
     * Tern is a stand-alone code-analysis engine for JavaScript
@@ -1204,10 +1204,10 @@
                       (setq-local company-backends (add-to-list 'company-backends 'company-tern))
                       (tern-mode)))
 
-        (use-package js2-mode
-          :defer t
-          :init
-          :ensure t)
+        ;; (use-package js2-mode
+        ;;   :defer t
+        ;;   :init
+        ;;   :ensure t)
       #+end_src
 
       #+RESULTS:
@@ -1216,29 +1216,29 @@
 **** Company-flow 
 
      #+begin_src emacs-lisp
-       (use-package company-flow
-         :defer t
-         :after (company)
-         :ensure t)
+       ;; (use-package company-flow
+       ;;   :defer t
+       ;;   :after (company)
+       ;;   :ensure t)
 
-       (defun flow/set-flow-executable ()
-         (interactive)
-         (let* ((os (pcase system-type
-                      ('darwin "osx")
-                      ('gnu/linux "linux64")
-                      (_ nil)))
-                (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
-                (executable (car (file-expand-wildcards
-                                  (concat root "node_modules/flow-bin/*" os "*/flow")))))
-           (when executable
-             (setq-local company-flow-executable executable)
-             ;; These are not necessary for this package, but a good idea if you use
-             ;; these other packages
-             (setq-local flow-minor-default-binary executable)
-             (setq-local flycheck-javascript-flow-executable executable)
-             (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
-       ;; invoke company-flow for certain mode
-       (add-hook 'js-mode-hook #'flow/set-flow-executable t)
+       ;; (defun flow/set-flow-executable ()
+       ;;   (interactive)
+       ;;   (let* ((os (pcase system-type
+       ;;                ('darwin "osx")
+       ;;                ('gnu/linux "linux64")
+       ;;                (_ nil)))
+       ;;          (root (locate-dominating-file  buffer-file-name  "node_modules/flow-bin"))
+       ;;          (executable (car (file-expand-wildcards
+       ;;                            (concat root "node_modules/flow-bin/*" os "*/flow")))))
+       ;;     (when executable
+       ;;       (setq-local company-flow-executable executable)
+       ;;       ;; These are not necessary for this package, but a good idea if you use
+       ;;       ;; these other packages
+       ;;       (setq-local flow-minor-default-binary executable)
+       ;;       (setq-local flycheck-javascript-flow-executable executable)
+       ;;       (setq-local company-backends (add-to-list 'company-backends #'company-flow)))))
+       ;; ;; invoke company-flow for certain mode
+       ;; (add-hook 'js-mode-hook #'flow/set-flow-executable t)
      #+end_src
 
 *** Web-mode for vue.js 
@@ -1856,17 +1856,17 @@
                                    (my-latex-mode-setup)))
     #+end_src
 
-* highlight-symbol
-  #+begin_src emacs-lisp
-    (use-package idle-highlight-mode
-      :defer 2
-      :ensure t
-      :init 
-      (define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
-        (lambda ()
-          (idle-highlight-mode 1)))
-      (my-global-idle-highlight-mode 1))
-  #+end_src
+# * highlight-symbol
+#   #+begin_src emacs-lisp
+#     (use-package idle-highlight-mode
+#       :defer 2
+#       :ensure t
+#       :init 
+#       (define-globalized-minor-mode my-global-idle-highlight-mode idle-highlight-mode
+#         (lambda ()
+#           (idle-highlight-mode 1)))
+#       (my-global-idle-highlight-mode 1))
+#   #+end_src
 * Folding
   * [[https://github.com/gregsexton/origami.el][Origami]]
   * [[https://github.com/zenozeng/yafolding.el][yafolding ]]
