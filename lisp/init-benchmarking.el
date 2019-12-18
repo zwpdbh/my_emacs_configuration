@@ -24,7 +24,7 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 
 (advice-add 'require :around 'sanityinc/require-times-wrapper)
 
-
+
 (define-derived-mode sanityinc/require-times-mode tabulated-list-mode "Require-Times"
   "Show times taken to `require' packages."
   (setq tabulated-list-format
@@ -63,9 +63,6 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
     (sanityinc/require-times-mode)
     (tabulated-list-revert)
     (display-buffer (current-buffer))))
-
-
-
 
 (defun sanityinc/show-init-time ()
   (message "init completed in %.2fms"
