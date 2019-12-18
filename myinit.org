@@ -498,24 +498,24 @@
   #+RESULTS:
   : t
 * Projectile
-  #+begin_src emacs-lisp
-    (use-package projectile
-      :init
-      (setq projectile-completion-system 'helm)
-      :ensure t
-      :bind ("C-c p" . projectile-command-map))
+  # #+begin_src emacs-lisp
+  #   (use-package projectile
+  #     :init
+  #     (setq projectile-completion-system 'helm)
+  #     :ensure t
+  #     :bind ("C-c p" . projectile-command-map))
 
-    (use-package helm-projectile
-      :after (projectile helm)
-      :ensure t)
+  #   (use-package helm-projectile
+  #     :after (projectile helm)
+  #     :ensure t)
 
-    (add-hook 'after-init-hook '(lambda ()
-                                  (helm-projectile-on)
-                                  (projectile-global-mode)))
-  #+end_src
+  #   (add-hook 'after-init-hook '(lambda ()
+  #                                 (helm-projectile-on)
+  #                                 (projectile-global-mode)))
+  # #+end_src
 
-  #+RESULTS:
-  : projectile-command-map
+  # #+RESULTS:
+  # : projectile-command-map
 
 * Company
   #+BEGIN_SRC emacs-lisp

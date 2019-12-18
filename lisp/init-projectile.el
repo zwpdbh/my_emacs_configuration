@@ -2,17 +2,25 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (maybe-require-package 'projectile)
-  (add-hook 'after-init-hook 'projectile-mode)
-
-  ;; Shorter modeline
+(use-package projectile
+  :init
   (setq-default projectile-mode-line-prefix " Proj")
+  (setq projectile-completion-system 'helm)
+  :ensure t
+  :bind ("C-c p" . projectile-command-map))
 
-  (after-load 'projectile
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+(use-package ibuffer-projectile
+  :ensure t
+  :after (projectile))
 
-  (maybe-require-package 'ibuffer-projectile))
+(use-package helm-projectile
+  :after (projectile helm)
+  :ensure t
+  :config
+  (helm-projectile-on))
 
+(add-hook 'after-init-hook '(lambda ()
+                              (projectile-global-mode)))
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here
