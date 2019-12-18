@@ -42,6 +42,8 @@
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
+(require 'init-themes)
+(require 'init-osx-keys)
 (require 'init-gui-frames)
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
