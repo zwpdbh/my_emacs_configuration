@@ -353,17 +353,17 @@
 ** smartparens
    [[https://github.com/Fuco1/smartparens][smartparens]] is an excellent (newer) alternative to paredit. Many Clojure hackers have adopted it recently and you might want to give it a try as well.
    #+BEGIN_SRC emacs-lisp
-     (use-package smartparens
-       :defer
-       :ensure t
-       :config
-       (progn
-         (add-hook 'js-mode-hook #'smartparens-mode)
-         (add-hook 'typescript-mode-hook #'smartparens)
-         (add-hook 'c-mode-hook #'smartparens-mode)
-         (add-hook 'c++-mode-hook #'smartparens-mode)
-         (add-hook 'web-mode-hook #'smartparens-mode)
-         (add-hook 'shell-script-mode 'smartparens-mode)))
+     ;; (use-package smartparens
+     ;;   :defer
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (add-hook 'js-mode-hook #'smartparens-mode)
+     ;;     (add-hook 'typescript-mode-hook #'smartparens)
+     ;;     (add-hook 'c-mode-hook #'smartparens-mode)
+     ;;     (add-hook 'c++-mode-hook #'smartparens-mode)
+     ;;     (add-hook 'web-mode-hook #'smartparens-mode)
+     ;;     (add-hook 'shell-script-mode 'smartparens-mode)))
    #+END_SRC
 
    #+RESULTS:
@@ -1046,7 +1046,7 @@
            'yaml-mode-hook 
            #'(lambda ()
                (setq yaml-indent-offset 2)
-               (smartparens-mode)
+               ;; (smartparens-mode)
                (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
     #+end_src
 
@@ -1109,7 +1109,7 @@
                 (setq lsp-python-ms-executable
                       "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
                 (add-hook 'python-mode-hook 'lsp-mode)
-                (add-hook 'python-mode-hook #'smartparens-mode)
+                ;; (add-hook 'python-mode-hook #'smartparens-mode)
                 :ensure t)
             #+end_src
 
@@ -1163,7 +1163,8 @@
         :defer t
         :init 
         (add-hook 'cmake-mode-hook #'(lambda ()
-                                       (smartparens-mode +1)))
+                                       ;; (smartparens-mode +1)
+                                       ))
         :ensure t)
     #+end_src
 
@@ -1737,7 +1738,7 @@
          (setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
          (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
          (add-hook 'plantuml-mode-hook '(lambda ()
-                                          (smartparens-mode)
+                                          ;; (smartparens-mode)
                                           (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))))
    #+end_src
 
