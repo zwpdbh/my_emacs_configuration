@@ -1,4 +1,3 @@
-
 (load "~/.emacs.d/my-init.el")
 
 (custom-set-variables
