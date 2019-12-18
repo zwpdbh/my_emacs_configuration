@@ -637,9 +637,9 @@
       (use-package lv
         :defer t
         :ensure t)
-      (use-package hydra
-        :defer t
-        :ensure t)
+      ;; (use-package hydra
+      ;;   :defer t
+      ;;   :ensure t)
       (with-eval-after-load 'winum
         (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
       (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
@@ -678,10 +678,10 @@
             ("C-x t C-t" . treemacs-find-file)
             ("C-x t M-t" . treemacs-find-tag)))
 
-    (use-package treemacs-evil
-      :defer t
-      :after (treemacs evil) 
-      :ensure t)
+    ;; (use-package treemacs-evil
+    ;;   :defer t
+    ;;   :after (treemacs evil) 
+    ;;   :ensure t)
 
     (use-package treemacs-projectile
       :defer t
