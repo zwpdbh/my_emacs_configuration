@@ -1,10 +1,14 @@
-# First, ignore everything
+# Ignore everything
 *
-# Now, whitelist directory you wanted
-*/
+*.*~
+
 # And all the file types you're interested in.
 !*.org
-.#*
+
+# Add all my .el configuration
+!lisp/
+!lisp/** 
+!my-init.el
 
 # Add all the files within folder org-templates
 !org-templates
