@@ -7,7 +7,7 @@
 
 (use-package doom-themes
   :init
-  (setq doom-themes-enable-bold nil    
+  (setq doom-themes-enable-bold nil
         doom-themes-enable-italic nil)
   :ensure t
   :config
@@ -17,8 +17,9 @@
     ;; (doom-themes-treemacs-config)
     ;; Corrects (and improves) org-mode's native fontification.
     ;; (doom-themes-org-config)
-    (set-cursor-color "HotPink") 
-    (setq-default cursor-type '(bar . 2))))
+    (set-cursor-color "HotPink")
+    ;; (setq-default cursor-type '(bar . 2))
+    ))
 
 ;; Don't prompt to confirm theme safety. This avoids problems with
 ;; first-time startup on Emacs > 26.3.
