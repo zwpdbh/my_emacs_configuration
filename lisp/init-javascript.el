@@ -2,8 +2,22 @@
 ;;; Commentary:
 ;;; Code:
 
-(maybe-require-package 'json-mode)
-(maybe-require-package 'js2-mode)
+;; (maybe-require-package 'json-mode)
+(use-package json-mode
+  :defer t
+  :ensure t
+  :config
+  (progn
+    (add-hook 'json-mode-hook
+              #'(lambda ()
+                  (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+
+;; (maybe-require-package 'js2-mode)
+(use-package js2-mode
+  :defer t
+  :init
+  :ensure t)
+
 (maybe-require-package 'coffee-mode)
 (maybe-require-package 'typescript-mode)
 (maybe-require-package 'prettier-js)
