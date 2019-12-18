@@ -154,4 +154,4 @@
 ;;               (server-start))))
 
 
-(org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/my-extra-init.org"))
