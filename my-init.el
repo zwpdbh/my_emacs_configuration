@@ -45,5 +45,10 @@
 (require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
-
+(require 'init-dired)
+;; (require 'init-isearch)
+(require 'init-grep)
+(require 'init-uniquify)
+(require 'init-ibuffer)
+(require 'init-flycheck)
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
