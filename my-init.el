@@ -64,6 +64,9 @@
 (require 'init-ibuffer)
 (require 'init-flycheck)
 (require 'init-recentf)
-;; (require 'init-smex)
+
+(require 'init-hippie-expand)
+(require 'init-windows)
+(require 'init-mmm)
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
