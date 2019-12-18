@@ -186,32 +186,32 @@
 
 ** set line number
    #+BEGIN_SRC emacs-lisp
-     (use-package nlinum
-       :defer t
-       :ensure t
-       :config
-       (progn
-         (global-nlinum-mode t)
-         ;; Preset `nlinum-format' for minimum width.
-         (defun my-nlinum-mode-hook ()
-           (when nlinum-mode
-             (setq-local nlinum-format
-                         (concat "%" (number-to-string
-                                      ;; Guesstimate number of buffer lines.
-                                      (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-                                 "d"))))
-         (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
+     ;; (use-package nlinum
+     ;;   :defer t
+     ;;   :ensure t
+     ;;   :config
+     ;;   (progn
+     ;;     (global-nlinum-mode t)
+     ;;     ;; Preset `nlinum-format' for minimum width.
+     ;;     (defun my-nlinum-mode-hook ()
+     ;;       (when nlinum-mode
+     ;;         (setq-local nlinum-format
+     ;;                     (concat "%" (number-to-string
+     ;;                                  ;; Guesstimate number of buffer lines.
+     ;;                                  (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+     ;;                             "d"))))
+     ;;     (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
 
-         ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
-         (defun initialize-nlinum (&optional frame)
-           (require 'nlinum)
-           (add-hook 'prog-mode-hook 'nlinum-mode))
-         (when (daemonp)
-           (add-hook 'window-setup-hook 'initialize-nlinum)
-           (defadvice make-frame (around toggle-nlinum-mode compile activate)
-             (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
+     ;;     ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
+     ;;     (defun initialize-nlinum (&optional frame)
+     ;;       (require 'nlinum)
+     ;;       (add-hook 'prog-mode-hook 'nlinum-mode))
+     ;;     (when (daemonp)
+     ;;       (add-hook 'window-setup-hook 'initialize-nlinum)
+     ;;       (defadvice make-frame (around toggle-nlinum-mode compile activate)
+     ;;         (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
 
-     (add-hook 'after-init-hook 'nlinum-mode)
+     ;; (add-hook 'after-init-hook 'nlinum-mode)
    #+END_SRC
 
    #+RESULTS:
