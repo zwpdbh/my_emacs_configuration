@@ -1950,14 +1950,20 @@
       (my-global-idle-highlight-mode 1))
   #+end_src
 * Folding
+  * [[https://github.com/gregsexton/origami.el][Origami]]
+  * [[https://github.com/zenozeng/yafolding.el][yafolding ]]
+  * [[https://github.com/mrkkrp/vimish-fold][vimish-fold]]
   #+begin_src emacs-lisp
     (use-package yafolding
       :defer t
       :init (global-set-key (kbd "<f9>") 'yafolding-toggle-element)
       :commands (yafolding-toggle-element)
       :ensure t)
-
   #+end_src
+
+  #+RESULTS:
+  : t
+
 * Indentation
 ** indent guide
 *** Refs   
