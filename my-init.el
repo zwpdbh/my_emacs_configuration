@@ -69,4 +69,15 @@
 (require 'init-windows)
 (require 'init-mmm)
 
+(require 'init-editing-utils)
+(require 'init-whitespace)
+
+(require 'init-vc)
+(require 'init-git)
+(require 'init-github)
+
+(require 'init-projectile)
+
+(require 'init-compile)
+
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))

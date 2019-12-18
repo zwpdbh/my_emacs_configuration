@@ -612,13 +612,13 @@
   : t
 
 * Magit
-  #+begin_src emacs-lisp
-    (use-package magit
-      :bind (("C-x g" . magit))
-      :ensure t)
-  #+end_src
+  # #+begin_src emacs-lisp
+  #   (use-package magit
+  #     :bind (("C-x g" . magit))
+  #     :ensure t)
+  # #+end_src
 
-  #+RESULTS:
+  # #+RESULTS:
 
 ** configuration for smerge-mode
    #+begin_src emacs-lisp
