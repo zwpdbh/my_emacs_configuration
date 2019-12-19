@@ -18,8 +18,7 @@
     ;; Corrects (and improves) org-mode's native fontification.
     ;; (doom-themes-org-config)
     (set-cursor-color "HotPink")
-    ;; (setq-default cursor-type '(bar . 2))
-    ))
+    (setq-default cursor-type '(bar . 2))))
 
 ;; Don't prompt to confirm theme safety. This avoids problems with
 ;; first-time startup on Emacs > 26.3.
