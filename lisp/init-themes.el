@@ -19,7 +19,7 @@
     (load-theme 'doom-solarized-light t)
     
     ;; use the colorful treemacs theme
-    (setq doom-themes-treemacs-theme "doom-colors") 
+    (setq doom-themes-treemacs-theme "doom-colors")
     ;; (doom-themes-treemacs-config)
     
     ;; Corrects (and improves) org-mode's native fontification.
