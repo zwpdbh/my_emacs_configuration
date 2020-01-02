@@ -1871,23 +1871,6 @@
     * [[https://github.com/antonj/Highlight-Indentation-for-Emacs][Highlight-Indentation-for-Emacs]]
     * [[https://github.com/DarthFennec/highlight-indent-guides][highlight-indent-guides]]
     * [[https://github.com/zk-phi/indent-guide][indent-guide]]
-*** Highlight-Indentation-for-Emacs
-    #+BEGIN_SRC emacs-lisp
-	  ;; (use-package highlight-indentation
-	  ;;       :ensure t
-	  ;;       :config
-	  ;;       (progn
-	  ;; 	;; (set-face-background 'highlight-indentation-face "#262626")
-	  ;; 	;; (set-face-background 'highlight-indentation-current-column-face "#808080")
-	  ;; 	;; define a global minor mode
-	  ;; 	(define-globalized-minor-mode my-global-highlight-indentation-mode highlight-indentation-mode
-	  ;; 	      (lambda ()
-	  ;; 	(highlight-indentation-mode 1)))
-	  ;; 	(my-global-highlight-indentation-mode 1)))
-    #+END_SRC
-
-    #+RESULTS:
-    : t
 *** highlight-indent-guides
     #+begin_src emacs-lisp
       (use-package highlight-indent-guides
@@ -1895,8 +1878,7 @@
         :config 
         (progn
           (setq highlight-indent-guides-delay 0.1)
-
-          (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+          ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
           (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
           (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
           (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
@@ -1904,12 +1886,12 @@
 
 *** indent-guide
     #+begin_src emacs-lisp
-      ;; (use-package indent-guide
-      ;;   :ensure t
-      ;;   :config
-      ;;   (progn
-      ;;     (setq indent-guide-delay 0.1)
-      ;;     (indent-guide-global-mode)))
+      (use-package indent-guide
+        :ensure t
+        :config
+        (progn
+          (setq indent-guide-delay 0.1)
+          (add-hook 'prog-mode-hook 'indent-guide-mode)))
     #+end_src
 
 ** indentation using tab/space
