@@ -16,7 +16,7 @@
   :ensure t
   :config
   (progn
-    (load-theme 'doom-solarized-light t)
+    (load-theme 'doom-tomorrow-night t)
     
     ;; use the colorful treemacs theme
     (setq doom-themes-treemacs-theme "doom-colors")
