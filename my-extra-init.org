@@ -786,7 +786,7 @@
        :init
        (setq rtog/fullscreen t)
        (setq rtog/mode-repl-alist '((scheme-mode . geiser) (emacs-lisp-mode . ielm) (js2-mode . nodejs-repl) (python-mode . elpy-shell-switch-to-shell)))
-       :after (geiser-mode)
+       :after (scheme-mode)
        :ensure t)
    #+end_src
 
