@@ -712,17 +712,14 @@
 ** Common-lisp
    #+begin_src emacs-lisp
      (use-package sly
+       :ensure t
+       :mode ("\\.lisp\\'" "\\.cl\\'")
+       :defer t
        :init
        (setq inferior-lisp-program "sbcl")
        (setq sly-lisp-implementations
-             '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)
-               ))
-       ;; (setq inferior-lisp-program "clisp"
-       ;; 	  exec-path (append exec-path
-       ;;                         '("/usr/local/bin")))
-       :commands (sly-mode)
-       :ensure t
-       :defer t)
+             '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))
+       :commands (sly-mode))
    #+end_src
 
    #+RESULTS:
@@ -793,12 +790,6 @@
        (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
        (add-hook 'scheme-mode-hook 'geiser-mode)
        :ensure t)
-
-     (use-package repl-toggle
-       :ensure t
-       :init
-       (setq rtog/fullscreen t)
-       (setq rtog/mode-repl-alist '((scheme-mode . geiser) (emacs-lisp-mode . ielm))))
    #+end_src
    
 
