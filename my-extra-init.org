@@ -764,9 +764,12 @@
        :defer t
        :init
        ;; append exec-path to include chez scheme
-       (if (eq system-type 'windows-nt)
-           (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt")))
-         (setq exec-path (append exec-path '("/usr/bin"))))
+       (cond ((eq system-type 'windows-nt)
+              (setq exec-path (append exec-path '("c:/Program Files (x86)/Chez Scheme 9.5/bin/ti3nt"))))
+             ((eq system-type 'darwin)
+              (setq exec-path (append exec-path '("/usr/local/bin"))))
+             ((eq system-type 'gnu/linux)
+              (setq exec-path (append exec-path '("/usr/bin")))))
        ;; set Library directories
        (cond ((eq system-type 'windows-nt)
               (setenv "CHEZSCHEMELIBDIRS" "C:\\scheme\\lib;")
@@ -777,7 +780,12 @@
               (setenv "CHEZSCHEMELIBEXTS" ".sc::.so:"))
              (t
               nil))
-       (setq geiser-chez-binary "chezscheme9.5")
+
+       (cond ((eq system-type 'darwin)
+              (setq geiser-chez-binary "chez"))
+             (t
+              (setq geiser-chez-binary "chezscheme9.5")))
+  
        (setq geiser-active-implementations '(racket guile chez))
        (setq geiser-mode-start-repl-p t)
        (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
