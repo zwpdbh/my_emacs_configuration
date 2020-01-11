@@ -177,6 +177,7 @@
 ** set adaptive-wrap
    #+BEGIN_SRC emacs-lisp
      (use-package adaptive-wrap
+       :diminish
        :defer 1
        :ensure t
        :config
@@ -300,6 +301,7 @@
 ** Paredit
    #+begin_src emacs-lisp
      (use-package paredit
+       :diminish
        :defer 1
        :ensure t
        :init
@@ -372,6 +374,7 @@
 * Helm
   #+BEGIN_SRC emacs-lisp
     (use-package helm
+      :diminish
       :ensure t
       :config
       (progn
@@ -438,6 +441,7 @@
 * Company
   #+BEGIN_SRC emacs-lisp
     (use-package company
+      :diminish
       :defer t
       :ensure t
       :config
@@ -658,6 +662,7 @@
 ** Eldoc to show argument list
    #+begin_src emacs-lisp
      (use-package eldoc
+       :diminish
        :defer t
        :ensure t
        :init
