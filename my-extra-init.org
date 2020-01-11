@@ -712,6 +712,7 @@
 ** Common-lisp
    #+begin_src emacs-lisp
      (use-package sly
+       ;; use ~sly~ to connect to REPL
        :ensure t
        :mode ("\\.lisp\\'" "\\.cl\\'")
        :defer t
