@@ -785,7 +785,7 @@
               (setq geiser-chez-binary "chez"))
              (t
               (setq geiser-chez-binary "chezscheme9.5")))
-  
+
        (setq geiser-active-implementations '(racket guile chez))
        (setq geiser-mode-start-repl-p t)
        (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
@@ -795,16 +795,12 @@
        :ensure t)
 
      (use-package repl-toggle
-       :defer t
+       :ensure t
        :init
        (setq rtog/fullscreen t)
-       (setq rtog/mode-repl-alist '((scheme-mode . geiser) (emacs-lisp-mode . ielm) (js2-mode . nodejs-repl) (python-mode . elpy-shell-switch-to-shell)))
-       :after (scheme-mode)
-       :ensure t)
+       (setq rtog/mode-repl-alist '((scheme-mode . geiser) (emacs-lisp-mode . ielm))))
    #+end_src
-
-   #+RESULTS:
-   : ((scheme-mode . geiser) (emacs-lisp-mode . ielm) (js2-mode . nodejs-repl) (python-mode . elpy-shell-switch-to-shell))
+   
 
 ** Clojure programming
 *** CIDER
