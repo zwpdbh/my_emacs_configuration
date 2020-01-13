@@ -43,6 +43,8 @@
 
 ** set ruler-mode
    #+begin_src emacs-lisp
+     (setq fill-column 80)
+     (setq comment-column 70)
      (add-hook 'prog-mode-hook 'ruler-mode)
      (add-hook 'plantuml-mode-hook 'ruler-mode)
      (add-hook 'json-mode-hook 'ruler-mode)
