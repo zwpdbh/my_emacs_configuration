@@ -41,6 +41,17 @@
 
    #+RESULTS:
 
+** set ruler-mode
+   #+begin_src emacs-lisp
+     (add-hook 'prog-mode-hook 'ruler-mode)
+     (add-hook 'plantuml-mode-hook 'ruler-mode)
+     (add-hook 'json-mode-hook 'ruler-mode)
+     (add-hook 'yaml-mode-hook 'ruler-mode)
+   #+end_src
+
+   #+RESULTS:
+   | ruler-mode | disable-tabs | symbol-overlay-mode |
+
 ** Mode line
    #+begin_src emacs-lisp
      (use-package powerline
