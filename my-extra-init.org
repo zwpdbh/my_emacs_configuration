@@ -53,36 +53,33 @@
    #+RESULTS:
    | ruler-mode | disable-tabs | symbol-overlay-mode |
 
-# ** Mode line
-#    #+begin_src emacs-lisp
-#      (use-package powerline
-#        :ensure t
-#        :config
-#        (progn
-#          (powerline-default-theme)))
+** Mode line
+   #+begin_src emacs-lisp
+     (use-package powerline
+       :ensure t)
 
-#      (use-package smart-mode-line
-#        :ensure t
-#        :config
-#        (setq sml/no-confirm-load-theme t)
-#        (sml/setup))
-#    #+end_src
+     (use-package smart-mode-line
+       :ensure t
+       :config
+       (setq sml/no-confirm-load-theme t)
+       (sml/setup))
+   #+end_src
 
-#    #+RESULTS:
-#    : t
+   #+RESULTS:
+   : t
 
 ** alight commands
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'align-load-hook #'(lambda ()
-                                    (add-to-list 'align-rules-list
-                                                 '(text-column-whitespace
-                                                   (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
-                                                   (group   . 2)
-                                                   (modes   . align-text-modes)
-                                                   (repeat  . t)))))
+     (add-hook 'align-load-hook (lambda ()
+                                  (add-to-list 'align-rules-list
+                                               '(text-column-whitespace
+                                                 (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
+                                                 (group   . 2)
+                                                 (modes   . align-text-modes)
+                                                 (repeat  . t)))))
    #+END_SRC
+   - [[https://www.emacswiki.org/emacs/AlignCommands#toc5][Align Commands]]
 
-   #+RESULTS:
 
 ** adjust meta key
    #+BEGIN_SRC emacs-lisp
@@ -140,39 +137,6 @@
          (when (memq window-system '(mac ns x))
            (exec-path-from-shell-initialize))))
    #+end_src
-
-   #+RESULTS:
-   : t
-
-** set line number
-   #+BEGIN_SRC emacs-lisp
-     ;; (use-package nlinum
-     ;;   :defer t
-     ;;   :ensure t
-     ;;   :config
-     ;;   (progn
-     ;;     (global-nlinum-mode t)
-     ;;     ;; Preset `nlinum-format' for minimum width.
-     ;;     (defun my-nlinum-mode-hook ()
-     ;;       (when nlinum-mode
-     ;;         (setq-local nlinum-format
-     ;;                     (concat "%" (number-to-string
-     ;;                                  ;; Guesstimate number of buffer lines.
-     ;;                                  (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-     ;;                             "d"))))
-     ;;     (add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
-
-     ;;     ;; [[https://www.emacswiki.org/emacs/LineNumbers][solve bug with emacs daemon mode]]
-     ;;     (defun initialize-nlinum (&optional frame)
-     ;;       (require 'nlinum)
-     ;;       (add-hook 'prog-mode-hook 'nlinum-mode))
-     ;;     (when (daemonp)
-     ;;       (add-hook 'window-setup-hook 'initialize-nlinum)
-     ;;       (defadvice make-frame (around toggle-nlinum-mode compile activate)
-     ;;         (nlinum-mode -1) ad-do-it (nlinum-mode 1)))))
-
-     ;; (add-hook 'after-init-hook 'nlinum-mode)
-   #+END_SRC
 
    #+RESULTS:
    : t
