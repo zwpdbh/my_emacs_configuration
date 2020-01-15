@@ -26,15 +26,20 @@
 ;;                         :weight 'ultrabold)))
 
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t)
+  :ensure t
+  :defer t)
 
-;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(use-package cloud-theme
+  :ensure t 
+  :defer t)
+
+;; If you don't customize it, this is default theme you get.
+(setq-default custom-enabled-themes '(cloud))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
-  (setq custom-safe-themes t)
+  (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This avoids problems with
   (dolist (theme custom-enabled-themes)
     (unless (custom-theme-p theme)
       (load-theme theme)))
@@ -53,17 +58,19 @@
 ;;------------------------------------------------------------------------------
 ;; Toggle between light and dark
 ;;------------------------------------------------------------------------------
-(defun light ()
-  "Activate a light color theme."
-  (interactive)
-  (setq custom-enabled-themes '(sanityinc-tomorrow-day))
-  (reapply-themes))
-
-(defun dark ()
+(defun zw/dark ()
   "Activate a dark color theme."
   (interactive)
   (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
   (reapply-themes))
+
+(defun zw/cloud ()
+  "Activate a light color theme."
+  (interactive)
+  (setq custom-enabled-themes '(cloud))
+  (reapply-themes))
+
+
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
