@@ -33,9 +33,12 @@
   :ensure t 
   :defer t)
 
+(use-package leuven-theme
+  :ensure t
+  :defer t)
 
 ;; If you don't customize it, this is default theme you get.
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(leuven))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -59,16 +62,19 @@
 ;;------------------------------------------------------------------------------
 ;; Toggle between light and dark
 ;;------------------------------------------------------------------------------
-(defun zw/theme-dark ()
-  "Activate a dark color theme."
+(defun zw/theme-sanityinc-tomorrow-bright ()
   (interactive)
   (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
   (reapply-themes))
 
 (defun zw/theme-cloud ()
-  "Activate a light color theme."
   (interactive)
   (setq custom-enabled-themes '(cloud))
+  (reapply-themes))
+
+(defun zw/theme-leuven ()
+  (interactive)
+  (setq custom-enabled-themes '(leuven))
   (reapply-themes))
 
 
