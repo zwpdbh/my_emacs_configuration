@@ -56,7 +56,10 @@
 ** Mode line
    #+begin_src emacs-lisp
      (use-package powerline
-       :ensure t)
+       :ensure t
+       :config
+       (progn
+         (powerline-default-theme)))
    #+end_src
 
    #+RESULTS:
