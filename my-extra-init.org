@@ -741,29 +741,29 @@
 
 ** Racket
    #+begin_src emacs-lisp
-     ;; (use-package racket-mode
-     ;;   :defer t
-     ;;   :init
-     ;;   (cond
-     ;;    ((string-equal system-type "windows-nt")
-     ;;     (setq racket-program "c:/Program Files/Racket/Racket.exe"))
-     ;;    ((string-equal system-type "gnu/linux")
-     ;;     (setq racket-program "/usr/bin/racket"))
-     ;;    ((string-equal system-type "darwin")
-     ;;     (setq racket-program "/Applications/Racket_v7.0/bin/racket")))
-     ;;   ;; set racket-mode associated with racket-mode
-     ;;   (add-to-list 'auto-mode-alist '("\\.racket\\'" . racket-mode))
-     ;;   (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
-     ;;   (setq tab-always-indent 'complete)
-     ;;   :mode "\\.racket\\'"
-     ;;   :ensure t
-     ;;   :config
-     ;;   (progn
-     ;;     (add-hook 'racket-mode-hook
-     ;;               (lambda ()
-     ;;                 (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
-     ;;     (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
-     ;;     (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)))
+     (use-package racket-mode
+       :defer t
+       :init
+       (cond
+        ((string-equal system-type "windows-nt")
+         (setq racket-program "c:/Program Files/Racket/Racket.exe"))
+        ((string-equal system-type "gnu/linux")
+         (setq racket-program "/usr/bin/racket"))
+        ((string-equal system-type "darwin")
+         (setq racket-program "/Applications/Racket_v7.0/bin/racket")))
+       ;; set racket-mode associated with racket-mode
+       (add-to-list 'auto-mode-alist '("\\.racket\\'" . racket-mode))
+       (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode))
+       (setq tab-always-indent 'complete)
+       :mode "\\.racket\\'"
+       :ensure t
+       :config
+       (progn
+         (add-hook 'racket-mode-hook
+                   (lambda ()
+                     (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+         (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+         (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)))
    #+end_src
 
    #+RESULTS:
@@ -797,11 +797,11 @@
              (t
               (setq geiser-chez-binary "chezscheme9.5")))
 
-       (setq geiser-active-implementations '(racket guile chez))
+       (setq geiser-active-implementations '(guile chez))
        (setq geiser-mode-start-repl-p t)
        (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
-       (add-to-list 'auto-mode-alist '("\\.racket\\'" . scheme-mode))
-       (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
+       ;; (add-to-list 'auto-mode-alist '("\\.racket\\'" . scheme-mode))
+       ;; (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
        (add-hook 'scheme-mode-hook 'geiser-mode)
        :ensure t)
    #+end_src
