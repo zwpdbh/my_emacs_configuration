@@ -33,8 +33,9 @@
   :ensure t 
   :defer t)
 
+
 ;; If you don't customize it, this is default theme you get.
-(setq-default custom-enabled-themes '(cloud))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -58,18 +59,17 @@
 ;;------------------------------------------------------------------------------
 ;; Toggle between light and dark
 ;;------------------------------------------------------------------------------
-(defun zw/dark ()
+(defun zw/theme-dark ()
   "Activate a dark color theme."
   (interactive)
   (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
   (reapply-themes))
 
-(defun zw/cloud ()
+(defun zw/theme-cloud ()
   "Activate a light color theme."
   (interactive)
   (setq custom-enabled-themes '(cloud))
   (reapply-themes))
-
 
 
 (provide 'init-themes)
