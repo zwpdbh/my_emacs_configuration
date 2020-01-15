@@ -1531,6 +1531,8 @@
         :after ox)
     #+end_src
 
+    #+RESULTS:
+
 *** org-capture
     * create corresponding .org file within the org folder inside HUGO site
     * each note/post will be inserted into the corresponding org file under second level headline (the first level is the corresponding file headline)
@@ -1594,7 +1596,7 @@
               ("h" "Hugo post")
 
               ("hc" "Computer-Science"
-               entry (file org-capture-computer-science )
+               entry (file+olp org-capture-computer-science "Computer-Science")
                (function org-hugo-new-subtree-post-capture-template)
                :clock-in t :clock-resume t)
 
