@@ -25,6 +25,13 @@
 ;;                         :background nil
 ;;                         :weight 'ultrabold)))
 
+(use-package doom-themes
+  :ensure t
+  :defer t
+  :init
+  (setq doom-themes-enable-bold nil
+        doom-themes-enable-italic nil))
+
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :defer t)
@@ -75,6 +82,11 @@
 (defun zw/theme-leuven ()
   (interactive)
   (setq custom-enabled-themes '(leuven))
+  (reapply-themes))
+
+(defun zw/doom-tomorrow-night ()
+  (interactive)
+  (setq custom-enabled-themes '(doom-tomorrow-night))
   (reapply-themes))
 
 
