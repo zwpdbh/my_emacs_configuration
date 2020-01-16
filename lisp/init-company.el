@@ -20,9 +20,6 @@
     (setq company-echo-delay 0.01)
     (setq company-idle-delay 0.01)
     (setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode))
-    ;; (setq company-frontends
-    ;;       '(company-pseudo-tooltip-frontend
-    ;;         company-echo-metadata-frontend))
     
     (define-key company-active-map [tab] 'company-complete-selection)
     ;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
