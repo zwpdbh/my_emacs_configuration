@@ -13,8 +13,8 @@
   (progn
     (setq completion-ignore-case t)
     (setq company-dabbrev-downcase nil)
-    ;; Show suggestions after entering one character.
-    (setq company-minimum-prefix-length 1)
+    ;; Show suggestions after entering two character.
+    (setq company-minimum-prefix-length 2)
     ;; wrap around to the top of the list again
     (setq company-selection-wrap-around t)
     (setq company-echo-delay 0.01)
