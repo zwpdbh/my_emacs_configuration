@@ -1333,6 +1333,12 @@
        :defer t
        :ensure org-plus-contrib)
 
+     (use-package org-bullets
+       :ensure t
+       :defer t
+       :init 
+       (add-hook 'org-mode-hook '(lambda () (org-bullets-mode 1))))
+
 
      ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
      (eval-after-load 'org
