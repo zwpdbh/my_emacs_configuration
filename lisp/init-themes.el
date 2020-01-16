@@ -1,30 +1,5 @@
 ;;; init-themes.el --- Defaults for themes -*- lexical-binding: t -*-
 
-;; (use-package doom-themes
-;;   :init
-;;   (setq custom-safe-themes t)
-;;   (setq doom-themes-enable-bold nil
-;;         doom-themes-enable-italic nil)
-;;   :ensure t
-;;   :config
-;;   (progn
-;;     (load-theme 'doom-tomorrow-night t)
-
-;;     ;; use the colorful treemacs theme
-;;     (setq doom-themes-treemacs-theme "doom-colors")
-;;     ;; (doom-themes-treemacs-config)
-
-;;     ;; Corrects (and improves) org-mode's native fontification.
-;;     ;; (doom-themes-org-config)
-
-;;     (set-cursor-color "HotPink")
-;;     (setq-default cursor-type '(bar . 2))
-;;     (set-face-attribute 'show-paren-match nil
-;;                         :underline t
-;;                         :foreground "SteelBlue"
-;;                         :background nil
-;;                         :weight 'ultrabold)))
-
 (use-package doom-themes
   :ensure t
   :defer t
