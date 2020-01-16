@@ -30,6 +30,7 @@
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(require 'init-const)
 (require 'init-utils)
 ;; (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 ;; Calls (package-initialize)
@@ -85,6 +86,7 @@
 ;; (require 'init-csv)
 ;; (require 'init-erlang)
 (require 'init-javascript)
+(require 'init-company)
 ;; (require 'init-php)
 ;; (require 'init-org)
 ;; (require 'init-nxml)

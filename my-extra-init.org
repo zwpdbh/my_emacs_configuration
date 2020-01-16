@@ -417,68 +417,6 @@
 
   #+RESULTS:
   : t
-* Company
-  #+BEGIN_SRC emacs-lisp
-    (use-package company
-      :diminish
-      :defer t
-      :ensure t
-      :config
-      (progn
-        (setq completion-ignore-case t)
-        (setq company-dabbrev-downcase nil)
-        ;; Show suggestions after entering one character.
-        (setq company-minimum-prefix-length 1)
-        ;; wrap around to the top of the list again
-        (setq company-selection-wrap-around t)
-        (setq company-echo-delay 0.01)
-        (setq company-idle-delay 0.01)
-
-        (define-key company-active-map [tab] 'company-complete-selection)
-        ;; (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
-        (define-key company-active-map (kbd "C-n") 'company-select-next)
-        (define-key company-active-map (kbd "C-p") 'company-select-previous)
-
-        ;; company-capf, company-dabbrev and company-files are very useful. So, adjust default backends
-        (defvar company-default-backends '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-                                                        (company-dabbrev-code company-gtags company-etags company-keywords)
-                                                        company-oddmuse company-dabbrev))    
-        (defvar company-my-backends '(company-capf company-dabbrev company-files company-semantic
-                                                   (company-dabbrev-code company-gtags company-etags company-keywords)
-                                                   company-oddmuse company-dabbrev))
-        (setq company-backends company-my-backends)))
-
-    ;; use statistics to better filter completion candidates
-    (use-package company-statistics
-      :init
-      (add-hook 'company-mode-hook #'company-statistics-mode)
-      (setq company-transformers '(company-sort-by-statistics
-                                   company-sort-by-backend-importance))
-      :after (company)
-      :defer t
-      :ensure t)
-
-    (use-package company-posframe
-      :init 
-      (add-hook 'company-mode #'company-posframe-mode)
-      :after (company)
-      :defer t
-      :ensure t)
-
-    (use-package company-quickhelp
-      :init
-      (setq company-quickhelp-delay 0.5)
-      (add-hook 'company-mode #'company-quickhelp-mode)
-      :after (company)
-      :defer t
-      :ensure t)
-
-    (add-hook 'after-init-hook 'global-company-mode)
-  #+END_SRC
-
-  #+RESULTS:
-  : t
-
 * Rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
