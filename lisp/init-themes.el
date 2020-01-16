@@ -45,7 +45,7 @@
   :defer t)
 
 ;; set default theme
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(doom-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()

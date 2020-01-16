@@ -24,21 +24,30 @@
      * ~cp Monaco_Linux.ttf ~/.fonts/~
    * [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][how to find the current font used]]
    * [[http://ergoemacs.org/emacs/emacs_unicode_fonts.html][best unicode fonts for programmer]]
-   #+begin_src emacs-lisp
-     ;; to adjust font dynamically
-     ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-     ;; (cond
-     ;;  ((string-equal system-type "windows-nt")
-     ;;   (set-default-font "Consolas 12"))
-     ;;  ((string-equal system-type "gnu/linux")
-     ;;   (set-default-font "Ubuntu Mono 12"))
-     ;;  ((string-equal system-type "darwin")
-     ;;   (if (member "Source Code Pro" (font-family-list))
-     ;;       (set-default-font "Source Code Pro 12")
-     ;;     (set-default-font "Menlo 11"))))
-   #+end_src
+   * Install regular font 
+     #+begin_src emacs-lisp
+       ;; to adjust font dynamically
+       ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
+       ;; (cond
+       ;;  ((string-equal system-type "windows-nt")
+       ;;   (set-default-font "Consolas 12"))
+       ;;  ((string-equal system-type "gnu/linux")
+       ;;   (set-default-font "Ubuntu Mono 12"))
+       ;;  ((string-equal system-type "darwin")
+       ;;   (if (member "Source Code Pro" (font-family-list))
+       ;;       (set-default-font "Source Code Pro 12")
+       ;;     (set-default-font "Menlo 11"))))
+     #+end_src
+   * Install all the font
+     #+begin_src emacs-lisp
+       (use-package all-the-icons
+         :ensure t 
+         :defer t)
+     #+end_src
 
-   #+RESULTS:
+     #+RESULTS:
+
+     - after the package installed, run ~M-x all-the-icons-install-fonts~
 
 ** set ruler-mode
    #+begin_src emacs-lisp
@@ -55,19 +64,11 @@
 
 ** Mode line
    #+begin_src emacs-lisp
-     ;; (use-package powerline
-     ;;   :ensure t
-     ;;   :config
-     ;;   (progn
-     ;;     (powerline-default-theme)))
-
-     ;; (use-package doom-modeline
-     ;;   :ensure t
-     ;;   :hook (after-init . doom-modeline-mode))
+     (use-package doom-modeline
+       :ensure t
+       :hook (after-init . doom-modeline-mode))
    #+end_src
 
-   #+RESULTS:
-   : t
 
 ** alight commands
    #+BEGIN_SRC emacs-lisp
