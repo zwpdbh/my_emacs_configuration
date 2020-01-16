@@ -30,7 +30,12 @@
   :defer t
   :init
   (setq doom-themes-enable-bold nil
-        doom-themes-enable-italic nil))
+        doom-themes-enable-italic nil)
+  :config
+  ;; remember to install https://github.com/domtronn/all-the-icons.el
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t

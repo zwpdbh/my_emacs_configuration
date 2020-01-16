@@ -57,6 +57,7 @@
      (add-hook 'plantuml-mode-hook 'ruler-mode)
      (add-hook 'json-mode-hook 'ruler-mode)
      (add-hook 'yaml-mode-hook 'ruler-mode)
+     (add-hook 'org-mode-hook 'ruler-mode)
    #+end_src
 
    #+RESULTS:
