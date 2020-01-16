@@ -40,13 +40,11 @@
   :ensure t 
   :defer t)
 
-(use-package leuven-theme
-  :ensure t
-  :defer t)
 
 ;; set default theme
-(setq-default custom-enabled-themes '(doom-tomorrow-night))
+;; (setq-default custom-enabled-themes '(doom-tomorrow-night))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -66,7 +64,6 @@
                       :weight 'ultrabold)
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
-  ;; (doom-themes-org-config)
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
 
