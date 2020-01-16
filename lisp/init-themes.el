@@ -30,12 +30,7 @@
   :defer t
   :init
   (setq doom-themes-enable-bold nil
-        doom-themes-enable-italic nil)
-  :config
-  ;; remember to install https://github.com/domtronn/all-the-icons.el
-  (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config))
+        doom-themes-enable-italic nil))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -50,8 +45,8 @@
   :defer t)
 
 ;; set default theme
-(setq-default custom-enabled-themes '(doom-tomorrow-night))
-;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+;; (setq-default custom-enabled-themes '(doom-tomorrow-night))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -68,7 +63,12 @@
                       :underline t
                       :foreground "SteelBlue";; "#D4FF00"
                       :background nil
-                      :weight 'ultrabold))
+                      :weight 'ultrabold)
+  
+  ;; remember to install https://github.com/domtronn/all-the-icons.el
+  ;; (doom-themes-org-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-treemacs-config))
 
 (add-hook 'after-init-hook 'reapply-themes)
 
