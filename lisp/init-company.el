@@ -22,8 +22,8 @@
   (setq company-dabbrev-downcase nil)
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t)
-  (setq company-echo-delay 0.01)
-  (setq company-idle-delay 0.01)
+  (setq company-echo-delay 0)
+  (setq company-idle-delay 0)
   (setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode))
   
   (add-hook 'after-init-hook 'global-company-mode)
