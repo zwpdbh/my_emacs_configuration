@@ -1470,10 +1470,7 @@
 *** ox-hugo
     #+begin_src emacs-lisp
       (use-package ox-hugo
-        :commands (org-export-dispatch)
-        :defer t
-        :ensure t            ;Auto-install the package from Melpa (optional)
-        :after ox)
+        :ensure t)
     #+end_src
 
     #+RESULTS:
