@@ -2,10 +2,7 @@
 
 (use-package doom-themes
   :ensure t
-  :defer t
-  :init
-  (setq doom-themes-enable-bold nil
-        doom-themes-enable-italic nil))
+  :defer t)
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -15,11 +12,9 @@
   :ensure t 
   :defer t)
 
-
 ;; set default theme
-;; (setq-default custom-enabled-themes '(doom-tomorrow-night))
-;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -32,11 +27,13 @@
   
   (set-cursor-color "HotPink")
   (setq-default cursor-type '(bar . 2))
+  
   (set-face-attribute 'show-paren-match nil
-                      :underline t
-                      :foreground "SteelBlue";; "#D4FF00"
+                      :underline nil
+                      :foreground "#b5bd68" ;; use Font Lock Keyword Face 
                       :background nil
-                      :weight 'ultrabold)
+                      :weight 'normal)
+  (setq show-paren-style 'expression)
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
