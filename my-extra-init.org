@@ -236,7 +236,12 @@
      ;; (setq split-height-threshold 40)
    #+end_src
 
-
+* Make swap buffers easier 
+  #+begin_src emacs-lisp
+    (use-package buffer-move
+      :ensure t 
+      :defer t)
+  #+end_src
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+begin_src emacs-lisp
