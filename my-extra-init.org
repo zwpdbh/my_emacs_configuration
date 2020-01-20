@@ -232,12 +232,10 @@
 
 ** set window to prefer split vertically
    #+begin_src emacs-lisp
-     (setq split-width-threshold 200)
-     (setq split-height-threshold 40)
+     ;; (setq split-width-threshold 200)
+     ;; (setq split-height-threshold 40)
    #+end_src
 
-   #+RESULTS:
-   : 40
 
 * Swiper/Ivy/Counsel
   Swiper gives us a really efficient incremental search with regular expressions and Ivy / Counsel replace a lot of ido or helms completion functionality
