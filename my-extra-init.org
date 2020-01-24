@@ -432,7 +432,7 @@
       :defer t
       :after (helm))
   #+end_src
-  - Need to install [[~https://github.com/ggreer/the_silver_searcher][ag]]: ~apt-get install silversearcher-ag~
+  - need to install [[~https://github.com/ggreer/the_silver_searcher][ag]]
 * Rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
