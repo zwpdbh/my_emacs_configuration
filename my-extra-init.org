@@ -31,8 +31,8 @@
        (cond
         ((string-equal system-type "windows-nt")
          (set-default-font "Consolas 12"))
-        ((string-equal system-type "gnu/linux")
-         (set-default-font "Ubuntu Mono 12"))
+        ;; ((string-equal system-type "gnu/linux")
+        ;;  (set-default-font "Ubuntu Mono 12"))
         ((string-equal system-type "darwin")
          (if (member "Source Code Pro" (font-family-list))
              (set-default-font "Source Code Pro 12")
