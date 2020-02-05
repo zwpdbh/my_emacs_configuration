@@ -31,7 +31,7 @@
   (set-face-attribute 'show-paren-match nil
                       :underline nil
                       ;; :foreground "#b5bd68" ;; use Font Lock Keyword Face 
-                      :foreground "SpringGreen3" ;; use Font Lock Keyword Face 
+                      :foreground "IndianRed" ;; use Font Lock Keyword Face 
                       :background nil
                       :weight 'normal)
   (setq show-paren-style 'expression)
