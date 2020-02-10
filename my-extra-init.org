@@ -1833,15 +1833,15 @@
     * [[https://github.com/zk-phi/indent-guide][indent-guide]]
 *** highlight-indent-guides
     #+begin_src emacs-lisp
-      ;; (use-package highlight-indent-guides
-      ;;   :ensure t
-      ;;   :config 
-      ;;   (progn
-      ;;     (setq highlight-indent-guides-delay 0.1)
-      ;;     (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
-      ;;     (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
-      ;;     (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
-      ;;     (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
+      (use-package highlight-indent-guides
+        :ensure t
+        :config 
+        (progn
+          (setq highlight-indent-guides-delay 0.1)
+          ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+          ;; (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
+          (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
+          (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
     #+end_src
 
 *** indent-guide
