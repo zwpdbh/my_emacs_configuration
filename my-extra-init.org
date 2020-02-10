@@ -41,7 +41,7 @@
 
      #+RESULTS:
 
-   * Install all the font
+   * Install all the icons
      #+begin_src emacs-lisp
        (use-package all-the-icons
          :ensure t 
