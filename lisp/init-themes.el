@@ -13,8 +13,8 @@
   :defer t)
 
 ;; set default theme
-;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -30,10 +30,10 @@
   
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      ;; :foreground "#b5bd68" ;; use Font Lock Keyword Face 
                       :foreground "IndianRed" ;; use Font Lock Keyword Face 
                       :background nil
                       :weight 'normal)
+  
   (setq show-paren-style 'expression)
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
