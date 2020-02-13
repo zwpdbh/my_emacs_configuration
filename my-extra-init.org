@@ -421,7 +421,7 @@
 
   #+RESULTS:
   : t
-* ag
+* The Silver Searcher
   #+begin_src emacs-lisp
     (use-package ag
       :ensure t
