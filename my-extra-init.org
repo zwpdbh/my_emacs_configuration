@@ -1297,30 +1297,6 @@
 ** R programming
 *** configuration 
     #+begin_src emacs-lisp
-      ;; (unless (string-equal system-type "gnu/linux")
-      ;;   ;; current there is error when tring to use R in Ubuntu 18.04
-      ;;   ;; It shows could not load ess package and crush other packages
-      ;;   (use-package ess
-      ;;     :ensure t
-      ;;     :init (require 'ess-site)
-      ;;     :config
-      ;;     (progn
-      ;;       (setq inferior-R-program-name "/usr/local/bin/R"
-      ;; 	    comint-input-ring-size 1000
-      ;; 	    ess-indent-level 4
-      ;; 	    ess-arg-function-offset 4
-      ;; 	    ess-else-offset 4
-      ;; 	    ess-continued-statement-offset 2
-      ;; 	    truncate-lines t
-      ;; 	    comment-column 4)		;
-
-      ;;       (use-package electric-spacing
-      ;; 	:ensure t)
-
-      ;;       (add-hook 'ess-mode-hook 
-      ;; 		#'(lambda () 
-      ;; 		    (electric-spacing-mode))))))
-
       (use-package electric-spacing
         :after (ess)
         :defer t
@@ -1331,8 +1307,13 @@
         :ensure t
         :init 
         (require 'ess-site)
-        (setq inferior-R-program-name "/usr/local/bin/R"
-              comint-input-ring-size 1000
+        (cond ((eq system-type 'darwin)
+               (setq inferior-ess-r-program "/usr/local/bin/R"))
+              ((eq system-type 'gnu/linux)
+               (setq inferior-ess-r-program "/usr/local/bin/R"))
+              ((eq system-type 'windows-nt)
+               (setq inferior-ess-r-program "C:/tools/R/R-3.6.2/bin/R.exe")))
+        (setq comint-input-ring-size 1000
               ess-indent-level 4
               ess-arg-function-offset 4
               ess-else-offset 4
@@ -1344,8 +1325,6 @@
                      (electric-spacing-mode))))
     #+end_src
 
-    #+RESULTS:
-    : t
 
 *** references
     - [[https://jmonlong.github.io/Hippocamplus/emacs/#for-r]]
@@ -1439,7 +1418,8 @@
            (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
            (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
            (add-to-list 'org-structure-template-alist '("json" . "src json"))
-           (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))))
+           (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
+           (add-to-list 'org-structure-template-alist '("latex" . "src latex"))))
    #+end_src
 
    #+RESULTS:
@@ -1793,8 +1773,10 @@
                             company-backends)))
 
 
-      (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
-      (add-hook 'LaTex-mode-hook (lambda ()
+      (cond ((eq system-type 'darwin)
+             (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
+
+      (add-hook 'laTex-mode-hook (lambda ()
                                    (turn-on-reftex)
                                    (my-latex-mode-setup)))
     #+end_src
