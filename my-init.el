@@ -12,7 +12,7 @@
 ;; (setq my-emacs-root-directory "~/.emacs.d/")
 ;; (add-to-list 'load-path (expand-file-name "lisp" my-emacs-root-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'init-benchmarking)
+;; (require 'init-benchmarking)
 
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))

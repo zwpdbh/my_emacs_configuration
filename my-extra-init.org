@@ -102,6 +102,12 @@
 ** set global key-bindings
    Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
    #+begin_src emacs-lisp
+     ;; resize bindings
+     (global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
+     (global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
+     (global-set-key (kbd "C-s-<down>") 'shrink-window)
+     (global-set-key (kbd "C-s-<up>") 'enlarge-window)
+
      ;; use cmd + n and cmd + p to select next and previous lines
      (global-set-key (kbd "s-n") (kbd "C-S-n"))
      (global-set-key (kbd "s-p") (kbd "C-S-p"))
@@ -122,8 +128,8 @@
 
      ;; use f10 to format whole buffer
      (global-set-key (kbd "<f10>") (progn
-				     #'mark-whole-buffer
-				     #'indent-region))
+                                     #'mark-whole-buffer
+                                     #'indent-region))
      ;; (global-set-key (kbd "<f6>") 'revert-buffer)
    #+end_src
 
@@ -1744,33 +1750,6 @@
   * If meet error: "dyld: Library not loaded: /usr/local/opt/mpfr/lib/libmpfr.4.dylib Referenced from: /usr/local/bin/gawk" during the compliation of pdf-tools.
     Solution: ~brew upgrade gawk~
 
-* Latex
-  * Reference
-    * [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
-    * [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
-  * Configuration
-    #+begin_src emacs-lisp
-      (use-package company-math
-        :commands (tex-mode)
-        :defer t 
-        :ensure t)
-
-
-      ;; local configuration for TeX modes
-      (defun my-latex-mode-setup ()
-        (setq-local company-backends
-                    (append '((company-math-symbols-latex company-latex-commands))
-                            company-backends)))
-
-
-      (cond ((eq system-type 'darwin)
-             (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
-
-      (add-hook 'laTex-mode-hook (lambda ()
-                                   (turn-on-reftex)
-                                   (my-latex-mode-setup)))
-    #+end_src
-
 * highlight-symbol
   # #+begin_src emacs-lisp
   #   (use-package idle-highlight-mode
@@ -1976,3 +1955,112 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
                                        (when smerge-mode
                                          (unpackaged/smerge-hydra/body)))))
    #+end_src
+* Latex
+  * Reference
+    * [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
+    * [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
+  * Configuration
+    #+begin_src emacs-lisp
+      (use-package auctex
+        :ensure t
+        :mode
+        ("\\.tex\\'" . latex-mode)
+        :bind
+        (:map LaTeX-mode-map
+              ("M-<delete>" . TeX-remove-macro)
+              ("C-c C-r" . reftex-query-replace-document)
+              ("C-c C-g" . reftex-grep-document))
+        :init
+        (cond ((eq system-type 'darwin)
+               (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
+        (defun my-latex-mode-setup ()
+          (setq-local company-backends
+                      (append '((company-math-symbols-latex company-latex-commands))
+                              company-backends)))
+
+        ;; A function to delete the current macro in AUCTeX.
+        ;; Note: keybinds won't be added to TeX-mode-hook if not kept at the end of the AUCTeX setup!
+        (defun TeX-remove-macro ()
+          "Remove current macro and return TRUE, If no macro at point, return Nil."
+          (interactive)
+          (when (TeX-current-macro)
+            (let ((bounds (TeX-find-macro-boundaries))
+                  (brace  (save-excursion
+                            (goto-char (1- (TeX-find-macro-end)))
+                            (TeX-find-opening-brace))))
+              (delete-region (1- (cdr bounds)) (cdr bounds))
+              (delete-region (car bounds) (1+ brace)))
+            t))
+        :config
+        (add-to-list 'TeX-command-list
+                     '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
+                       (latex-mode)
+                       :help "Run makeglossaries script, which will choose xindy or makeindex") t)
+
+        (setq-default TeX-master nil ; by each new fie AUCTEX will ask for a master fie.
+                      TeX-PDF-mode t
+                      TeX-engine 'xetex)     ; optional
+
+        (setq TeX-auto-save t
+              TeX-save-query nil       ; don't prompt for saving the .tex file
+              TeX-parse-self t
+              TeX-show-compilation nil         ; if `t`, automatically shows compilation log
+              LaTeX-babel-hyphen nil ; Disable language-specific hyphen insertion.
+              ;; `"` expands into csquotes macros (for this to work, babel pkg must be loaded after csquotes pkg).
+              LaTeX-csquotes-close-quote "}"
+              LaTeX-csquotes-open-quote "\\enquote{"
+              TeX-file-extensions '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
+
+        ;; Font-lock for AuCTeX
+        ;; Note: '«' and '»' is by pressing 'C-x 8 <' and 'C-x 8 >', respectively
+        (font-lock-add-keywords 'latex-mode (list (list "\\(«\\(.+?\\|\n\\)\\)\\(+?\\)\\(»\\)" '(1 'font-latex-string-face t) '(2 'font-latex-string-face t) '(3 'font-latex-string-face t))))
+        ;; Add standard Sweave file extensions to the list of files recognized  by AuCTeX.
+        (add-hook 'TeX-mode-hook (lambda () 
+                                   (reftex-isearch-minor-mode)
+                                   (turn-on-reftex)
+                                   (my-latex-mode-setup))))
+
+
+      (use-package company-math
+        :after (tex-mode)
+        :defer t 
+        :ensure t)
+    #+end_src
+  * Test
+    #+begin_src latex
+      \LaTeX
+    #+end_src
+
+    #+RESULTS:
+    #+begin_export latex
+    \LaTeX
+    #+end_export
+
+
+    
+
+* Sudo-edit
+  #+begin_src emacs-lisp
+    (use-package sudo-edit
+      :ensure t
+      :defer 2)
+  #+end_src
+
+* Dashboard
+  #+begin_src emacs-lisp
+    (use-package dashboard
+      :ensure t
+      :config
+      (dashboard-setup-startup-hook)
+      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+      (setq dashboard-items '((recents . 10)
+                              (projects . 5))))
+  #+end_src
+
+* Nyan
+  #+begin_src emacs-lisp
+    (use-package nyan-mode
+      :ensure t
+      :config
+      (nyan-mode 1))
+  #+end_src
