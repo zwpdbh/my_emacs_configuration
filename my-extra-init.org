@@ -467,22 +467,14 @@
   : t
 
 * Magit
-  # #+begin_src emacs-lisp
-  #   (use-package magit
-  #     :bind (("C-x g" . magit))
-  #     :ensure t)
-  # #+end_src
+  #+begin_src emacs-lisp
+    (use-package magit
+      :bind (("C-x g" . magit))
+      :ensure t)
+  #+end_src
 
   # #+RESULTS:
 
-** configuration for smerge-mode
-   #+begin_src emacs-lisp
-     (setq smerge-command-prefix "\C-cv")
-   #+end_src
-
-   #+RESULTS:
-   : v
-   
 * Treemacs
   #+begin_src emacs-lisp
     (use-package treemacs
@@ -492,9 +484,6 @@
       (use-package lv
         :defer t
         :ensure t)
-      ;; (use-package hydra
-      ;;   :defer t
-      ;;   :ensure t)
       (with-eval-after-load 'winum
         (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
       (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
@@ -1906,3 +1895,84 @@
 * Lookup word definition
   * Ref: (see [[https://oremacs.com/2015/05/22/define-word/][New on MELPA - define word at point]])
   
+* Hydra
+  #+begin_src emacs-lisp
+    (use-package hydra
+      :ensure t
+      :defer t)
+  #+end_src
+
+* Unpackaged
+A collection of useful Emacs Lisp code that isn’t substantial enough to be packaged. This code will be maintained here so that it can be updated and improved over time.
+
+** Mark current package for upgrading
+   #+begin_src emacs-lisp
+      (use-package package
+        :bind (:map package-menu-mode-map
+                    ("t" . #'package-menu-upgrade-package))
+        :config
+        (defun package-menu-upgrade-package ()
+          "Mark current package for upgrading (i.e. also mark obsolete version for deletion.)"
+          (interactive)
+          (when-let ((upgrades (package-menu--find-upgrades))
+                     (description (tabulated-list-get-id))
+                     (name (package-desc-name description))
+                     (upgradable (cdr (assq name upgrades))))
+            ;; Package is upgradable
+            (save-excursion
+              (goto-char (point-min))
+              (while (not (eobp))
+                (let* ((current-description (tabulated-list-get-id))
+                       (current-name (package-desc-name current-description)))
+                  (when (equal current-name name)
+                    (cond ((equal description current-description)
+                           (package-menu-mark-install)
+                           (forward-line -1))
+                          (t (package-menu-mark-delete)))))
+                (forward-line 1))))))
+   #+end_src
+
+** Smerge with hydra 
+   #+begin_src emacs-lisp
+    (use-package smerge-mode
+      :after hydra
+      :init 
+      (setq smerge-command-prefix "\C-cv")
+      :config
+      (defhydra unpackaged/smerge-hydra
+        (:color pink :hint nil :post (smerge-auto-leave))
+        "
+    ^Move^       ^Keep^               ^Diff^                 ^Other^
+    ^^-----------^^-------------------^^---------------------^^-------
+    _n_ext       _b_ase               _<_: upper/base        _C_ombine
+    _p_rev       _u_pper              _=_: upper/lower       _r_esolve
+    ^^           _l_ower              _>_: base/lower        _k_ill current
+    ^^           _a_ll                _R_efine
+    ^^           _RET_: current       _E_diff
+    "
+        ("n" smerge-next)
+        ("p" smerge-prev)
+        ("b" smerge-keep-base)
+        ("u" smerge-keep-upper)
+        ("l" smerge-keep-lower)
+        ("a" smerge-keep-all)
+        ("RET" smerge-keep-current)
+        ("\C-m" smerge-keep-current)
+        ("<" smerge-diff-base-upper)
+        ("=" smerge-diff-upper-lower)
+        (">" smerge-diff-base-lower)
+        ("R" smerge-refine)
+        ("E" smerge-ediff)
+        ("C" smerge-combine-with-next)
+        ("r" smerge-resolve)
+        ("k" smerge-kill-current)
+        ("ZZ" (lambda ()
+                (interactive)
+                (save-buffer)
+                (bury-buffer))
+         "Save and bury buffer" :color blue)
+        ("q" nil "cancel" :color blue))
+      :hook (magit-diff-visit-file . (lambda ()
+                                       (when smerge-mode
+                                         (unpackaged/smerge-hydra/body)))))
+   #+end_src
