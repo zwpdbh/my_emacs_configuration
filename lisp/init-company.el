@@ -9,10 +9,10 @@
   :ensure t
   :defer t)
 
-(use-package company-quickhelp
-  :diminish
-  :ensure t
-  :defer t)
+;; (use-package company-quickhelp
+;;   :diminish
+;;   :ensure t
+;;   :defer t)
 
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
@@ -39,7 +39,10 @@
                   company-tooltip-align-annotations t))
   (global-set-key (kbd "M-C-/") 'company-complete)
   (when (maybe-require-package 'company-quickhelp)
-    (add-hook 'after-init-hook 'company-quickhelp-mode)))
+    (setq company-quickhelp-delay nil)
+    (add-hook 'after-init-hook 'company-quickhelp-mode)
+    (eval-after-load 'company
+      '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))))
 
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)
