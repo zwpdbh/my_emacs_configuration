@@ -130,7 +130,7 @@
      (global-set-key (kbd "<f10>") (progn
                                      #'mark-whole-buffer
                                      #'indent-region))
-     ;; (global-set-key (kbd "<f6>") 'revert-buffer)
+
    #+end_src
 
    #+RESULTS:
@@ -1955,29 +1955,47 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
                                        (when smerge-mode
                                          (unpackaged/smerge-hydra/body)))))
    #+end_src
+* Sudo-edit
+  # #+begin_src emacs-lisp
+  #   (use-package sudo-edit
+  #     :ensure t
+  #     :defer 2)
+  # #+end_src
+* Nyan
+  #+begin_src emacs-lisp
+    (use-package nyan-mode
+      :ensure t
+      :config
+      (nyan-mode 1))
+  #+end_src
+* Dashboard
+  #+begin_src emacs-lisp
+    (use-package dashboard
+      :ensure t
+      :config
+      (dashboard-setup-startup-hook)
+      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+      (setq dashboard-items '((recents . 10)
+                              (projects . 5))))
+  #+end_src
+
 * Latex
-  * Reference
-    * [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
-    * [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
-  * Configuration
+** setup
     #+begin_src emacs-lisp
       (use-package auctex
         :ensure t
+        :defer t
         :mode
-        ("\\.tex\\'" . latex-mode)
+        ("\\.tex\\'" . LaTex-mode)
         :bind
         (:map LaTeX-mode-map
               ("M-<delete>" . TeX-remove-macro)
               ("C-c C-r" . reftex-query-replace-document)
               ("C-c C-g" . reftex-grep-document))
         :init
+        ;; define texbin execution path based on system
         (cond ((eq system-type 'darwin)
                (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
-        (defun my-latex-mode-setup ()
-          (setq-local company-backends
-                      (append '((company-math-symbols-latex company-latex-commands))
-                              company-backends)))
-
         ;; A function to delete the current macro in AUCTeX.
         ;; Note: keybinds won't be added to TeX-mode-hook if not kept at the end of the AUCTeX setup!
         (defun TeX-remove-macro ()
@@ -1992,15 +2010,9 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
               (delete-region (car bounds) (1+ brace)))
             t))
         :config
-        (add-to-list 'TeX-command-list
-                     '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
-                       (latex-mode)
-                       :help "Run makeglossaries script, which will choose xindy or makeindex") t)
-
         (setq-default TeX-master nil ; by each new fie AUCTEX will ask for a master fie.
                       TeX-PDF-mode t
                       TeX-engine 'xetex)     ; optional
-
         (setq TeX-auto-save t
               TeX-save-query nil       ; don't prompt for saving the .tex file
               TeX-parse-self t
@@ -2010,57 +2022,88 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
               LaTeX-csquotes-close-quote "}"
               LaTeX-csquotes-open-quote "\\enquote{"
               TeX-file-extensions '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
+  
+        (add-to-list 'TeX-command-list
+                     '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
+                       (latex-mode)
+                       :help "Run makeglossaries script, which will choose xindy or makeindex") t)
 
         ;; Font-lock for AuCTeX
         ;; Note: '«' and '»' is by pressing 'C-x 8 <' and 'C-x 8 >', respectively
         (font-lock-add-keywords 'latex-mode (list (list "\\(«\\(.+?\\|\n\\)\\)\\(+?\\)\\(»\\)" '(1 'font-latex-string-face t) '(2 'font-latex-string-face t) '(3 'font-latex-string-face t))))
         ;; Add standard Sweave file extensions to the list of files recognized  by AuCTeX.
-        (add-hook 'TeX-mode-hook (lambda () 
+        (add-hook 'Tex-mode-hook (lambda () 
                                    (reftex-isearch-minor-mode)
-                                   (turn-on-reftex)
-                                   (my-latex-mode-setup))))
-
-
-      (use-package company-math
-        :after (tex-mode)
-        :defer t 
-        :ensure t)
-    #+end_src
-  * Test
-    #+begin_src latex
-      \LaTeX
+                                   (turn-on-reftex))))
     #+end_src
 
-    #+RESULTS:
-    #+begin_export latex
-    \LaTeX
-    #+end_export
+** company
+   #+begin_src emacs-lisp
+     (use-package company-math
+       :ensure t
+       :defer t
+       :config
+       (add-hook 'LaTeX-mode-hook (lambda ()
+                                    (setq-local company-backends
+                                                (append '((company-math-symbols-latex company-latex-commands))
+                                                        company-backends)))))
+   #+end_src
+** indentation
+   #+begin_src emacs-lisp
+     (eval-after-load 'tex
+       '(setq LaTeX-indent-environment-list
+              '(("itemize" LaTeX-indent-tabular)
+                ("enumerate" LaTeX-indent-tabular)
+                ("verbatim" current-indentation)
+                ("verbatim*" current-indentation)
+                ("tabular" LaTeX-indent-tabular)
+                ("tabular*" LaTeX-indent-tabular)
+                ("align" LaTeX-indent-tabular)
+                ("align*" LaTeX-indent-tabular)
+                ("array" LaTeX-indent-tabular)
+                ("eqnarray" LaTeX-indent-tabular)
+                ("eqnarray*" LaTeX-indent-tabular)
+                ("multline" LaTeX-indent-tabular)
+                ("displaymath")
+                ("equation")
+                ("equation*")
+                ("picture")
+                ("tabbing"))))
+   #+end_src
 
+** bindings
+   #+begin_src emacs-lisp
+     (eval-after-load 'tex
+       '(progn
+          (defun save-compile-latex ()
+            "Save and compile latex document"
+            (interactive)
+            (save-buffer)
+            (TeX-command-sequence t t))
 
-    
+          (defun complete-if-no-space ()
+            (interactive)
+            (let ((cb (string (char-before))))
+              (if (or (equal cb " ") (equal (point) (line-beginning-position)))
+                  (tab-to-tab-stop)
+                (TeX-complete-symbol))))
 
-* Sudo-edit
-  #+begin_src emacs-lisp
-    (use-package sudo-edit
-      :ensure t
-      :defer 2)
-  #+end_src
+          (add-hook 'LaTeX-mode-hook (lambda ()
+                                       (define-key LaTeX-mode-map (kbd "<f5>") 'save-compile-latex)
+                                       (define-key LaTeX-mode-map (kbd "<f7>") 'preview-clearout-buffer)
+                                       (define-key LaTeX-mode-map (kbd "TAB") 'complete-if-no-space)
+                                       (define-key LaTeX-mode-map (kbd "<tab>") 'complete-if-no-space)))))
+   #+end_src
 
-* Dashboard
-  #+begin_src emacs-lisp
-    (use-package dashboard
-      :ensure t
-      :config
-      (dashboard-setup-startup-hook)
-      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-      (setq dashboard-items '((recents . 10)
-                              (projects . 5))))
-  #+end_src
+** preview
+   #+begin_src emacs-lisp
+     (eval-after-load 'preview
+       '(progn
+          (set-default 'preview-scale-function 1.7)
+          (set-default 'preview-default-option-list
+                       '("displaymath" "floats" "graphics" "textmath"))))
+   #+end_src
 
-* Nyan
-  #+begin_src emacs-lisp
-    (use-package nyan-mode
-      :ensure t
-      :config
-      (nyan-mode 1))
-  #+end_src
+** Reference
+   # - [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
+   # - [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
