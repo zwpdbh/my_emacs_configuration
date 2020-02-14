@@ -2039,17 +2039,16 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
 
 ** company
    #+begin_src emacs-lisp
-     ;; (use-package company-math
-     ;;   :ensure t
-     ;;   :config
-     ;;   (add-to-list 'company-backends 'company-math-symbols-unicode))
-
      (use-package company-math
        :ensure t
        :config
        (add-hook 'LaTeX-mode-hook (lambda ()
                                     (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
-                                    (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands)))))
+                                    (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))
+                                    (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))))
+       (add-hook 'org-mode-hook (lambda ()
+                                  (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
+                                  (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands)))))
    #+end_src
 
    #+RESULTS:
@@ -2112,9 +2111,10 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
    #+end_src
 
 ** test output
-   #+begin_src latex
-   #+end_src
-
+   - latex code block
+     #+begin_src latex
+       Integral $\int_{a}^{b} x^2 dx$ inside text
+     #+end_src
 ** Reference
    - [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html][LaTex Source Code Blocks in Org Mode]]
    - [[http://www.stat.rice.edu/~helpdesk/compguide/node39.html][Latex/Emacs tex mode]]
