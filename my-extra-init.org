@@ -728,7 +728,8 @@
     #+BEGIN_SRC emacs-lisp
       (use-package cider
         :init
-        (setq cider-jack-in-default 'lein)
+        ;; (setq cider-jack-in-default 'lein)
+        (setq cider-jack-in-default 'boot)
         (if (string-equal system-type "windows-nt")
             (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
           nil)
