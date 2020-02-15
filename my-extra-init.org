@@ -732,9 +732,6 @@
         (if (string-equal system-type "windows-nt")
             (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
           nil)
-        (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-        (add-hook 'cider-repl-mode-hook #'subword-mode)
-        (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
         :commands (cider)
         :ensure t)
 
@@ -754,18 +751,12 @@
     #+BEGIN_SRC emacs-lisp
       (use-package clojure-mode
         :defer t
-        :init 
-        ;; make moving between characters faster
-        (add-hook 'clojure-mode-hook #'subword-mode)
-        ;; use paredit or smartparens 
-        (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-        (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-        (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
         :ensure t
         :config
         (progn
           (setq clojure-align-forms-automatically t)
-
+          ;; In order for Emacs to recognise .boot files as valid Clojure source code
+          (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
           ;; set how code indent for some forms
           (define-clojure-indent
             (implement '(1 (1)))
@@ -776,7 +767,6 @@
             (defrecord '(2 nil nil (1)))
             (specify   '(1 (1)))
             (or 1))))
-
     #+END_SRC
 
     #+RESULTS:
@@ -854,8 +844,9 @@
        (interactive)
        (my-lisp-power-mode t)
        (turn-on-eldoc-mode)
+       (subword-mode t)
        (paredit-mode t)
-       (rainbow-delimiters-mode-enable)
+       (rainbow-delimiters-mode-enable t)
        (aggressive-indent-mode t))
 
      ;; define a group of different lisp modes, so we could apply features on on them 
@@ -869,6 +860,7 @@
                               racket-repl-mode
                               scheme-mode
                               clojure-mode
+                              cider-repl-mode
                               geiser-repl-mode))
 
      (add-hook 'after-init-hook '(lambda ()
