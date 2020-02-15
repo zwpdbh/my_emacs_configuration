@@ -991,22 +991,22 @@
 
 ** Scala programming
 *** ensime
-    #+begin_src emacs-lisp
-      (use-package ensime
-        :defer t
-        :mode "\\.scala\\'"
-        :init 
-        (if (string-equal system-type "windows-nt")
-            (progn
-              (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
-              (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
-          (setq exec-path (append exec-path '("/usr/local/bin"))))
-        :ensure t
-        :config
-        (progn
-          ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-          (add-hook 'scala-mode-hook 'ensime-mode)))
-    #+end_src
+    # #+begin_src emacs-lisp
+    #   (use-package ensime
+    #     :defer t
+    #     :mode "\\.scala\\'"
+    #     :init 
+    #     (if (string-equal system-type "windows-nt")
+    #         (progn
+    #           (setq exec-path (append exec-path '("c:/Program Files (x86)/scala/bin")))
+    #           (setq exec-path (append exec-path '("c:/Program Files (x86)/sbt/bin"))))
+    #       (setq exec-path (append exec-path '("/usr/local/bin"))))
+    #     :ensure t
+    #     :config
+    #     (progn
+    #       ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    #       (add-hook 'scala-mode-hook 'ensime-mode)))
+    # #+end_src
 
     #+RESULTS:
     : t
@@ -1964,8 +1964,13 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
     (use-package nyan-mode
       :ensure t
       :config
-      (nyan-mode 1))
+      (nyan-mode 1)
+      (setq nyan-cat-face-number 3))
   #+end_src
+
+  #+RESULTS:
+  : t
+
 * Dashboard
   #+begin_src emacs-lisp
     (use-package dashboard
