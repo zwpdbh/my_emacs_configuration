@@ -50,7 +50,8 @@
 
      #+RESULTS:
 
-     - after the package installed, run ~M-x all-the-icons-install-fonts~
+     - After the package installed, run ~M-x all-the-icons-install-fonts~
+     - In Windows10, after downloaded those fonts, go to the place to manually install theme.
 
 ** set ruler-mode
    #+begin_src emacs-lisp
@@ -1957,11 +1958,11 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
                                          (unpackaged/smerge-hydra/body)))))
    #+end_src
 * Sudo-edit
-  # #+begin_src emacs-lisp
-  #   (use-package sudo-edit
-  #     :ensure t
-  #     :defer 2)
-  # #+end_src
+  #+begin_src emacs-lisp
+    (use-package sudo-edit
+      :ensure t
+      :defer 1)
+  #+end_src
 * Nyan
   #+begin_src emacs-lisp
     (use-package nyan-mode
