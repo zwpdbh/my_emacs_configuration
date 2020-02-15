@@ -1532,9 +1532,13 @@
               ;;  :clock-in t :clock-resume t)
 
               ("h" "Hugo post")
-
+        
+              ;; ("hc" "Computer-Science"
+              ;;  entry (file+olp org-capture-computer-science "Computer-Science")
+              ;;  (function org-hugo-new-subtree-post-capture-template)
+              ;;  :clock-in t :clock-resume t)
               ("hc" "Computer-Science"
-               entry (file+olp org-capture-computer-science "Computer-Science")
+               entry (file org-capture-computer-science)
                (function org-hugo-new-subtree-post-capture-template)
                :clock-in t :clock-resume t)
 
