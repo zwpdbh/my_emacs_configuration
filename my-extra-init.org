@@ -1093,10 +1093,6 @@
         :ensure t)
     #+end_src
 
-    #+RESULTS:
-    : t
-
-
 ** Web/Javascript programming
 # *** Interface
 #     #+begin_src emacs-lisp
