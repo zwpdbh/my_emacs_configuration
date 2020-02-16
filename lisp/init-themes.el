@@ -16,15 +16,12 @@
   :ensure t
   :defer t)
 
-(use-package ample-theme
-  :defer t
-  :ensure t)
-
 (use-package moe-theme
   :defer t
   :ensure t)
+
 ;; set default theme
-(setq-default custom-enabled-themes '(zeno))
+(setq-default custom-enabled-themes '(moe-dark))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
@@ -61,21 +58,10 @@
   (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
   (reapply-themes))
 
-(defun zw/theme-cloud ()
-  (interactive)
-  (setq custom-enabled-themes '(cloud))
-  (reapply-themes))
-
 (defun zw/theme-leuven ()
   (interactive)
   (setq custom-enabled-themes '(leuven))
   (reapply-themes))
-
-(defun zw/doom-tomorrow-night ()
-  (interactive)
-  (setq custom-enabled-themes '(doom-tomorrow-night))
-  (reapply-themes))
-
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
