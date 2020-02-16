@@ -12,8 +12,19 @@
   :ensure t 
   :defer t)
 
+(use-package zeno-theme
+  :ensure t
+  :defer t)
+
+(use-package ample-theme
+  :defer t
+  :ensure t)
+
+(use-package moe-theme
+  :defer t
+  :ensure t)
 ;; set default theme
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(zeno))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
@@ -68,3 +79,4 @@
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
+
