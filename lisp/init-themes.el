@@ -8,24 +8,18 @@
   :ensure t
   :defer t)
 
-(use-package cloud-theme
-  :ensure t 
-  :defer t)
-
 (use-package zeno-theme
   :ensure t
   :defer t)
 
 (use-package moe-theme
-  :defer t
-  :ensure t
-  :config
-  (set-face-attribute 'rainbow-delimiters-depth-1-face nil
-                      :weight 'bold
-                      :foreground "gray"))
+  :defer t)
+
+(use-package cloud-theme
+  :defer t)
 
 ;; set default theme
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+(setq-default custom-enabled-themes '(zeno))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
@@ -35,6 +29,7 @@
   (dolist (theme custom-enabled-themes)
     (unless (custom-theme-p theme)
       (load-theme theme)))
+  
   (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes)))
   
   (set-cursor-color "HotPink")
