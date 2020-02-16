@@ -53,20 +53,6 @@
      - After the package installed, run ~M-x all-the-icons-install-fonts~
      - In Windows10, after downloaded those fonts, go to the place to manually install theme.
 
-** set ruler-mode
-   #+begin_src emacs-lisp
-     (setq fill-column 80)
-     (setq comment-column 70)
-     (add-hook 'prog-mode-hook 'ruler-mode)
-     (add-hook 'plantuml-mode-hook 'ruler-mode)
-     (add-hook 'json-mode-hook 'ruler-mode)
-     (add-hook 'yaml-mode-hook 'ruler-mode)
-     (add-hook 'org-mode-hook 'ruler-mode)
-   #+end_src
-
-   #+RESULTS:
-   | ruler-mode | disable-tabs | symbol-overlay-mode |
-
 ** Mode line
    #+begin_src emacs-lisp
      (use-package doom-modeline
