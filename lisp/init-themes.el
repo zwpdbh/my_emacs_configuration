@@ -18,10 +18,14 @@
 
 (use-package moe-theme
   :defer t
-  :ensure t)
+  :ensure t
+  :config
+  (set-face-attribute 'rainbow-delimiters-depth-1-face nil
+                      :weight 'bold
+                      :foreground "gray"))
 
 ;; set default theme
-(setq-default custom-enabled-themes '(moe-dark))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
