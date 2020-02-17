@@ -32,10 +32,6 @@
   :ensure t
   :defer t)
 
-(use-package challenger-deep-theme
-  :ensure t
-  :defer t)
-
 ;; set default theme
 (setq-default custom-enabled-themes '(nimbus))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
