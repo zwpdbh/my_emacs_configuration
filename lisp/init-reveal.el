@@ -3,7 +3,7 @@
 (use-package ox-reveal
   :ensure t
   :config
-  (setq org-reveal-root "file:///~/.emacs.d/reveal.js")
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (setq org-reveal-mathjax t))
 
 
