@@ -87,6 +87,7 @@
 ;; (require 'init-erlang)
 (require 'init-javascript)
 (require 'init-company)
+(require 'init-reveal)
 ;; (require 'init-php)
 ;; (require 'init-org)
 ;; (require 'init-nxml)
