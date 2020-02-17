@@ -4,7 +4,8 @@
   :ensure t
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-  (setq org-reveal-mathjax t))
+  (setq org-reveal-mathjax t)
+  )
 
 
 (provide 'init-reveal)
