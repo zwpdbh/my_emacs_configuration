@@ -17,13 +17,23 @@
   :defer t)
 
 (use-package moe-theme
+  :ensure t
   :defer t)
 
 (use-package cloud-theme
+  :ensure t
+  :defer t)
+
+(use-package kaolin-themes
+  :ensure t
+  :defer t)
+
+(use-package nimbus-theme
+  :ensure t
   :defer t)
 
 ;; set default theme
-(setq-default custom-enabled-themes '(zerodark))
+(setq-default custom-enabled-themes '(nimbus))
 ;; (setq-default custom-enabled-themes '(sanityinc-tomorrow-night))
 
 ;; Ensure that themes will be applied even if they have not been customized
@@ -52,7 +62,6 @@
   (doom-themes-treemacs-config))
 
 (add-hook 'after-init-hook 'reapply-themes)
-
 ;;------------------------------------------------------------------------------
 ;; Toggle between light and dark
 ;;------------------------------------------------------------------------------
@@ -68,4 +77,3 @@
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
-
