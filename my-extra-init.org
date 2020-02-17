@@ -430,11 +430,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
       :defer
-      :ensure t
-      :config
-      (progn
-        (add-hook 'sly-mode-hook #'rainbow-delimiters-mode)
-        (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)))
+      :ensure t)
   #+END_SRC
 
   #+RESULTS:
@@ -840,6 +836,7 @@
      (setq my-lisp-mode-set '(lisp-mode
                               lisp-interaction-mode
                               emacs-lisp-mode
+                              sly-mode
                               ielm-mode
                               eval-expression-minibuffer-setup
                               common-lisp-mode
