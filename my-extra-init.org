@@ -282,7 +282,6 @@
        :ensure t
        :init
        (progn
-         (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
          ;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
          ;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
          ;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
@@ -1385,14 +1384,12 @@
            (add-to-list 'org-structure-template-alist '("http" . "src http"))
            (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
            (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
+           (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
            (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
            (add-to-list 'org-structure-template-alist '("json" . "src json"))
            (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
            (add-to-list 'org-structure-template-alist '("latex" . "src latex"))))
    #+end_src
-
-   #+RESULTS:
-   : ((go . src go) (uml . src plantuml) (json . src json) (yaml . src yaml) (dot . src dot) (lt . LaTeX) (http . src http) (js . src js) (r . src R) (clojure . src clojure) (sh . src sh) (scheme . src scheme) (lisp . src lisp) (el . src emacs-lisp) (py . src python) (py3 . src python3) (a . export ascii) (c . center) (C . comment) (e . example) (E . export) (h . export html) (l . export latex) (q . quote) (s . src) (v . verse))
 
 ** align org tags
    #+begin_src emacs-lisp
@@ -1616,8 +1613,15 @@
      ;; sudo apt install graphviz
      (use-package graphviz-dot-mode
        :commands (graphviz-dot-mode)
-       :ensure t)
+       :ensure t
+       :init
+       (setq graphviz-dot-indent-width 4)
+       :config 
+       (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode)))
    #+end_src
+
+   #+RESULTS:
+
    - [[https://anthonyskelton.com/2015/graphviz-a-better-way-to-create-flow-charts/][graphviz example01]]
    - [[http://melp.nl/2013/08/flow-charts-in-code-enter-graphviz-and-the-dot-language/][graphviz example02]]
 
