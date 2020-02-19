@@ -1077,18 +1077,13 @@
     #+end_src
 
 ** Web/Javascript programming
-# *** Interface
-#     #+begin_src emacs-lisp
-#       (setq js-indent-level 2)
-#       (setq typescript-indent-level 2)
-#     #+end_src
-
-#     #+RESULTS:
-#     : 2
 *** Javascript
     * flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
-    * Tern is a stand-alone code-analysis engine for JavaScript
+    * Tern is a stand-alone code-analysis engine for JavaScript, need to install: ~npm install -g tern~.
       #+begin_src emacs-lisp
+        ;; (setq js-indent-level 2)
+        ;; (setq typescript-indent-level 2)
+
         (use-package company-tern
           :defer t
           :after (company tern)
