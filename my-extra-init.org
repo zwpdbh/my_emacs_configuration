@@ -1383,7 +1383,7 @@
            (add-to-list 'org-structure-template-alist '("js" . "src js"))
            (add-to-list 'org-structure-template-alist '("http" . "src http"))
            (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
-           (add-to-list 'org-structure-template-alist '("dot" . "src dot"))
+           (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng"))
            (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
            (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
            (add-to-list 'org-structure-template-alist '("json" . "src json"))
@@ -1616,8 +1616,9 @@
        :ensure t
        :init
        (setq graphviz-dot-indent-width 4)
-       :config 
-       (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode)))
+       ;; :config 
+       ;; (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
+       )
    #+end_src
 
    #+RESULTS:
