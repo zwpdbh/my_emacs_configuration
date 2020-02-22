@@ -740,15 +740,8 @@
           ;; In order for Emacs to recognise .boot files as valid Clojure source code
           (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
           ;; set how code indent for some forms
-          (define-clojure-indent
-            (implement '(1 (1)))
-            (letfn     '(1 ((:defn)) nil))
-            (proxy     '(2 nil nil (1)))
-            (reify     '(:defn (1)))
-            (deftype   '(2 nil nil (1)))
-            (defrecord '(2 nil nil (1)))
-            (specify   '(1 (1)))
-            (or 1))))
+          ;; see https://docs.cider.mx/cider/config/indentation.html
+          ))
     #+END_SRC
 
     #+RESULTS:
