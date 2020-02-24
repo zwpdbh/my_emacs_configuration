@@ -9,6 +9,13 @@
   :ensure t
   :defer t)
 
+;; (use-package company-fuzzy
+;;   :diminish
+;;   :ensure t
+;;   :config
+;;   (add-hook 'prog-mode-hook '(lambda ()
+;;                                (company-fuzzy-mode 1))))
+
 ;; (use-package company-quickhelp
 ;;   :diminish
 ;;   :ensure t
