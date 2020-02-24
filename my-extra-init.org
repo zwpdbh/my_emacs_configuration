@@ -849,124 +849,135 @@
    #+end_src
 
 * Other Programming
-** Common features
-# *** Flycheck
-#     #+BEGIN_SRC emacs-lisp
-#       (use-package flycheck
-# 	:defer 2
-# 	:ensure t)
-#     #+END_SRC
+** Dap-mode
+   #+begin_src emacs-lisp
+     (use-package dap-mode
+       :ensure t
+       :config
+       (progn
+         (dap-mode 1)
+         (dap-ui-mode 1)
+         (dap-tooltip-mode 1)
+         (setq tooltip-mode t)
 
-#     #+RESULTS:
-#     | flycheck-yamllint-setup | flycheck-mode-set-explicitly |
+         ;; dap-mode also provides a hydra with dap-hydra
+         (add-hook 'dap-stopped-hook
+                   (lambda (arg) (call-interactively #'dap-hydra)))
 
-*** Lsp
-    [[https://github.com/emacs-lsp/lsp-mode][see lsp-mode]]
-    #+begin_src emacs-lisp
-      (use-package lsp-mode
-        :defer t
-        :init
-        (require 'lsp-clients)
-        (setq lsp-message-project-root-warning t)
-        ;; change nil to 't to enable logging of packets between emacs and the LS
-        ;; this was invaluable for debugging communication with the MS Python Language Server
-        ;; and comparing this with what vs.code is doing
-        (setq lsp-print-io nil)
-        :ensure t)
+         (require 'dap-node)
+         ;; (dap-register-debug-template
+         ;;  "Node::npm-debug"
+         ;;  (list :name "Node::npm-s-debug"
+         ;;        :type "node"
+         ;;        :request "launch"
+         ;;        :cwd nil
+         ;;        :runtimeExecutable "npm"
+         ;;        :runtimeArgs ["run-script", "debug"]
+         ;;        :port 9229))
+         ))
+   #+end_src
+   - Need to call ~dap-node-setup~ for setting up vscode extension.
+   - Make sure the ~dap-node-debug-program~ is pointing to the proper file.    
+
+** Lsp
+   [[https://github.com/emacs-lsp/lsp-mode][see lsp-mode]]
+   #+begin_src emacs-lisp
+     (use-package lsp-mode
+       :defer t
+       :init
+       (require 'lsp-clients)
+       (setq lsp-message-project-root-warning t)
+       ;; change nil to 't to enable logging of packets between emacs and the LS
+       ;; this was invaluable for debugging communication with the MS Python Language Server
+       ;; and comparing this with what vs.code is doing
+       (setq lsp-print-io nil)
+       :ensure t)
 
 
 
-      (use-package helm-lsp 
-        :defer t
-        :after (helm lsp)
-        :commands helm-lsp-workspace-symbol)
-      (use-package lsp-treemacs 
-        :defer t
-        :after (lsp treemacs)
-        :commands lsp-treemacs-errors-list)
+     (use-package helm-lsp 
+       :defer t
+       :after (helm lsp)
+       :commands helm-lsp-workspace-symbol)
+     (use-package lsp-treemacs 
+       :defer t
+       :after (lsp treemacs)
+       :commands lsp-treemacs-errors-list)
 
-      (use-package company-lsp
-        :defer t
-        :after (company lsp)
-        :init 
-        (setq company-lsp-cache-candidates nil)
-        (setq company-lsp-async t)
-        (setq company-lsp-enable-recompletion t)
-        :ensure t)
+     (use-package company-lsp
+       :defer t
+       :after (company lsp)
+       :init 
+       (setq company-lsp-cache-candidates nil)
+       (setq company-lsp-async t)
+       (setq company-lsp-enable-recompletion t)
+       :ensure t)
 
-      (use-package lsp-ui
-        :after (lsp)
-        :defer t
-        :init 
+     (use-package lsp-ui
+       :after (lsp)
+       :defer t
+       :init 
 
-        (setq lsp-ui-imenu-enable t)
-        (setq lsp-ui-sideline-ignore-duplicate t)
-        (setq lsp-ui-sideline-enable nil)
-        (setq lsp-ui-doc-enable nil)
-        (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-        :ensure t
-        :config
-        (progn
-          (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-          (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+       (setq lsp-ui-imenu-enable t)
+       (setq lsp-ui-sideline-ignore-duplicate t)
+       (setq lsp-ui-sideline-enable nil)
+       (setq lsp-ui-doc-enable nil)
+       (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+       :ensure t
+       :config
+       (progn
+         (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+         (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+   #+end_src
 
-      (use-package dap-mode
-        :defer t
-        :ensure t
-        :config
-        (progn
-          (dap-mode 1)
-          (dap-ui-mode 1)))
-    #+end_src
+   #+RESULTS:
+   : t
 
-    #+RESULTS:
-    : t
+** Format
+   !!! Do not forget to install clang-format: =sudo apt install clang-format=.
+   #+begin_src emacs-lisp
+     (use-package clang-format
+       :defer t
+       :ensure t
+       :config
+       (progn
+         (defun clang-format-buffer-smart ()
+           "Reformat buffer if .clang-format exists in the projectile root."
+           (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+             (clang-format-buffer)))
 
-*** Format
-    !!! Do not forget to install clang-format: =sudo apt install clang-format=.
-    #+begin_src emacs-lisp
-      (use-package clang-format
-        :defer t
-        :ensure t
-        :config
-        (progn
-          (defun clang-format-buffer-smart ()
-            "Reformat buffer if .clang-format exists in the projectile root."
-            (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-              (clang-format-buffer)))
+         (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
+           (add-hook each-hook 
+                     #'(lambda ()
+                         (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local)))))) 
 
-          (dolist (each-hook '(c-mode-hook c++-mode-hook js-mode-hook))
-            (add-hook each-hook 
-                      #'(lambda ()
-                          (add-hook 'before-save-hook #'clang-format-buffer-smart nil 'local)))))) 
+     (use-package yaml-mode
+       :defer t
+       :ensure t
+       :config
+       (progn
+         (add-hook 
+          'yaml-mode-hook 
+          #'(lambda ()
+              (setq yaml-indent-offset 2)
+              ;; (smartparens-mode)
+              (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
+   #+end_src
 
-      (use-package yaml-mode
-        :defer t
-        :ensure t
-        :config
-        (progn
-          (add-hook 
-           'yaml-mode-hook 
-           #'(lambda ()
-               (setq yaml-indent-offset 2)
-               ;; (smartparens-mode)
-               (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
-    #+end_src
+   #+RESULTS:
+   : t
 
-    #+RESULTS:
-    : t
+** yasnippet
+   #+begin_src emacs-lisp
+     (use-package yasnippet
+       :defer 1
+       :ensure t
+       :diminish yas-minor-mode
+       :config (yas-global-mode t))
+   #+end_src
 
-*** yasnippet
-    #+begin_src emacs-lisp
-      (use-package yasnippet
-        :defer 1
-        :ensure t
-        :diminish yas-minor-mode
-        :config (yas-global-mode t))
-    #+end_src
-
-    #+RESULTS:
-    : t
+   #+RESULTS:
+   : t
 
 ** Scala programming
 *** ensime
@@ -1091,9 +1102,9 @@
           :ensure t
           :defer t)
 
-        (use-package indium
-          :ensure t
-          :defer t)
+        ;; (use-package indium
+        ;;   :ensure t
+        ;;   :defer t)
 
         (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
         (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
@@ -1255,7 +1266,7 @@
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
-
+   
 * R programming
 ** configuration 
    #+begin_src emacs-lisp
