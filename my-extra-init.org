@@ -864,17 +864,15 @@
          (add-hook 'dap-stopped-hook
                    (lambda (arg) (call-interactively #'dap-hydra)))
 
+         ;; for javascript node debug 
          (require 'dap-node)
-         ;; (dap-register-debug-template
-         ;;  "Node::npm-debug"
-         ;;  (list :name "Node::npm-s-debug"
-         ;;        :type "node"
-         ;;        :request "launch"
-         ;;        :cwd nil
-         ;;        :runtimeExecutable "npm"
-         ;;        :runtimeArgs ["run-script", "debug"]
-         ;;        :port 9229))
-         ))
+         (dap-register-debug-template
+          "Node::debug"
+          (list :type "node"
+                :cwd nil
+                :request "launch"
+                :program nil
+                :name "Node::debug"))))
    #+end_src
    - Need to call ~dap-node-setup~ for setting up vscode extension.
    - Make sure the ~dap-node-debug-program~ is pointing to the proper file.    
@@ -1101,10 +1099,6 @@
         (use-package tern
           :ensure t
           :defer t)
-
-        ;; (use-package indium
-        ;;   :ensure t
-        ;;   :defer t)
 
         (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
         (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
