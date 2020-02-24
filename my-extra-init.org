@@ -867,12 +867,12 @@
          ;; for javascript node debug 
          (require 'dap-node)
          (dap-register-debug-template
-          "Node::debug"
+          "Node::zwpdbh-debug"
           (list :type "node"
                 :cwd nil
                 :request "launch"
                 :program nil
-                :name "Node::debug"))))
+                :name "Node::zwpdbh-debug"))))
    #+end_src
    - Need to call ~dap-node-setup~ for setting up vscode extension.
    - Make sure the ~dap-node-debug-program~ is pointing to the proper file.    
