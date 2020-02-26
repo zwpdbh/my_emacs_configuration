@@ -405,8 +405,8 @@
         (add-hook 'helm-minibuffer-set-up-hook
                   'spacemacs//helm-hide-minibuffer-maybe)
 
-        (setq helm-autoresize-max-height 0)
-        (setq helm-autoresize-min-height 55)
+        (setq helm-autoresize-max-height 35)
+        (setq helm-autoresize-min-height 0)
         (helm-autoresize-mode 1)
         (helm-mode 1)))
   #+END_SRC
@@ -711,6 +711,7 @@
         :init
         ;; (setq cider-jack-in-default 'lein)
         (setq cider-jack-in-default 'boot)
+        ;; (setq cider-default-cljs-repl 'boot)
         (if (string-equal system-type "windows-nt")
             (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
           nil)
