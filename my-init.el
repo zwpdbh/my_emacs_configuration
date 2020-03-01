@@ -85,7 +85,6 @@
 ;; (require 'init-markdown)
 ;; (require 'init-csv)
 ;; (require 'init-erlang)
-(require 'init-javascript)
 (require 'init-company)
 (require 'init-reveal)
 ;; (require 'init-php)
