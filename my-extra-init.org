@@ -1103,7 +1103,10 @@
            (setq-local js2-mode-show-parse-errors t)
            (setq-local js2-mode-show-strict-warnings t)))
        (add-hook 'js2-mode-hook 'sanityinc/enable-js2-checks-if-flycheck-inactive)
-       (add-hook 'js2-mode-hook 'lsp)
+       (add-hook 'js2-mode-hook '(lambda ()
+                                   'lsp
+                                   (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
+                                   (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)))
        (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
 
        (js2-imenu-extras-setup))
@@ -1121,8 +1124,6 @@
          (add-hook 'typescript-mode-hook 'add-node-modules-path))
        (after-load 'js2-mode
          (add-hook 'js2-mode-hook 'add-node-modules-path)))
-
-
 
      ;; (use-package company-tern
      ;;   :defer t
