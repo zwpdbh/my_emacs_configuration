@@ -742,11 +742,25 @@
           ;; In order for Emacs to recognise .boot files as valid Clojure source code
           (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
           (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
+          (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
+          ;; To properly indent hoplon macros. 
+          (add-hook 'clojure-mode-hook
+                    '(lambda ()
+                       ;; Hoplon functions and macros
+                       (dolist (pair '((page . 'defun)
+                                       (loop-tpl . 'defun)
+                                       (if-tpl . '1)
+                                       (for-tpl . '1)
+                                       (case-tpl . '1)
+                                       (cond-tpl . 'defun)))
+                         (put-clojure-indent (car pair)
+                                             (car (last pair))))))
           ;; set how code indent for some forms
           ;; see https://docs.cider.mx/cider/config/indentation.html
-          (define-clojure-indent
-            (set-env! 0)
-            (require 0))))
+          ;; (define-clojure-indent
+          ;;   (set-env! 0)
+          ;;   (require 0))
+          ))
     #+END_SRC
 
     #+RESULTS:
