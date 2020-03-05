@@ -743,6 +743,7 @@
           (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
           (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
           (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
+
           ;; To properly indent hoplon macros. 
           (add-hook 'clojure-mode-hook
                     '(lambda ()
