@@ -35,7 +35,7 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'sanityinc-tomorrow-night)
+(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
