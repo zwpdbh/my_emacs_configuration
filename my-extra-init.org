@@ -693,7 +693,10 @@
              (t
               (setq geiser-chez-binary "chezscheme9.5")))
 
-       (setq geiser-active-implementations '(guile chez))
+       ;; (setq geiser-active-implementations '(guile chez))
+       (setq geiser-default-implementation 'guile)
+       (setq geiser-active-implementations '(guile))
+
        (setq geiser-mode-start-repl-p t)
        (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
        ;; (add-to-list 'auto-mode-alist '("\\.racket\\'" . scheme-mode))
@@ -733,6 +736,11 @@
    
 *** Clojure-mode
     #+BEGIN_SRC emacs-lisp
+      (use-package clj-refactor
+        :ensure t
+        :diminish clj-refactor-mode
+        :after (clojure-mode))
+
       (use-package clojure-mode
         :defer t
         :ensure t
@@ -744,9 +752,9 @@
           (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
           (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 
-          ;; To properly indent hoplon macros. 
           (add-hook 'clojure-mode-hook
                     '(lambda ()
+                       ;; To properly indent hoplon macros. 
                        ;; Hoplon functions and macros
                        (dolist (pair '((page . 'defun)
                                        (loop-tpl . 'defun)
@@ -755,13 +763,11 @@
                                        (case-tpl . '1)
                                        (cond-tpl . 'defun)))
                          (put-clojure-indent (car pair)
-                                             (car (last pair))))))
-          ;; set how code indent for some forms
-          ;; see https://docs.cider.mx/cider/config/indentation.html
-          ;; (define-clojure-indent
-          ;;   (set-env! 0)
-          ;;   (require 0))
-          ))
+                                             (car (last pair))))
+                       ;; See documentation clojure-mode for specific indentations
+                       (put-clojure-indent '>defn 2)
+                       (clj-refactor-mode 1)
+                       (cljr-add-keybindings-with-prefix "C-c C-/")))))
     #+END_SRC
 
     #+RESULTS:
