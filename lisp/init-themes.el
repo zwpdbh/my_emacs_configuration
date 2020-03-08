@@ -28,6 +28,10 @@
   :ensure t
   :defer t)
 
+(use-package gruber-darker-theme
+  :ensure t
+  :defer t)
+
 ;; (use-package nimbus-theme
 ;;   :ensure t
 ;;   :defer t)
@@ -39,10 +43,10 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'kaolin-valley-light)
+(setq-default custom-enabled-theme 'gruber-darker)
 
 ;; Ensure that themes will be applied even if they have not been customized
-(defun apply-themes ()
+(defun apply-theme ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
   (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
   (load-theme custom-enabled-theme)
@@ -63,19 +67,8 @@
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
 
-(add-hook 'after-init-hook 'apply-themes)
-;;------------------------------------------------------------------------------
-;; Toggle between light and dark
-;;------------------------------------------------------------------------------
-(defun zw/theme-light ()
-  (interactive)
-  (setq custom-enabled-theme kaolin-valley-light)
-  (apply-themes))
+(add-hook 'after-init-hook 'apply-theme)
 
-(defun zw/theme-dark ()
-  (interactive)
-  (setq custom-enabled-theme 'kaolin-dark)
-  (apply-themes))
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
