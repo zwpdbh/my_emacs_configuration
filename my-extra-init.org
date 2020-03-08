@@ -628,9 +628,12 @@
        :defer t
        :init
        (cond ((eq system-type 'windows-nt)
-              (setq inferior-lisp-program "clisp")
+              ;; (setq inferior-lisp-program "clisp")
+              ;; (setq sly-lisp-implementations
+              ;;       '((clisp ("c:/tools/clisp-2.49/clisp.exe") :coding-system utf-8-unix)))
+              (setq inferior-lisp-program "sbcl")
               (setq sly-lisp-implementations
-                    '((clisp ("c:/tools/clisp-2.49/clisp.exe") :coding-system utf-8-unix))))
+                    '((sbcl ("c:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe") :coding-system utf-8-unix))))
              (t
               (setq inferior-lisp-program "sbcl")
               (setq sly-lisp-implementations

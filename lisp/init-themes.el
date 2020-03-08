@@ -39,7 +39,7 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'kaolin-dark)
+(setq-default custom-enabled-theme 'kaolin-valley-light)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-themes ()
@@ -69,7 +69,7 @@
 ;;------------------------------------------------------------------------------
 (defun zw/theme-light ()
   (interactive)
-  (setq custom-enabled-theme kaolin-light)
+  (setq custom-enabled-theme kaolin-valley-light)
   (apply-themes))
 
 (defun zw/theme-dark ()
