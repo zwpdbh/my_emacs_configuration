@@ -35,7 +35,7 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
+(setq-default custom-enabled-theme 'moe-light)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -48,7 +48,7 @@
   
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "IndianRed" ;; use Font Lock Keyword Face 
+                      :foreground "SteelBlue" ;; use Font Lock Keyword Face 
                       :background nil
                       :weight 'normal)
   
