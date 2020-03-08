@@ -39,7 +39,7 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'leuven)
+(setq-default custom-enabled-theme 'doom-vibrant)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -52,9 +52,10 @@
   
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "SteelBlue" ;; use Font Lock Keyword Face 
+                      :foreground "IndianRed"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
+  ;; "SteelBlue" is a good choice
   
   (setq show-paren-style 'expression)
   
