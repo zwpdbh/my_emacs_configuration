@@ -32,10 +32,14 @@
   :ensure t
   :defer t)
 
+(use-package leuven-theme
+  :ensure t
+  :defer t)
+
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'moe-light)
+(setq-default custom-enabled-theme 'leuven)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
