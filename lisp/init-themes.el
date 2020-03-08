@@ -43,7 +43,8 @@
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'gruber-darker)
+;; gruber-darker
+(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-theme ()
@@ -72,7 +73,6 @@
   (doom-themes-treemacs-config))
 
 (add-hook 'after-init-hook 'apply-theme)
-
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
