@@ -627,9 +627,14 @@
        :mode ("\\.lisp\\'" "\\.cl\\'")
        :defer t
        :init
-       (setq inferior-lisp-program "sbcl")
-       (setq sly-lisp-implementations
-             '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))
+       (cond ((eq system-type 'windows-nt)
+              (setq inferior-lisp-program "clisp")
+              (setq sly-lisp-implementations
+                    '((clisp ("c:/tools/clisp-2.49/clisp.exe") :coding-system utf-8-unix))))
+             (t
+              (setq inferior-lisp-program "sbcl")
+              (setq sly-lisp-implementations
+                    '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))))
        :commands (sly-mode))
    #+end_src
 

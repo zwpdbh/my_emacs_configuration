@@ -8,41 +8,41 @@
   :ensure t
   :defer t)
 
-(use-package zeno-theme
-  :ensure t
-  :defer t)
+;; (use-package zeno-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package zerodark-theme
-  :ensure t
-  :defer t)
+;; (use-package zerodark-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package moe-theme
-  :ensure t
-  :defer t)
+;; (use-package moe-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package cloud-theme
-  :ensure t
-  :defer t)
+;; (use-package cloud-theme
+;;   :ensure t
+;;   :defer t)
 
 (use-package kaolin-themes
   :ensure t
   :defer t)
 
-(use-package nimbus-theme
-  :ensure t
-  :defer t)
+;; (use-package nimbus-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package leuven-theme
-  :ensure t
-  :defer t)
+;; (use-package leuven-theme
+;;   :ensure t
+;;   :defer t)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
-(setq-default custom-enabled-theme 'doom-vibrant)
+(setq-default custom-enabled-theme 'kaolin-dark)
 
 ;; Ensure that themes will be applied even if they have not been customized
-(defun reapply-themes ()
+(defun apply-themes ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
   (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
   (load-theme custom-enabled-theme)
@@ -55,7 +55,7 @@
                       :foreground "IndianRed"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
-  ;; "SteelBlue" is a good choice
+  ;; "SteelBlue" or IndianRed is a good choice
   
   (setq show-paren-style 'expression)
   
@@ -63,19 +63,19 @@
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
 
-(add-hook 'after-init-hook 'reapply-themes)
+(add-hook 'after-init-hook 'apply-themes)
 ;;------------------------------------------------------------------------------
 ;; Toggle between light and dark
 ;;------------------------------------------------------------------------------
-(defun zw/theme-sanityinc-tomorrow-bright ()
+(defun zw/theme-light ()
   (interactive)
-  (setq custom-enabled-themes '(sanityinc-tomorrow-bright))
-  (reapply-themes))
+  (setq custom-enabled-theme kaolin-light)
+  (apply-themes))
 
-(defun zw/theme-leuven ()
+(defun zw/theme-dark ()
   (interactive)
-  (setq custom-enabled-themes '(leuven))
-  (reapply-themes))
+  (setq custom-enabled-theme 'kaolin-dark)
+  (apply-themes))
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
