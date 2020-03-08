@@ -51,17 +51,21 @@
   (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
   (load-theme custom-enabled-theme)
   
+  
   (set-cursor-color "HotPink")
   (setq-default cursor-type '(bar . 2))
-  
+  (setq show-paren-style 'parenthesis)
+  ;; tried color candidates: SteelBlue
+  ;; (set-face-attribute 'show-paren-match nil
+  ;;                     :underline nil
+  ;;                     :foreground "IndianRed"  ;; use Font Lock Keyword  Face 
+  ;;                     :background nil
+  ;;                     :weight 'normal)
   (set-face-attribute 'show-paren-match nil
-                      :underline nil
+                      :underline t
                       :foreground "IndianRed"  ;; use Font Lock Keyword  Face 
                       :background nil
-                      :weight 'normal)
-  ;; "SteelBlue" or IndianRed is a good choice
-  
-  (setq show-paren-style 'expression)
+                      :weight 'bold)
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
