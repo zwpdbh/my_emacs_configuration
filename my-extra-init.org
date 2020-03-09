@@ -9,9 +9,11 @@
 * Set environment path
   #+begin_src emacs-lisp
     (if (string-equal system-type "windows-nt")
-	(progn
-	  (princ "set windows environment"))
+        (progn
+          (princ "set windows environment"))
       (setq exec-path (append exec-path '("/usr/local/bin"))))
+
+    (setq default-directory "~/code/")
   #+end_src
 
 * Interface tweaks
