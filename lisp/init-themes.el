@@ -23,6 +23,7 @@
   :ensure t
   :config
   (set-face-attribute 'symbol-overlay-default-face nil
+                      :inherit 'highlight
                       :underline t))
 
 ;; Ensure that themes will be applied even if they have not been customized
