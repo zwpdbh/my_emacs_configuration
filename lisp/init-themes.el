@@ -19,6 +19,12 @@
 ;; gruber-darker
 (setq-default custom-enabled-theme 'gruber-darker)
 
+(use-package symbol-overlay
+  :ensure t
+  :config
+  (set-face-attribute 'symbol-overlay-default-face nil
+                      :underline t))
+
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-theme ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
@@ -41,9 +47,6 @@
                       :background nil
                       :weight 'normal)
 
-  (set-face-attribute 'symbol-overlay-default-face nil
-                      :underline t)
-  
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
