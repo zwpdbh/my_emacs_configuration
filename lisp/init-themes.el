@@ -32,9 +32,10 @@
   (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
   (load-theme custom-enabled-theme)
   
+  (set-cursor-color "#73c936")
+  ;; (setq-default cursor-type '(bar . 3))
+  (setq-default cursor-type 'hollow)
   
-  (set-cursor-color "HotPink")
-  (setq-default cursor-type '(bar . 2))
   (setq show-paren-style 'expression)
   ;; tried color candidates: SteelBlue
   ;; (set-face-attribute 'show-paren-match nil

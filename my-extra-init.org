@@ -78,10 +78,12 @@
    #+END_SRC
    - [[https://www.emacswiki.org/emacs/AlignCommands#toc5][Align Commands]]
 
-** make cursor blink forever
+** make cursor blink time
    #+begin_src emacs-lisp
-     (setq blink-cursor-blinks 0)
+     (setq blink-cursor-blinks 10)
    #+end_src
+
+
 ** adjust meta key
    #+BEGIN_SRC emacs-lisp
      ;;; I prefer cmd key for meta
