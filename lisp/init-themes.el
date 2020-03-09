@@ -40,6 +40,9 @@
                       :foreground "#73c936"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
+
+  (set-face-attribute 'symbol-overlay-default-face nil
+                      :underline t)
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
