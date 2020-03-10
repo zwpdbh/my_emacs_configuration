@@ -1688,7 +1688,7 @@
      ;; (global-set-key "\C-cs" 'zw/org-screenshot)
      (if (string-equal system-type "windows-nt")
          (define-key org-mode-map (kbd "\C-c s") 'zw/org-screenshot)
-       (define-key org-mode-map (kdb "\C-c s") 'org-attach-screenshot))
+       (define-key org-mode-map (kbd "\C-c s") 'org-attach-screenshot))
    #+end_src
 
 ** Org-download moving images from A to B
