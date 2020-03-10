@@ -37,6 +37,8 @@
   (setq-default cursor-type '(bar . 2))
   (setq show-paren-style 'expression)
   ;; tried color candidates: SteelBlue
+  ;; #c397d8 purple
+  ;; #73c936 green
   ;; (set-face-attribute 'show-paren-match nil
   ;;                     :underline nil
   ;;                     :foreground "IndianRed"  ;; use Font Lock Keyword  Face 
@@ -44,7 +46,7 @@
   ;;                     :weight 'normal)
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#73c936"  ;; use Font Lock Keyword  Face 
+                      :foreground "#c397d8"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
 
