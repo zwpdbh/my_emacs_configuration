@@ -1204,16 +1204,6 @@
          (add-hook 'typescript-mode-hook 'add-node-modules-path))
        (after-load 'js2-mode
          (add-hook 'js2-mode-hook 'add-node-modules-path)))
-
-
-
-
-
-
-
-
-
-
    #+end_src
    - flow-based autocomplete for emacs with [[https://github.com/aaronjensen/company-flow][company-flow]], need to install [[https://github.com/facebook/flow][flow]]
    - Tern is a stand-alone code-analysis engine for JavaScript, need to install: ~sudo npm install -g tern~.
@@ -1324,6 +1314,15 @@
          (org-babel-do-load-languages
           'org-babel-load-languages
           '((go . t))))
+
+       (defun lsp-go-install-save-hooks ()
+         (add-hook 'before-save-hook #'lsp-format-buffer t t)
+         (add-hook 'before-save-hook #'lsp-organize-imports t t))
+
+       (add-hook 'go-mode-hook '(lambda ()
+                                  (lsp-mode t)
+                                  (lsp)
+                                  #'lsp-go-install-save-hooks))
      #+end_src
 
      #+RESULTS:
@@ -1333,7 +1332,6 @@
      #+end_src
 
      #+RESULTS:
-     : Hello, 世界
 
 
 
