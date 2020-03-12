@@ -637,22 +637,27 @@
        :mode ("\\.lisp\\'" "\\.cl\\'")
        :defer t
        :init
-       (cond ((eq system-type 'windows-nt)
-              ;; (setq inferior-lisp-program "clisp")
-              ;; (setq sly-lisp-implementations
-              ;;       '((clisp ("c:/tools/clisp-2.49/clisp.exe") :coding-system utf-8-unix)))
-              (setq inferior-lisp-program "sbcl")
-              (setq sly-lisp-implementations
-                    '((sbcl ("c:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe") :coding-system utf-8-unix))))
-             (t
-              (setq inferior-lisp-program "sbcl")
-              (setq sly-lisp-implementations
-                    '((sbcl ("/usr/local/bin/sbcl") :coding-system utf-8-unix)))))
+       (setq sly-net-coding-system 'utf-8-unix)
+
+       (setq my-ccl (executable-find "wx86cl64"))
+       (setq my-sbcl (executable-find "sbcl"))
+       (setq my-clisp (executable-find "clisp"))
+       (cond (my-ccl
+              (setq inferior-lisp-program "ccl"))
+             (my-sbcl
+              (setq inferior-lisp-program "sbcl"))
+             (my-clisp
+              (setq inferior-lisp-program "clisp")))
+       (setq sly-lisp-implementations
+             `((ccl
+                (,my-ccl))
+               (sbcl 
+                (,my-sbcl))
+               (clisp
+                (,my-clisp))))
        :commands (sly-mode))
    #+end_src
-
-   #+RESULTS:
-   : t
+   - After connection, use ~(lisp-implementation-type)~ to check the connected common-lisp implementation.
 
 ** Racket
    #+begin_src emacs-lisp
