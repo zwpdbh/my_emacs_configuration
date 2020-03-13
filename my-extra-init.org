@@ -1289,48 +1289,43 @@
     #+end_example
 
 ** go programming
-   * [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
-   * go-mode with ob-go
-     #+begin_src emacs-lisp
-       (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+   #+begin_src emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
-       (use-package go-mode
-         :defer t
-         :init 
-         (if (string-equal system-type "gnu/linux")
-             (add-to-list 'exec-path "/usr/local/go/bin")
-           nil)
-         :ensure t)
+     (use-package go-mode
+       :defer t
+       :init 
+       (if (string-equal system-type "gnu/linux")
+           (add-to-list 'exec-path "/usr/local/go/bin")
+         nil)
+       :ensure t)
 
-       (use-package ob-go
-         :defer 2 
-         :ensure t
-         :config
-         (add-to-list 'org-structure-template-alist '("go" . "src go"))
-         (org-babel-do-load-languages
-          'org-babel-load-languages
-          '((go . t))))
+     (use-package ob-go
+       :defer 2 
+       :ensure t
+       :config
+       (add-to-list 'org-structure-template-alist '("go" . "src go"))
+       (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((go . t))))
 
-       (defun lsp-go-install-save-hooks ()
-         (add-hook 'before-save-hook #'lsp-format-buffer t t)
-         (add-hook 'before-save-hook #'lsp-organize-imports t t))
+     (defun lsp-go-install-save-hooks ()
+       (add-hook 'before-save-hook #'lsp-format-buffer t t)
+       (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
-       (add-hook 'go-mode-hook '(lambda ()
-                                  (lsp-mode t)
-                                  (lsp)
-                                  #'lsp-go-install-save-hooks))
-     #+end_src
-
-     #+RESULTS:
-   * Test go example
+     (add-hook 'go-mode-hook '(lambda ()
+                                (lsp-mode t)
+                                (lsp)
+                                #'lsp-go-install-save-hooks))
+   #+end_src
+   - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
+     - install it by ~go get golang.org/x/tools/gopls@latest~
+   - [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
+   - go-mode with ob-go
+   - Test go example
      #+begin_src go :imports "fmt"
        fmt.Println("Hello, 世界")
      #+end_src
-
-     #+RESULTS:
-
-
-
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
