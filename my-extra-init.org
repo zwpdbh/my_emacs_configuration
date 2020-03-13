@@ -1320,7 +1320,6 @@
    #+end_src
    - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
      - install it by ~go get golang.org/x/tools/gopls@latest~
-   - [[https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04][How To Install Go on Ubuntu 18.04]]
    - go-mode with ob-go
    - Test go example
      #+begin_src go :imports "fmt"
