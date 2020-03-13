@@ -1309,14 +1309,18 @@
         'org-babel-load-languages
         '((go . t))))
 
-     (defun lsp-go-install-save-hooks ()
+     (defun zw/lsp-go-steup ()
+       (setq lsp-gopls-use-placeholders t)
+       (lsp-register-custom-settings
+        '(("gopls.completeUnimported" t t)
+          ("gopls.staticcheck" t t)))
        (add-hook 'before-save-hook #'lsp-format-buffer t t)
        (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
      (add-hook 'go-mode-hook '(lambda ()
                                 (lsp-mode t)
                                 (lsp)
-                                #'lsp-go-install-save-hooks))
+                                #'zw/lsp-go-steup))
    #+end_src
    - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
      - install it by ~go get golang.org/x/tools/gopls@latest~
@@ -1325,6 +1329,9 @@
      #+begin_src go :imports "fmt"
        fmt.Println("Hello, 世界")
      #+end_src
+
+     #+RESULTS:
+     : Hello, 世界
 
 ** Java programming
    [[http://www.goldsborough.me/emacs,/java/2016/02/24/22-54-16-setting_up_emacs_for_java_development/][blog shows how to setup emacs for java development]]
