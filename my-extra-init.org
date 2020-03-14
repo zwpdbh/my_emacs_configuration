@@ -906,8 +906,8 @@
        (progn
          (dap-mode 1)
          (dap-ui-mode 1)
-         (dap-tooltip-mode 1)
-         (setq tooltip-mode t)
+         ;; (dap-tooltip-mode 1)
+         ;; (setq tooltip-mode t)
 
          ;; dap-mode also provides a hydra with dap-hydra
          (add-hook 'dap-stopped-hook
