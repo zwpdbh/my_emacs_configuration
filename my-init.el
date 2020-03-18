@@ -32,9 +32,11 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-const)
 (require 'init-utils)
-;; (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
-;; Calls (package-initialize)
+
 (require 'init-elpa)      ;; Machinery for installing required packages
+(unless (package-installed-p 'esup)
+  (package-install 'esup))
+
 (require 'init-exec-path) ;; Set up $PATH
 
 ;;----------------------------------------------------------------------------
