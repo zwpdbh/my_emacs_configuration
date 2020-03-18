@@ -50,6 +50,10 @@
                       :foreground "#c397d8"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
+  
+  ;; make helm related selection use underline
+  (set-face-attribute 'helm-selection nil
+                      :underline t)
 
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
