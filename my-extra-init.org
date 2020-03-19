@@ -359,7 +359,7 @@
       ;; :bind (("C-s" . helm-swoop)
       ;;        ("M-x" . helm-M-x)
       ;;        ("C-x b" . helm-buffers-list))
-      ;; :config
+      :config
       (progn
         ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
         ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
