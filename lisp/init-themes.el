@@ -17,7 +17,8 @@
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
-(setq-default custom-enabled-theme 'gruber-darker)
+;; (setq-default custom-enabled-theme 'gruber-darker)
+(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
 
 (use-package symbol-overlay
   :ensure t
@@ -26,10 +27,7 @@
                       :inherit 'highlight
                       :underline t))
 
-;; Ensure that themes will be applied even if they have not been customized
-(defun apply-theme ()
-  "Forcibly load the themes listed in `custom-enabled-themes'."
-  (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
+(defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
   
   (set-cursor-color "#73c936")
@@ -47,17 +45,29 @@
   ;;                     :weight 'normal)
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#c397d8"  ;; use Font Lock Keyword  Face 
+                      :foreground "#73c936"  ;; use Font Lock Keyword  Face 
                       :background nil
                       :weight 'normal)
   
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t)
+  ;; set different org-mode color
+  (set-face-attribute 'org-code nil
+                      :foreground "#73c936")
+  (set-face-attribute 'org-block nil
+                      :foreground "default"))
 
+;; Ensure that themes will be applied even if they have not been customized
+(defun apply-theme ()
+  "Forcibly load the themes listed in `custom-enabled-themes'."
+  (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
+  
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config))
+  (doom-themes-treemacs-config)
+  
+  (zw/customize-theme))
 
 (add-hook 'after-init-hook 'apply-theme)
 
