@@ -224,6 +224,44 @@
       :ensure t 
       :defer t)
   #+end_src
+* Swiper/Ivy/Counsel
+  #+begin_src emacs-lisp
+    ;; it looks like counsel is a requirement for swiper
+    (use-package counsel
+      :defer 1
+      :ensure t
+      :bind
+      (("M-y" . counsel-yank-pop)
+       :map ivy-minibuffer-map
+       ("M-y" . ivy-next-line)))
+
+    (use-package ivy
+      :defer 1
+      :ensure t
+      :diminish (ivy-mode)
+      :bind (("C-x b" . ivy-switch-buffer))
+      :config
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (setq ivy-count-format "%d/%d ")
+      (setq ivy-display-style 'fancy))
+
+
+    (use-package swiper
+      :after (ivy counsel)
+      :defer
+      :ensure try
+      :bind (("C-s" . swiper)
+             ("C-c C-r" . ivy-resume)
+             ;; ("C-x C-f" . counsel-find-file)
+             ("M-x" . counsel-M-x))
+      :config
+      (progn
+        (ivy-mode 1)
+        (setq ivy-use-virtual-buffers t)
+        (setq ivy-display-style 'fancy)
+        (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+  #+end_src
 * Keep parentheses balanced
 ** Paredit
    #+begin_src emacs-lisp
@@ -305,21 +343,21 @@
       :config
       (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
 
-    (use-package helm-swoop
-      :ensure t
-      :config
-      (progn
-        (setq helm-swoop-use-fuzzy-match t)
-        (setq helm-swoop-use-line-number-face t)
-        (setq helm-swoop-move-to-line-cycle t)
-        (setq helm-swoop-split-with-multiple-windows t)
-        (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
+    ;; (use-package helm-swoop
+    ;;   :ensure t
+    ;;   :config
+    ;;   (progn
+    ;;     (setq helm-swoop-use-fuzzy-match t)
+    ;;     (setq helm-swoop-use-line-number-face t)
+    ;;     (setq helm-swoop-move-to-line-cycle t)
+    ;;     (setq helm-swoop-split-with-multiple-windows t)
+    ;;     (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
 
     (use-package helm
       :diminish
       :ensure t
-      :bind (("C-s" . helm-swoop)
-             ("M-x" . helm-M-x)
+      :bind (;; ("C-s" . helm-swoop)
+             ;; ("M-x" . helm-M-x)
              ("C-x b" . helm-buffers-list))
       :config
       (progn
