@@ -18,43 +18,24 @@
 
 * Interface tweaks
 ** set font
-   * Install Monaco font in Ubuntu:
-     * check [[https://github.com/cstrap/monaco-font][How To]].
-     * ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     * ~./install-font-ubuntu.sh http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf~
-     * ~mkdir ~/.fonts~
-     * ~cp Monaco_Linux.ttf ~/.fonts/~
-   * [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][how to find the current font used]]
-   * [[http://ergoemacs.org/emacs/emacs_unicode_fonts.html][best unicode fonts for programmer]]
-   * Install regular font 
+   - [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][how to find the current font used]]
+   - [[http://ergoemacs.org/emacs/emacs_unicode_fonts.html][best unicode fonts for programmer]]
+   - Install [[https://github.com/adobe-fonts/source-code-pro][source-code-pro]]
      #+begin_src emacs-lisp
        ;; to adjust font dynamically
        ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-
        (set-face-attribute 'default nil :height 120)
 
-       ;; (cond
-       ;;  ((string-equal system-type "windows-nt")
-       ;;   (set-default-font "Consolas 12"))
-       ;;  ((string-equal system-type "gnu/linux")
-       ;;   (set-default-font "Ubuntu Mono 12"))
-       ;;  ((string-equal system-type "darwin")
-       ;;   (if (member "Source Code Pro" (font-family-list))
-       ;;       (set-default-font "Source Code Pro 12")
-       ;;     (set-default-font "Menlo 11"))))
+       (if (member "Source Code Pro" (font-family-list))
+           (set-frame-font "Source Code Pro 11"))
      #+end_src
 
-     #+RESULTS:
-
-   * Install all the icons
+   - Install all the icons
      #+begin_src emacs-lisp
        (use-package all-the-icons
          :ensure t 
          :defer t)
      #+end_src
-
-     #+RESULTS:
-
      - After the package installed, run ~M-x all-the-icons-install-fonts~
      - In Windows10, after downloaded those fonts, go to the place to manually install theme.
 
