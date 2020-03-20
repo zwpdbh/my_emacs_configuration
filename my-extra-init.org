@@ -650,6 +650,10 @@
        :commands (sly-mode))
    #+end_src
    - After connection, use ~(lisp-implementation-type)~ to check the connected common-lisp implementation.
+   - [[https://www.quicklisp.org/beta/#installation][quicklisp]] is library manager for Common Lisp
+     - Loading after installation: ~(load "~/quicklisp/setup.lisp")~
+     - To load Quicklisp when you start Lisp: ~(ql:add-to-init-file)~
+       
 
 ** Racket
    #+begin_src emacs-lisp
