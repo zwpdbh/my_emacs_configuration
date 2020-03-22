@@ -18,7 +18,7 @@
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 ;; (setq-default custom-enabled-theme 'gruber-darker)
-(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
+(setq-default custom-enabled-theme 'sanityinc-tomorrow-night)
 
 (use-package symbol-overlay
   :ensure t
