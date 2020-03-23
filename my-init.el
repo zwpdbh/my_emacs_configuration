@@ -89,6 +89,7 @@
 ;; (require 'init-erlang)
 (require 'init-company)
 (require 'init-reveal)
+(require 'init-terraform)
 ;; (require 'init-php)
 ;; (require 'init-org)
 ;; (require 'init-nxml)
