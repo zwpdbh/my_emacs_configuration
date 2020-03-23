@@ -37,7 +37,7 @@
          :defer t)
      #+end_src
      - After the package installed, run ~M-x all-the-icons-install-fonts~
-     - In Windows10, after downloaded those fonts, go to the place to manually install theme.
+     - For Windows10, after executed the above command, go to the place specified to manually install theme.
 
 ** Mode line
    #+begin_src emacs-lisp
