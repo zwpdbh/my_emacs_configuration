@@ -2054,6 +2054,7 @@ A collection of useful Emacs Lisp code that isn’t substantial enough to be pac
                                        (when smerge-mode
                                          (unpackaged/smerge-hydra/body)))))
    #+end_src
+   - You can manually activate the hydra with the command ~unpackaged/smerge-hydra/body~.
 * Sudo-edit
   #+begin_src emacs-lisp
     (use-package sudo-edit
