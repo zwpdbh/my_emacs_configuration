@@ -650,6 +650,11 @@
 
      (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
      (add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
+
+     (add-hook 'sly-mode-hook 
+               #'(lambda ()
+                   (define-key sly-editing-mode-map (kbd "C-c C-c") nil)
+                   (define-key sly-editing-mode-map (kbd "C-c C-c") 'sly-eval-last-expression)))
    #+end_src
    - After connection, use ~(lisp-implementation-type)~ to check the connected common-lisp implementation.
    - [[https://www.quicklisp.org/beta/#installation][quicklisp]] is library manager for Common Lisp
