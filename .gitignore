@@ -12,6 +12,7 @@
 !localelpa/*.el
 !site-lisp/
 !site-lisp/*
+!site-lisp/*/*.el
 !my-init.el
 
 !Makefile
