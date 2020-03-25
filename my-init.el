@@ -33,8 +33,10 @@
 (require 'init-const)
 (require 'init-utils)     ;; the file provide useful common functions
 (require 'init-elpa)      ;; Machinery for installing required packages
-(unless (package-installed-p 'esup)
+
+(unless (package-installed-p 'esup) ;; Emacs Start Up Profiler
   (package-install 'esup))
+
 (require 'init-exec-path) ;; Set up $PATH
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
