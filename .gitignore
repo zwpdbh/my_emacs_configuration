@@ -8,7 +8,13 @@
 # Add all my .el configuration
 !lisp/
 !lisp/*.el
+!localelpa/
+!localelpa/*.el
+!site-lisp/
+!site-lisp/***/.el
 !my-init.el
+
+!Makefile
 
 # Add all the files within folder org-templates
 !org-templates
