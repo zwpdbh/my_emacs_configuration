@@ -99,6 +99,8 @@
 (require-init 'init-clang-format)
 (require-init 'init-yaml)
 (require-init 'init-yasnippet)
+
+(require-init 'init-python)
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
 ;; ;;----------------------------------------------------------------------------

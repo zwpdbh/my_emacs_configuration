@@ -1,17 +1,5 @@
 * Other Programming
 
-** yasnippet
-   #+begin_src emacs-lisp
-     (use-package yasnippet
-       :defer 1
-       :ensure t
-       :diminish yas-minor-mode
-       :config (yas-global-mode t))
-   #+end_src
-
-   #+RESULTS:
-   : t
-
 ** Scala programming
 *** ensime
     # #+begin_src emacs-lisp
@@ -34,48 +22,6 @@
     #+RESULTS:
     : t
     
-** Python development
-*** with lsp 
-    - References
-      - [[https://vxlabs.com/2018/11/19/configuring-emacs-lsp-mode-and-microsofts-visual-studio-code-python-language-server/][Configuring Emacs, lsp-mode and Microsoft's Visual Studio Code Python language server.]] (using)
-    - Components
-      - server: Microsoft Python Language Server
-      - client: lsp-python-ms
-      - installation
-        - install [[https://dotnet.microsoft.com/download][dotnet-sdk]]
-          - [[https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current][installation on ubuntu18.04]]
-        - clone and install [[https://github.com/Microsoft/python-language-server][python-language-server]]
-          - Configuration with emacs
-            #+begin_src emacs-lisp
-              (use-package lsp-python-ms
-                :defer t
-                :init 
-                (setq python-shell-interpreter "python3")
-                (setq lsp-python-ms-dir
-                      (expand-file-name "~/python-language-server/output/bin/Release/"))
-                (setq lsp-python-ms-executable
-                      "~/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")
-                (add-hook 'python-mode-hook 'lsp-mode)
-                ;; (add-hook 'python-mode-hook #'smartparens-mode)
-                :ensure t)
-            #+end_src
-
-            #+RESULTS:
-            : t
-
-
-
-*** Debugging
-    Debugg using pdb
-    #+BEGIN_SRC python
-      # import ipd
-      # ipdb.set_trace ()
-    #+END_SRC
-
-*** Test Integration
-    Configure your test Runner
-    M-x elpy-set-test-runner
-    C-c C-t  ;; runs test/ all tests
 
 ** C/C++ programming
 *** with lsp
