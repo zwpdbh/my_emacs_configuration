@@ -56,6 +56,8 @@
 (require 'init-gui-frames)
 (require-init 'init-interface-tweaks)
 (require-init 'init-whichkey)
+(require-init 'init-counsel-ivy-swiper)
+(require-init 'init-parenthese)
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-uniquify)
