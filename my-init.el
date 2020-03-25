@@ -31,29 +31,21 @@
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-const)
-(require 'init-utils)
-
+(require 'init-utils)     ;; the file provide useful common functions
 (require 'init-elpa)      ;; Machinery for installing required packages
 (unless (package-installed-p 'esup)
   (package-install 'esup))
-
 (require 'init-exec-path) ;; Set up $PATH
-
-;;----------------------------------------------------------------------------
-;; Allow users to provide an optional "init-preload-local.el"
-;;----------------------------------------------------------------------------
-(require 'init-preload-local nil t)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
-(require-package 'diminish)
+(maybe-require-package 'diminish)
 (maybe-require-package 'scratch)
-(require-package 'command-log-mode)
+(maybe-require-package 'command-log-mode)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
