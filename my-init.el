@@ -65,6 +65,7 @@
 (require-init 'init-silver-search)
 (require-init 'init-rainbow)
 (require-init 'init-treemacs)
+(require-init 'init-ggtags)
 
 (require 'init-dired)
 (require 'init-grep)
@@ -86,6 +87,13 @@
 (require 'init-company)
 (require 'init-lsp)
 (require 'init-terraform)
+
+(require-init 'init-eldoc)
+(require-init 'init-common-lisp)
+(require-init 'init-racket)
+(require-init 'init-scheme)
+(require-init 'init-clojure)
+(require-init 'init-lisp-tool)
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
