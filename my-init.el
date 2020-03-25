@@ -54,6 +54,8 @@
 (require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
+(require-init 'init-interface-tweaks)
+(require-init 'init-whichkey)
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-uniquify)
@@ -74,10 +76,6 @@
 (require 'init-company)
 (require 'init-lsp)
 (require 'init-terraform)
-
-;; === Emacs appearence ===
-
-
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient

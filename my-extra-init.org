@@ -1,219 +1,168 @@
-* Minimal UI
-  # #+begin_src emacs-lisp
-  #   (scroll-bar-mode -1)
-  #   (tool-bar-mode   -1)
-  #   (tooltip-mode    -1)
-  #   (menu-bar-mode   -1)
-  # #+end_src
-
-
 * Interface tweaks
-** set font
-   - [[http://ergoemacs.org/emacs/emacs_list_and_set_font.html][how to find the current font used]]
-   - [[http://ergoemacs.org/emacs/emacs_unicode_fonts.html][best unicode fonts for programmer]]
-   - Install [[https://github.com/adobe-fonts/source-code-pro][source-code-pro]]
-     #+begin_src emacs-lisp
-       ;; to adjust font dynamically
-       ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-       (set-face-attribute 'default nil :height 120)
-
-       (if (member "Source Code Pro" (font-family-list))
-           (set-frame-font "Source Code Pro 11"))
-     #+end_src
-
-   - Install all the icons
-     #+begin_src emacs-lisp
-       (use-package all-the-icons
-         :ensure t 
-         :defer t)
-     #+end_src
-     - After the package installed, run ~M-x all-the-icons-install-fonts~
-     - For Windows10, after executed the above command, go to the place specified to manually install theme.
-
-** Mode line
-   #+begin_src emacs-lisp
-     (use-package doom-modeline
-       :ensure t
-       :hook (after-init . doom-modeline-mode))
-   #+end_src
+# ** Mode line
+#    #+begin_src emacs-lisp
+#      (use-package doom-modeline
+#        :ensure t
+#        :hook (after-init . doom-modeline-mode))
+#    #+end_src
 
 ** alight commands
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'align-load-hook (lambda ()
-                                  (add-to-list 'align-rules-list
-                                               '(text-column-whitespace
-                                                 (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
-                                                 (group   . 2)
-                                                 (modes   . align-text-modes)
-                                                 (repeat  . t)))))
-   #+END_SRC
-   - [[https://www.emacswiki.org/emacs/AlignCommands#toc5][Align Commands]]
+   # #+BEGIN_SRC emacs-lisp
+   #   (add-hook 'align-load-hook (lambda ()
+   #                                (add-to-list 'align-rules-list
+   #                                             '(text-column-whitespace
+   #                                               (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
+   #                                               (group   . 2)
+   #                                               (modes   . align-text-modes)
+   #                                               (repeat  . t)))))
+   # #+END_SRC
+   # - [[https://www.emacswiki.org/emacs/AlignCommands#toc5][Align Commands]]
 
 ** make cursor blink time
-   #+begin_src emacs-lisp
-     (setq blink-cursor-blinks 10)
-   #+end_src
+   # #+begin_src emacs-lisp
+   #   (setq blink-cursor-blinks 10)
+   # #+end_src
 
 ** adjust meta key
-   #+BEGIN_SRC emacs-lisp
-     ;;; I prefer cmd key for meta
-     (setq mac-option-key-is-meta nil
-	   mac-command-key-is-meta t
-	   mac-command-modifier 'meta
-	   mac-option-modifier 'none)
-   #+END_SRC
+   # #+BEGIN_SRC emacs-lisp
+   #   ;;; I prefer cmd key for meta
+   #   (setq mac-option-key-is-meta nil
+   #         mac-command-key-is-meta t
+   #         mac-command-modifier 'meta
+   #         mac-option-modifier 'none)
+   # #+END_SRC
 
-   #+RESULTS:
-   : none
+   # #+RESULTS:
+   # : none
 
 ** set global key-bindings
-   Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
-   #+begin_src emacs-lisp
-     ;; resize bindings
-     (global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
-     (global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
-     (global-set-key (kbd "C-s-<down>") 'shrink-window)
-     (global-set-key (kbd "C-s-<up>") 'enlarge-window)
+   # Use "C-h k" to check the meaning of command for which the current key-binding belongs to in current mode.
+   # #+begin_src emacs-lisp
+   #   ;; resize bindings
+   #   (global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
+   #   (global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
+   #   (global-set-key (kbd "C-s-<down>") 'shrink-window)
+   #   (global-set-key (kbd "C-s-<up>") 'enlarge-window)
 
-     ;; use cmd + n and cmd + p to select next and previous lines
-     (global-set-key (kbd "s-n") (kbd "C-S-n"))
-     (global-set-key (kbd "s-p") (kbd "C-S-p"))
-     ;; use c-z to undo
-     (global-set-key (kbd "C-z") #'undo)
+   #   ;; use cmd + n and cmd + p to select next and previous lines
+   #   (global-set-key (kbd "s-n") (kbd "C-S-n"))
+   #   (global-set-key (kbd "s-p") (kbd "C-S-p"))
+   #   ;; use c-z to undo
+   #   (global-set-key (kbd "C-z") #'undo)
 
-     ;; do code comment 
-     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+   #   ;; do code comment 
+   #   (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
-     ;; use c-c c-c to execute a lisp function
-     (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
+   #   ;; use c-c c-c to execute a lisp function
+   #   (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-     ;; keyboard macro
-     (global-set-key (kbd "<f1>") #'toggle-full-window)
-     (global-set-key (kbd "<f2>") #'kmacro-start-macro)
-     (global-set-key (kbd "<f3>") #'kmacro-end-macro)
-     (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
+   #   ;; keyboard macro
+   #   (global-set-key (kbd "<f1>") #'toggle-full-window)
+   #   (global-set-key (kbd "<f2>") #'kmacro-start-macro)
+   #   (global-set-key (kbd "<f3>") #'kmacro-end-macro)
+   #   (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
 
 
-     ;; use f10 to format whole buffer
-     (global-set-key (kbd "<f10>") (progn
-                                     #'mark-whole-buffer
-                                     #'indent-region))
+   #   ;; use f10 to format whole buffer
+   #   (global-set-key (kbd "<f10>") (progn
+   #                                   #'mark-whole-buffer
+   #                                   #'indent-region))
 
-   #+end_src
+   # #+end_src
 
-   #+RESULTS:
-   : indent-region
-** set buffer and shell
-   #+begin_src emacs-lisp
-     ;; no need for prompt for confirm when execute code block in org-mode
-     ;; (setq org-confirm-babel-evaluate nil)
+   # #+RESULTS:
+   # : indent-region
+# ** set buffer and shell
+#    #+begin_src emacs-lisp
+#      ;; no need for prompt for confirm when execute code block in org-mode
+#      ;; (setq org-confirm-babel-evaluate nil)
 
-     ;; make sure environment variables inside Emacs look the same as in the user's shell
-     (use-package exec-path-from-shell
-       :defer 2
-       :ensure t
-       :config
-       (progn
-         (when (memq window-system '(mac ns x))
-           (exec-path-from-shell-initialize))))
-   #+end_src
+#      ;; make sure environment variables inside Emacs look the same as in the user's shell
+#      (use-package exec-path-from-shell
+#        :defer 2
+#        :ensure t
+#        :config
+#        (progn
+#          (when (memq window-system '(mac ns x))
+#            (exec-path-from-shell-initialize))))
+#    #+end_src
 
-   #+RESULTS:
-   : t
+#    #+RESULTS:
+#    : t
 
 ** use y-or-n 
-   #+begin_src emacs-lisp
-     (fset 'yes-or-no-p 'y-or-n-p)
+   # #+begin_src emacs-lisp
+   #   (fset 'yes-or-no-p 'y-or-n-p)
 
-   #+end_src
+   # #+end_src
 
-   #+RESULTS:
-   : y-or-n-p
+   # #+RESULTS:
+   # : y-or-n-p
 
 ** set adaptive-wrap
-   #+BEGIN_SRC emacs-lisp
-     (use-package adaptive-wrap
-       :ensure t
-       :config
-       (progn
-         ;; (setq-default adaptive-wrap-extra-indent 2)
-         (global-visual-line-mode t)
-         (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
-   #+END_SRC
+   # #+BEGIN_SRC emacs-lisp
+   #   (use-package adaptive-wrap
+   #     :ensure t
+   #     :config
+   #     (progn
+   #       ;; (setq-default adaptive-wrap-extra-indent 2)
+   #       (global-visual-line-mode t)
+   #       (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
+   # #+END_SRC
 
-   #+RESULTS:
-   : t
+   # #+RESULTS:
+   # : t
 
-** highlight current line
-   #+begin_src emacs-lisp
-     (global-hl-line-mode +1)
-   #+end_src 
 
-   #+RESULTS:
-   : t
+# ** try
+#    #+begin_src emacs-lisp
+#      (use-package try
+#        :commands (try)
+#        :ensure t)
+#    #+end_src
 
-** which-key
-   #+begin_src emacs-lisp
-     (use-package which-key
-       :defer 2
-       :ensure t
-       :config (which-key-mode))
-   #+end_src
+# ** set trump-mode
+#    #+begin_src emacs-lisp
+#      (setq tramp-default-method "ssh")
+#    #+end_src
 
-** try
-   #+begin_src emacs-lisp
-     (use-package try
-       :commands (try)
-       :ensure t)
-   #+end_src
-
-** set trump-mode
-   #+begin_src emacs-lisp
-     (setq tramp-default-method "ssh")
-   #+end_src
-
-   #+RESULTS:
-   : ssh
+#    #+RESULTS:
+#    : ssh
 
 ** display [[http://ergoemacs.org/emacs/emacs_pretty_lambda.html][pretty characters]]
-   * refs
-     * [[http://xahlee.info/comp/unicode_punctuation_symbols.html][common symbols]]
-     * [[https://www.fileformat.info/info/unicode/char/2264/index.htm][place to find the relation between unicode and symbol]]
-   * configuration
-   #+begin_src emacs-lisp
-     (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
-       (lambda ()
-         (setq prettify-symbols-alist
-               '(
-                 ("lambda" . 955) ; λ
-                 ("->" . 8594)    ; →
-                 ("<-" . 8592)    ; ←
-                 ("=>" . 8658)    ; ⇒
-                 ("<=" . 8656)    ; ⇐
-                 ("map" . 8614)   ; ↦
-                 ("checkmark" . 10003)   ; ✓
-                 ))
-         (prettify-symbols-mode 1)))
+   # * refs
+   #   * [[http://xahlee.info/comp/unicode_punctuation_symbols.html][common symbols]]
+   #   * [[https://www.fileformat.info/info/unicode/char/2264/index.htm][place to find the relation between unicode and symbol]]
+   # * configuration
+   # #+begin_src emacs-lisp
+   #   (define-globalized-minor-mode my-global-prettify-symbols-mode prettify-symbols-mode
+   #     (lambda ()
+   #       (setq prettify-symbols-alist
+   #             '(
+   #               ("lambda" . 955) ; λ
+   #               ("->" . 8594)    ; →
+   #               ("<-" . 8592)    ; ←
+   #               ("=>" . 8658)    ; ⇒
+   #               ("<=" . 8656)    ; ⇐
+   #               ("map" . 8614)   ; ↦
+   #               ("checkmark" . 10003)   ; ✓
+   #               ))
+   #       (prettify-symbols-mode 1)))
 
-     (add-hook 'after-init-hook '(lambda ()
-                                   (my-global-prettify-symbols-mode 1)))
-   #+end_src
+   #   (add-hook 'after-init-hook '(lambda ()
+   #                                 (my-global-prettify-symbols-mode 1)))
+   # #+end_src
 
-   #+RESULTS:
-   : t
+   # #+RESULTS:
+   # : t
 
-** set window to prefer split vertically
-   #+begin_src emacs-lisp
-     ;; (setq split-width-threshold 200)
-     ;; (setq split-height-threshold 40)
-   #+end_src
 
 * Make swap buffers easier 
-  #+begin_src emacs-lisp
-    (use-package buffer-move
-      :ensure t 
-      :defer t)
-  #+end_src
+  # #+begin_src emacs-lisp
+  #   (use-package buffer-move
+  #     :ensure t 
+  #     :defer t)
+  # #+end_src
 * Swiper/Ivy/Counsel
   #+begin_src emacs-lisp
     ;; it looks like counsel is a requirement for swiper
