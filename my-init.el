@@ -63,6 +63,8 @@
 (require-init 'init-convenient)
 (require-init 'init-helm)
 (require-init 'init-silver-search)
+(require-init 'init-rainbow)
+(require-init 'init-treemacs)
 
 (require 'init-dired)
 (require 'init-grep)
