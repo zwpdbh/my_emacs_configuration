@@ -77,5 +77,23 @@
       (browse-url (concat "file://" file-name)))))
 
 
+
+;; From chenbin's code 
+(defun require-init (pkg &optional maybe-disabled)
+  "Load PKG if MAYBE-DISABLED is nil or it's nil but start up in normal slowly."
+  (when (or (not maybe-disabled) (not (boundp 'startup-now)))
+    (load (file-truename (format "~/.emacs.d/lisp/%s" pkg)) t t)))
+
+(defun local-require (pkg)
+  (unless (featurep pkg)
+    (load (expand-file-name
+           (cond
+            ((eq pkg 'go-mode-load)
+             (format "~/.emacs.d/site-lisp/go-mode/%s" pkg))
+            (t
+             (format "~/.emacs.d/site-lisp/%s/%s" pkg pkg))))
+          t t)))
+
+
 (provide 'init-utils)
 ;;; init-utils.el ends here
