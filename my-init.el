@@ -66,6 +66,9 @@
 (require-init 'init-rainbow)
 (require-init 'init-treemacs)
 (require-init 'init-ggtags)
+(require-init 'init-markdown)
+(require-init 'init-json)
+(require-init 'init-docker)
 
 (require 'init-dired)
 (require 'init-grep)
@@ -83,6 +86,10 @@
 (require 'init-projectile)
 (require 'init-compile)
 (require 'init-reveal)
+(require-init 'init-package)
+(require-init 'init-hydra)
+(require-init 'init-latex)
+
 ;; === programing language related ===
 (require 'init-company)
 (require 'init-lsp)
@@ -115,6 +122,8 @@
 
 (require-init 'init-plantuml)
 (require-init 'init-graphviz)
+(require-init 'init-folding)
+(require-init 'init-indent)
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient

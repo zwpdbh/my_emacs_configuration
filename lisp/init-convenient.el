@@ -46,4 +46,17 @@
     (global-set-key (kbd "C-=") 'er/expand-region)
     (global-set-key (kbd "C--") 'er/contract-region)))
 
+
+;; show a cat in modeline
+(use-package nyan-mode
+  :ensure t
+  :config
+  (nyan-mode 1)
+  (setq nyan-cat-face-number 3))
+
+;; sudo edit
+(use-package sudo-edit
+  :ensure t
+  :defer 1)
+
 (provide 'init-convenient)
