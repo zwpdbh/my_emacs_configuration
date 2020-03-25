@@ -46,7 +46,6 @@
        :hook (after-init . doom-modeline-mode))
    #+end_src
 
-
 ** alight commands
    #+BEGIN_SRC emacs-lisp
      (add-hook 'align-load-hook (lambda ()
@@ -63,7 +62,6 @@
    #+begin_src emacs-lisp
      (setq blink-cursor-blinks 10)
    #+end_src
-
 
 ** adjust meta key
    #+BEGIN_SRC emacs-lisp
@@ -99,6 +97,7 @@
      (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
      ;; keyboard macro
+     (global-set-key (kbd "<f1>") #'toggle-full-window)
      (global-set-key (kbd "<f2>") #'kmacro-start-macro)
      (global-set-key (kbd "<f3>") #'kmacro-end-macro)
      (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
@@ -112,7 +111,7 @@
    #+end_src
 
    #+RESULTS:
-   : revert-buffer
+   : indent-region
 ** set buffer and shell
    #+begin_src emacs-lisp
      ;; no need for prompt for confirm when execute code block in org-mode
@@ -435,25 +434,6 @@
       :defer
       :ensure t)
   #+END_SRC
-
-  #+RESULTS:
-  : t
-
-* Ace-window
-  #+begin_src emacs-lisp
-    (use-package ace-window
-      :defer 2
-      :ensure t
-      :init
-      :config
-      (progn
-	(setq aw-scope 'frame)
-	(global-set-key (kbd "C-x O") 'other-frame)
-	(global-set-key [remap other-window] 'ace-window)
-	(custom-set-faces
-	 '(aw-leading-char-face
-	   ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
-  #+end_src
 
   #+RESULTS:
   : t
