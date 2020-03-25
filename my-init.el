@@ -101,6 +101,9 @@
 (require-init 'init-yasnippet)
 
 (require-init 'init-python)
+(require-init 'init-c-and-c++)
+(require-init 'init-javascript)
+(require-init 'init-web)
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
 ;; ;;----------------------------------------------------------------------------
