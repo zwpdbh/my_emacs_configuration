@@ -104,6 +104,18 @@
 (require-init 'init-c-and-c++)
 (require-init 'init-javascript)
 (require-init 'init-web)
+(require-init 'init-go)
+(require-init 'init-R)
+
+(require-init 'init-org)
+(require-init 'init-org-babel)
+(require-init 'init-org-html)
+(require-init 'init-org-blog)
+(require-init 'init-org-tools)
+
+(require-init 'init-plantuml)
+(require-init 'init-graphviz)
+
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
 ;; ;;----------------------------------------------------------------------------
