@@ -26,8 +26,12 @@
 ;;----------------------------------------------------------------------------
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
-(when (fboundp 'set-scroll-bar-mode)
-  (set-scroll-bar-mode nil))
+(when (fboundp 'tooltip-mode)
+  (tooltip-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
 
 ;; I generally prefer to hide the menu bar, but doing this on OS X
 ;; simply makes it update unreliably in GUI frames, so we make an
@@ -83,17 +87,6 @@
 (add-hook 'term-mode-hook
           (lambda ()
             (setq line-spacing 0)))
-
-
-;; Change global font size easily
-
-(require-package 'default-text-scale)
-(add-hook 'after-init-hook 'default-text-scale-mode)
-
-
-
-(require-package 'disable-mouse)
-
 
 (provide 'init-gui-frames)
 ;;; init-gui-frames.el ends here

@@ -88,4 +88,12 @@
       (and (= emacs-major-version 25) (>= emacs-minor-version 2)))
   "Emacs is 25.2 or above.")
 
+
+;; from chenbin
+(setq *is-a-mac* (eq system-type 'darwin))
+(setq *win64* (eq system-type 'windows-nt))
+(setq *cygwin* (eq system-type 'cygwin))
+(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)))
+(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)))
+
 (provide 'init-const)

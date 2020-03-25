@@ -1,20 +1,11 @@
 * Minimal UI
-  #+begin_src emacs-lisp
-    (scroll-bar-mode -1)
-    (tool-bar-mode   -1)
-    (tooltip-mode    -1)
-    (menu-bar-mode   -1)
-  #+end_src
+  # #+begin_src emacs-lisp
+  #   (scroll-bar-mode -1)
+  #   (tool-bar-mode   -1)
+  #   (tooltip-mode    -1)
+  #   (menu-bar-mode   -1)
+  # #+end_src
 
-* Set environment path
-  #+begin_src emacs-lisp
-    (if (string-equal system-type "windows-nt")
-        (progn
-          (princ "set windows environment"))
-      (setq exec-path (append exec-path '("/usr/local/bin"))))
-
-    (setq default-directory "~/code/")
-  #+end_src
 
 * Interface tweaks
 ** set font

@@ -70,10 +70,13 @@
 (require 'init-projectile)
 (require 'init-compile)
 (require 'init-reveal)
-;; === programing language related
+;; === programing language related ===
 (require 'init-company)
 (require 'init-lsp)
 (require 'init-terraform)
+
+;; === Emacs appearence ===
+
 
 
 ;; ;;----------------------------------------------------------------------------
