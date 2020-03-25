@@ -60,6 +60,7 @@
 (require-init 'init-whichkey)
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-parenthese)
+(require-init 'init-convenient)
 
 (require 'init-dired)
 (require 'init-grep)
