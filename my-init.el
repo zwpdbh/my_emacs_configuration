@@ -95,6 +95,10 @@
 (require-init 'init-clojure)
 (require-init 'init-lisp-tool)
 
+(require-init 'init-dap)
+(require-init 'init-clang-format)
+(require-init 'init-yaml)
+(require-init 'init-yasnippet)
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
 ;; ;;----------------------------------------------------------------------------
