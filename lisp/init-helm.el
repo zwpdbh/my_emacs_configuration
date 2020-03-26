@@ -14,6 +14,12 @@
 ;;     (setq helm-swoop-split-with-multiple-windows t)
 ;;     (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
 
+(use-package helm-projectile
+  :after (projectile helm)
+  :ensure t
+  :config
+  (helm-projectile-on))
+
 (use-package helm
   :diminish
   :ensure t

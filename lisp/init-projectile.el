@@ -13,12 +13,6 @@
   :ensure t
   :after (projectile))
 
-(use-package helm-projectile
-  :after (projectile helm)
-  :ensure t
-  :config
-  (helm-projectile-on))
-
 (add-hook 'after-init-hook '(lambda ()
                               (projectile-global-mode)))
 
