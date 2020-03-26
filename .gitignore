@@ -1,31 +1,53 @@
-# Ignore everything
-*
-*.*~
-
-# And all the file types you're interested in.
-!*.org
-
-# Add all my .el configuration
-!lisp/
-!lisp/*.el
-!localelpa/
-!localelpa/*.el
-!site-lisp/
-!site-lisp/*
-!site-lisp/*/*.el
-!my-init.el
-
-!Makefile
-
-# Add all the files within folder org-templates
-!org-templates
-
-# Add all snippet
-!snippets
-!snippets/**
-
-# Add plantuml.jar
-!plantuml.jar
-
-# Add all the files within the org-html-themes
-#!org-html-themes/*.*
+/url/cache
+/.emacs.desktop
+/auto-save-list
+/network-security.data
+/.session
+/session.*
+/custom.el
+*.elc
+CVS
+.svn
+*~
+.cvsignore
+.*.lock
+/tramp
+/TODO
+/.org-id-locations
+cookies
+/newsticker
+\#*
+/elpa
+/elpa-*
+site-lisp/package/
+/swank
+/.mc-lists.el
+/var
+/.sqli_history
+/frame-restore-parameters
+/.achievements
+/.bookmarks.el
+/history
+/helm-adaptive-history
+/thumbs/
+/emms/
+/.smex-items
+/image-dired/
+/eshell
+/.cask/
+/.sx/
+/org-clock-save.el
+/ditaa*.jar
+/ido.last
+/recentf
+/viper
+/projectile-bookmarks.eld
+/anaconda-mode/
+/.historian
+/.uptimes.el
+/rake.cache
+/plantuml.jar
+/magithub
+.cache/
+/forge-database.sqlite
+/transient

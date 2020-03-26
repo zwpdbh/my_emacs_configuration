@@ -1,0 +1,33 @@
+
+;; ----- smex-history -----
+(
+ try
+ json-pretty-print-buffer
+ prettier-js
+ prettier-js-mode
+ org-babel-tangle
+ org-agenda-file-to-front
+ rgrep
+)
+
+;; ----- smex-data -----
+(
+ (try . 3)
+ (rgrep . 6)
+ (smerge-keep-all . 1)
+ (smerge-keep-lower . 1)
+ (org-capture . 2)
+ (nlinum-mode . 2)
+ (json-mode . 1)
+ (load-theme . 22)
+ (flycheck-mode . 8)
+ (package-install . 2)
+ (swiper . 1)
+ (replace-string . 1)
+ (projectile-grep . 3)
+ (org-agenda-file-to-front . 2)
+ (org-babel-tangle . 2)
+ (prettier-js-mode . 2)
+ (prettier-js . 17)
+ (json-pretty-print-buffer . 2)
+)
