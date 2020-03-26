@@ -61,6 +61,8 @@
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-parenthese)
 (require-init 'init-convenient)
+
+(require-init 'init-projectile)
 (require-init 'init-helm)
 (require-init 'init-silver-search)
 (require-init 'init-rainbow)
@@ -83,7 +85,7 @@
 (require 'init-vc)
 (require 'init-git)
 (require 'init-github)
-(require 'init-projectile)
+
 (require 'init-compile)
 (require 'init-reveal)
 (require-init 'init-package)
