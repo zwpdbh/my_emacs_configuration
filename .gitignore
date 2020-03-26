@@ -51,3 +51,7 @@ site-lisp/package/
 .cache/
 /forge-database.sqlite
 /transient
+TAGS
+GTAGS
+GPATH
+GRTAGS
