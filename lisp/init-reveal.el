@@ -2,6 +2,7 @@
 
 (use-package ox-reveal
   :ensure t
+  :commands (org-export-dispatch)
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (setq org-reveal-mathjax t))
