@@ -5,7 +5,6 @@
 (use-package helm-ag
   :ensure t
   :defer t
-  :after (helm))
-
+  :commands (helm-projectile-ag))
 
 (provide 'init-silver-search)
