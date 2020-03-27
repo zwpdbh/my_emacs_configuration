@@ -93,7 +93,7 @@
 (require-init 'init-latex)
 
 ;; === programing language related ===
-(require 'init-company)
+(require-init 'init-company)
 (require 'init-lsp)
 (require 'init-terraform)
 
