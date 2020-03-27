@@ -45,6 +45,8 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
+(require-init 'init-autoload)
+
 (maybe-require-package 'diminish)
 (maybe-require-package 'scratch)
 (maybe-require-package 'command-log-mode)
