@@ -4,7 +4,8 @@
   (message "web-mode use vue related setup")
   (require 'company-css)
   (setq-local company-backends (append '(company-web-html company-css) company-backends))
-  (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+  (unless emacs/>=27p
+    (setq-local company-backends (add-to-list 'company-backends 'company-tern)))
   (tern-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-select-checker 'javascript-eslint)
