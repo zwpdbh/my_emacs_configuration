@@ -74,6 +74,8 @@
 (require-init 'init-json)
 (require-init 'init-docker)
 
+(require-init 'init-clipboard)
+
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-uniquify)
