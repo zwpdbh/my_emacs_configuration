@@ -435,6 +435,15 @@ For example,
     (prefer-coding-system 'utf-8))))
 
 
+;; my function which evaluats and collects keybindings
+(setq zw/keybinding-hooks nil)
+
+(defun zw/add-hook (hook-name hook-fun)
+  "it is used to eval and collect keybindings. If in pure terminal-text, keybindings will be evaluated for after-make-frame-functions"
+  (eval hook-fun)
+  (add-to-list hook-name hook-fun))
+;; example: (zw/add-hook 'zw/keybinding-hooks '(print "111"))
+
 (provide 'init-utils)
 
 
