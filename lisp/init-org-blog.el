@@ -32,7 +32,7 @@ See `org-capture-templates' for more information."
   "define the place where we put our org files for hugo")
 (defvar org-capture-todo (concat hugo-org-path "todo.org"))
 (defvar org-capture-computer-science (concat hugo-org-path "computer-science.org"))
-(defvar org-capture-emacs (concat hugo-org-path "emacs.org"))
+(defvar org-capture-emacs (concat hugo-org-path "emacs/" "emacs.org"))
 (defvar org-capture-math (concat hugo-org-path "mathematics.org"))
 (defvar org-capture-software (concat hugo-org-path "software-engineering.org"))
 (defvar org-capture-tools (concat hugo-org-path "tools.org"))
