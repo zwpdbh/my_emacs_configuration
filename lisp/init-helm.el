@@ -31,19 +31,17 @@
     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-    (zw/add-keybinding-hooks
-     'zw/keybinding-list '((global-set-key (kbd "C-c h") 'helm-command-prefix)
-                           (global-unset-key (kbd "C-x c"))
+    (global-set-key (kbd "C-c h") 'helm-command-prefix)
+    (global-unset-key (kbd "C-x c"))
 
-                           ;; C-x C-f runs the command counsel-find-file
-                           (global-unset-key (kbd "C-x C-f"))
-                           (global-set-key (kbd "C-x C-f") #'helm-find-files)
-                           (global-set-key (kbd "M-y") #'helm-show-kill-ring)
+    ;; C-x C-f runs the command counsel-find-file
+    (global-unset-key (kbd "C-x C-f"))
+    (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    (global-set-key (kbd "M-y") #'helm-show-kill-ring)
 
-                           (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-                           ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
-                           (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-                           ))
+    (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+    ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
+    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
     (when (executable-find "curl")
       (setq helm-google-suggest-use-curl-p t))
