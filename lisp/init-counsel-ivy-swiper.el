@@ -18,8 +18,6 @@
 
 
 (use-package swiper
-  :after (ivy counsel)
-  :defer
   :ensure try
   :bind (("C-s" . swiper)
          ("C-c C-r" . ivy-resume)
