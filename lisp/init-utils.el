@@ -436,13 +436,24 @@ For example,
 
 
 ;; my function which evaluats and collects keybindings
-(setq zw/keybinding-hooks nil)
+(setq zw/keybinding-list nil)
 
-(defun zw/add-hook (hook-name hook-fun)
+(defun zw/add-keybinding-hooks (hook-list keybindings)
   "it is used to eval and collect keybindings. If in pure terminal-text, keybindings will be evaluated for after-make-frame-functions"
-  (eval hook-fun)
-  (add-to-list hook-name hook-fun))
-;; example: (zw/add-hook 'zw/keybinding-hooks '(print "111"))
+  (dolist (each-keybinding keybindings)
+    (eval each-keybinding)
+    (add-to-list hook-list each-keybinding)))
+
+;; example:
+;; (zw/add-keybinding-hooks 'zw/keybinding-list '((print "1111")
+;;                                                (print "2222")
+;;                                                (print "3333")))
+
+(add-hook 'after-make-frame-functions
+          '(lambda ()
+             (unless (display-graphic-p)
+               (dolist (each-key-binding zw/keybinding-list)
+                 (eval each-key-binding)))))
 
 (provide 'init-utils)
 
