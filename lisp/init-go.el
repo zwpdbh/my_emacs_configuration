@@ -13,7 +13,6 @@
   :ensure t)
 
 (use-package ob-go
-  :defer 2 
   :ensure t
   :config
   (add-to-list 'org-structure-template-alist '("go" . "src go"))

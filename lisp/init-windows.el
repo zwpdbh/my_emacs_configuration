@@ -150,7 +150,6 @@ Always focus on bigger window."
     (winner-undo)))
 
 (use-package ace-window
-  :defer 2
   :ensure t
   :init
   :config

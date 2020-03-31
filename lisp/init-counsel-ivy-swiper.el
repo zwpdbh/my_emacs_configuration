@@ -1,6 +1,5 @@
 ;; it looks like counsel is a requirement for swiper
 (use-package counsel
-  :defer 1
   :ensure t
   :bind
   (("M-y" . counsel-yank-pop)
@@ -8,7 +7,6 @@
    ("M-y" . ivy-next-line)))
 
 (use-package ivy
-  :defer 1
   :ensure t
   :diminish (ivy-mode)
   :bind (("C-x b" . ivy-switch-buffer))

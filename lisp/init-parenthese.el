@@ -1,6 +1,5 @@
 (use-package paredit
   :diminish
-  :defer 1
   :ensure t
   :init
   (progn
