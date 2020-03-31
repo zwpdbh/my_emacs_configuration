@@ -1,4 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+(autoload 'org-export-dispatch "htmlize")
+(autoload 'dap-mode "dap-mode" "" t)
+
 (autoload 'xclip-set-selection "xclip" "" t)
 (autoload 'xclip-get-selection "xclip" "" t)
 (autoload 'langtool-check "langtool" "" t)
