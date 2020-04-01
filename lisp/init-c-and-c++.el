@@ -1,9 +1,7 @@
 ;; install clang: =sudo apt install clang=
 ;; install clangd: https://clang.llvm.org/extra/clangd/Installation.html#installing-clangd
 
-(use-package cquery
-  :defer t
-  :init
+(when (maybe-require-package 'cquery)
   (setq cquery-executable "/usr/local/bin/cquery")
   (setq cquery-extra-init-params '(:completion (:detailedLabel t)))
   (defun cquery//enable ()
@@ -14,16 +12,20 @@
             (lambda ()
               (when (derived-mode-p 'c-mode 'c++-mode)
                 (ggtags-mode 1)
-                (cquery//enable))))
-  :ensure t)
+                (cquery//enable)))))
 
-;; support CMakeLists
-(use-package cmake-mode
-  :defer t
-  :init 
-  (add-hook 'cmake-mode-hook #'(lambda ()
-                                 ;; (smartparens-mode +1)
-                                 ))
-  :ensure t)
+(when (maybe-require-package 'company-c-headers)
+  (add-hook 'c-mode-common-hook
+            '(lambda ()
+               (setq-local company-backends
+                           (add-to-list 'company-backends
+                                        'company-c-headers)))))
+
+(when (maybe-require-package 'cmake-mode)
+  (add-hook 'cmake-mode-hook
+            '(lambda ()
+               (setq-local company-backends
+                           (add-to-list 'company-backends
+                                        'company-cmake)))))
 
 (provide 'init-c-and-c++)

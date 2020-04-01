@@ -40,9 +40,6 @@
   (dolist (backend '(company-eclim company-semantic))
     (delq backend company-backends))
 
-  ;; === from chenbin
-  (push 'company-cmake company-backends)
-  (push 'company-c-headers company-backends)
   ;; company-ctags is much faster out of box. No further optimiation needed
   (unless (featurep 'company-ctags) (local-require 'company-ctags))
   (company-ctags-auto-setup)
