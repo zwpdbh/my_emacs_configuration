@@ -55,11 +55,14 @@
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t)
+  
   ;; set different org-mode color
-  (set-face-attribute 'org-code nil
-                      :foreground "#73c936")
-  (set-face-attribute 'org-block nil
-                      :foreground "default"))
+  (add-hook 'org-mode-hook '(lambda ()
+                              (set-face-attribute 'org-code nil
+                                                  :foreground "#73c936")
+                              (set-face-attribute 'org-block nil
+                                                  :foreground "default"))))
+
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-theme ()
