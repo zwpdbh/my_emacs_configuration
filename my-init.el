@@ -98,6 +98,7 @@
 
 ;; === programing language related ===
 (require-init 'init-company)
+;; (require-init 'init-smartparens)
 (require 'init-lsp)
 (require 'init-terraform)
 

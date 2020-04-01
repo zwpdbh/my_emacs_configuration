@@ -12,7 +12,9 @@
             (lambda ()
               (when (derived-mode-p 'c-mode 'c++-mode)
                 (ggtags-mode 1)
-                (cquery//enable)))))
+                (cquery//enable)
+                ;; (smartparens-mode)
+                ))))
 
 (when (maybe-require-package 'company-c-headers)
   (add-hook 'c-mode-common-hook
