@@ -36,10 +36,10 @@
   (org-display-inline-images))
 
 ;; (global-set-key "\C-cs" 'zw/org-screenshot)
-(if *win64*
-    (define-key org-mode-map (kbd "\C-c s") 'zw/org-screenshot)
-  (define-key org-mode-map (kbd "\C-c s") 'org-attach-screenshot))
-
+(add-hook 'org-mode-hook '(lambda ()
+                            (if *win64*
+                                (define-key org-mode-map (kbd "\C-c s") 'zw/org-screenshot)
+                              (define-key org-mode-map (kbd "\C-c s") 'org-attach-screenshot))))
 
 ;; === Org-download moving images from A to B
 (use-package org-download
