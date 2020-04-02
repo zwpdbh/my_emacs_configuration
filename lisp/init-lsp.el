@@ -32,7 +32,9 @@
        (add-hook 'lsp-mode-hook
                  '(lambda ()
                     ;; Code run from x-mode-hook is for buffer-specific things which means
-                    ;; run the code for every x buffer
-                    #'lsp-ui-mode)))))
+                    ;; run the code for every x-mode buffer
+                    #'lsp-ui-mode
+                    (setq-local company-backends (add-to-list 'company-backends
+                                                              'company-lsp)))))))
 
 (provide 'init-lsp)
