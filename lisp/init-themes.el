@@ -39,17 +39,11 @@
   ;; #c397d8 purple
   ;; #73c936 green
   ;; "IndianRed"
-  (if (display-graphic-p)
-      (set-face-attribute 'show-paren-match nil
-                          :underline nil
-                          :foreground "#73c936"  ;; use Font Lock Keyword  Face 
-                          :background nil
-                          :weight 'normal)
-    (set-face-attribute 'show-paren-match nil
-                        :underline nil
-                        :foreground "#73c936"  ;; use Font Lock Keyword  Face 
-                        :background "black"
-                        :weight 'normal))
+  (set-face-attribute 'show-paren-match nil
+                      :underline nil
+                      :foreground "#73c936"  ;; use Font Lock Keyword  Face 
+                      :background "black"
+                      :weight 'normal)
   
   
   ;; make helm related selection use underline

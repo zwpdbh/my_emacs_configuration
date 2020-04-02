@@ -7,11 +7,6 @@
   :defer t
   :ensure t)
 
-;; since yaml mode is not supported by org, create the command yourself
-(defun org-babel-execute:yaml (body params) body)
-(defun org-babel-execute:json (body params) body)
-(defun org-babel-execute:terraform (body params) body)
-
 (add-hook 'org-mode-hook #'(lambda ()
                              (progn
                                ;; all languages needed to be confirmed to execute except:
@@ -21,6 +16,12 @@
 
 (eval-after-load 'org
   #'(lambda ()
+      ;; since yaml mode is not supported by org, create the command yourself
+      (defun org-babel-execute:yaml (body params) body)
+      (defun org-babel-execute:json (body params) body)
+      (defun org-babel-execute:example (body params) body)
+      (defun org-babel-execute:terraform (body params) body)
+      
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((emacs-lisp . t)
@@ -51,6 +52,7 @@
       (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
+      (add-to-list 'org-structure-template-alist '("ex" . "example"))
       (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
       (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
       (add-to-list 'org-structure-template-alist '("latex" . "src latex"))))

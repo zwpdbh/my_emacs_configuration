@@ -1,9 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 (autoload 'lsp-mode "lsp-mode" "" t)
-(autoload 'lsp-mode "helm-lsp" "" t)
 (autoload 'lsp-mode "company-lsp" "" t)
 (autoload 'lsp-mode "lsp-ui" "" t)
-(autoload 'lsp-mode "lsp-treemacs" "" t)
 
 (autoload 'org-export-dispatch "htmlize")
 (autoload 'dap-mode "dap-mode" "" t)
