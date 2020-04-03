@@ -17,7 +17,7 @@
 
 (cond
  ((and *win64* (member "Terminus (TTF) for Windows" (font-family-list)))
-  (set-frame-font "Terminus (TTF) for Windows 11"))
+  (set-frame-font "-outline-Terminus (TTF) for Windows-normal-normal-normal-mono-22-*-*-*-c-*-iso8859-1"))
  ((member "Terminus (TTF)" (font-family-list))
   (set-frame-font "Terminus (TTF) 11"))
  ((member "Source Code Pro" (font-family-list))
