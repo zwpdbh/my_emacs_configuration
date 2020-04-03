@@ -4,12 +4,6 @@
 (global-set-key (kbd "C-s-<down>") 'shrink-window)
 (global-set-key (kbd "C-s-<up>") 'enlarge-window)
 
-(global-unset-key (kbd "<M-S-up>"))
-(global-set-key (kbd "M-S-<up>") 'buf-move-up)
-(global-set-key (kbd "M-S-<left>") 'buf-move-left)
-(global-set-key (kbd "M-S-<right>") 'buf-move-right)
-(global-set-key (kbd "M-S-<down>") 'buf-move-down)
-
 ;; use cmd + n and cmd + p to select next and previous lines
 (global-set-key (kbd "s-n") (kbd "C-S-n"))
 (global-set-key (kbd "s-p") (kbd "C-S-p"))

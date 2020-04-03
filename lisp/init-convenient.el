@@ -15,9 +15,12 @@
 
 
 ;; ===== make window/buffer move easier 
-(use-package buffer-move
-  :ensure t 
-  :defer t)
+(when (maybe-require-package 'buffer-move)
+  (global-unset-key (kbd "<M-S-up>"))
+  (global-set-key (kbd "M-S-<up>") 'buf-move-up)
+  (global-set-key (kbd "M-S-<left>") 'buf-move-left)
+  (global-set-key (kbd "M-S-<right>") 'buf-move-right)
+  (global-set-key (kbd "M-S-<down>") 'buf-move-down))
 
 
 ;; ===== set mode-line 

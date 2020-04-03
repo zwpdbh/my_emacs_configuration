@@ -16,6 +16,19 @@
       (define-key org-mode-map [f5] #'org-toggle-inline-images)
       (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)
 
+      (when (package-installed-p 'buffer-move)
+        (define-key org-mode-map (kbd "M-S-<up>") nil)
+        (define-key org-mode-map (kbd "M-S-<up>") 'buf-move-up)
+
+        (define-key org-mode-map (kbd "M-S-<down>") nil)
+        (define-key org-mode-map (kbd "M-S-<down>") 'buf-move-down)
+
+        (define-key org-mode-map (kbd "M-S-<left>") nil)
+        (define-key org-mode-map (kbd "M-S-<left>") 'buf-move-left)
+
+        (define-key org-mode-map (kbd "M-S-<right>") nil)
+        (define-key org-mode-map (kbd "M-S-<right>") 'buf-move-right))
+
       ;; === org agenda
       ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
       ;; Another way is to invoke the function ~org-agenda-file-to-front~.
