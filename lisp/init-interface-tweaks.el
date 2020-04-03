@@ -2,12 +2,28 @@
 ;; https://github.com/adobe-fonts/source-code-pro
 ;; to adjust font dynamically
 ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :height 110)
 
-(if (member "Source Code Pro" (font-family-list))
-    (set-frame-font "Source Code Pro 11"))
+;; (require 'cl)
+;; (defun font-candidate (&rest fonts)
+;;   "Return existing font which first match."
+;;   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
+;; (set-face-attribute 'default
+;;                     nil
+;;                     :font (font-candidate
+;;                            "Tamzen"
+;;                            "Source Code Pro")
+;;                     :height 110)
+
+(cond
+ ((and *win64* (member "Terminus (TTF) for Windows" (font-family-list)))
+  (set-frame-font "Terminus (TTF) for Windows 11"))
+ ((member "Terminus (TTF)" (font-family-list))
+  (set-frame-font "Terminus (TTF) 11"))
+ ((member "Source Code Pro" (font-family-list))
+  (set-frame-font "Source Code Pro 11")))
 ;; check current font are using: http://ergoemacs.org/emacs/emacs_list_and_set_font.html
-
+;; terminus font: https://files.ax86.net/terminus-ttf/#what
 
 ;; ===== aligh commands
 ;; https://www.emacswiki.org/emacs/AlignCommands#toc5
