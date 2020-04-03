@@ -16,12 +16,15 @@
 
 ;; ===== make window/buffer move easier 
 (when (maybe-require-package 'buffer-move)
-  (global-unset-key (kbd "<M-S-up>"))
-  (global-set-key (kbd "M-S-<up>") 'buf-move-up)
-  (global-set-key (kbd "M-S-<left>") 'buf-move-left)
-  (global-set-key (kbd "M-S-<right>") 'buf-move-right)
-  (global-set-key (kbd "M-S-<down>") 'buf-move-down))
-
+  (add-hook 'after-init-hook '(lambda ()
+                                (global-unset-key (kbd "<M-S-up>"))
+                                (global-unset-key (kbd "<M-S-down>"))
+                                (global-unset-key (kbd "<M-S-left>"))
+                                (global-unset-key (kbd "<M-S-right>"))
+                                (global-set-key (kbd "M-S-<up>") 'buf-move-up)
+                                (global-set-key (kbd "M-S-<left>") 'buf-move-left)
+                                (global-set-key (kbd "M-S-<right>") 'buf-move-right)
+                                (global-set-key (kbd "M-S-<down>") 'buf-move-down))))
 
 ;; ===== set mode-line 
 (use-package doom-modeline
