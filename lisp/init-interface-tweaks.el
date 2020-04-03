@@ -19,7 +19,7 @@
  ((and *win64* (member "Terminus (TTF) for Windows" (font-family-list)))
   (set-frame-font "Terminus (TTF) for Windows 11"))
  ((member "Terminus (TTF)" (font-family-list))
-  (set-frame-font "Terminus (TTF) 11"))
+  (set-frame-font "-PfEd-Terminus (TTF)-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1"))
  ((member "Source Code Pro" (font-family-list))
   (set-frame-font "Source Code Pro 11")))
 ;; check current font are using: http://ergoemacs.org/emacs/emacs_list_and_set_font.html
