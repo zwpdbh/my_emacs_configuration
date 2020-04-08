@@ -14,7 +14,7 @@
   
   (cond
    (my-roswell
-    (setq inferior-lisp-program "ros -Q run"))
+    (setq inferior-lisp-program (concat my-roswell " -Q run")))
    (my-sbcl
     (setq inferior-lisp-program my-sbcl)
     (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
