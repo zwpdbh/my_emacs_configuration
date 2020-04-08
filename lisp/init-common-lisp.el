@@ -34,6 +34,9 @@
               (define-key sly-editing-mode-map (kbd "C-c C-c") nil)
               (define-key sly-editing-mode-map (kbd "C-c C-c") 'sly-eval-last-expression)))
 
+(add-hook 'sly-mrepl-mode-hook
+          #'(lambda ()
+              (define-key sly-mrepl-mode-map (kbd "C-<up>") 'sly-mrepl-previous-input-or-button)))
 ;; After connection, use (lisp-implementation-type) to check the connected common-lisp implementation.
 ;; quicklisp
 ;; https://www.quicklisp.org/beta/#installation is library manager for Common Lisp
