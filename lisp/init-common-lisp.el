@@ -11,13 +11,13 @@
   (setq my-sbcl (executable-find "sbcl"))
   (setq my-clisp (executable-find "clisp"))
   (cond (my-sbcl
-         (setq inferior-lisp-program "sbcl")
+         (setq inferior-lisp-program my-sbcl)
          (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
         (my-ccl
-         (setq inferior-lisp-program "ccl")
+         (setq inferior-lisp-program my-ccl)
          (setq sly-lisp-implementations `((ccl (,my-ccl)))))
         (my-clisp
-         (setq inferior-lisp-program "clisp")
+         (setq inferior-lisp-program my-clisp)
          (setq sly-lisp-implementations `((clisp (,my-clisp))))))
   :commands (sly-mode))
 
