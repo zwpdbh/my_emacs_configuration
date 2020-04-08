@@ -406,33 +406,8 @@ you can '(setq my-mplayer-extra-opts \"-ao alsa -vo vdpau\")'.")
 
 ;; reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
-;; {{ code is copied from https://liu233w.github.io/2016/09/29/org-python-windows.org/
-
-(defun my-setup-language-and-encode (language-name coding-system)
-  "Set up LANGUAGE-NAME and CODING-SYSTEM at Windows.
-For example,
-- \"English\" and 'utf-16-le
-- \"Chinese-GBK\" and 'gbk"
-  (cond
-   ((eq system-type 'windows-nt)
-    (set-language-environment language-name)
-    (prefer-coding-system 'utf-8)
-    (set-terminal-coding-system coding-system)
-
-    (modify-coding-system-alist 'process "*" coding-system)
-    (defun my-windows-shell-mode-coding ()
-      (set-buffer-file-coding-system coding-system)
-      (set-buffer-process-coding-system coding-system coding-system))
-    (add-hook 'shell-mode-hook #'my-windows-shell-mode-coding)
-    (add-hook 'inferior-python-mode-hook #'my-windows-shell-mode-coding)
-
-    (defadvice org-babel-execute:python (around org-babel-execute:python-hack activate)
-      ;; @see https://github.com/Liu233w/.spacemacs.d/issues/6
-      (let* ((coding-system-for-write 'utf-8))
-        ad-do-it)))
-   (t
-    (set-language-environment "UTF-8")
-    (prefer-coding-system 'utf-8))))
+;; set encoding 
+(set-language-environment "UTF-8")
 
 
 ;; my function which evaluats and collects keybindings
@@ -448,7 +423,6 @@ For example,
 ;; (zw/add-keybinding-hooks 'zw/keybinding-list '((print "1111")
 ;;                                                (print "2222")
 ;;                                                (print "3333")))
-
 (add-hook 'after-make-frame-functions
           '(lambda ()
              (unless (display-graphic-p)
