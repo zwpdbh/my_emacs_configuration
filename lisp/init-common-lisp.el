@@ -10,15 +10,20 @@
     (setq my-ccl (executable-find "ccl")))
   (setq my-sbcl (executable-find "sbcl"))
   (setq my-clisp (executable-find "clisp"))
-  (cond (my-sbcl
-         (setq inferior-lisp-program my-sbcl)
-         (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
-        (my-ccl
-         (setq inferior-lisp-program my-ccl)
-         (setq sly-lisp-implementations `((ccl (,my-ccl)))))
-        (my-clisp
-         (setq inferior-lisp-program my-clisp)
-         (setq sly-lisp-implementations `((clisp (,my-clisp))))))
+  (setq my-roswell (executable-find "ros"))
+  
+  (cond
+   (my-roswell
+    (setq inferior-lisp-program "ros -Q run"))
+   (my-sbcl
+    (setq inferior-lisp-program my-sbcl)
+    (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
+   (my-ccl
+    (setq inferior-lisp-program my-ccl)
+    (setq sly-lisp-implementations `((ccl (,my-ccl)))))
+   (my-clisp
+    (setq inferior-lisp-program my-clisp)
+    (setq sly-lisp-implementations `((clisp (,my-clisp))))))
   :commands (sly-mode))
 
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
