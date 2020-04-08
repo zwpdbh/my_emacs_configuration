@@ -406,8 +406,16 @@ you can '(setq my-mplayer-extra-opts \"-ao alsa -vo vdpau\")'.")
 
 ;; reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
+
 ;; set encoding 
 (set-language-environment "UTF-8")
+
+;; remove "^M" from end of line in file; see https://www.emacswiki.org/emacs/EndOfLineTips
+(defun no-junk-please-were-unixish ()
+  (let ((coding-str (symbol-name buffer-file-coding-system)))
+    (when (string-match "-\\(?:dos\\|mac\\)$" coding-str)
+      (set-buffer-file-coding-system 'unix))))
+(add-hook 'find-file-hooks 'no-junk-please-were-unixish)
 
 
 ;; my function which evaluats and collects keybindings
