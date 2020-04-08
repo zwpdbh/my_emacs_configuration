@@ -2,7 +2,7 @@
 ;; https://github.com/adobe-fonts/source-code-pro
 ;; to adjust font dynamically
 ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-(set-face-attribute 'default nil :height 110)
+(set-face-attribute 'default nil :height 120)
 
 ;; (require 'cl)
 ;; (defun font-candidate (&rest fonts)
@@ -17,11 +17,12 @@
 
 (cond
  ((and *win64* (member "Terminus (TTF) for Windows" (font-family-list)))
-  (set-frame-font "-outline-Terminus (TTF) for Windows-normal-normal-normal-mono-22-*-*-*-c-*-iso8859-1"))
+  (set-frame-font "Terminus (TTF) for Windows"))
  ((member "Terminus (TTF)" (font-family-list))
-  (set-frame-font "-PfEd-Terminus (TTF)-normal-normal-normal-*-22-*-*-*-m-0-iso10646-1"))
+  (print "hello")
+  (set-frame-font "Terminus (TTF)"))
  ((member "Source Code Pro" (font-family-list))
-  (set-frame-font "Source Code Pro 11")))
+  (set-frame-font "Source Code Pro")))
 ;; check current font are using: http://ergoemacs.org/emacs/emacs_list_and_set_font.html
 ;; terminus font: https://files.ax86.net/terminus-ttf/#what
 
