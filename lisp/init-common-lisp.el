@@ -5,7 +5,7 @@
   :init
   (setq sly-net-coding-system 'utf-8-unix)
 
-  (if (string-equal system-type "windows-nt")
+  (if *win64*
       (setq my-ccl (executable-find "wx86cl64"))
     (setq my-ccl (executable-find "ccl")))
   (setq my-sbcl (executable-find "sbcl"))
