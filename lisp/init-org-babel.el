@@ -49,8 +49,9 @@
       (add-to-list 'org-structure-template-alist '("http" . "src http"))
       (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
       (if *win64*
-          (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng"))
+          (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng :file img/tmp.png"))
         (add-to-list 'org-structure-template-alist '("dot" . "src dot :file img/tmp.png")))
+      ;; set the major-mode for edit babel dot src block 
       (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
