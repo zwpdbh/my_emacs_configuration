@@ -11,7 +11,11 @@
   (setq my-sbcl (executable-find "sbcl"))
   (setq my-clisp (executable-find "clisp"))
   (setq my-roswell (executable-find "ros"))
-  
+  ;; After connection, use (lisp-implementation-type) to check the connected common-lisp implementation.
+  ;; quicklisp
+  ;; https://www.quicklisp.org/beta/#installation is library manager for Common Lisp
+  ;; Loading after installation: (load "~/quicklisp/setup.lisp")
+  ;; To load Quicklisp when you start Lisp: (ql:add-to-init-file)
   (cond
    (my-roswell
     (setq inferior-lisp-program (concat my-roswell " -Q run")))
@@ -33,14 +37,19 @@
           #'(lambda ()
               (define-key sly-editing-mode-map (kbd "C-c C-c") nil)
               (define-key sly-editing-mode-map (kbd "C-c C-c") 'sly-eval-last-expression)))
-
+;; use Ctrl+up to call previous input
 (add-hook 'sly-mrepl-mode-hook
           #'(lambda ()
               (define-key sly-mrepl-mode-map (kbd "C-<up>") 'sly-mrepl-previous-input-or-button)))
-;; After connection, use (lisp-implementation-type) to check the connected common-lisp implementation.
-;; quicklisp
-;; https://www.quicklisp.org/beta/#installation is library manager for Common Lisp
-;; Loading after installation: (load "~/quicklisp/setup.lisp")
-;; To load Quicklisp when you start Lisp: (ql:add-to-init-file)
+
+
+;; set indent for common-lisp
+(eval-after-load 'cl-indent
+  `(progn
+     ;; (put 'cl-flet 'common-lisp-indent-function
+     ;;      (get 'flet 'common-lisp-indent-function))
+     ;; (put 'cl-labels 'common-lisp-indent-function
+     ;;      (get 'labels 'common-lisp-indent-function))
+     (put 'if 'common-lisp-indent-function 2)))
 
 (provide 'init-common-lisp)
