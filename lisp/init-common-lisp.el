@@ -46,7 +46,10 @@
 ;; Elisp indent looks horrible in some case.
 ;; So, set indent like common-lisp
 (setq lisp-indent-function 'common-lisp-indent-function)
-;; Define indent cases for some symbols
+;; Fix the indent changes in other places as a result of this
+(put 'use-package 'lisp-indent-function 1)
+
+;; Define indent cases for symbols in common-lisp
 (eval-after-load 'cl-indent
   `(progn
      ;; (put 'cl-flet 'common-lisp-indent-function
@@ -54,7 +57,6 @@
      ;; (put 'cl-labels 'common-lisp-indent-function
      ;;      (get 'labels 'common-lisp-indent-function))
      (put 'if 'common-lisp-indent-function 2)))
-;; Fix the indent changes in other places as a result of this
-(put 'use-package 'lisp-indent-function 1)
+
 
 (provide 'init-common-lisp)
