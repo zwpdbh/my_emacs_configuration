@@ -17,17 +17,17 @@
   ;; Loading after installation: (load "~/quicklisp/setup.lisp")
   ;; To load Quicklisp when you start Lisp: (ql:add-to-init-file)
   (cond
-   (my-roswell
-    (setq inferior-lisp-program (concat my-roswell " -Q run")))
-   (my-sbcl
-    (setq inferior-lisp-program my-sbcl)
-    (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
-   (my-ccl
-    (setq inferior-lisp-program my-ccl)
-    (setq sly-lisp-implementations `((ccl (,my-ccl)))))
-   (my-clisp
-    (setq inferior-lisp-program my-clisp)
-    (setq sly-lisp-implementations `((clisp (,my-clisp))))))
+    (my-roswell
+     (setq inferior-lisp-program (concat my-roswell " -Q run")))
+    (my-sbcl
+     (setq inferior-lisp-program my-sbcl)
+     (setq sly-lisp-implementations `((sbcl (,my-sbcl)))))
+    (my-ccl
+     (setq inferior-lisp-program my-ccl)
+     (setq sly-lisp-implementations `((ccl (,my-ccl)))))
+    (my-clisp
+     (setq inferior-lisp-program my-clisp)
+     (setq sly-lisp-implementations `((clisp (,my-clisp))))))
   :commands (sly-mode))
 
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
@@ -43,7 +43,10 @@
               (define-key sly-mrepl-mode-map (kbd "C-<up>") 'sly-mrepl-previous-input-or-button)))
 
 
-;; set indent for common-lisp
+;; Elisp indent looks horrible in some case.
+;; So, set indent like common-lisp
+(setq lisp-indent-function 'common-lisp-indent-function)
+;; Define indent cases for some symbols
 (eval-after-load 'cl-indent
   `(progn
      ;; (put 'cl-flet 'common-lisp-indent-function
@@ -51,5 +54,7 @@
      ;; (put 'cl-labels 'common-lisp-indent-function
      ;;      (get 'labels 'common-lisp-indent-function))
      (put 'if 'common-lisp-indent-function 2)))
+;; Fix the indent changes in other places as a result of this
+(put 'use-package 'lisp-indent-function 1)
 
 (provide 'init-common-lisp)
