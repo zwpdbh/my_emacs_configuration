@@ -11,6 +11,24 @@
 
 (maybe-require-package 'list-unicode-display)
 
+;; disable emacs's automatic backup~ file 
+;; (setq make-backup-files nil)
+
+;; set emacs backups in one dir with tree structure
+;; See: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
+(defun zw/backup-file-name (fpath)
+  "Return a new file path of a given file path.
+If the new path's directories does not exist, create them."
+  (let* (
+         (backupRootDir "~/.emacs.d/backup/")
+         (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path, for example, “C:”
+         (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") ))
+         )
+    (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
+    backupFilePath))
+(setq make-backup-file-name-function 'zw/backup-file-name)
+
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
@@ -24,7 +42,6 @@
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
  indent-tabs-mode nil
- make-backup-files nil
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
