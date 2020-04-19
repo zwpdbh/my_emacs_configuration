@@ -52,10 +52,10 @@
 ;; Define indent cases for symbols in common-lisp
 (eval-after-load 'cl-indent
   `(progn
-     ;; (put 'cl-flet 'common-lisp-indent-function
-     ;;      (get 'flet 'common-lisp-indent-function))
-     ;; (put 'cl-labels 'common-lisp-indent-function
-     ;;      (get 'labels 'common-lisp-indent-function))
+     (put 'cl-flet 'common-lisp-indent-function
+          (get 'flet 'common-lisp-indent-function))
+     (put 'cl-labels 'common-lisp-indent-function
+          (get 'labels 'common-lisp-indent-function))
      (put 'if 'common-lisp-indent-function 2)))
 
 
