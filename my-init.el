@@ -67,7 +67,6 @@
 (require-init 'init-projectile)
 (require-init 'init-helm)
 (require-init 'init-silver-search)
-(require-init 'init-rainbow)
 (require-init 'init-treemacs)
 (require-init 'init-ggtags)
 (require-init 'init-markdown)
