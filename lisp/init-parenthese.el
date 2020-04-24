@@ -45,8 +45,8 @@
 
 
 ;; customize parenthese
-(when (maybe-require-package 'paren-face)
-  (global-paren-face-mode t))
+;; (when (maybe-require-package 'paren-face)
+;;   (global-paren-face-mode t))
 
 (when (require-package 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))

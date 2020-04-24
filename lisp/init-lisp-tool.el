@@ -19,7 +19,7 @@
   (turn-on-eldoc-mode)
   (subword-mode t)
   (paredit-mode t)
-  ;; (rainbow-delimiters-mode-enable)
+  (rainbow-delimiters-mode-enable)
   (aggressive-indent-mode t))
 
 ;; define a group of different lisp modes, so we could apply features on on them 

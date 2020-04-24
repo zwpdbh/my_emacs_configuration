@@ -35,17 +35,29 @@
   ;; (setq-default cursor-type 'hollow)
   
   (setq show-paren-style 'expression)
+  
   ;; tried color candidates: SteelBlue
   ;; #c397d8 purple
   ;; #73c936 green
   ;; "IndianRed"
+  ;; (set-face-attribute 'show-paren-match nil
+  ;;                     :underline nil
+  ;;                     :foreground "#73c936"  ;; use Font Lock Keyword  Face 
+  ;;                     :background "black"
+  ;;                     :weight 'normal)
+
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#73c936"  ;; use Font Lock Keyword  Face 
+                      :foreground (face-foreground 'default t t)  ;; use Font Lock Keyword  Face 
                       :background "black"
                       :weight 'normal)
-  
-  
+
+  ;; (set-face-attribute 'show-paren-match nil
+  ;;                     :underline nil
+  ;;                     :foreground "#def"  ;; use Font Lock Keyword  Face 
+  ;;                     :background (face-background 'default)
+  ;;                     :weight 'normal)
+
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t)
@@ -53,9 +65,9 @@
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
                               (set-face-attribute 'org-code nil
-                                                  :foreground "#73c936")
+                               :foreground "#73c936")
                               (set-face-attribute 'org-block nil
-                                                  :foreground "default"))))
+                               :foreground "default"))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
