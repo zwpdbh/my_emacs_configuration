@@ -1,3 +1,5 @@
+;; To fix error: No version of gnu-elpa-keyring-update >= nil is available
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (load "~/.emacs.d/my-init.el")
 
 (custom-set-variables
