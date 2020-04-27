@@ -27,37 +27,30 @@
                                 (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
                                 (define-key js2-mode-map (kbd "M-/") 'lsp-treemacs-references)))))
 
-(defun zw/use-tern-javascript ()
-  "Use tern as javascript backend"
-  (progn
-    ;; define how to find definitions and references
-    (when (and (executable-find "ag")
-               (maybe-require-package 'xref-js2))
-      (after-load 'js2-mode
-        (define-key js2-mode-map (kbd "M-.") nil)
-        (add-hook 'js2-mode-hook
-                  (lambda () (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))
-
-    (use-package company-tern
-      :defer t
-      :after (company tern)
-      :commands (company-tern)
-      :ensure t
-      :init 
-      (setq tern-command (append tern-command '("--no-port-file"))))
-
-    (use-package tern
-      :ensure t
-      :defer t)
-    (add-hook 'js-mode-hook 
-              '(lambda ()
-                 (setq-local company-backends (add-to-list 'company-backends 'company-tern))
-                 (tern-mode)))))
+;; (defun zw/use-tern-javascript ()
+;;   "Use tern as javascript backend"
+;;   (if (and (maybe-require-package 'company-tern)
+;;            (maybe-require-package 'tern))
+;;       (progn
+;;         (setq tern-command (append tern-command '("--no-port-file")))
+;;         ;; define how to find definitions and references
+;;         (when (and (executable-find "ag")
+;;                    (maybe-require-package 'xref-js2))
+;;           (after-load 'js2-mode
+;;             (define-key js2-mode-map (kbd "M-.") nil)
+;;             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))
+;;           (add-hook 'js-mode-hook 
+;;                     '(lambda ()
+;;                        (setq-local company-backends (add-to-list 'company-backends 'company-tern))
+;;                        (tern-mode)))))
+;;     (zw/use-lsp-javascript)))
 
 ;; switch different backend
-(if (version<= emacs-version "27.0")
-    (zw/use-tern-javascript)
-  (zw/use-lsp-javascript))
+;; (if (version<= emacs-version "27.0")
+;;     (zw/use-tern-javascript)
+;;   (zw/use-lsp-javascript))
+
+(zw/use-lsp-javascript)
 
 (after-load 'js2-mode
   ;; Disable js2 mode's syntax error highlighting by default...

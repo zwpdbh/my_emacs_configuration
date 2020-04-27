@@ -35,28 +35,16 @@
   ;; (setq-default cursor-type 'hollow)
   
   (setq show-paren-style 'expression)
-  
   ;; tried color candidates: SteelBlue
   ;; #c397d8 purple
   ;; #73c936 green
   ;; "IndianRed"
-  ;; (set-face-attribute 'show-paren-match nil
-  ;;                     :underline nil
-  ;;                     :foreground "#73c936"  ;; use Font Lock Keyword  Face 
-  ;;                     :background "black"
-  ;;                     :weight 'normal)
-
+  ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground (face-foreground 'default t t)  ;; use Font Lock Keyword  Face 
-                      :background "black"
+                      :foreground "#73c936"
+                      :background (face-foreground 'default t t)
                       :weight 'normal)
-
-  ;; (set-face-attribute 'show-paren-match nil
-  ;;                     :underline nil
-  ;;                     :foreground "#def"  ;; use Font Lock Keyword  Face 
-  ;;                     :background (face-background 'default)
-  ;;                     :weight 'normal)
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
