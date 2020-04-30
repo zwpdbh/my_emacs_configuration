@@ -54,7 +54,6 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-(require 'init-osx-keys)
 
 (require-init 'init-gui-frames)
 (require-init 'init-interface-tweaks)
