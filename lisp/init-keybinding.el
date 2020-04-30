@@ -32,10 +32,9 @@
 
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
-  (setq mac-option-key-is-meta nil
-	mac-command-key-is-meta t)
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'none)
+  ;; use macbook's command(cmd) key as meta key 
+  ;; (setq mac-command-modifier 'meta
+  ;;       mac-option-modifier 'none)
 
   ;; Make mouse wheel / trackpad scrolling less jerky
   (setq mouse-wheel-scroll-amount '(1
