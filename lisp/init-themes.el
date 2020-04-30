@@ -55,7 +55,7 @@
                               (set-face-attribute 'org-code nil
                                :foreground "#73c936")
                               (set-face-attribute 'org-block nil
-                               :foreground "default"))))
+                               :foreground (face-foreground 'default t t)))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
