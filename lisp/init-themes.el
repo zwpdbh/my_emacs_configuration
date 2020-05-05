@@ -39,12 +39,13 @@
   ;; #c397d8 purple
   ;; #73c936 green
   ;; "IndianRed"
+  ;; #f0c674 yellow
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#73c936"
+                      :foreground "#f0c674"
                       :background (face-foreground 'default t t)
-                      :weight 'normal)
+                      :weight 'light)
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
