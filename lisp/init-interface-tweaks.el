@@ -39,15 +39,6 @@
 ;; ===== make cursor blink time 
 (setq blink-cursor-blinks 10)
 
-;; ===== adjust meta key 
-(when *is-a-mac*
-  (setq mac-option-key-is-meta nil
-	mac-command-key-is-meta t
-	mac-command-modifier 'meta
-	mac-option-modifier 'none))
-
-
-
 ;; ===== use y-or-n 
 (fset 'yes-or-no-p 'y-or-n-p)
 

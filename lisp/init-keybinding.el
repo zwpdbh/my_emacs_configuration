@@ -30,10 +30,34 @@
                                 #'mark-whole-buffer
                                 #'indent-region))
 
+;; ===== adjust meta key for Mac OSX
+(when *is-a-mac*
+  ;; use macbook's command(cmd) key as meta key 
+  ;; (setq mac-command-modifier 'meta
+  ;;       mac-option-modifier 'none)
+
+  ;; Make mouse wheel / trackpad scrolling less jerky
+  (setq mouse-wheel-scroll-amount '(1
+                                    ((shift) . 5)
+                                    ((control))))
+
+  ;; (dolist (multiple '("" "double-" "triple-"))
+  ;;   (dolist (direction '("right" "left"))
+  ;;     (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore)))
+  
+  ;; (global-set-key (kbd "M-`") 'ns-next-frame)
+  ;; (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
+  ;; (global-set-key (kbd "M-˙") 'ns-do-hide-others)
+  ;; (after-load 'nxml-mode
+  ;;   (define-key nxml-mode-map (kbd "M-h") nil))
+  ;; ;; what describe-key reports for cmd-option-h
+  ;; (global-set-key (kbd "M-ˍ") 'ns-do-hide-others)
+  )
+
 (add-hook 'after-make-frame-functions
           '(lambda ()
              (unless (display-graphic-p)
-               (dolist (each-key-binding zw/keybinding-list)
-                 (eval each-key-binding)))))
+              (dolist (each-key-binding zw/keybinding-list)
+               (eval each-key-binding)))))
 
 (provide 'init-keybinding)
