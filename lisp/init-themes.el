@@ -38,14 +38,15 @@
   ;; tried color candidates: SteelBlue
   ;; #c397d8 purple
   ;; #73c936 green
-  ;; "IndianRed"
+  ;; #b294bb purple
   ;; #f0c674 yellow
+  ;; "IndianRed"
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#f0c674"
-                      :background (face-foreground 'default t t)
-                      :weight 'light)
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)
+                      :weight 'semibold)
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
