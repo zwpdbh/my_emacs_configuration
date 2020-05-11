@@ -57,19 +57,23 @@
   (set-face-attribute 'isearch nil
                       :foreground (face-foreground 'default t t))
   ;; make swiper selection use underline
-  (set-face-attribute 'ivy-current-match nil
-                      :inherit nil
-                      :foreground nil
-                      :background nil
-                      :underline t
-                      :weight 'bold)
+  (add-hook 'ivy-mode-hook
+            '(lambda ()
+               (set-face-attribute 'ivy-current-match nil
+                :inherit nil
+                :foreground nil
+                :background nil
+                :underline t
+                :weight 'bold)))
 
   ;; set company selection highlight
-  (set-face-attribute 'company-tooltip-selection nil
-                      :foreground (face-foreground 'default t t)
-                      :background "black"
-                      :inverse-video nil
-                      :weight 'extrabold)
+  (add-hook 'company-mode-hook
+            '(lambda ()
+               (set-face-attribute 'company-tooltip-selection nil
+                :foreground (face-foreground 'default t t)
+                :background "black"
+                :inverse-video nil
+                :weight 'extrabold)))
   
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
