@@ -63,6 +63,13 @@
                       :background nil
                       :underline t
                       :weight 'bold)
+
+  ;; set company selection highlight
+  (set-face-attribute 'company-tooltip-selection nil
+                      :foreground (face-foreground 'default t t)
+                      :background "black"
+                      :inverse-video nil
+                      :weight 'extrabold)
   
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
