@@ -50,7 +50,19 @@
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
-                      :underline t)
+                      :underline t
+                      :weight 'bold)
+
+  ;; make swiper use code default color as foreground
+  (set-face-attribute 'isearch nil
+                      :foreground (face-foreground 'default t t))
+  ;; make swiper selection use underline
+  (set-face-attribute 'ivy-current-match nil
+                      :inherit nil
+                      :foreground nil
+                      :background nil
+                      :underline t
+                      :weight 'bold)
   
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
