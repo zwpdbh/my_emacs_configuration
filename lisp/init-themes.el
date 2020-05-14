@@ -43,8 +43,8 @@
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground "#73c936"
-                      :background (face-background 'default t t)
+                      :foreground (face-background 'default t t)
+                      :background "black"
                       :weight 'semibold)
 
   ;; make helm related selection use underline
