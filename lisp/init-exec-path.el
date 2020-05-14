@@ -6,7 +6,9 @@
 
 (if *win64*
     (progn
-      (princ "set windows environment"))
+      (princ "set windows exec-path")
+      (when (string-match "x86_64-w64-mingw" (emacs-version))
+        (setq exec-path (append exec-path '("c:/tools/msys64/usr/bin")))))
   (setq exec-path (append exec-path '("/usr/local/bin"))))
 
 (setq default-directory "~/code/")
