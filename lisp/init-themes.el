@@ -36,7 +36,6 @@
   
   (setq show-paren-style 'expression)
   ;; tried color candidates: SteelBlue
-  ;; #c397d8 purple
   ;; #73c936 green
   ;; #b294bb purple
   ;; #f0c674 yellow
@@ -44,7 +43,7 @@
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :underline nil
-                      :foreground (face-foreground 'default t t)
+                      :foreground "#73c936"
                       :background (face-background 'default t t)
                       :weight 'semibold)
 
