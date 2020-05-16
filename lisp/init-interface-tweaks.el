@@ -2,7 +2,7 @@
 ;; https://github.com/adobe-fonts/source-code-pro
 ;; to adjust font dynamically
 ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
-(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :height 140)
 
 ;; (require 'cl)
 ;; (defun font-candidate (&rest fonts)
