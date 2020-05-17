@@ -79,7 +79,14 @@
                               (set-face-attribute 'org-code nil
                                :foreground "#73c936")
                               (set-face-attribute 'org-block nil
-                               :foreground (face-foreground 'default t t)))))
+                               :foreground (face-foreground 'default t t))
+                              (setq org-emphasis-alist
+                               '(("*" (bold :foreground "#f0c674"))
+                                 ("/" italic)
+                                 ("_" underline)
+                                 ("=" org-verbatim verbatim)
+                                 ("~" org-code verbatim)
+                                 ("+" (:strike-through t)))))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
