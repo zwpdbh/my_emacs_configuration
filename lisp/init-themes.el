@@ -81,7 +81,7 @@
                               (set-face-attribute 'org-block nil
                                :foreground (face-foreground 'default t t))
                               (setq org-emphasis-alist
-                               '(("*" (bold :foreground "Orange"))
+                               '(("*" (bold :foreground "Gold"))
                                  ("/" italic)
                                  ("_" underline)
                                  ("=" org-verbatim verbatim)
