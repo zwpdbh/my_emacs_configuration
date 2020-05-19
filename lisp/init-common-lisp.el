@@ -18,7 +18,8 @@
   ;; To load Quicklisp when you start Lisp: (ql:add-to-init-file)
   (cond
    (my-roswell
-    ;; Use ros default cl implementation. To switch different implementations, use ros use ccl-bin, or ros use sbcl/2.0.2
+    ;; Use ros default cl implementation.
+    ;; To switch different implementations, use ros use ccl-bin, or ros use sbcl/2.0.2
     (setq inferior-lisp-program (concat my-roswell " -Q run")))
    (my-ccl
     (setq inferior-lisp-program my-ccl)
