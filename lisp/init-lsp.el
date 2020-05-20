@@ -19,6 +19,7 @@
          (setq lsp-ui-sideline-ignore-duplicate t)
          (setq lsp-ui-sideline-enable nil)
          (setq lsp-ui-doc-enable nil)
+
          (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
          (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))))
   
@@ -30,11 +31,11 @@
        ;; and comparing this with what vs.code is doing
        (setq lsp-print-io nil)
        (add-hook 'lsp-mode-hook
-                 '(lambda ()
-                    ;; Code run from x-mode-hook is for buffer-specific things which means
-                    ;; run the code for every x-mode buffer
-                    #'lsp-ui-mode
-                    (setq-local company-backends (add-to-list 'company-backends
-                                                              'company-lsp)))))))
+        '(lambda ()
+           ;; Code run from x-mode-hook is for buffer-specific things which means
+           ;; run the code for every x-mode buffer
+           #'lsp-ui-mode
+           (setq-local company-backends (add-to-list 'company-backends
+                                         'company-lsp)))))))
 
 (provide 'init-lsp)

@@ -54,7 +54,9 @@
 
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
-                      :foreground (face-foreground 'default t t))
+                      :foreground (face-foreground 'default t t)
+                      :weight 'normal)
+  
   ;; make swiper selection use underline
   (add-hook 'ivy-mode-hook
             '(lambda ()
@@ -73,6 +75,26 @@
                 :background "black"
                 :inverse-video nil
                 :weight 'extrabold)))
+
+  ;; set the lsp-ui-peek related
+  (add-hook 'lsp-ui-mode-hook
+            '(lambda ()
+               (set-face-attribute 'lsp-ui-peek-selection nil
+                :foreground (face-foreground 'hl-line t t)
+                :background (face-background 'hl-line nil t)
+                :underline nil
+                :weight 'bold)
+               
+               (set-face-attribute 'lsp-ui-peek-highlight nil
+                :foreground "Yellow"
+                :background (face-background 'default t t)
+                :underline nil
+                :box nil
+                :weight 'normal)
+
+               (set-face-attribute 'lsp-ui-peek-peek nil
+                :foreground (face-foreground 'default t t)
+                :background (face-background 'default t t))))
   
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
