@@ -91,7 +91,6 @@
                 :underline nil
                 :box nil
                 :weight 'normal)
-
                (set-face-attribute 'lsp-ui-peek-peek nil
                 :foreground (face-foreground 'default t t)
                 :background (face-background 'default t t))))
