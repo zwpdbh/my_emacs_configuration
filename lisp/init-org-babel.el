@@ -7,11 +7,17 @@
   :defer t
   :ensure t)
 
+;; https://github.com/DEADB17/ob-racket
+(use-package ob-racket
+  :after org
+  :defer t
+  :ensure t)
+
 (add-hook 'org-mode-hook #'(lambda ()
                              (progn
                                ;; all languages needed to be confirmed to execute except:
                                (defun my-org-confirm-babel-evaluate (lang body)
-                                 (not (member lang '("emacs-lisp" "lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
+                                (not (member lang '("emacs-lisp" "lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
                                (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
 (eval-after-load 'org
@@ -21,6 +27,7 @@
       (defun org-babel-execute:json (body params) body)
       (defun org-babel-execute:example (body params) body)
       (defun org-babel-execute:terraform (body params) body)
+      (defun org-babel-execute:racket (body params) body)
       
       (org-babel-do-load-languages
        'org-babel-load-languages
@@ -28,6 +35,7 @@
          (lisp . t)
          (clojure . t)
          (scheme . t)
+         ;; (racket . t)
          (C . t)
          (shell . t)
          (js . t)
@@ -37,6 +45,8 @@
          (latex . t)
          (dot . t)
          (plantuml . t)))
+
+      ;; (add-to-list 'org-structure-template-alist '("racket" . "src racket :lang sicp"))
       (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
       (add-to-list 'org-structure-template-alist '("py" . "src python"))
       (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
