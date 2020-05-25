@@ -7,11 +7,11 @@
   :defer t
   :ensure t)
 
-;; https://github.com/DEADB17/ob-racket
-(use-package ob-racket
-  :after org
-  :defer t
-  :ensure t)
+;;;; https://github.com/DEADB17/ob-racket
+;; (use-package ob-racket
+;;   :after org
+;;   :defer t
+;;   :ensure t)
 
 (add-hook 'org-mode-hook #'(lambda ()
                              (progn
