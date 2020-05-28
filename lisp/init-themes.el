@@ -46,7 +46,7 @@
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "#352d67")
+                      :background "dark slate blue")
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
