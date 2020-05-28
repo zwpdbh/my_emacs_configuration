@@ -40,12 +40,13 @@
   ;; #f0c674 yellow
   ;; "IndianRed"
   ;; "MediumPurple4"
+  ;; "dark slate blue", #352d67
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "dark slate blue")
+                      :background "#352d67")
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
