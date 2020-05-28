@@ -1,6 +1,6 @@
 ;;; init-themes.el --- Defaults for themes -*- lexical-binding: t -*-
 
-;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
+;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, sanityinc-tomorrow-night, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
 (use-package doom-themes
   :ensure t
   :defer t)
@@ -9,7 +9,7 @@
   :ensure t
   :defer t)
 
-(use-package gruber-darker-theme
+(use-package moe-theme
   :ensure t
   :defer t)
 
@@ -17,8 +17,8 @@
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
-;; (setq-default custom-enabled-theme 'gruber-darker)
-(setq-default custom-enabled-theme 'sanityinc-tomorrow-night)
+
+(setq-default custom-enabled-theme 'moe-light)
 
 (use-package symbol-overlay
   :ensure t
