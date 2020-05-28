@@ -20,8 +20,12 @@
   :ensure t
   :config
   (set-face-attribute 'symbol-overlay-default-face nil
-                      :inherit 'highlight
+                      :inherit nil
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)
                       :underline t))
+
+
 
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
@@ -36,12 +40,13 @@
   ;; #b294bb purple
   ;; #f0c674 yellow
   ;; "IndianRed"
+  ;; "MediumPurple4"
   ;; "#def"  Font Lock Keyword  Face 
   (set-face-attribute 'show-paren-match nil
+                      :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "black"
-                      :weight 'semibold)
+                      :background "dark slate blue")
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
