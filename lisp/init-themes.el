@@ -5,20 +5,16 @@
   :ensure t
   :defer t)
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :defer t)
-
-(use-package moe-theme
-  :ensure t
-  :defer t)
+;; (use-package color-theme-sanityinc-tomorrow
+;;   :ensure t
+;;   :defer t)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'moe-light)
+(setq-default custom-enabled-theme 'doom-palenight)
 
 (use-package symbol-overlay
   :ensure t
