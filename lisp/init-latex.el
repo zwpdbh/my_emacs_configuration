@@ -128,5 +128,5 @@
 
 ;; On windows10
 ;; Install MiKTex
-;; Add its exe into system-path
+;; Add its exe into system-path: "C:/tools/MiKTeX/miktex/bin/x64"
 ;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
