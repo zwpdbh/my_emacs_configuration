@@ -123,3 +123,10 @@
 
 
 (provide 'init-latex)
+
+;;; Note
+
+;; On windows10
+;; Install MiKTex
+;; Add its exe into system-path
+;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
