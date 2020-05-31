@@ -6,7 +6,7 @@
 (use-package auctex
   :ensure t
   :defer t
-  :mode ("\\.tex\\'" . LaTex-mode)
+  :mode ("\\.tex\\'" . latex-mode)
   :bind (:map LaTeX-mode-map
               ("M-<delete>" . TeX-remove-macro)
               ("C-c C-r" . reftex-query-replace-document)
