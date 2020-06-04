@@ -28,11 +28,15 @@
         (delete-region (1- (cdr bounds)) (cdr bounds))
         (delete-region (car bounds) (1+ brace)))
       t))
+
   :config
   (setq-default TeX-master nil ; by each new fie AUCTEX will ask for a master fie.
                 TeX-PDF-mode t
                 TeX-engine 'xetex)     ; optional
   (setq TeX-auto-save t
+        TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t
         TeX-save-query nil       ; don't prompt for saving the .tex file
         TeX-parse-self t
         TeX-show-compilation nil         ; if `t`, automatically shows compilation log
@@ -42,6 +46,8 @@
         LaTeX-csquotes-open-quote "\\enquote{"
         TeX-file-extensions '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
+
+  
   (add-to-list 'TeX-command-list
                '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
                  (latex-mode)
@@ -56,7 +62,6 @@
                                (reftex-isearch-minor-mode)
                                (turn-on-reftex))))
 
-
 ;; setup company
 (use-package company-math
   :ensure t
@@ -69,42 +74,56 @@
                              (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
                              (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands)))))
 
+
+;; Set pdf tool to open preview
+;; On windows10"C:\Program Files\SumatraPDF\SumatraPDF.exe"
+(eval-after-load 'tex
+  '(progn
+     (when *win64*
+      (setq TeX-view-program-list
+       '(("Sumatra PDF" ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+                         (mode-io-correlate " -forward-search %b %n ") " %o"))))
+      (setq TeX-view-program-selection '((output-pdf "Sumatra PDF"))))
+     (when *linux*
+      (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)) 
+       TeX-view-program-selection '((output-pdf "PDF Tools"))))))
+
 ;; setup indentation
 (eval-after-load 'tex
   '(setq LaTeX-indent-environment-list
-         '(("itemize" LaTeX-indent-tabular)
-           ("enumerate" LaTeX-indent-tabular)
-           ("verbatim" current-indentation)
-           ("verbatim*" current-indentation)
-           ("tabular" LaTeX-indent-tabular)
-           ("tabular*" LaTeX-indent-tabular)
-           ("align" LaTeX-indent-tabular)
-           ("align*" LaTeX-indent-tabular)
-           ("array" LaTeX-indent-tabular)
-           ("eqnarray" LaTeX-indent-tabular)
-           ("eqnarray*" LaTeX-indent-tabular)
-           ("multline" LaTeX-indent-tabular)
-           ("displaymath")
-           ("equation")
-           ("equation*")
-           ("picture")
-           ("tabbing"))))
+    '(("itemize" LaTeX-indent-tabular)
+      ("enumerate" LaTeX-indent-tabular)
+      ("verbatim" current-indentation)
+      ("verbatim*" current-indentation)
+      ("tabular" LaTeX-indent-tabular)
+      ("tabular*" LaTeX-indent-tabular)
+      ("align" LaTeX-indent-tabular)
+      ("align*" LaTeX-indent-tabular)
+      ("array" LaTeX-indent-tabular)
+      ("eqnarray" LaTeX-indent-tabular)
+      ("eqnarray*" LaTeX-indent-tabular)
+      ("multline" LaTeX-indent-tabular)
+      ("displaymath")
+      ("equation")
+      ("equation*")
+      ("picture")
+      ("tabbing"))))
 
 ;; bindings
 (eval-after-load 'tex
   '(progn
      (defun save-compile-latex ()
-       "Save and compile latex document"
-       (interactive)
-       (save-buffer)
-       (TeX-command-sequence t t))
+      "Save and compile latex document"
+      (interactive)
+      (save-buffer)
+      (TeX-command-sequence t t))
 
      (defun complete-if-no-space ()
-       (interactive)
-       (let ((cb (string (char-before))))
-         (if (or (equal cb " ") (equal (point) (line-beginning-position)))
-             (tab-to-tab-stop)
-           (TeX-complete-symbol))))
+      (interactive)
+      (let ((cb (string (char-before))))
+       (if (or (equal cb " ") (equal (point) (line-beginning-position)))
+           (tab-to-tab-stop)
+         (TeX-complete-symbol))))
 
      (add-hook 'LaTeX-mode-hook (lambda ()
                                   (define-key LaTeX-mode-map (kbd "<f5>") 'save-compile-latex)
@@ -112,19 +131,21 @@
                                   (define-key LaTeX-mode-map (kbd "TAB") 'complete-if-no-space)
                                   (define-key LaTeX-mode-map (kbd "<tab>") 'complete-if-no-space)))))
 
-
 ;; preview
 (eval-after-load 'preview
   '(progn
      (set-default 'preview-scale-function 1.7)
      (set-default 'preview-default-option-list
-                  '("displaymath" "floats" "graphics" "textmath"))))
+      '("displaymath" "floats" "graphics" "textmath"))))
 
+;; Update PDF buffers after successful LaTeX runs
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
 
 (provide 'init-latex)
 
-;;; Note
+;;; ZW/Note
 
 ;; On windows10
 ;; Install MiKTex
