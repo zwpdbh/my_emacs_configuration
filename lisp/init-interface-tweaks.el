@@ -4,17 +4,6 @@
 ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
 (set-face-attribute 'default nil :height 110)
 
-;; (require 'cl)
-;; (defun font-candidate (&rest fonts)
-;;   "Return existing font which first match."
-;;   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
-;; (set-face-attribute 'default
-;;                     nil
-;;                     :font (font-candidate
-;;                            "Tamzen"
-;;                            "Source Code Pro")
-;;                     :height 110)
-
 (cond
  ((member "Source Code Pro" (font-family-list))
   (set-frame-font "Source Code Pro"))
