@@ -101,9 +101,9 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 ;;  bhj-chinese-fonts)
 
 (qiang-set-font bhj-english-fonts
-                11.5
-                bhj-chinese-fonts)
-(set-face-attribute 'default nil :height 120)
+                12
+                bhj-chinese-fonts
+                0.9)
 
 
 ;; On different platforms, I need to set different scaling rate for
