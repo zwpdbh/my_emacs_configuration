@@ -29,6 +29,9 @@
     (format "%s-%s" font-name font-size)))
 
 (defvar bhj-english-font-size nil)
+(defvar chinese-font-size-scale-alist nil)
+
+
 (defun qiang-set-font (english-fonts
                        english-font-size
                        chinese-fonts
@@ -102,7 +105,6 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                 bhj-chinese-fonts)
 (set-face-attribute 'default nil :height 120)
 
-(defvar chinese-font-size-scale-alist nil)
 
 ;; On different platforms, I need to set different scaling rate for
 ;; differnt font size.
