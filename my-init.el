@@ -57,6 +57,7 @@
 
 (require-init 'init-gui-frames)
 (require-init 'init-interface-tweaks)
+(require-init 'init-font)
 (require-init 'init-keybinding)
 (require-init 'init-whichkey)
 (require-init 'init-counsel-ivy-swiper)
