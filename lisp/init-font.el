@@ -15,6 +15,8 @@
 ;; check current font are using: http://ergoemacs.org/emacs/emacs_list_and_set_font.html
 ;; terminus font: https://files.ax86.net/terminus-ttf/#what
 
+;; The below font is set from
+;; https://raw.githubusercontent.com/baohaojun/system-config/master/.emacs_d/lisp/bhj-fonts.el
 
 (defun qiang-font-existsp (font)
   (if (null (x-list-fonts font))
@@ -98,6 +100,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 (qiang-set-font bhj-english-fonts
                 11.5
                 bhj-chinese-fonts)
+(set-face-attribute 'default nil :height 120)
 
 (defvar chinese-font-size-scale-alist nil)
 
@@ -128,14 +131,9 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 
 (set-face-attribute 'default nil :font (font-spec))
 
-;; {%org-mode%}
-;; here are 20 hanzi and 40 english chars, see if they are the same width
-;; 你你你你你你你你你你你你你你你你你你你你
-;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-;; /aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/
-;; {%/org-mode%}
 
-
-
+;;; Refs
+;; http://baohaojun.github.io/perfect-emacs-chinese-font.html (狠狠地折腾了一把Emacs中文字体)
+;; http://blog.chinaunix.net/uid-11187-id-3040030.html 关于字符集和乱码的思考
 
 (provide 'init-font)
