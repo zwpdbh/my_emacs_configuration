@@ -44,18 +44,17 @@
           #'(lambda ()
               (define-key sly-mrepl-mode-map (kbd "C-<up>") 'sly-mrepl-previous-input-or-button)))
 
-;; How to indent keywords aligned?
-;; https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned/52789#52789
-(advice-add #'calculate-lisp-indent :override #'void~calculate-lisp-indent)
-
-;; Define indent cases for symbols in common-lisp
-(eval-after-load 'cl-indent
-  `(progn
-     (put 'cl-flet 'common-lisp-indent-function
-      (get 'flet 'common-lisp-indent-function))
-     (put 'cl-labels 'common-lisp-indent-function
-      (get 'labels 'common-lisp-indent-function))
-     (put 'if 'common-lisp-indent-function 2)))
+;; ;; How to indent keywords aligned?
+;; ;; https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned/52789#52789
+;; (advice-add #'calculate-lisp-indent :override #'void~calculate-lisp-indent)
+;; ;; ;; Define indent cases for symbols in common-lisp
+;; (eval-after-load 'cl-indent
+;;   `(progn
+;;      (put 'cl-flet 'common-lisp-indent-function
+;;       (get 'flet 'common-lisp-indent-function))
+;;      (put 'cl-labels 'common-lisp-indent-function
+;;       (get 'labels 'common-lisp-indent-function))
+;;      (put 'if 'common-lisp-indent-function 2)))
 
 
 (provide 'init-common-lisp)
