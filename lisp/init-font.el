@@ -86,8 +86,8 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (global-emojify-mode 1)))
 
 
-(defvar bhj-english-fonts '("Anonymous Pro"
-                            "Monaco"
+(defvar bhj-english-fonts '("Monaco"
+                            "Anonymous Pro"
                             "Source Code Pro"
                             "Terminus (TTF) for Windows"
                             "Terminus (TTF)"
@@ -105,7 +105,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                             "宋体"))
 
 (qiang-set-font bhj-english-fonts
-                11
+                10
                 bhj-chinese-fonts
                 0.9)
 
