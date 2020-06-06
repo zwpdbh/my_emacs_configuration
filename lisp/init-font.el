@@ -1,10 +1,19 @@
-;; ===== set font 
+;; ===== set font
+;; use (font-family-list) to check all the fonts available for emacs.
 ;; https://github.com/adobe-fonts/source-code-pro
-;; to adjust font dynamically
 ;; C-xC-+ and C-xC-- to increase or decrease the buffer text size
 ;; (set-face-attribute 'default nil :height 110)
 
+;; test fonts 
+;; (set-face-attribute 'default nil :family "Anonymous Pro" :height 100)
+;; (set-face-attribute 'default nil :family "Monospace" :height 100)
+;; (set-face-attribute 'default nil :family "Space Mono" :height 100)
+;; (set-face-attribute 'default nil :family "Monaco" :height 100)
+;; (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 100)
+
 ;; (cond
+;;  ((member "Anonymous Pro" (font-family-list))
+;;   (set-frame-font "Anonymous Pro"))
 ;;  ((member "Source Code Pro" (font-family-list))
 ;;   (set-frame-font "Source Code Pro"))
 ;;  ((and *win64* (member "Terminus (TTF) for Windows" (font-family-list)))
@@ -77,28 +86,23 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (global-emojify-mode 1)))
 
 
-(defvar bhj-english-fonts '("Source Code Pro"
+(defvar bhj-english-fonts '("Anonymous Pro"
+                            "Monaco"
+                            "Source Code Pro"
                             "Terminus (TTF) for Windows"
                             "Terminus (TTF)"
+                            "Consolas"
                             "JetBrains Mono"
-                            "Monaco" "Consolas"
                             "DejaVu Sans Mono"
-                            "Monospace" "Courier New"))
-(defvar bhj-chinese-fonts '("Microsoft Yahei" "Microsoft_Yahei" "微软雅黑" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
-
-;; (qiang-set-font
-;;  bhj-english-fonts
-;;  (if (file-exists-p "~/.config/system-config/emacs-font-size")
-;;      (save-excursion
-;;        (find-file "~/.config/system-config/emacs-font-size")
-;;        (goto-char (point-min))
-;;        (let ((monaco-font-size (read (current-buffer))))
-;;          (kill-buffer (current-buffer))
-;;          (if (numberp monaco-font-size)
-;;              monaco-font-size
-;;            12.5)))
-;;    120.5)
-;;  bhj-chinese-fonts)
+                            "Monospace"
+                            "Courier New"))
+(defvar bhj-chinese-fonts '("Microsoft Yahei"
+                            "Microsoft_Yahei"
+                            "微软雅黑"
+                            "文泉驿等宽微米黑"
+                            "黑体"
+                            "新宋体"
+                            "宋体"))
 
 (qiang-set-font bhj-english-fonts
                 11
