@@ -109,7 +109,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                             "宋体"))
 
 (qiang-set-font bhj-english-fonts
-                11
+                10
                 bhj-chinese-fonts
                 0.9)
 
