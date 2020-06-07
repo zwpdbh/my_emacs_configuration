@@ -10,7 +10,7 @@
 ;; (set-face-attribute 'default nil :family "Space Mono" :height 100)
 ;; (set-face-attribute 'default nil :family "Monaco" :height 100)
 ;; (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 100)
-;; (set-face-attribute 'default nil :family "Inconsolata" :height 110)
+;; (set-face-attribute 'default nil :family "Monaco Nerd Font Mono" :height 110)
 
 
 ;; (cond
@@ -88,8 +88,9 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (global-emojify-mode 1)))
 
 
-(defvar bhj-english-fonts '("Inconsolata"
+(defvar bhj-english-fonts '("Monaco Nerd Font Mono"
                             "Monaco"
+                            "Inconsolata"
                             "Anonymous Pro"
                             "Source Code Pro"
                             "Terminus (TTF) for Windows"
