@@ -7,7 +7,7 @@
 ;; test fonts 
 ;; (set-face-attribute 'default nil :family "Anonymous Pro" :height 100)
 ;; (set-face-attribute 'default nil :family "Monospace" :height 100)
-;; (set-face-attribute 'default nil :family "Space Mono" :height 100)
+;; (set-face-attribute 'default nil :family "Consolas" :height 110)
 ;; (set-face-attribute 'default nil :family "Monaco" :height 100)
 ;; (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 100)
 ;; (set-face-attribute 'default nil :family "Monaco Nerd Font Mono" :height 110)
@@ -88,9 +88,9 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (global-emojify-mode 1)))
 
 
-(defvar bhj-english-fonts '("Monaco Nerd Font Mono"
+(defvar bhj-english-fonts '("Inconsolata"
+                            "Monaco Nerd Font Mono"
                             "Monaco"
-                            "Inconsolata"
                             "Anonymous Pro"
                             "Source Code Pro"
                             "Terminus (TTF) for Windows"
@@ -109,7 +109,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                             "宋体"))
 
 (qiang-set-font bhj-english-fonts
-                10
+                11
                 bhj-chinese-fonts
                 0.9)
 
