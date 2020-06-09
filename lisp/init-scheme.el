@@ -21,12 +21,14 @@
 
   (cond ((eq system-type 'darwin)
          (setq geiser-chez-binary "chez"))
+        (*win64*
+         (setq geiser-chez-binary "scheme.exe"))
         (t
          (setq geiser-chez-binary "chezscheme9.5")))
 
   ;; (setq geiser-active-implementations '(guile chez))
   (setq geiser-default-implementation 'guile)
-  (setq geiser-active-implementations '(guile))
+  (setq geiser-active-implementations '(guile chez))
 
   (setq geiser-mode-start-repl-p t)
   (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
