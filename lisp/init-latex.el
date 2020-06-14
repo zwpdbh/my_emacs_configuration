@@ -2,19 +2,22 @@
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html
 ;; http://www.stat.rice.edu/~helpdesk/compguide/node39.html
 
-;; setup
-(use-package auctex
-  :ensure t
-  :defer t
-  :mode ("\\.tex\\'" . latex-mode)
-  :bind (:map LaTeX-mode-map
-              ("M-<delete>" . TeX-remove-macro)
-              ("C-c C-r" . reftex-query-replace-document)
-              ("C-c C-g" . reftex-grep-document))
-  :init
-  ;; define texbin execution path based on system
+(when (maybe-require-package 'auctex)
   (cond ((eq system-type 'darwin)
-         (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
+         (setq exec-path (append exec-path '("/Library/TeX/texbin/"))))))
+
+(after-load 'tex
+  ;; Set pdf tool to open preview
+  ;; On windows10"C:\Program Files\SumatraPDF\SumatraPDF.exe"
+  (when *win64*
+    (setq TeX-view-program-list
+          '(("Sumatra PDF" ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+                            (mode-io-correlate " -forward-search %b %n ") " %o"))))
+    (setq TeX-view-program-selection '((output-pdf "Sumatra PDF"))))
+  (when *linux*
+    (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)) 
+          TeX-view-program-selection '((output-pdf "PDF Tools"))))
+
   ;; A function to delete the current macro in AUCTeX.
   ;; Note: keybinds won't be added to TeX-mode-hook if not kept at the end of the AUCTeX setup!
   (defun TeX-remove-macro ()
@@ -29,10 +32,42 @@
         (delete-region (car bounds) (1+ brace)))
       t))
 
-  :config
+  (defun save-compile-latex ()
+    "Save and compile latex document"
+    (interactive)
+    (save-buffer)
+    (TeX-command-sequence t t))
+
+  (defun complete-if-no-space ()
+    (interactive)
+    (let ((cb (string (char-before))))
+      (if (or (equal cb " ") (equal (point) (line-beginning-position)))
+          (tab-to-tab-stop)
+        (TeX-complete-symbol))))
+
   (setq-default TeX-master nil ; by each new fie AUCTEX will ask for a master fie.
                 TeX-PDF-mode t
                 TeX-engine 'xetex)     ; optional
+
+  (setq LaTeX-indent-environment-list
+        '(("itemize" LaTeX-indent-tabular)
+          ("enumerate" LaTeX-indent-tabular)
+          ("verbatim" current-indentation)
+          ("verbatim*" current-indentation)
+          ("tabular" LaTeX-indent-tabular)
+          ("tabular*" LaTeX-indent-tabular)
+          ("align" LaTeX-indent-tabular)
+          ("align*" LaTeX-indent-tabular)
+          ("array" LaTeX-indent-tabular)
+          ("eqnarray" LaTeX-indent-tabular)
+          ("eqnarray*" LaTeX-indent-tabular)
+          ("multline" LaTeX-indent-tabular)
+          ("displaymath")
+          ("equation")
+          ("equation*")
+          ("picture")
+          ("tabbing")))
+  
   (setq TeX-auto-save t
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
@@ -47,7 +82,6 @@
         TeX-file-extensions '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx"))
 
 
-  
   (add-to-list 'TeX-command-list
                '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
                  (latex-mode)
@@ -56,16 +90,27 @@
   ;; Font-lock for AuCTeX
   ;; Note: '«' and '»' is by pressing 'C-x 8 <' and 'C-x 8 >', respectively
   (font-lock-add-keywords 'latex-mode (list (list "\\(«\\(.+?\\|\n\\)\\)\\(+?\\)\\(»\\)" '(1 'font-latex-string-face t) '(2 'font-latex-string-face t) '(3 'font-latex-string-face t))))
-  ;; Add standard Sweave file extensions to the list of files recognized  by AuCTeX.
-  (add-hook 'LaTex-mode-hook (lambda ()
-                               (load "preview-latex.el" nil t t)
-                               (reftex-isearch-minor-mode)
-                               (turn-on-reftex))))
 
-;; setup company
-(use-package company-math
-  :ensure t
-  :config
+  ;; Use LaTeX-mode-map to define keybinding doesn't work, even if "save-compile-latex" is defined in LaTeX-mode-map.
+  (define-key TeX-mode-map (kbd "<f5>") 'save-compile-latex)
+  (define-key TeX-mode-map (kbd "<f7>") 'preview-clearout-buffer)
+  (define-key TeX-mode-map (kbd "TAB") 'complete-if-no-space)
+  (define-key TeX-mode-map (kbd "<tab>") 'complete-if-no-space)
+  
+  ;; (load "preview-latex.el" nil t t)
+  (turn-on-reftex)
+  
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
+
+(add-hook 'reftex-mode-hook
+          '(lambda ()
+             (reftex-isearch-minor-mode t)
+             (define-key TeX-mode-map (kbd "C-c C-r") 'reftex-query-replace-document)
+             (define-key TeX-mode-map (kbd "M-<delete>") 'TeX-remove-macro)))
+
+(when (maybe-require-package 'company-math)
   (add-hook 'LaTeX-mode-hook (lambda ()
                                (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
                                (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))
@@ -74,74 +119,12 @@
                              (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
                              (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands)))))
 
-
-;; Set pdf tool to open preview
-;; On windows10"C:\Program Files\SumatraPDF\SumatraPDF.exe"
-(eval-after-load 'tex
-  '(progn
-     (when *win64*
-      (setq TeX-view-program-list
-       '(("Sumatra PDF" ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
-                         (mode-io-correlate " -forward-search %b %n ") " %o"))))
-      (setq TeX-view-program-selection '((output-pdf "Sumatra PDF"))))
-     (when *linux*
-      (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)) 
-       TeX-view-program-selection '((output-pdf "PDF Tools"))))))
-
-;; setup indentation
-(eval-after-load 'tex
-  '(setq LaTeX-indent-environment-list
-    '(("itemize" LaTeX-indent-tabular)
-      ("enumerate" LaTeX-indent-tabular)
-      ("verbatim" current-indentation)
-      ("verbatim*" current-indentation)
-      ("tabular" LaTeX-indent-tabular)
-      ("tabular*" LaTeX-indent-tabular)
-      ("align" LaTeX-indent-tabular)
-      ("align*" LaTeX-indent-tabular)
-      ("array" LaTeX-indent-tabular)
-      ("eqnarray" LaTeX-indent-tabular)
-      ("eqnarray*" LaTeX-indent-tabular)
-      ("multline" LaTeX-indent-tabular)
-      ("displaymath")
-      ("equation")
-      ("equation*")
-      ("picture")
-      ("tabbing"))))
-
-;; bindings
-(eval-after-load 'tex
-  '(progn
-     (defun save-compile-latex ()
-      "Save and compile latex document"
-      (interactive)
-      (save-buffer)
-      (TeX-command-sequence t t))
-
-     (defun complete-if-no-space ()
-      (interactive)
-      (let ((cb (string (char-before))))
-       (if (or (equal cb " ") (equal (point) (line-beginning-position)))
-           (tab-to-tab-stop)
-         (TeX-complete-symbol))))
-
-     (add-hook 'LaTeX-mode-hook (lambda ()
-                                  (define-key LaTeX-mode-map (kbd "<f5>") 'save-compile-latex)
-                                  (define-key LaTeX-mode-map (kbd "<f7>") 'preview-clearout-buffer)
-                                  (define-key LaTeX-mode-map (kbd "TAB") 'complete-if-no-space)
-                                  (define-key LaTeX-mode-map (kbd "<tab>") 'complete-if-no-space)))))
-
 ;; preview
 (eval-after-load 'preview
   '(progn
      (set-default 'preview-scale-function 1.7)
      (set-default 'preview-default-option-list
-      '("displaymath" "floats" "graphics" "textmath"))))
-
-;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
-
+                  '("displaymath" "floats" "graphics" "textmath"))))
 
 (provide 'init-latex)
 

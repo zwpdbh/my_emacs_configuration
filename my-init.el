@@ -93,7 +93,7 @@
 (require 'init-reveal)
 (require-init 'init-package)
 (require-init 'init-hydra)
-(require-init 'init-latex)
+
 
 ;; === programing language related ===
 (require-init 'init-company)
@@ -132,6 +132,11 @@
 (require-init 'init-indent)
 
 (require-init 'init-pomodoro)
+
+;; error prone configuration
+(require-init 'init-latex)
+
+
 ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
 ;; Adding directories under "site-lisp/" to `load-path' slows
 ;; down all `require' statement. So we do this at the end of startup
