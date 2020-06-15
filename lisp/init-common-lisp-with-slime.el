@@ -5,12 +5,13 @@
     (defun zw/set-company-backends-with-slime ()
       (interactive)
       (message "set zwpdbh's company-backends")
-      (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code)))))
-  ;; (defun slime-lisp-mode-hook ()
-  ;;   (slime-mode 1)
-  ;;   (set (make-local-variable 'lisp-indent-function)
-  ;;        'common-lisp-indent-function)
-  ;;   (zw/set-company-backends-with-slime))
+      (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code))))
+
+    (after-load 'slime-company
+      (setq slime-company-completion 'fuzzy
+            slime-company-after-completion 'slime-company-just-one-space)
+      (zw/set-company-backends-with-slime))
+    (add-hook 'slime-repl-mode-hook 'zw/set-company-backends-with-slime))
   
   (setq slime-contribs '(slime-fancy
                          slime-asdf
@@ -46,7 +47,6 @@
     (setq slime-lisp-implementations `((clisp (,my-clisp)))))))
 
 
-
 (after-load 'slime
   (setq slime-complete-symbol*-fancy t
         slime-fuzzy-completion-in-place t
@@ -59,12 +59,6 @@
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
   (define-key slime-mode-map  (kbd "C-c C-e") nil)
   (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl))
-
-(after-load 'slime-company
-  (setq slime-company-completion 'fuzzy
-        slime-company-after-completion 'slime-company-just-one-space)
-  (zw/set-company-backends-with-slime))
-(add-hook 'slime-repl-mode-hook 'zw/set-company-backends-with-slime)
 
 
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
