@@ -1,14 +1,14 @@
 (when (maybe-require-package 'slime)
   (when (maybe-require-package 'slime-company)
     (slime-setup '(slime-fancy
-                   slime-company
                    slime-asdf
                    slime-autodoc
                    slime-editing-commands
                    slime-references
                    slime-repl
                    slime-scratch
-                   slime-xref-browser)))
+                   slime-xref-browser
+                   slime-company)))
   
   (if *win64*
       (setq my-ccl (executable-find "wx86cl64"))
