@@ -103,8 +103,8 @@
 
 (require-init 'init-eldoc)
 
-;; (require-init 'init-common-lisp)
-(require-init 'init-common-lisp-with-slime)
+(require-init 'init-common-lisp)
+;; (require-init 'init-common-lisp-with-slime)
 
 (require-init 'init-racket)
 (require-init 'init-scheme)
