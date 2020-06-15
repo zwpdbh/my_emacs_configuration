@@ -1,14 +1,17 @@
 (when (maybe-require-package 'slime)
-  (when (maybe-require-package 'slime-company)
-    (slime-setup '(slime-fancy
-                   slime-asdf
-                   slime-autodoc
-                   slime-editing-commands
-                   slime-references
-                   slime-repl
-                   slime-scratch
-                   slime-xref-browser
-                   slime-company)))
+  (maybe-require-package 'helm-slime)
+  (maybe-require-package 'slime-company)
+
+  (setq slime-contribs '(slime-fancy
+                         slime-asdf
+                         slime-autodoc
+                         slime-editing-commands
+                         slime-references
+                         slime-repl
+                         slime-scratch
+                         slime-xref-browser
+                         slime-company
+                         helm-slime))
   
   (if *win64*
       (setq my-ccl (executable-find "wx86cl64"))
@@ -32,19 +35,24 @@
     (setq inferior-lisp-program my-clisp)
     (setq slime-lisp-implementations `((clisp (,my-clisp)))))))
 
+
 (defun zw/set-company-backends-with-slime ()
   (interactive)
   (message "set company-backends")
   (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code))))
 
 (after-load 'slime
-  (slime-autodoc-mode)
   (setq slime-complete-symbol*-fancy t
+        slime-fuzzy-completion-in-place t
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol
         slime-when-complete-filename-expand t
         slime-truncate-lines nil
         slime-autodoc-use-multiline-p t)
-  (zw/set-company-backends-with-slime))
+  
+  (define-key slime-mode-map  (kbd "C-c C-c") nil)
+  (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
+  (define-key slime-mode-map  (kbd "C-c C-e") nil)
+  (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl))
 
 
 (after-load 'slime-company
