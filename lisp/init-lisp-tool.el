@@ -12,6 +12,9 @@
 (define-key my-lisp-power-map [delete] 'paredit-forward-delete)
 (define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
 
+(defun zw/set-company-backends-for-lisp ()
+  (setq-local company-backends '((company-bbdb company-capf company-dabbrev-code))))
+
 ;; define a group of common features needed by all lisp programming
 (defun zwpdbh/enhance-lisp-power ()
   (interactive)
@@ -20,7 +23,8 @@
   (subword-mode t)
   (paredit-mode t)
   (rainbow-delimiters-mode-enable)
-  (aggressive-indent-mode t))
+  (aggressive-indent-mode t)
+  (zw/set-company-backends-for-lisp))
 
 ;; define a group of different lisp modes, so we could apply features on on them 
 (setq my-lisp-mode-set '(lisp-mode
