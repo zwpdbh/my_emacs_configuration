@@ -39,28 +39,29 @@
   (setq company-backends (delete 'company-ropemacs company-backends))
   (dolist (backend '(company-eclim company-semantic company-capf company-bbdb company-dabbrev-code))
     (setq company-backends (delq backend company-backends)))
-  (setq company-backends (cons '(company-capf company-bbdb company-dabbrev-code) company-backends)))
+  (setq company-backends (cons '(company-capf company-bbdb company-dabbrev-code) company-backends))
 
-;; company-ctags is much faster out of box. No further optimiation needed
-(unless (featurep 'company-ctags) (local-require 'company-ctags))
-(company-ctags-auto-setup)
 
-(diminish 'company-mode)
-;; (define-key company-mode-map (kbd "M-/") 'company-complete)
-;; (define-key company-active-map (kbd "M-/") 'company-other-backend)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(setq-default company-dabbrev-other-buffers 'all
-              company-tooltip-align-annotations t)
-(setq completion-ignore-case t)
-(setq company-show-numbers t)
-(setq company-dabbrev-downcase nil)
-(setq company-minimum-prefix-length 1)
-(setq company-selection-wrap-around t)
-(setq company-echo-delay 0)
-(setq company-idle-delay 0)
-(setq company-require-match nil)
-(setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode)))
+  ;; company-ctags is much faster out of box. No further optimiation needed
+  (unless (featurep 'company-ctags) (local-require 'company-ctags))
+  (company-ctags-auto-setup)
+  
+  (diminish 'company-mode)
+  ;; (define-key company-mode-map (kbd "M-/") 'company-complete)
+  ;; (define-key company-active-map (kbd "M-/") 'company-other-backend)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (setq-default company-dabbrev-other-buffers 'all
+                company-tooltip-align-annotations t)
+  (setq completion-ignore-case t)
+  (setq company-show-numbers t)
+  (setq company-dabbrev-downcase nil)
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
+  (setq company-echo-delay 0)
+  (setq company-idle-delay 0)
+  (setq company-require-match nil)
+  (setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode)))
 
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)
