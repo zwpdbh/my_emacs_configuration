@@ -13,7 +13,7 @@
 (define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
 
 (defun zw/set-company-backends-for-lisp ()
-  (setq-local company-backends '((company-bbdb company-capf company-dabbrev-code))))
+  (setq-local company-backends '((company-capf company-bbdb company-dabbrev-code))))
 
 ;; define a group of common features needed by all lisp programming
 (defun zwpdbh/enhance-lisp-power ()
