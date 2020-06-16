@@ -5,6 +5,7 @@
   (maybe-require-package 'slime-company)
 
   ;; set some contribs
+  ;; If met error: not found file or directory slime-fancy, restart Emacs and try again.
   (setq slime-contribs '(slime-fancy
                          slime-fuzzy
                          slime-autodoc
