@@ -1,17 +1,6 @@
 (when (maybe-require-package 'slime)
   (maybe-require-package 'helm-slime)
-  
-  (when (maybe-require-package 'slime-company)
-    (defun zw/set-company-backends-with-slime ()
-      (interactive)
-      (message "set zwpdbh's company-backends")
-      (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code))))
-
-    (after-load 'slime-company
-      (setq slime-company-completion 'fuzzy
-            slime-company-after-completion 'slime-company-just-one-space)
-      (zw/set-company-backends-with-slime))
-    (add-hook 'slime-repl-mode-hook 'zw/set-company-backends-with-slime))
+  (maybe-require-package 'slime-company)
   
   (setq slime-contribs '(slime-fancy
                          slime-asdf
@@ -59,6 +48,24 @@
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
   (define-key slime-mode-map  (kbd "C-c C-e") nil)
   (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl))
+
+
+(defun zw/set-company-slime ()
+  (interactive)
+  ;; (message "testing company-slime")
+  (when (symbol-function 'company-slime)
+    ;; (message "set company-slime into company-backends properly")
+    (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code)))))
+
+;; set company-slime into company-backends properly
+(after-load 'slime-company
+  (setq slime-company-completion 'fuzzy
+        slime-company-after-completion 'slime-company-just-one-space)
+  (zw/set-company-slime))
+
+;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
+(add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
+(add-hook 'slime-mode-hook 'zw/set-company-slime)
 
 
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
