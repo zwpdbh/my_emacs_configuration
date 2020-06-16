@@ -37,9 +37,9 @@
 
 (after-load 'company
   (setq company-backends (delete 'company-ropemacs company-backends))
-  (dolist (backend '(company-eclim company-semantic company-capf company-bbdb company-dabbrev-code))
+  (dolist (backend '(company-eclim company-semantic company-capf company-bbdb))
     (setq company-backends (delq backend company-backends)))
-  (setq company-backends (cons '(company-capf company-bbdb company-dabbrev-code) company-backends))
+  (setq company-backends (cons '(company-capf company-bbdb) company-backends))
 
 
   ;; company-ctags is much faster out of box. No further optimiation needed

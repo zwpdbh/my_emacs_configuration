@@ -7,7 +7,7 @@
       ;; (message "testing company-slime")
       (when (symbol-function 'company-slime)
         ;; (message "set company-slime into company-backends properly")
-        (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code)))))
+        (setq-local company-backends '((company-slime company-capf company-bbdb)))))
 
     ;; set company-slime into company-backends properly
     (after-load 'slime-company
