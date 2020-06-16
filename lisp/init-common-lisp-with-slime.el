@@ -56,7 +56,7 @@
   (after-load 'slime
     (setq slime-complete-symbol*-fancy t
           slime-fuzzy-completion-in-place t
-          slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+          slime-completion-at-point-functions 'slime-fuzzy-complete-symbol
           slime-when-complete-filename-expand t
           slime-truncate-lines nil
           slime-autodoc-use-multiline-p t)
