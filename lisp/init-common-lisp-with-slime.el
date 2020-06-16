@@ -1,9 +1,12 @@
 (when (maybe-require-package 'slime)
+  (require 'slime-autoloads)
+  
   (maybe-require-package 'helm-slime)
   (maybe-require-package 'slime-company)
-  
+
+  ;; set some contribs
   (setq slime-contribs '(slime-fancy
-                         slime-asdf
+                         slime-fuzzy
                          slime-autodoc
                          slime-editing-commands
                          slime-references
@@ -12,7 +15,8 @@
                          slime-xref-browser
                          slime-company
                          helm-slime))
-  
+
+  ;; set lisp system
   (if *win64*
       (setq my-ccl (executable-find "wx86cl64"))
     (setq my-ccl (executable-find "ccl")))
