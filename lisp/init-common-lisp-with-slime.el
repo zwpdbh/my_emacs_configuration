@@ -11,7 +11,7 @@
 
     ;; set company-slime into company-backends properly
     (after-load 'slime-company
-      (setq slime-company-completion 'fuzzy
+      (setq slime-company-completion 'simple
             slime-company-after-completion 'slime-company-just-one-space)
       (zw/set-company-slime))
     
@@ -20,7 +20,6 @@
       ;; If met error: not found file or directory slime-fancy,
       ;; make sure lisp system works first, then restart Emacs and try again for several times.
       (setq slime-contribs '(slime-fancy
-                             slime-fuzzy
                              slime-autodoc
                              slime-editing-commands
                              slime-references
@@ -55,8 +54,8 @@
 
   (after-load 'slime
     (setq slime-complete-symbol*-fancy t
-          slime-fuzzy-completion-in-place t
-          slime-completion-at-point-functions 'slime-fuzzy-complete-symbol
+          ;; options are slime-simple-completion-at-point, slime-complete-symbol*, slime-fuzzy-complete-symbol
+          slime-completion-at-point-functions 'slime-simple-completion-at-point
           slime-when-complete-filename-expand t
           slime-truncate-lines nil
           slime-autodoc-use-multiline-p t)
