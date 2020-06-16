@@ -11,7 +11,7 @@
 
     ;; set company-slime into company-backends properly
     (after-load 'slime-company
-      (setq slime-company-completion 'simple
+      (setq slime-company-completion 'fuzzy
             slime-company-after-completion 'slime-company-just-one-space)
       (zw/set-company-slime))
     
