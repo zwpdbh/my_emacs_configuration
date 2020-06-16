@@ -1,22 +1,34 @@
 (when (maybe-require-package 'slime)
   (require 'slime-autoloads)
   
-  (maybe-require-package 'helm-slime)
-  (maybe-require-package 'slime-company)
+  (when (maybe-require-package 'slime-company)
+    (defun zw/set-company-slime ()
+      (interactive)
+      ;; (message "testing company-slime")
+      (when (symbol-function 'company-slime)
+        ;; (message "set company-slime into company-backends properly")
+        (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code)))))
 
-  ;; set some contribs
-  ;; If met error: not found file or directory slime-fancy,
-  ;; make sure lisp system works first, then restart Emacs and try again.
-  (setq slime-contribs '(slime-fancy
-                         slime-fuzzy
-                         slime-autodoc
-                         slime-editing-commands
-                         slime-references
-                         slime-repl
-                         slime-scratch
-                         slime-xref-browser
-                         slime-company
-                         helm-slime))
+    ;; set company-slime into company-backends properly
+    (after-load 'slime-company
+      (setq slime-company-completion 'fuzzy
+            slime-company-after-completion 'slime-company-just-one-space)
+      (zw/set-company-slime))
+    
+    (when (maybe-require-package 'helm-slime)
+      ;; set some contribs
+      ;; If met error: not found file or directory slime-fancy,
+      ;; make sure lisp system works first, then restart Emacs and try again for several times.
+      (setq slime-contribs '(slime-fancy
+                             slime-fuzzy
+                             slime-autodoc
+                             slime-editing-commands
+                             slime-references
+                             slime-repl
+                             slime-scratch
+                             slime-xref-browser
+                             slime-company
+                             helm-slime))))
 
   ;; set lisp system
   (if *win64*
@@ -39,35 +51,21 @@
     (setq slime-lisp-implementations `((sbcl (,my-sbcl)))))
    (my-clisp
     (setq inferior-lisp-program my-clisp)
-    (setq slime-lisp-implementations `((clisp (,my-clisp)))))))
+    (setq slime-lisp-implementations `((clisp (,my-clisp))))))
 
+  (after-load 'slime
+    (setq slime-complete-symbol*-fancy t
+          slime-fuzzy-completion-in-place t
+          slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+          slime-when-complete-filename-expand t
+          slime-truncate-lines nil
+          slime-autodoc-use-multiline-p t)
+    
+    (define-key slime-mode-map  (kbd "C-c C-c") nil)
+    (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
+    (define-key slime-mode-map  (kbd "C-c C-e") nil)
+    (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)))
 
-(after-load 'slime
-  (setq slime-complete-symbol*-fancy t
-        slime-fuzzy-completion-in-place t
-        slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-        slime-when-complete-filename-expand t
-        slime-truncate-lines nil
-        slime-autodoc-use-multiline-p t)
-  
-  (define-key slime-mode-map  (kbd "C-c C-c") nil)
-  (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
-  (define-key slime-mode-map  (kbd "C-c C-e") nil)
-  (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl))
-
-
-(defun zw/set-company-slime ()
-  (interactive)
-  ;; (message "testing company-slime")
-  (when (symbol-function 'company-slime)
-    ;; (message "set company-slime into company-backends properly")
-    (setq-local company-backends '((company-slime company-capf company-bbdb company-dabbrev-code)))))
-
-;; set company-slime into company-backends properly
-(after-load 'slime-company
-  (setq slime-company-completion 'fuzzy
-        slime-company-after-completion 'slime-company-just-one-space)
-  (zw/set-company-slime))
 
 ;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
 (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
