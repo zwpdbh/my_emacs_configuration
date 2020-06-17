@@ -33,7 +33,8 @@
   (setq-default cursor-type '(bar . 2))
   ;; (setq-default cursor-type 'hollow)
   
-  (setq show-paren-style 'expression)
+  (when window-system
+    (setq show-paren-style 'expression))
   ;; tried color candidates: SteelBlue
   ;; #73c936 green
   ;; #b294bb purple
@@ -62,53 +63,53 @@
   (add-hook 'ivy-mode-hook
             '(lambda ()
                (set-face-attribute 'ivy-current-match nil
-                :inherit nil
-                :foreground nil
-                :background nil
-                :underline t
-                :weight 'bold)))
+                                   :inherit nil
+                                   :foreground nil
+                                   :background nil
+                                   :underline t
+                                   :weight 'bold)))
 
   ;; set company selection highlight
   (add-hook 'company-mode-hook
             '(lambda ()
                (set-face-attribute 'company-tooltip-selection nil
-                :foreground (face-foreground 'default t t)
-                :background "black"
-                :inverse-video nil
-                :weight 'extrabold)))
+                                   :foreground (face-foreground 'default t t)
+                                   :background "black"
+                                   :inverse-video nil
+                                   :weight 'extrabold)))
 
   ;; set the lsp-ui-peek related
   (add-hook 'lsp-ui-mode-hook
             '(lambda ()
                (set-face-attribute 'lsp-ui-peek-selection nil
-                :foreground (face-foreground 'hl-line t t)
-                :background (face-background 'hl-line nil t)
-                :underline nil
-                :weight 'bold)
+                                   :foreground (face-foreground 'hl-line t t)
+                                   :background (face-background 'hl-line nil t)
+                                   :underline nil
+                                   :weight 'bold)
                
                (set-face-attribute 'lsp-ui-peek-highlight nil
-                :foreground "Yellow"
-                :background (face-background 'default t t)
-                :underline nil
-                :box nil
-                :weight 'normal)
+                                   :foreground "Yellow"
+                                   :background (face-background 'default t t)
+                                   :underline nil
+                                   :box nil
+                                   :weight 'normal)
                (set-face-attribute 'lsp-ui-peek-peek nil
-                :foreground (face-foreground 'default t t)
-                :background (face-background 'default t t))))
+                                   :foreground (face-foreground 'default t t)
+                                   :background (face-background 'default t t))))
   
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
                               (set-face-attribute 'org-code nil
-                               :foreground "#73c936")
+                                                  :foreground "#73c936")
                               (set-face-attribute 'org-block nil
-                               :foreground (face-foreground 'default t t))
+                                                  :foreground (face-foreground 'default t t))
                               (setq org-emphasis-alist
-                               '(("*" (bold :foreground "Gold"))
-                                 ("/" italic)
-                                 ("_" underline)
-                                 ("=" org-verbatim verbatim)
-                                 ("~" org-code verbatim)
-                                 ("+" (:strike-through t)))))))
+                                    '(("*" (bold :foreground "Gold"))
+                                      ("/" italic)
+                                      ("_" underline)
+                                      ("=" org-verbatim verbatim)
+                                      ("~" org-code verbatim)
+                                      ("+" (:strike-through t)))))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
