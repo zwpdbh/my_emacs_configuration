@@ -29,9 +29,9 @@
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
 
-  (set-cursor-color "IndianRed")
-  (setq-default cursor-type '(bar . 2))
-  ;; (setq-default cursor-type 'hollow)
+  (when window-system
+    (set-cursor-color "IndianRed")
+    (setq-default cursor-type '(bar . 2)))
   
   (when window-system
     (setq show-paren-style 'expression))
