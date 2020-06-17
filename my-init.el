@@ -54,20 +54,24 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-
+(require-init 'init-dashboard)
 (require-init 'init-gui-frames)
-(require-init 'init-interface-tweaks)
-(require-init 'init-font)
-(require-init 'init-keybinding)
-(require-init 'init-whichkey)
+(require-init 'init-helm)
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-parenthese)
+(require-init 'init-silver-search)
+(require-init 'init-keybinding)
+(require-init 'init-treemacs)
 (require-init 'init-convenient)
+(require-init 'init-interface-tweaks)
+
+(when window-system
+  (require-init 'init-font))
+
+(require-init 'init-whichkey)
 
 (require-init 'init-projectile)
-(require-init 'init-helm)
-(require-init 'init-silver-search)
-(require-init 'init-treemacs)
+
 (require-init 'init-ggtags)
 (require-init 'init-markdown)
 (require-init 'init-json)
