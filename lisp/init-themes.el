@@ -5,16 +5,16 @@
   :ensure t
   :defer t)
 
-;; (use-package color-theme-sanityinc-tomorrow
-;;   :ensure t
-;;   :defer t)
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  :defer t)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'doom-palenight)
+(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
 
 (use-package symbol-overlay
   :ensure t
