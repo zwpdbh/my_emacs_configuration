@@ -34,7 +34,9 @@
 (require 'init-utils)     ;; the file provide useful common functions
 (require 'init-elpa)      ;; Machinery for installing required packages
 
-(unless (package-installed-p 'esup) ;; Emacs Start Up Profiler
+;; Emacs Start Up Profiler
+(unless (or (package-installed-p 'esup)
+            (not window-system))  
   (package-install 'esup))
 
 (require 'init-exec-path) ;; Set up $PATH
@@ -54,25 +56,25 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
+(require-init 'init-interface-tweaks)
+
 (require-init 'init-dashboard)
 (require-init 'init-gui-frames)
+
 (require-init 'init-helm)
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-parenthese)
 (require-init 'init-silver-search)
-(require-init 'init-keybinding)
-(require-init 'init-treemacs)
+
 (require-init 'init-convenient)
-(require-init 'init-interface-tweaks)
+(require-init 'init-keybinding)
 (require-init 'init-whichkey)
 
 (when window-system
   (require-init 'init-font))
 
-
-
 (require-init 'init-projectile)
-
+(require-init 'init-treemacs)
 (require-init 'init-ggtags)
 (require-init 'init-markdown)
 (require-init 'init-json)
