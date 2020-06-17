@@ -40,9 +40,9 @@
 ;; For Windows10, after executed the above command, go to the place specified to manually install theme.
 
 ;; ===== magit 
-(use-package magit
-  :bind (("C-x g" . magit))
-  :ensure t)
+;; (use-package magit
+;;   :bind (("C-x g" . magit))
+;;   :ensure t)
 
 (use-package expand-region
   :ensure t

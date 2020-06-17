@@ -64,11 +64,12 @@
 (require-init 'init-treemacs)
 (require-init 'init-convenient)
 (require-init 'init-interface-tweaks)
+(require-init 'init-whichkey)
 
 (when window-system
   (require-init 'init-font))
 
-(require-init 'init-whichkey)
+
 
 (require-init 'init-projectile)
 
@@ -91,7 +92,7 @@
 (require 'init-editing-utils)
 (require 'init-vc)
 (require 'init-git)
-(require 'init-github)
+;; (require 'init-github)
 
 (require 'init-compile)
 (require 'init-reveal)
