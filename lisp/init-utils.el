@@ -421,25 +421,6 @@ you can '(setq my-mplayer-extra-opts \"-ao alsa -vo vdpau\")'.")
 (add-hook 'find-file-hooks 'no-junk-please-were-unixish)
 
 
-;; my function which evaluats and collects keybindings
-(setq zw/keybinding-list nil)
-
-(defun zw/add-keybinding-hooks (hook-list keybindings)
-  "it is used to eval and collect keybindings. If in pure terminal-text, keybindings will be evaluated for after-make-frame-functions"
-  (dolist (each-keybinding keybindings)
-    (eval each-keybinding)
-    (add-to-list hook-list each-keybinding)))
-;; example:
-;; (zw/add-keybinding-hooks 'zw/keybinding-list '((print "1111")
-;;                                                (print "2222")
-;;                                                (print "3333")))
-(add-hook 'after-make-frame-functions
-          '(lambda ()
-             (unless (display-graphic-p)
-               (dolist (each-key-binding zw/keybinding-list)
-                 (eval each-key-binding)))))
-
-
 ;; solve problem assert function definition is void
 (defmacro assert (test-form)
   `(when (not ,test-form)

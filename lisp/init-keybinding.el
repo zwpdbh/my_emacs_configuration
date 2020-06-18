@@ -45,10 +45,28 @@
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
+
+;; my function which evaluats and collects keybindings
+(setq zw/keybinding-list nil)
+(defun zw/add-keybinding-hooks (hook-list keybindings)
+  "it is used to eval and collect keybindings. If in pure terminal-text, keybindings will be evaluated for after-make-frame-functions"
+  (dolist (each-keybinding keybindings)
+    (eval each-keybinding)
+    (add-to-list hook-list each-keybinding)))
+;; example:
+;; (zw/add-keybinding-hooks 'zw/keybinding-list '((print "1111")
+;;                                                (print "2222")
+;;                                                (print "3333")))
 (add-hook 'after-make-frame-functions
           '(lambda ()
              (unless (display-graphic-p)
-              (dolist (each-key-binding zw/keybinding-list)
-               (eval each-key-binding)))))
+               (dolist (each-key-binding zw/keybinding-list)
+                 (eval each-key-binding)))))
+
+(add-hook 'after-make-frame-functions
+          '(lambda ()
+             (unless (display-graphic-p)
+               (dolist (each-key-binding zw/keybinding-list)
+                 (eval each-key-binding)))))
 
 (provide 'init-keybinding)
