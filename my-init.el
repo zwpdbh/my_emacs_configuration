@@ -32,21 +32,23 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-const)
 (require 'init-utils)     ;; the file provide useful common functions
+(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el 
 (require 'init-elpa)      ;; Machinery for installing required packages
+(require 'init-exec-path) ;; Set up $PATH
 
+;;----------------------------------------------------------------------------
+;; Load configs for specific features and modes
+;;----------------------------------------------------------------------------
 ;; Emacs Start Up Profiler
 (unless (or (package-installed-p 'esup)
             (not window-system))  
   (package-install 'esup))
 
-(require 'init-exec-path) ;; Set up $PATH
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-;;----------------------------------------------------------------------------
-;; Load configs for specific features and modes
-;;----------------------------------------------------------------------------
 (require-init 'init-autoload)
 
 (maybe-require-package 'diminish)
