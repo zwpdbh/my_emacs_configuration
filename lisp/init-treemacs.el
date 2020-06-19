@@ -35,7 +35,7 @@
   :config
   :bind
   (:map global-map
-        ("C-c C-t"   . treemacs)
+        ("C-x t t"   . treemacs)
         ("M-0"       . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
         ("C-x t t"   . treemacs)
