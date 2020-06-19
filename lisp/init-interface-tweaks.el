@@ -1,12 +1,13 @@
 ;; ===== aligh commands
 ;; https://www.emacswiki.org/emacs/AlignCommands#toc5
-(add-hook 'align-load-hook (lambda ()
-                             (add-to-list 'align-rules-list
-                                          '(text-column-whitespace
-                                            (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
-                                            (group   . 2)
-                                            (modes   . align-text-modes)
-                                            (repeat  . t)))))
+(add-hook 'align-load-hook
+          (lambda ()
+            (add-to-list 'align-rules-list
+                         '(text-column-whitespace
+                           (regexp  . "\\(^\\|\\S-\\)\\([ \t]+\\)")
+                           (group   . 2)
+                           (modes   . align-text-modes)
+                           (repeat  . t)))))
 
 ;; ===== make cursor blink time 
 (setq blink-cursor-blinks 10)
@@ -16,8 +17,12 @@
 
 ;; ===== adaptive-wrap
 (global-visual-line-mode)
-(when (require 'visual-fill-column)
-  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+(add-hook 'after-init-hook '(lambda ()
+                              (setq fill-column 120)))
+;; (when (require 'visual-fill-column)
+;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+(when (require 'adaptive-wrap)
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
 ;; (sanityinc/add-subdirs-to-load-path
 ;;  (expand-file-name "site-lisp" user-emacs-directory))
 
