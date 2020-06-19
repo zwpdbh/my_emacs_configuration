@@ -46,7 +46,10 @@
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
 
-;; note about keybindings in terminal
+;; note about keybindings in terminal, two scnarios could happen
+;; 1) key from outside is not mapped currectly
+;; 2) key from outside is not mapped at all!
+
 ;; (add-hook 'after-make-frame-functions
 ;;           '(lambda ()
 ;;              (unless (display-graphic-p)
