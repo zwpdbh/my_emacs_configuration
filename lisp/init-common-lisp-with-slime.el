@@ -38,13 +38,13 @@
   (setq my-roswell (executable-find "ros"))
 
   (cond
-   (my-ccl
-    (setq inferior-lisp-program my-ccl)
-    (setq slime-lisp-implementations `((ccl (,my-ccl)))))
    (my-roswell
     ;; Use ros default cl implementation.
     ;; To switch different implementations, use ros use ccl-bin, or ros use sbcl/2.0.2
     (setq inferior-lisp-program (concat my-roswell " -Q run")))
+   (my-ccl
+    (setq inferior-lisp-program my-ccl)
+    (setq slime-lisp-implementations `((ccl (,my-ccl)))))
    (my-sbcl
     (setq inferior-lisp-program my-sbcl)
     (setq slime-lisp-implementations `((sbcl (,my-sbcl)))))
