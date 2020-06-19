@@ -25,7 +25,9 @@
                                 (lsp-mode t)
                                 (lsp)
                                 (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
-                                (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)))))
+                                (if (display-graphic-p)
+                                    (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)
+                                  (define-key js2-mode-map (kbd "C-x .") 'lsp-ui-peek-find-references))))))
 
 ;; (defun zw/use-tern-javascript ()
 ;;   "Use tern as javascript backend"
