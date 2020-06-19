@@ -37,6 +37,11 @@
     (global-set-key (kbd "RET") 'electrify-return-if-match)))
 
 
+(add-hook 'paredit-mode-hook '(lambda ()
+                                (unless (display-graphic-p)
+                                  (define-key input-decode-map "\e[1;5D" [C-left])
+                                  (define-key input-decode-map "\e[1;5C" [C-right]))))
+
 ;; Show matching parenthesis
 (show-paren-mode 1)
 (setq show-paren-delay 0)

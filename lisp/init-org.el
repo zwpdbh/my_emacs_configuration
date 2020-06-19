@@ -44,4 +44,9 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
+(add-hook 'org-mode-hook '(lambda ()
+                            (unless (display-graphic-p)
+                              (define-key input-decode-map "\e[1;5D" [M-left])
+                              (define-key input-decode-map "\e[1;5C" [M-right]))))
+
 (provide 'init-org)
