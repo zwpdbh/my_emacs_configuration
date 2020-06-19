@@ -64,7 +64,7 @@
 ;; (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
 ;; (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))
 
-(add-hook 'focus-in-hook
+(add-hook 'buffer-list-update-hook
           '(lambda ()
              (unless (display-graphic-p)
                (if (equal major-mode 'org-mode)
