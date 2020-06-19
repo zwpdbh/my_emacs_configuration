@@ -15,10 +15,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; ===== adaptive-wrap
-(when (maybe-require-package 'adaptive-wrap)
-  (when (symbol-function 'adaptive-wrap-prefix-mode)
-    (global-visual-line-mode t)
-    (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
+;; (when (maybe-require-package 'adaptive-wrap)
+;;   (when (symbol-function 'adaptive-wrap-prefix-mode)
+;;     (global-visual-line-mode t)
+;;     (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)))
 
 ;; ===== highlight current line 
 (global-hl-line-mode +1)
