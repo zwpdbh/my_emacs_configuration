@@ -4,7 +4,8 @@
 
 ;;; Set load path
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl)) ; remove-if-not is from cl, not cl-lib
+;; (eval-when-compile (require 'cl-lib))
 (defun sanityinc/add-subdirs-to-load-path (parent-dir)
   "Adds every non-hidden subdir of PARENT-DIR to `load-path'."
   (let* ((default-directory parent-dir))
