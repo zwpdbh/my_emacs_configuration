@@ -43,7 +43,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook (magit-diff-visit-file . (lambda ()
                                    (when smerge-mode
                                      (unpackaged/smerge-hydra/body)))))
-(defun magit-hydra/zw ()
+(defun zw/magit-hydra ()
   (interactive)
   (unpackaged/smerge-hydra/body))
 
