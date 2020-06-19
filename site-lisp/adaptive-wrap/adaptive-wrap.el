@@ -32,18 +32,24 @@
 
 (defcustom adaptive-wrap-extra-indent 0
   "Number of extra spaces to indent in `adaptive-wrap-prefix-mode'.
+
 `adaptive-wrap-prefix-mode' indents the visual lines to
 the level of the actual line plus `adaptive-wrap-extra-indent'.
 A negative value will do a relative de-indent.
+
 Examples:
+
 actual indent = 2
 extra indent = -1
+
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
  enim ad minim veniam, quis nostrud exercitation ullamco laboris
  nisi ut aliquip ex ea commodo consequat.
+
 actual indent = 2
 extra indent = 2
+
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -63,10 +69,10 @@ extra indent = 2
           ;; restriction doesn't make much sense (and is positively harmful in
           ;; taskpaper-mode where paragraph-start matches everything).
           (or (let ((paragraph-start "\\`\\'a"))
-                    (fill-context-prefix beg end))
-                  ;; Note: fill-context-prefix may return nil; See:
-                  ;; http://article.gmane.org/gmane.emacs.devel/156285
-                  ""))
+                (fill-context-prefix beg end))
+              ;; Note: fill-context-prefix may return nil; See:
+              ;; http://article.gmane.org/gmane.emacs.devel/156285
+              ""))
          (fcp-len (string-width fcp))
          (fill-char (if (< 0 fcp-len)
                         (string-to-char (substring fcp -1))
@@ -148,6 +154,87 @@ extra indent = 2
 	      :help "Show wrapped long lines with an adjustable prefix"
 	      :button (:toggle . (bound-and-true-p adaptive-wrap-prefix-mode)))
   word-wrap)
+
+;;;; ChangeLog:
+
+;; 2018-10-16  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	* adaptive-wrap.el (adaptive-wrap-fill-context-prefix): Ignore
+;; 	paragraph-start
+;; 
+;; 	(and rename 'en' to 'end'). Reported by Dmitry Safronov
+;; 	<saf.dmitry@gmail.com>
+;; 
+;; 2018-10-15  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	* adaptive-wrap/adaptive-wrap.el: Fix interaction with visual-fill
+;; 
+;; 	(adaptive-wrap-prefix-function): Remove problematic 'display' properties 
+;; 	as well.
+;; 
+;; 2018-03-12  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	* adaptive-wrap/adaptive-wrap.el: Fix use without font-lock
+;; 
+;; 	(adaptive-wrap-prefix-function): Work on whole lines. Fix a kind of
+;; 	memory leak.
+;; 
+;; 2017-05-04  Noam Postavsky  <npostavs@users.sourceforge.net>
+;; 
+;; 	Mark adaptive-wrap-extra-indent as safe if integerp (Bug#23816)
+;; 
+;; 	* packages/adaptive-wrap/adaptive-wrap.el: Bump version, copyright.
+;; 	(adaptive-wrap-extra-indent): Mark as safe if integerp.
+;; 
+;; 2013-08-24  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	* adaptive-wrap.el (adaptive-wrap-mode): Move after font-lock
+;; 	(bug#15155).
+;; 
+;; 2013-07-31  Stephen Berman  <stephen.berman@gmx.net>
+;; 
+;; 	* adaptive-wrap.el: Fix bug#14974 by using define-key-after instead of
+;; 	easy-menu-add-item.
+;; 	(adaptive-wrap-unload-function): Remove.
+;; 
+;; 2013-07-29  Stephen Berman  <stephen.berman@gmx.net>
+;; 
+;; 	* adaptive-wrap.el: Require easymenu (bug#14974).
+;; 
+;; 2013-07-19  Rüdiger Sonderfeld  <ruediger@c-plusplus.de>
+;; 
+;; 	* adaptive-wrap.el (menu-bar-options-menu): Add checkbox for Adaptive
+;; 	Wrap to the Line Wrapping submenu.
+;; 	(adaptive-wrap-unload-function): New function.
+;; 
+;; 2013-02-01  Stephen Berman  <stephen.berman@gmx.net>
+;; 
+;; 	Fix error during redisplay: (wrong-type-argument stringp nil)
+;; 
+;; 2012-12-05  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	* adaptive-wrap.el (adaptive-wrap-extra-indent): Fix buffer-localness. 
+;; 	Reported by Jonathan Kotta <jpkotta@gmail.com>.
+;; 
+;; 2012-10-30  Stefan Monnier  <monnier@iro.umontreal.ca>
+;; 
+;; 	Clean up copyright notices.
+;; 
+;; 2012-05-21  Jonathan Kotta  <jpkotta@gmail.com>
+;; 
+;; 	Add adaptive-wrap-extra-indent.
+;; 	* adaptive-wrap/adaptive-wrap.el (adaptive-wrap-extra-indent): New var.
+;; 	(adaptive-wrap-fill-context-prefix): New function.
+;; 	(adaptive-wrap-prefix-function): Use it.
+;; 	(adaptive-wrap-prefix-mode): Add to visual-line custom group.
+;; 
+;; 2012-01-05  Chong Yidong  <cyd@gnu.org>
+;; 
+;; 	Rename adaptive-wrap-prefix to adaptive-wrap.
+;; 
+;; 	The old name overflowed the column in list-packages.
+;; 
+
 
 (provide 'adaptive-wrap)
 ;;; adaptive-wrap.el ends here
