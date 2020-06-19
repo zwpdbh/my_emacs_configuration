@@ -45,7 +45,23 @@
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
-(add-hook 'after-make-frame-functions
+
+;; note about keybindings in terminal
+;; (add-hook 'after-make-frame-functions
+;;           '(lambda ()
+;;              (unless (display-graphic-p)
+;;                (if (equal major-mode 'org-mode)
+;;                    (progn
+;;                      (define-key input-decode-map "\e[1;5D" [M-left])
+;;                      (define-key input-decode-map "\e[1;5C" [M-right]))
+;;                  (define-key input-decode-map "\e[1;5D" [C-left])
+;;                  (define-key input-decode-map "\e[1;5C" [C-right])))))
+
+;; functions will remap keys
+;; (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
+;; (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))
+
+(add-hook 'focus-in-hook
           '(lambda ()
              (unless (display-graphic-p)
                (if (equal major-mode 'org-mode)
@@ -55,12 +71,12 @@
                  (define-key input-decode-map "\e[1;5D" [C-left])
                  (define-key input-decode-map "\e[1;5C" [C-right])))))
 
+;; (add-hook 'org-mode-hook
+;;           '(lambda ()
+;;              (unless (display-graphic-p)
+;;                (define-key input-decode-map "\e[1;5D" [M-left])
+;;                (define-key input-decode-map "\e[1;5C" [M-right]))))
 
-(add-hook 'org-mode-hook
-          '(lambda ()
-             (unless (display-graphic-p)
-               (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
-               (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>")))))
 
 
 (provide 'init-keybinding)
