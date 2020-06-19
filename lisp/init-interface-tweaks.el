@@ -16,15 +16,16 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; ===== adaptive-wrap
-(global-visual-line-mode)
-(add-hook 'after-init-hook '(lambda ()
-                              (setq fill-column 120)))
-;; (when (require 'visual-fill-column)
-;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+(global-visual-line-mode t)
+(set-default 'fill-column 120)
+
 (when (require 'adaptive-wrap)
   (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
-;; (sanityinc/add-subdirs-to-load-path
-;;  (expand-file-name "site-lisp" user-emacs-directory))
+;; (when (require 'visual-fill-column)
+;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+
+
+
 
 
 ;; ===== highlight current line 
