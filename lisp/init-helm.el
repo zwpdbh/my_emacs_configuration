@@ -20,6 +20,12 @@
   :config
   (helm-projectile-on))
 
+(when (maybe-require-package 'helm-descbinds)
+  (after-load 'helm
+    (helm-descbinds-mode t)
+    (global-unset-key (kbd "C-h b"))
+    (global-set-key (kbd "C-h b") #'helm-descbinds)))
+
 (use-package helm
   :diminish
   :ensure t
