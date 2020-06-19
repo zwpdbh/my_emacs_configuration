@@ -37,21 +37,11 @@
     (global-set-key (kbd "RET") 'electrify-return-if-match)))
 
 
-(add-hook 'paredit-mode-hook '(lambda ()
-                                (unless (display-graphic-p)
-                                  (define-key input-decode-map "\e[1;5D" [C-left])
-                                  (define-key input-decode-map "\e[1;5C" [C-right]))))
-
 ;; Show matching parenthesis
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (require 'paren)
-;; (set-face-background 'show-paren-match (face-background 'default))
 
-
-;; customize parenthese
-;; (when (maybe-require-package 'paren-face)
-;;   (global-paren-face-mode t))
 
 (when (require-package 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))

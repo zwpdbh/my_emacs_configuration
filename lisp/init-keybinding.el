@@ -45,19 +45,18 @@
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
-
-;; (defun emacs-running-type ()
-;;   (cond
-;;    ((display-graphic-p)
-;;     1)
-;;    (getenv "DISPLAY")
-;;    2)
-;;   3)
-
-;; (when (and (not *win64*)
-;;            (not window-system))
-;;   (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
-;;   (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>")))
+(add-hook 'after-make-frame-functions
+          '(lambda ()
+             (unless (display-graphic-p)
+               ;; (if (equal major-mode 'org-mode)
+               ;;     (progn
+               ;;       (define-key input-decode-map "\e[1;5D" [M-left])
+               ;;       (define-key input-decode-map "\e[1;5C" [M-right]))
+               ;;   (define-key input-decode-map "\e[1;5D" [C-left])
+               ;;   (define-key input-decode-map "\e[1;5C" [C-right]))
+               (when (equal major-mode 'org-mode)
+                 (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
+                 (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))))))
 
 
 (provide 'init-keybinding)
