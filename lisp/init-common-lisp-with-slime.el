@@ -7,10 +7,7 @@
       ;; (message "testing company-slime")
       (when (symbol-function 'company-slime)
         ;; (message "set company-slime into company-backends properly")
-        (let* ((head (car company-backends))
-               (tail (cdr company-backends))
-               (with-slime (cons 'company-slime head)))
-          (setq-local company-backends (cons with-slime tail)))))
+        (setq company-backends '((company-dabbrev company-slime company-capf) company-files company-keywords))))
 
     ;; set company-slime into company-backends properly
     (after-load 'slime-company
