@@ -1,4 +1,4 @@
-(when (maybe-require-package 'slime)
+(when (maybe-require-package 'slime)  
   (require 'slime-autoloads)
   
   (when (maybe-require-package 'slime-company)
@@ -7,7 +7,13 @@
       ;; (message "testing company-slime")
       (when (symbol-function 'company-slime)
         ;; (message "set company-slime into company-backends properly")
-        (setq-local company-backends '((company-dabbrev-code company-slime company-capf) company-dabbrev company-files company-keywords))))
+        (setq-local company-backends '((company-slime company-dabbrev-code company-capf) company-dabbrev company-files company-keywords))
+        (setq slime-complete-symbol*-fancy t
+              ;; options are slime-simple-completion-at-point, slime-complete-symbol*, slime-fuzzy-complete-symbol
+              slime-completion-at-point-functions 'slime-simple-completion-at-point
+              slime-when-complete-filename-expand t
+              slime-truncate-lines nil
+              slime-autodoc-use-multiline-p t)))
 
     ;; set company-slime into company-backends properly
     (after-load 'slime-company
@@ -52,14 +58,7 @@
     (setq inferior-lisp-program my-clisp)
     (setq slime-lisp-implementations `((clisp (,my-clisp))))))
 
-  (after-load 'slime
-    (setq slime-complete-symbol*-fancy t
-          ;; options are slime-simple-completion-at-point, slime-complete-symbol*, slime-fuzzy-complete-symbol
-          slime-completion-at-point-functions 'slime-simple-completion-at-point
-          slime-when-complete-filename-expand t
-          slime-truncate-lines nil
-          slime-autodoc-use-multiline-p t)
-    
+  (after-load 'slime    
     (define-key slime-mode-map  (kbd "C-c C-c") nil)
     (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
     (define-key slime-mode-map  (kbd "C-c C-e") nil)
