@@ -11,7 +11,7 @@
 
 (when (maybe-require-package 'company)
   (defun zw/set-company-backends-global ()
-    (setq company-backends '((company-dabbrev-code company-capf) company-dabbrev company-files company-keywords)))
+    (setq company-backends '((company-dabbrev-code company-capf) company-keywords company-files company-dabbrev)))
   
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "M-C-/") 'company-complete)
