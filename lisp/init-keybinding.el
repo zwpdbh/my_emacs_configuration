@@ -11,7 +11,10 @@
 (global-set-key (kbd "C-z") #'undo)
 
 (global-set-key (kbd "<f8>") 'replace-string)
-(global-set-key (kbd "C-\\") 'comment-or-uncomment-region)
+(if (display-graphic-p)
+    (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+  (global-set-key (kbd "C-\\") 'comment-or-uncomment-region))
+
 
 ;; use c-c c-c to execute a lisp function
 (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
