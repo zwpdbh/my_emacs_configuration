@@ -1,5 +1,7 @@
 ;; evaluation lisp using sly instead of slime, need to use org-plus-contrib
-(setq org-babel-lisp-eval-fn #'sly-eval)
+(if (featurep 'init-common-lisp-with-slime)
+    (setq org-babel-lisp-eval-fn #'slime-eval)
+  (setq org-babel-lisp-eval-fn #'sly-eval))
 
 ;; http request in org-mode babel, requires curl
 (use-package ob-http
