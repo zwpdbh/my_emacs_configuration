@@ -38,8 +38,8 @@
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
   ;; use macbook's command(cmd) key as meta key 
-  ;; (setq mac-command-modifier 'meta
-  ;;       mac-option-modifier 'none)
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'none)
 
   ;; Make mouse wheel / trackpad scrolling less jerky
   (setq mouse-wheel-scroll-amount '(1
