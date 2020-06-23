@@ -9,8 +9,8 @@
 
 (defun zw/terraform-mode-hook ()
   ;; (setq-local company-backends (append '(company-terraform) company-backends))
-  (set (make-local-variable 'company-backends) 
-       '((company-bbdb company-terraform company-capf company-dabbrev-code)))
+  (set (make-local-variable 'company-backends)
+       '((company-dabbrev-code company-terraform company-capf) company-keywords company-files company-dabbrev))
   (setq terraform-indent-level 2))
 
 (add-hook 'terraform-mode-hook '(lambda ()
