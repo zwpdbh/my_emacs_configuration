@@ -51,25 +51,24 @@
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
 
-;; note about keybindings in terminal, two scnarios could happen
-;; 1) key from outside is not mapped currectly
-;; 2) key from outside is not mapped at all!
-
-;; (add-hook 'after-make-frame-functions
-;;           '(lambda ()
-;;              (unless (display-graphic-p)
-;;                (if (equal major-mode 'org-mode)
-;;                    (progn
-;;                      (define-key input-decode-map "\e[1;5D" [M-left])
-;;                      (define-key input-decode-map "\e[1;5C" [M-right]))
-;;                  (define-key input-decode-map "\e[1;5D" [C-left])
-;;                  (define-key input-decode-map "\e[1;5C" [C-right])))))
-
-;; functions will remap keys
-;; (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
-;; (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))
-
 (unless (display-graphic-p)
+  ;; note about keybindings in terminal, two scnarios could happen
+  ;; 1) key from outside is not mapped currectly
+  ;; 2) key from outside is not mapped at all!
+
+  ;; (add-hook 'after-make-frame-functions
+  ;;           '(lambda ()
+  ;;              (unless (display-graphic-p)
+  ;;                (if (equal major-mode 'org-mode)
+  ;;                    (progn
+  ;;                      (define-key input-decode-map "\e[1;5D" [M-left])
+  ;;                      (define-key input-decode-map "\e[1;5C" [M-right]))
+  ;;                  (define-key input-decode-map "\e[1;5D" [C-left])
+  ;;                  (define-key input-decode-map "\e[1;5C" [C-right])))))
+
+  ;; functions will remap keys
+  ;; (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
+  ;; (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))
   (add-hook 'buffer-list-update-hook
             '(lambda ()
                (unless (display-graphic-p)
@@ -78,14 +77,12 @@
                        (define-key input-decode-map "\e[1;5D" [M-left])
                        (define-key input-decode-map "\e[1;5C" [M-right]))
                    (define-key input-decode-map "\e[1;5D" [C-left])
-                   (define-key input-decode-map "\e[1;5C" [C-right]))))))
-
-;; (add-hook 'org-mode-hook
-;;           '(lambda ()
-;;              (unless (display-graphic-p)
-;;                (define-key input-decode-map "\e[1;5D" [M-left])
-;;                (define-key input-decode-map "\e[1;5C" [M-right]))))
-
+                   (define-key input-decode-map "\e[1;5C" [C-right])))))
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (unless (display-graphic-p)
+                 (define-key input-decode-map "\e[1;5D" [M-left])
+                 (define-key input-decode-map "\e[1;5C" [M-right])))))
 
 
 (provide 'init-keybinding)
