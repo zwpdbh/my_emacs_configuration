@@ -7,10 +7,14 @@
 ;; use cmd + n and cmd + p to select next and previous lines
 (global-set-key (kbd "s-n") (kbd "C-S-n"))
 (global-set-key (kbd "s-p") (kbd "C-S-p"))
+
+;; set paredit-backward and paredit-forward
+(global-set-key (kbd "<f8>") (kbd "C-M-f"))
+(global-set-key (kbd "<f7>") (kbd "C-M-b"))
+
 ;; use c-z to undo
 (global-set-key (kbd "C-z") #'undo)
 
-(global-set-key (kbd "<f8>") 'replace-string)
 (if (display-graphic-p)
     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
   (global-set-key (kbd "C-\\") 'comment-or-uncomment-region))
@@ -65,15 +69,16 @@
 ;; (define-key key-translation-map (kbd "<C-left>") (kbd "<M-left>"))
 ;; (define-key key-translation-map (kbd "<C-right>") (kbd "<M-right>"))
 
-(add-hook 'buffer-list-update-hook
-          '(lambda ()
-             (unless (display-graphic-p)
-               (if (equal major-mode 'org-mode)
-                   (progn
-                     (define-key input-decode-map "\e[1;5D" [M-left])
-                     (define-key input-decode-map "\e[1;5C" [M-right]))
-                 (define-key input-decode-map "\e[1;5D" [C-left])
-                 (define-key input-decode-map "\e[1;5C" [C-right])))))
+(unless (display-graphic-p)
+  (add-hook 'buffer-list-update-hook
+            '(lambda ()
+               (unless (display-graphic-p)
+                 (if (equal major-mode 'org-mode)
+                     (progn
+                       (define-key input-decode-map "\e[1;5D" [M-left])
+                       (define-key input-decode-map "\e[1;5C" [M-right]))
+                   (define-key input-decode-map "\e[1;5D" [C-left])
+                   (define-key input-decode-map "\e[1;5C" [C-right]))))))
 
 ;; (add-hook 'org-mode-hook
 ;;           '(lambda ()
