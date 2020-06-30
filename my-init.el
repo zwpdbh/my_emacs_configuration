@@ -147,7 +147,7 @@
 
 ;; error prone configuration
 (require-init 'init-latex)
-
+(require 'init-erlang)
 
 ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
 ;; Adding directories under "site-lisp/" to `load-path' slows
