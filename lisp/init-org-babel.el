@@ -9,6 +9,7 @@
   :defer t
   :ensure t)
 
+
 ;;;; https://github.com/DEADB17/ob-racket
 ;; (use-package ob-racket
 ;;   :after org
@@ -19,7 +20,17 @@
                              (progn
                                ;; all languages needed to be confirmed to execute except:
                                (defun my-org-confirm-babel-evaluate (lang body)
-                                (not (member lang '("emacs-lisp" "lisp" "scheme" "clojure" "python" "R" "C" "latex" "dot" "plantuml"))))
+                                 (not (member lang '("emacs-lisp"
+                                                     "lisp"
+                                                     "scheme"
+                                                     "clojure"
+                                                     "python"
+                                                     "R"
+                                                     "C"
+                                                     "latex"
+                                                     "dot"
+                                                     "plantuml"
+                                                     "erlang"))))
                                (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
 (eval-after-load 'org
@@ -46,7 +57,8 @@
          (http . t)
          (latex . t)
          (dot . t)
-         (plantuml . t)))
+         (plantuml . t)
+         (erlang . t)))
 
       ;; (add-to-list 'org-structure-template-alist '("racket" . "src racket :lang sicp"))
       (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
@@ -70,6 +82,7 @@
       (add-to-list 'org-structure-template-alist '("ex" . "example"))
       (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
       (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
-      (add-to-list 'org-structure-template-alist '("latex" . "src latex"))))
+      (add-to-list 'org-structure-template-alist '("latex" . "src latex"))
+      (add-to-list 'org-structure-template-alist '("erlang" . "src erlang"))))
 
 (provide 'init-org-babel)
