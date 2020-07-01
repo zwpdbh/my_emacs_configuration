@@ -36,7 +36,8 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   
   (setq-default company-dabbrev-other-buffers 'all
-                company-dabbrev-code-other-buffers t
+                company-dabbrev-code-other-buffers 'all
+                company-dabbrev-code-everywhere t
                 company-tooltip-align-annotations t)
   
   (setq company-require-match nil
