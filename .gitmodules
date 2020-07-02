@@ -1,3 +1,0 @@
-[submodule "site-lisp/ob-erlang"]
-	path = site-lisp/ob-erlang
-	url = https://github.com/xfwduke/ob-erlang.git
