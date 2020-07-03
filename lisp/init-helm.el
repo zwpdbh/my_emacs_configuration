@@ -92,6 +92,18 @@
     (add-hook 'helm-minibuffer-set-up-hook
               'spacemacs//helm-hide-minibuffer-maybe)
 
+    ;; with silver search
+    (setq helm-grep-ag-command        ;; ~ag~ from "the-silver-searcher"
+          "ag --line-numbers -S --color --color-match '31;43' --nogroup %s %s %s")
+    (setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))
+
+    ;; with ripgrep
+    ;; (setq helm-grep-ag-command        ;; ~rg (ripgrep)~
+    ;;       "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
+    ;; (setq helm-grep-ag-pipe-cmd-switches
+    ;;       '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+    
+    
     (setq helm-autoresize-max-height 45)
     (setq helm-autoresize-min-height 30)    
     (helm-autoresize-mode t)
