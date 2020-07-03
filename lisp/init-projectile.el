@@ -6,6 +6,7 @@
   :init
   (setq-default projectile-mode-line-prefix " Proj")
   (setq projectile-completion-system 'helm)
+  (setq projectile-globally-unignored-files '(".gitlab-ci.yml"))
   :ensure t
   :bind ("C-c p" . projectile-command-map))
 
