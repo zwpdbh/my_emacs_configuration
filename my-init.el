@@ -67,6 +67,7 @@
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-parenthese)
 (require-init 'init-silver-search)
+(require 'init-ripgrep)
 
 (require-init 'init-convenient)
 (require-init 'init-keybinding)
