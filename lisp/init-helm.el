@@ -43,7 +43,20 @@
     ;; C-x C-f runs the command counsel-find-file
     (global-unset-key (kbd "C-x C-f"))
     (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    ;; skip meaningless files, e.g. .DS_Store
+    (setq helm-ff-skip-boring-files t)
+    (delete '"\\.bbl$" helm-boring-file-regexp-list)    ;show .bbl file
+    (add-to-list 'helm-boring-file-regexp-list "\\.DS_Store$")
+    (add-to-list 'helm-boring-file-regexp-list ".*\.synctex\.gz$")
+    (add-to-list 'helm-boring-file-regexp-list ".*\.url$")
+    (add-to-list 'helm-boring-file-regexp-list "\\.dropbox$")
+    (add-to-list 'helm-boring-file-regexp-list "Icon.*")
+    (add-to-list 'helm-boring-file-regexp-list "#.*#$")
+    (add-to-list 'helm-boring-file-regexp-list "\\.out$")
+    
     (global-set-key (kbd "M-y") #'helm-show-kill-ring)
+    (global-set-key (kbd "M-x") 'helm-M-x)
+    (global-set-key (kbd "C-x b") 'helm-mini)
 
     (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action) ; rebind tab to run persistent action
     ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
