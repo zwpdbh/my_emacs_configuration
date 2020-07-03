@@ -1,8 +1,8 @@
-(use-package ag
+(use-package rg
   :ensure t
   :defer t)
 
-(use-package helm-ag
+(use-package helm-rg
   :ensure t
   :defer t
   :commands (helm-projectile-rg))
