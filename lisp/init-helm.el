@@ -55,9 +55,6 @@
     (add-to-list 'helm-boring-file-regexp-list "\\.out$")
     
     (global-set-key (kbd "M-y") #'helm-show-kill-ring)
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    (global-set-key (kbd "C-x b") 'helm-mini)
-
     (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action) ; rebind tab to run persistent action
     ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
     (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
@@ -96,7 +93,7 @@
               'spacemacs//helm-hide-minibuffer-maybe)
 
     (setq helm-autoresize-max-height 45)
-    (setq helm-autoresize-min-height 30)
+    (setq helm-autoresize-min-height 30)    
     (helm-autoresize-mode t)
     (helm-mode 1)))
 
