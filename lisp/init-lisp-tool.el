@@ -31,6 +31,7 @@
                          lisp-interaction-mode
                          emacs-lisp-mode
                          sly-mode
+                         slime-repl-mode
                          ielm-mode
                          eval-expression-minibuffer-setup
                          common-lisp-mode
