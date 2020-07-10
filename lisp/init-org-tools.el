@@ -1,12 +1,3 @@
-;; === Github Flavored Markdown
-(use-package ox-gfm
-  :defer t
-  :ensure t
-  :config
-  (progn
-    (eval-after-load "org"
-      '(require 'ox-gfm nil t))))
-
 ;; === Capture screenshot within Emacs
 (use-package org-attach-screenshot
   :commands (org-mode)
@@ -48,5 +39,15 @@
   :config
   (progn
     (add-hook 'dired-mode-hook 'org-download-enable)))
+
+;; Github Flavored Markdown exporter for Org Mode
+(when (maybe-require-package 'ox-gfm)
+  (eval-after-load "org"
+    '(require 'ox-gfm nil t)))
+
+;;export content of subtrees without their headings
+(after-load 'ox-extra
+  (ox-extras-activate '(ignore-headlines)))
+
 
 (provide 'init-org-tools)
