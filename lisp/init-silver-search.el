@@ -5,6 +5,6 @@
 ;; available options see: https://github.com/emacsorphanage/helm-ag
 (when (maybe-require-package 'helm-ag)
   (setq helm-ag-command-option "--hidden --ignore .git"
-        helm-ag-insert-at-point 'symbol))
+        helm-ag-insert-at-point nil))
 
 (provide 'init-silver-search)
