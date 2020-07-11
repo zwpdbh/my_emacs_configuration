@@ -77,10 +77,14 @@
                                    :background "black"
                                    :inverse-video nil
                                    :weight 'extrabold)
-               ;; customized the company selection list color
-               (set-face-attribute 'company-tooltip-common nil
-                                   :foreground "#73c936"  
-                                   :weight 'bold)))
+               ;; customized the company selection list color for doom-Iosvkem theme
+               (when (string-equal custom-enabled-theme "doom-Iosvkem")
+                 (set-face-attribute 'company-tooltip-common nil
+                                     :foreground "#73c936"  
+                                     :weight 'bold)
+                 (set-face-attribute 'company-preview-common nil
+                                     :foreground "#73c936"
+                                     :background (face-background 'default t t)))))
 
   ;; set the lsp-ui-peek related
   (add-hook 'lsp-ui-mode-hook
