@@ -1,6 +1,15 @@
 ;;; init-themes.el --- Defaults for themes -*- lexical-binding: t -*-
 
 ;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, sanityinc-tomorrow-night, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
+(setq zw/green "#73c936"
+      zw/purple "#b294bb"
+      zw/yellow "#f0c674"
+      zw/red  "IndianRed"
+      zw/purple "MediumPurple4"
+      zw/blue "#352d67"
+      zw/white "#def")
+
+
 (use-package doom-themes
   :ensure t
   :defer t)
@@ -30,31 +39,25 @@
   (load-theme custom-enabled-theme)
 
   (when window-system
-    (set-cursor-color "IndianRed")
+    (set-cursor-color zw/red)
     (setq-default cursor-type '(bar . 2)))
-  
+
   (when window-system
     (setq show-paren-style 'expression))
-  ;; tried color candidates: SteelBlue
-  ;; #73c936 green
-  ;; #b294bb purple
-  ;; #f0c674 yellow
-  ;; "IndianRed"
-  ;; "MediumPurple4"
-  ;; "dark slate blue", #352d67
-  ;; "#def"  Font Lock Keyword  Face
-  (when (string-equal custom-enabled-theme "doom-Iosvkem")
-    (set-face-attribute 'link nil
-                        :foreground "#73c936"
-                        :weight 'bold
-                        :underline t))
-
   
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "dark slate blue")
+                      :background zw/blue)
+
+  (when (string-equal custom-enabled-theme "doom-Iosvkem")
+    (set-face-attribute 'link nil
+                        :foreground zw/green
+                        :weight 'bold
+                        :underline t)
+    (set-face-attribute 'highlight nil
+                        :background zw/red))
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
@@ -87,10 +90,10 @@
                ;; customized the company selection list color for doom-Iosvkem theme
                (when (string-equal custom-enabled-theme "doom-Iosvkem")
                  (set-face-attribute 'company-tooltip-common nil
-                                     :foreground "#73c936"  
+                                     :foreground zw/green
                                      :weight 'bold)
                  (set-face-attribute 'company-preview-common nil
-                                     :foreground "#73c936"
+                                     :foreground zw/green
                                      :background (face-background 'default t t)))))
 
   ;; set the lsp-ui-peek related
@@ -115,7 +118,7 @@
   ;; set different org-mode color
   (add-hook 'org-mode-hook '(lambda ()
                               (set-face-attribute 'org-code nil
-                                                  :foreground "#73c936")
+                                                  :foreground zw/green)
                               (set-face-attribute 'org-block nil
                                                   :foreground (face-foreground 'default t t))
                               (setq org-emphasis-alist
