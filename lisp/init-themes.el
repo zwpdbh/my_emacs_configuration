@@ -42,7 +42,14 @@
   ;; "IndianRed"
   ;; "MediumPurple4"
   ;; "dark slate blue", #352d67
-  ;; "#def"  Font Lock Keyword  Face 
+  ;; "#def"  Font Lock Keyword  Face
+  (when (string-equal custom-enabled-theme "doom-Iosvkem")
+    (set-face-attribute 'link nil
+                        :foreground "#73c936"
+                        :weight 'bold
+                        :underline t))
+
+  
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
                       :underline nil
