@@ -14,7 +14,7 @@
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'sanityinc-tomorrow-bright)
+(setq-default custom-enabled-theme 'doom-monokai-spectrum)
 
 (use-package symbol-overlay
   :ensure t
