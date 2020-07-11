@@ -76,7 +76,11 @@
                                    :foreground (face-foreground 'default t t)
                                    :background "black"
                                    :inverse-video nil
-                                   :weight 'extrabold)))
+                                   :weight 'extrabold)
+               ;; customized the company selection list color
+               (set-face-attribute 'company-tooltip-common nil
+                                   :foreground "#73c936"  
+                                   :weight 'bold)))
 
   ;; set the lsp-ui-peek related
   (add-hook 'lsp-ui-mode-hook
