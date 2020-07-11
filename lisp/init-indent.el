@@ -46,6 +46,7 @@
 
                               ;; Language-Specific Tweaks
                               (add-hook 'python-mode-hook '(lambda ()
+                                                             (set (make-local-variable 'custom-indent-width) 4)
                                                              (setq-default python-indent-offset custom-indent-width)
                                                              (setq python-indent-offset custom-indent-width)))))
 
