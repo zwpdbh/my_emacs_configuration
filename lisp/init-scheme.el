@@ -23,8 +23,7 @@
         (t
          (setq geiser-chez-binary "chezscheme9.5")))
 
-  ;; (setq geiser-active-implementations '(guile chez))
-  ;; (setq geiser-default-implementation 'guile)
+  (setq geiser-default-implementation 'guile)
   (setq geiser-active-implementations '(guile chez))
 
   (setq geiser-mode-start-repl-p t)
