@@ -59,6 +59,7 @@
 (require 'init-xterm)
 (require 'init-themes)
 (require-init 'init-interface-tweaks)
+(require 'init-highlight-symbol)
 
 (require-init 'init-dashboard)
 (require-init 'init-gui-frames)
