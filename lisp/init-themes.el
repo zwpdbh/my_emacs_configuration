@@ -6,14 +6,14 @@
 (defvar zw/purple)
 (defvar zw/yellow)
 (defvar zw/red)
-(defvar zw/blue)
+(defvar zw/blue-purple)
 (defvar zw/white)
 
 (setq zw/green "#73c936"
       zw/purple "#b294bb"
       zw/yellow "#f0c674"
       zw/red  "IndianRed"
-      zw/blue "#352d67"
+      zw/blue-purple "#352d67"
       zw/white "#def")
 
 
@@ -51,12 +51,18 @@
 
   (when window-system
     (setq show-paren-style 'expression))
-  
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground (face-background 'default t t)
-                      :background zw/blue)
+
+  (if (string-equal custom-enabled-theme "doom-Iosvkem")
+      (set-face-attribute 'show-paren-match nil
+                          :weight 'normal
+                          :underline nil
+                          :foreground (face-background 'default t t)
+                          :background "black")
+    (set-face-attribute 'show-paren-match nil
+                        :weight 'normal
+                        :underline nil
+                        :foreground (face-background 'default t t)
+                        :background zw/blue-purple))
 
   (when (string-equal custom-enabled-theme "doom-Iosvkem")
     (set-face-attribute 'link nil
