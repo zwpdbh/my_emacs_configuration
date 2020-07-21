@@ -9,7 +9,6 @@
   :defer t
   :ensure t)
 
-
 ;;;; https://github.com/DEADB17/ob-racket
 ;; (use-package ob-racket
 ;;   :after org
