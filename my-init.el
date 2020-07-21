@@ -71,6 +71,7 @@
 (require 'init-ripgrep)
 
 (require-init 'init-convenient)
+(require-init 'init-all-the-icons)
 (require-init 'init-keybinding)
 (require-init 'init-whichkey)
 
