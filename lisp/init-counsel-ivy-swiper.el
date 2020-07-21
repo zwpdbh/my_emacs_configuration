@@ -17,12 +17,12 @@
   (setq ivy-count-format "%d/%d ")
   (setq ivy-display-style 'fancy))
 
-;; (use-package ivy-rich
-;;   :ensure t
-;;   :init (ivy-rich-mode 1)
-;;   :diminish (ivy-rich-mode)
-;;   :config
-;;   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
+(use-package ivy-rich
+  :ensure t
+  :init (ivy-rich-mode 1)
+  :diminish (ivy-rich-mode)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 
 (use-package swiper
