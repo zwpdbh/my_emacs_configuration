@@ -82,15 +82,6 @@
                       :foreground (face-foreground 'default t t)
                       :weight 'normal)
   
-  ;; make swiper selection use underline
-  (add-hook 'ivy-mode-hook
-            '(lambda ()
-               (set-face-attribute 'ivy-current-match nil
-                                   :inherit nil
-                                   :foreground nil
-                                   :background nil
-                                   :underline t
-                                   :weight 'bold)))
 
   ;; set company selection highlight
   (add-hook 'company-mode-hook
@@ -142,6 +133,17 @@
                                       ("~" org-code verbatim)
                                       ("+" (:strike-through t)))))))
 
+;; make swiper selection use underline
+(defun zw/customize-ivy-current-match ()
+  (interactive)
+  (set-face-attribute 'ivy-current-match nil
+                      :inherit nil
+                      :foreground nil
+                      :background nil
+                      :underline t
+                      :weight 'bold))
+;; (add-hook 'ivy-mode-hook #'zw/customize-ivy-current-match)
+
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-theme ()
@@ -152,7 +154,8 @@
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
   
-  (zw/customize-theme))
+  (zw/customize-theme)
+  (zw/customize-ivy-current-match))
 
 (add-hook 'after-init-hook 'apply-theme)
 
