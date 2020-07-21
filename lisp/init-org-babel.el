@@ -61,6 +61,10 @@
          (erlang . t)))
 
       ;; (add-to-list 'org-structure-template-alist '("racket" . "src racket :lang sicp"))
+      
+      (setq org-structure-template-alist (remove* "C" org-structure-template-alist :test 'equal :key 'car))
+      (add-to-list 'org-structure-template-alist '("C" . "src C"))
+      
       (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
       (add-to-list 'org-structure-template-alist '("py" . "src python"))
       (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
@@ -71,18 +75,20 @@
       (add-to-list 'org-structure-template-alist '("r" . "src R"))
       (add-to-list 'org-structure-template-alist '("js" . "src js"))
       (add-to-list 'org-structure-template-alist '("http" . "src http"))
-      (add-to-list 'org-structure-template-alist '("lt" . "LaTeX"))
+      
       (if *win64*
           (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng :file img/tmp.png"))
         (add-to-list 'org-structure-template-alist '("dot" . "src dot :file img/tmp.png")))
       ;; set the major-mode for edit babel dot src block 
       (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
+      
       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
       (add-to-list 'org-structure-template-alist '("ex" . "example"))
       (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
       (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
-      (add-to-list 'org-structure-template-alist '("latex" . "src latex"))
+      (add-to-list 'org-structure-template-alist '("latex" . "src LaTex"))
       (add-to-list 'org-structure-template-alist '("erlang" . "src erlang"))))
+
 
 (provide 'init-org-babel)
