@@ -18,16 +18,7 @@
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 
-(defun zw/use-lsp-javascript ()
-  "Use lsp for javascript backend"
-  (progn
-    (add-hook 'js2-mode-hook '(lambda ()
-                                (lsp-mode t)
-                                (lsp)
-                                (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
-                                (if (display-graphic-p)
-                                    (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)
-                                  (define-key js2-mode-map (kbd "C-x .") 'lsp-ui-peek-find-references))))))
+
 
 ;; (defun zw/use-tern-javascript ()
 ;;   "Use tern as javascript backend"
@@ -52,7 +43,9 @@
 ;;     (zw/use-tern-javascript)
 ;;   (zw/use-lsp-javascript))
 
-(zw/use-lsp-javascript)
+
+(zw/use-lsp-javascript-for 'js2-mode-hook)
+
 
 (after-load 'js2-mode
   ;; Disable js2 mode's syntax error highlighting by default...

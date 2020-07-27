@@ -42,5 +42,16 @@
              (setq-local company-backends (add-to-list 'company-backends
                                                        'company-lsp))))
 
+(defun zw/use-lsp-javascript-for (some-js-mode-hook)
+  "Use lsp for javascript backend"
+  (progn
+    (add-hook some-js-mode-hook '(lambda ()
+                                   (lsp-mode t)
+                                   (lsp)
+                                   (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
+                                   (if (display-graphic-p)
+                                       (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)
+                                     (define-key js2-mode-map (kbd "C-x .") 'lsp-ui-peek-find-references))))))
+
 
 (provide 'init-lsp)
