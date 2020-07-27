@@ -4,10 +4,12 @@
 (when (maybe-require-package 'cquery)
   (setq cquery-executable "/usr/local/bin/cquery")
   (setq cquery-extra-init-params '(:completion (:detailedLabel t)))
+  
   (defun cquery//enable ()
     (condition-case nil
         (lsp)
       (user-error nil)))
+  
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (derived-mode-p 'c-mode 'c++-mode)
