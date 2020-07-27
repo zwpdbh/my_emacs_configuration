@@ -43,8 +43,9 @@
 ;;     (zw/use-tern-javascript)
 ;;   (zw/use-lsp-javascript))
 
-
-(zw/use-lsp-javascript-for 'js2-mode-hook)
+;; if the backend is lsp, use lsp related configuration
+(when (fboundp 'zw/use-lsp-javascript-for)
+  (zw/use-lsp-javascript-for 'js2-mode-hook))
 
 
 (after-load 'js2-mode
