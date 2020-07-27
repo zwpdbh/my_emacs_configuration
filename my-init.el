@@ -111,9 +111,10 @@
 (require-init 'init-company)
 ;; (require-init 'init-smartparens)
 
-;; (require 'init-lsp)
+(require 'init-lsp)
 ;; (require 'init-nox)
-(require 'init-eglot)
+;; (require 'init-eglot)
+
 (require 'init-terraform)
 
 (require-init 'init-eldoc)

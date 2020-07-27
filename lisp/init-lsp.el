@@ -42,16 +42,26 @@
              (setq-local company-backends (add-to-list 'company-backends
                                                        'company-lsp))))
 
-(defun zw/use-lsp-javascript-for (some-js-mode-hook)
-  "Use lsp for javascript backend"
-  (progn
-    (add-hook some-js-mode-hook '(lambda ()
-                                   (lsp-mode t)
-                                   (lsp)
-                                   (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
-                                   (if (display-graphic-p)
-                                       (define-key js2-mode-map (kbd "M-/") 'lsp-ui-peek-find-references)
-                                     (define-key js2-mode-map (kbd "C-x .") 'lsp-ui-peek-find-references))))))
+(setq my-lsp-mode-set '(js-mode
+                        python-mode
+                        sh-mode
+                        c-mode
+                        c++-mode))
+
+(defun zw/customize-lsp-key-bindings-for ()
+  (interactive)
+  (define-key (current-local-map) (kbd "M-.") 'lsp-ui-peek-find-definitions)
+  (if (display-graphic-p)
+      (define-key (current-local-map) (kbd "M-/") 'lsp-ui-peek-find-references)
+    (define-key (current-local-map) (kbd "C-x .") 'lsp-ui-peek-find-references)))
+
+
+(dolist (each-mode my-lsp-mode-set)
+  (let ((each-mode-hook (intern (format "%s-hook" each-mode))))
+    (add-hook each-mode-hook
+              #'(lambda ()
+                  (lsp)
+                  (zw/customize-lsp-key-bindings-for)))))
 
 
 (provide 'init-lsp)
