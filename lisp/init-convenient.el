@@ -45,10 +45,10 @@
 
 
 ;; show a cat in modeline
-(use-package nyan-mode
-  :ensure t
-  :config
-  (nyan-mode 1)
-  (setq nyan-cat-face-number 3))
+;; (use-package nyan-mode
+;;   :ensure t
+;;   :config
+;;   (nyan-mode 1)
+;;   (setq nyan-cat-face-number 3))
 
 (provide 'init-convenient)
