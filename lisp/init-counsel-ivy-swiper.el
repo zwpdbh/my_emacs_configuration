@@ -38,7 +38,7 @@
             (:columns
              ((ivy-rich-switch-buffer-icon (:width 2))
               ;; add face by the original transformer
-              (ivy-switch-buffer-transformer (:width 40))    
+              (ivy-switch-buffer-transformer (:width 60))    
               ;; (ivy-rich-switch-buffer-size (:width 7))  ; return buffer size
               ;; (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))  ; return buffer indicator
               ;; (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))            ; return major mode info
