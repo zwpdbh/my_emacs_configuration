@@ -30,9 +30,4 @@
   (setq inhibit-compacting-font-caches t))
 
 
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (when (display-graphic-p)
-          (all-the-icons-ivy-rich-mode 1)))
-
 (provide 'init-all-the-icons)
