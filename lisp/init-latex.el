@@ -45,6 +45,12 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 
 
+(when (maybe-require-package 'latex-preview-pane)
+  (add-hook 'LaTeX-mode-hook
+            #'(lambda ()
+                (latex-preview-pane-enable)
+                (latex-preview-pane-mode t))))
+
 (if (executable-find "xelatex")
     (setq org-latex-compiler "xelatex")
   (setq org-latex-compiler "pdflatex"))
