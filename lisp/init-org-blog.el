@@ -7,8 +7,6 @@
 ;; * line 15: page_type = "computer-science"
 ;; * Note: need to mark the second level headline status as DONE to make it be visiable and searchable after being published.
 
-;; (use-package ox-hugo
-;;   :ensure t)
 
 (when (maybe-require-package 'ox-hugo)
   (defun org-hugo-new-subtree-post-capture-template ()
