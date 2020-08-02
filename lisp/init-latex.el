@@ -46,6 +46,8 @@
 
 
 (when (maybe-require-package 'latex-preview-pane)
+  (setq preview-orientation 'above)
+  (setq doc-view-shrink-factor 1.5)
   (add-hook 'LaTeX-mode-hook
             #'(lambda ()
                 (latex-preview-pane-enable)

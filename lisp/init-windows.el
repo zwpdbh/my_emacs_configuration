@@ -1,16 +1,15 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 ;; change the default split-screen direction
-(defun zw/split-window-vertically-default ()
+(defun zw/split-window-vertically-by-default ()
   (interactive)
-  (setq split-width-threshold 0)
-  (setq split-height-threshold nil))
+  (setq split-width-threshold nil))
 
-(defun zw/split-window-horizontally-default ()
+(defun zw/split-window-horizontally-by-default ()
   (interactive)
-  (setq split-width-threshold nil)
-  (setq split-height-threshold 0))
+  (setq split-width-threshold 1))
 
+(zw/split-window-vertically-by-default)
 
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 (winner-mode 1)
