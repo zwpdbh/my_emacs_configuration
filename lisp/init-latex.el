@@ -68,55 +68,17 @@
                 TeX-PDF-mode t
                 TeX-engine 'xetex)     ; optional
 
-  ;; (setq LaTeX-indent-environment-list
-  ;;       '(("itemize" LaTeX-indent-tabular)
-  ;;         ("enumerate" LaTeX-indent-tabular)
-  ;;         ("verbatim" current-indentation)
-  ;;         ("verbatim*" current-indentation)
-  ;;         ("tabular" LaTeX-indent-tabular)
-  ;;         ("tabular*" LaTeX-indent-tabular)
-  ;;         ("align" LaTeX-indent-tabular)
-  ;;         ("align*" LaTeX-indent-tabular)
-  ;;         ("array" LaTeX-indent-tabular)
-  ;;         ("eqnarray" LaTeX-indent-tabular)
-  ;;         ("eqnarray*" LaTeX-indent-tabular)
-  ;;         ("multline" LaTeX-indent-tabular)
-  ;;         ("displaymath")
-  ;;         ("equation")
-  ;;         ("equation*")
-  ;;         ("picture")
-  ;;         ("tabbing")))
-  
   (setq TeX-auto-save t
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
         TeX-source-correlate-start-server t
-        ;; TeX-save-query nil       ; don't prompt for saving the .tex file
-        ;; TeX-show-compilation nil         ; if `t`, automatically shows compilation log
-        ;; LaTeX-babel-hyphen nil ; Disable language-specific hyphen insertion.
-        ;; ;; `"` expands into csquotes macros (for this to work, babel pkg must be loaded after csquotes pkg).
-        ;; LaTeX-csquotes-close-quote "}"
-        ;; LaTeX-csquotes-open-quote "\\enquote{"
-        ;; TeX-file-extensions '("Rnw" "rnw" "Snw" "snw" "tex" "sty" "cls" "ltx" "texi" "texinfo" "dtx")
         TeX-parse-self t)
-
-
-  ;; (add-to-list 'TeX-command-list
-  ;;              '("Makeglossaries" "makeglossaries %s" TeX-run-command nil
-  ;;                (latex-mode)
-  ;;                :help "Run makeglossaries script, which will choose xindy or makeindex") t)
-
-  ;; ;; Font-lock for AuCTeX
-  ;; ;; Note: '«' and '»' is by pressing 'C-x 8 <' and 'C-x 8 >', respectively
-  ;; (font-lock-add-keywords 'latex-mode (list (list "\\(«\\(.+?\\|\n\\)\\)\\(+?\\)\\(»\\)" '(1 'font-latex-string-face t) '(2 'font-latex-string-face t) '(3 'font-latex-string-face t))))
 
   ;; Use LaTeX-mode-map to define keybinding doesn't work, even if "save-compile-latex" is defined in LaTeX-mode-map.
   (define-key TeX-mode-map (kbd "<f5>") 'save-compile-latex)
   (define-key TeX-mode-map (kbd "<f7>") 'preview-clearout-buffer)
   (define-key TeX-mode-map (kbd "TAB") 'complete-if-no-space)
   (define-key TeX-mode-map (kbd "<tab>") 'complete-if-no-space)
-  
-  ;; (load "preview-latex.el" nil t t)
   
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
@@ -151,12 +113,6 @@
                                 (org-toggle-latex-fragment))))
                         'append
                         'local))))
-;; preview
-;; (eval-after-load 'preview
-;;   '(progn
-;;      (set-default 'preview-scale-function 1.7)
-;;      (set-default 'preview-default-option-list
-;;                   '("displaymath" "floats" "graphics" "textmath"))))
 
 
 (provide 'init-latex)
