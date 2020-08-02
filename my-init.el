@@ -95,6 +95,7 @@
 (require 'init-recentf)
 (require 'init-hippie-expand)
 (require 'init-windows)
+;; (require 'init-doc-view-auto-fit)
 (require 'init-mmm)
 (require 'init-editing-utils)
 (require 'init-vc)
@@ -154,6 +155,7 @@
 
 ;; error prone configuration
 (require-init 'init-latex)
+;; (require 'init-bib)
 (require 'init-erlang)
 
 ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
