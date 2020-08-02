@@ -32,34 +32,20 @@ See `org-capture-templates' for more information."
   (defvar hugo-org-path "~/code/capture-org/"
     "define the place where we put our org files for hugo")
   (defvar org-capture-todo (concat hugo-org-path "todo.org"))
-  (defvar org-capture-computer-science (concat hugo-org-path "computer-science.org"))
+  (defvar org-capture-computer-science (concat hugo-org-path "computer-science/" "computer-science.org"))
   (defvar org-capture-emacs (concat hugo-org-path "emacs/" "emacs.org"))
-  (defvar org-capture-math (concat hugo-org-path "mathematics.org"))
-  (defvar org-capture-software (concat hugo-org-path "software-engineering.org"))
-  (defvar org-capture-tools (concat hugo-org-path "tools.org"))
-  (defvar org-capture-work (concat hugo-org-path "work-notes.org"))
-  (defvar org-capture-test (concat hugo-org-path "test.org"))
-  ;; (defvar hugo-capture-orgs
-  ;;   (list
-  ;;    (cons 'computer (concat hugo-org-path "computer-science.org"))
-  ;;    (cons 'emacs (concat hugo-org-path "emacs.org"))
-  ;;    (cons 'math (concat hugo-org-path "mathematics.org"))
-  ;;    (cons 'software (concat hugo-org-path "software-engineering.org"))
-  ;;    (cons 'tools (concat hugo-org-path "tools.org"))
-  ;;    (cons 'work (concat hugo-org-path "work-notes.org"))))
+  (defvar org-capture-math (concat hugo-org-path "mathematics/" "mathematics.org"))
+  (defvar org-capture-software (concat hugo-org-path "software-engineering/" "software-engineering.org"))
+  (defvar org-capture-tools (concat hugo-org-path "tools/" "tools.org"))
 
   (setq org-export-with-author nil)
   (setq org-capture-templates
-        '(
-          ("t" "todo" entry (file org-capture-todo)
+        '(("h" "Hugo post")
+          
+          ("t" "todo"
+           entry (file org-capture-todo)
            "* TODO %? :TODO: \n Added:%T\n"
            :clock-in t :clock-resume t)
-
-          ;; ("ht" "test" entry (file org-capture-test)
-          ;;  (function org-hugo-new-subtree-post-capture-template)
-          ;;  :clock-in t :clock-resume t)
-
-          ("h" "Hugo post")
 
           ;; ("hc" "Computer-Science"
           ;;  entry (file+olp org-capture-computer-science "Computer-Science")
@@ -71,28 +57,23 @@ See `org-capture-templates' for more information."
            :clock-in t :clock-resume t)
 
           ("he" "Emacs"
-           entry (file org-capture-emacs)
+           entry (file org-capture-emacs "Emacs")
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("hm" "Mathematics"
-           entry (file org-capture-math)
+           entry (file org-capture-math "Mathematics")
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("hs" "Software-Engineering"
-           entry (file org-capture-software)
+           entry (file org-capture-software "Software-Engineering")
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("ht" "Tools"
-           ;; entry (file+olp org-capture-tools "Tools")
-           entry (file org-capture-tools)
-           (function org-hugo-new-subtree-post-capture-template)
-           :clock-in t :clock-resume t)
-
-          ("hw" "Work-Notes"
-           entry (file org-capture-work)
+           entry (file org-capture-tools "Tools")
+           ;; entry (file org-capture-tools)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t))))
 
