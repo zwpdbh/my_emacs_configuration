@@ -1,5 +1,17 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+;; change the default split-screen direction
+(defun zw/split-window-vertically-default ()
+  (interactive)
+  (setq split-width-threshold 0)
+  (setq split-height-threshold nil))
+
+(defun zw/split-window-horizontally-default ()
+  (interactive)
+  (setq split-width-threshold nil)
+  (setq split-height-threshold 0))
+
+
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 (winner-mode 1)
 ;; copied from http://puntoblogspot.blogspot.com/2011/05/undo-layouts-in-emacs.html
