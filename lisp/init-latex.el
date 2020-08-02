@@ -4,12 +4,14 @@
 
 ;;; ZW/Note
 ;; On windows10
-;; Install MiKTex
+;; Install MiKTex or texlive 
 ;; Add its exe into system-path: "C:/tools/MiKTeX/miktex/bin/x64"
 ;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
 
 ;; On Ubuntu
 ;; sudo apt install auctex
+;; sudo apt install texlive-xetex
+
 
 (when (maybe-require-package 'auctex)
   (cond ((eq system-type 'darwin)
@@ -38,6 +40,8 @@
                (define-key TeX-mode-map (kbd "M-<delete>") 'TeX-remove-macro)))
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 
+(setq org-latex-compiler "xelatex")
+;; (setq org-latex-compiler "pdflatex")
 
 (after-load 'tex
   (defun save-compile-latex ()
@@ -113,6 +117,7 @@
                                 (org-toggle-latex-fragment))))
                         'append
                         'local))))
+
 
 
 (provide 'init-latex)
