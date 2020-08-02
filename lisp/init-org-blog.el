@@ -47,32 +47,36 @@ See `org-capture-templates' for more information."
            "* TODO %? :TODO: \n Added:%T\n"
            :clock-in t :clock-resume t)
 
+          ;; ;; This will make the captured note appear as a second level heading under
+          ;; ;; the first level heading Computer-Science
           ;; ("hc" "Computer-Science"
           ;;  entry (file+olp org-capture-computer-science "Computer-Science")
           ;;  (function org-hugo-new-subtree-post-capture-template)
           ;;  :clock-in t :clock-resume t)
+
+          ;; This will make the captured note appear as the first level heading in the computer-science.org
           ("hc" "Computer-Science"
            entry (file org-capture-computer-science)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("he" "Emacs"
-           entry (file org-capture-emacs "Emacs")
+           entry (file org-capture-emacs)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("hm" "Mathematics"
-           entry (file org-capture-math "Mathematics")
+           entry (file org-capture-math)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("hs" "Software-Engineering"
-           entry (file org-capture-software "Software-Engineering")
+           entry (file org-capture-software)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t)
 
           ("ht" "Tools"
-           entry (file org-capture-tools "Tools")
+           entry (file org-capture-tools)
            ;; entry (file org-capture-tools)
            (function org-hugo-new-subtree-post-capture-template)
            :clock-in t :clock-resume t))))
