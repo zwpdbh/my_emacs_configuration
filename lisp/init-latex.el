@@ -126,6 +126,5 @@
                         'append
                         'local))))
 
-(require 'preview-LaTex)
 
 (provide 'init-latex)
