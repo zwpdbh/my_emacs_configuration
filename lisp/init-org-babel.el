@@ -41,6 +41,10 @@
       (defun org-babel-execute:terraform (body params) body)
       (defun org-babel-execute:racket (body params) body)
       
+      ;; (defun org-babel-execute:latex (body params)
+      ;;   (message "%s" body)
+      ;;   (latex-math-preview-expression))
+      
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((emacs-lisp . t)
@@ -86,7 +90,7 @@
       (add-to-list 'org-structure-template-alist '("ex" . "example"))
       (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
       (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
-      (add-to-list 'org-structure-template-alist '("latex" . "src LaTex"))
+      (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
       (add-to-list 'org-structure-template-alist '("erlang" . "src erlang"))))
 
 

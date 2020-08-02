@@ -50,8 +50,7 @@
   
   (add-hook 'LaTeX-mode-hook
             #'(lambda ()
-                (latex-preview-pane-enable)
-                (latex-preview-pane-mode t))))
+                (latex-preview-pane-enable))))
 
 
 (when (maybe-require-package 'latex-math-preview)
@@ -95,7 +94,10 @@
   (setq-default TeX-master nil ; by each new fie AUCTEX will ask for a master fie.
                 TeX-PDF-mode t
                 TeX-engine 'xetex)     ; optional
-
+  
+  ;; Enable PDF from DVI creation
+  (setq TeX-PDF-from-DVI "Dvips")
+  
   (setq TeX-auto-save t
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
