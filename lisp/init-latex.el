@@ -53,6 +53,15 @@
                 (latex-preview-pane-enable)
                 (latex-preview-pane-mode t))))
 
+
+(when (maybe-require-package 'latex-math-preview)
+  (autoload 'latex-math-preview-expression "latex-math-preview" nil t)
+  (autoload 'latex-math-preview-insert-symbol "latex-math-preview" nil t)
+  (autoload 'latex-math-preview-save-image-file "latex-math-preview" nil t)
+  (autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t)
+  (define-key TeX-mode-map (kbd "C-c C-c") 'latex-math-preview-expression))
+
+
 (if (executable-find "xelatex")
     (setq org-latex-compiler "xelatex")
   (setq org-latex-compiler "pdflatex"))
