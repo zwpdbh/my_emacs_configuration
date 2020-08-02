@@ -10,12 +10,15 @@
 
 ;; On Ubuntu
 ;; sudo apt install auctex
+;; sudo apt-get install latexmk
 ;; sudo apt install texlive-xetex
 
 
 (when (maybe-require-package 'auctex)
   (cond ((eq system-type 'darwin)
-         (setq exec-path (append exec-path '("/Library/TeX/texbin/"))))))
+         (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
+  (when (maybe-require-package 'auctex-latexmk)
+    (auctex-latexmk-setup)))
 
 
 (when (maybe-require-package 'reftex)
@@ -40,8 +43,11 @@
                (define-key TeX-mode-map (kbd "M-<delete>") 'TeX-remove-macro)))
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 
-(setq org-latex-compiler "xelatex")
-;; (setq org-latex-compiler "pdflatex")
+
+(if (executable-find "xelatex")
+    (setq org-latex-compiler "xelatex")
+  (setq org-latex-compiler "pdflatex"))
+
 
 (after-load 'tex
   (defun save-compile-latex ()
@@ -94,6 +100,7 @@
                      (cons "\\(" "\\)"))))
 
 (add-hook 'LaTeX-mode-hook #'turn-on-auto-fill)
+(add-hook 'LaTeX-mode-hook #'linum-mode)
 
 (when (maybe-require-package 'company-math)
   (add-hook 'LaTeX-mode-hook (lambda ()
@@ -118,6 +125,6 @@
                         'append
                         'local))))
 
-
+(require 'preview-LaTex)
 
 (provide 'init-latex)
