@@ -1,4 +1,5 @@
 ;; refs
+;; The TeX related components explaination: http://www.tug.org/levels.html
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html
 ;; http://www.stat.rice.edu/~helpdesk/compguide/node39.html
 
