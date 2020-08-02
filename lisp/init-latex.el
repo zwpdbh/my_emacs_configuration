@@ -2,9 +2,23 @@
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html
 ;; http://www.stat.rice.edu/~helpdesk/compguide/node39.html
 
+;;; ZW/Note
+;; On windows10
+;; Install MiKTex
+;; Add its exe into system-path: "C:/tools/MiKTeX/miktex/bin/x64"
+;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
+
 (when (maybe-require-package 'auctex)
   (cond ((eq system-type 'darwin)
          (setq exec-path (append exec-path '("/Library/TeX/texbin/"))))))
+
+
+(when (maybe-require-package 'reftex)
+  (add-hook 'reftex-mode-hook
+            '(lambda ()
+               (reftex-isearch-minor-mode t)
+               (define-key TeX-mode-map (kbd "C-c C-r") 'reftex-query-replace-document)
+               (define-key TeX-mode-map (kbd "M-<delete>") 'TeX-remove-macro))))
 
 (after-load 'tex
   ;; Set pdf tool to open preview
@@ -104,12 +118,6 @@
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer))
 
-(add-hook 'reftex-mode-hook
-          '(lambda ()
-             (reftex-isearch-minor-mode t)
-             (define-key TeX-mode-map (kbd "C-c C-r") 'reftex-query-replace-document)
-             (define-key TeX-mode-map (kbd "M-<delete>") 'TeX-remove-macro)))
-
 (when (maybe-require-package 'company-math)
   (add-hook 'LaTeX-mode-hook (lambda ()
                                (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
@@ -127,10 +135,3 @@
                   '("displaymath" "floats" "graphics" "textmath"))))
 
 (provide 'init-latex)
-
-;;; ZW/Note
-
-;; On windows10
-;; Install MiKTex
-;; Add its exe into system-path: "C:/tools/MiKTeX/miktex/bin/x64"
-;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
