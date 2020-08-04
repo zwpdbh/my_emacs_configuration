@@ -77,7 +77,8 @@ See `org-capture-templates' for more information."
            entry (file org-capture-tools)
            ;; entry (file org-capture-tools)
            (function org-hugo-new-subtree-post-capture-template)
-           :clock-in t :clock-resume t))))
+           :clock-in t :clock-resume t)))
+  (require 'ox-hugo))
 
 ;; Set the background of org-exported <code> blocks according to theme
 (defun my/org-inline-css-hook (exporter)
