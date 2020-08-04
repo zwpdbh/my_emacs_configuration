@@ -19,12 +19,13 @@ See `org-capture-templates' for more information."
       (mapconcat #'identity
                  `(
                    ,(concat "* TODO " title)
-                   ":PROPERTIES:"
-                   ,(concat ":EXPORT_FILE_NAME: " fname)
-                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
-                   ,(concat ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":weight 10 :autoCollapseToc true :mathjax true :contentCopyright MIT :author \"Z wei\"")
-                   ":END:"
-                   "%?\n")          ;Place th
+                   "  :PROPERTIES:"
+                   ,(concat "  :EXPORT_FILE_NAME: " fname)
+                   ,(concat "  :EXPORT_DATE: " date) ;Enter current date and time
+                   ,(concat "  :EXPORT_OPTIONS: " ":toc:t") ;TOC
+                   ,(concat "  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":weight 10 :autoCollapseToc true :mathjax true :contentCopyright MIT :author \"Z wei\"")
+                   "  :END:"
+                   "  %?\n")          ;Place th
                  "\n")))
 
   (defvar hugo-org-path "~/code/capture-org/"
@@ -37,6 +38,7 @@ See `org-capture-templates' for more information."
   (defvar org-capture-tools (concat hugo-org-path "tools/" "tools.org"))
 
   (setq org-export-with-author nil)
+  (setq org-hugo-export-with-toc 2)
   (setq org-capture-templates
         '(("h" "Hugo post")
           
