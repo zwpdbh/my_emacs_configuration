@@ -22,10 +22,10 @@ See `org-capture-templates' for more information."
                    "  :PROPERTIES:"
                    ,(concat "  :EXPORT_FILE_NAME: " fname)
                    ,(concat "  :EXPORT_DATE: " date) ;Enter current date and time
-                   ,(concat "  :EXPORT_OPTIONS: " ":toc:t") ;TOC
+                   ,(concat "  :EXPORT_OPTIONS: " ":toc:t") ; Table of Contents, see: https://ox-hugo.scripter.co/doc/org-toc/
                    ,(concat "  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: "  ":weight 10 :autoCollapseToc true :mathjax true :contentCopyright MIT :author \"Z wei\"")
                    "  :END:"
-                   "  %?\n")          ;Place th
+                   "  %?\n")
                  "\n")))
 
   (defvar hugo-org-path "~/code/capture-org/"
