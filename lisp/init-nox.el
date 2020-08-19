@@ -13,9 +13,12 @@
                           c-mode
                           c++-mode))
 
+
 (dolist (each-mode my-eglot-mode-set)
   (add-hook (intern (format "%s-hook" each-mode))
             #'(lambda ()
-                (eglot-ensure))))
+                (nox-ensure)
+                (zw/customize-xref-key-bindings))))
+
 
 (provide 'init-nox)

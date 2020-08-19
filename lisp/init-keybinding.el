@@ -35,6 +35,15 @@
                                 #'mark-whole-buffer
                                 #'indent-region))
 
+
+;; adjust key-bindings for xref
+(defun zw/customize-xref-key-bindings ()
+  (interactive)
+  (define-key (current-local-map) (kbd "M-.") 'xref-find-definitions)
+  (if (display-graphic-p)
+      (define-key (current-local-map) (kbd "M-/") 'xref-find-references)
+    (define-key (current-local-map) (kbd "C-x .") 'xref-find-references)))
+
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
   ;; use macbook's command(cmd) key as meta key 
