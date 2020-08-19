@@ -4,15 +4,16 @@
 ;;   :config
 ;;   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
 
-;; (use-package helm-swoop
-;;   :ensure t
-;;   :config
-;;   (progn
-;;     (setq helm-swoop-use-fuzzy-match t)
-;;     (setq helm-swoop-use-line-number-face t)
-;;     (setq helm-swoop-move-to-line-cycle t)
-;;     (setq helm-swoop-split-with-multiple-windows t)
-;;     (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
+(use-package helm-swoop
+  :ensure t
+  :bind ("C-s" . helm-multi-swoop-projectile)
+  :config
+  (progn
+    (setq helm-swoop-use-fuzzy-match t)
+    (setq helm-swoop-use-line-number-face t)
+    (setq helm-swoop-move-to-line-cycle t)
+    (setq helm-swoop-split-with-multiple-windows t)
+    (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
 
 (use-package helm-projectile
   :after (projectile helm)
