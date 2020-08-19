@@ -1,7 +1,11 @@
 (add-to-list 'load-path
-             "~/.emacs.d/site-lisp/nox")
+             "~/.emacs.d/site-lisp/posfram")
+(require 'posframe)
 
+(add-to-list 'load-path
+             "~/.emacs.d/site-lisp/nox")
 (require 'nox)
+
 (setq my-eglot-mode-set '(js-mode
                           python-mode
                           sh-mode
