@@ -113,6 +113,8 @@
 ;; (require-init 'init-smartparens)
 
 ;; (require 'init-lsp)
+;; (require-init 'init-dap)
+
 (require 'init-nox)
 ;; (require 'init-eglot)
 
@@ -128,12 +130,12 @@
 (require-init 'init-clojure)
 (require-init 'init-lisp-tool)
 
-(require-init 'init-dap)
+
 (require-init 'init-clang-format)
 (require-init 'init-yaml)
 (require-init 'init-yasnippet)
 
-(require-init 'init-python)
+;; (require-init 'init-python)
 (require-init 'init-c-and-c++)
 (require-init 'init-javascript)
 (require-init 'init-web)

@@ -1,11 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-(autoload 'lsp-mode "lsp-mode" "" t)
-(autoload 'lsp-mode "company-lsp" "" t)
-(autoload 'lsp-mode "lsp-ui" "" t)
+;; (autoload 'lsp-mode "lsp-mode" "" t)
+;; (autoload 'lsp-mode "company-lsp" "" t)
+;; (autoload 'lsp-mode "lsp-ui" "" t)
+;; (autoload 'dap-mode "dap-mode" "" t)
+;; (autoload 'dap-ui-mode "dap-mode" "" t)
 
 (autoload 'org-export-dispatch "htmlize")
-(autoload 'dap-mode "dap-mode" "" t)
-(autoload 'dap-ui-mode "dap-mode" "" t)
 
 (autoload 'xclip-set-selection "xclip" "" t)
 (autoload 'xclip-get-selection "xclip" "" t)
