@@ -30,8 +30,7 @@
 (use-package helm
   :diminish
   :ensure t
-  ;; :bind (("C-s" . helm-swoop)
-  ;;        ("M-x" . helm-M-x)
+  ;; :bind (("M-x" . helm-M-x)
   ;;        ("C-x b" . helm-buffers-list))
   :config
   (progn
