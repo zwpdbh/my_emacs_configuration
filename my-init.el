@@ -112,18 +112,27 @@
 (require-init 'init-company)
 ;; (require-init 'init-smartparens)
 
-;; (require 'init-lsp)
-;; (require-init 'init-dap)
-
-(require 'init-nox)
-;; (require 'init-eglot)
+(setq zw/use-lsp 'nil)
+(if zw/use-lsp
+    (progn
+      (require 'init-lsp)
+      (require 'init-dap)
+      (message "use lsp as language server protocol client"))
+  (progn
+    (require 'init-nox)
+    (message "use nox as language server protocol client")))
 
 (require 'init-terraform)
-
 (require-init 'init-eldoc)
 
-;; (require-init 'init-common-lisp)
-(require-init 'init-common-lisp-with-slime)
+(setq zw/common-lisp-use-slime 't)
+(if zw/common-lisp-use-slime
+    (progn
+      (require 'init-common-lisp-with-slime)
+      (message "use slime for common-lisp"))
+  (progn
+    (require 'init-common-lisp)
+    (message "use sly for common-lisp")))
 
 (require-init 'init-racket)
 (require-init 'init-scheme)
