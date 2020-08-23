@@ -112,19 +112,12 @@
 (require-init 'init-company)
 ;; (require-init 'init-smartparens)
 
-(require 'init-my-lsp-configure)
+(require 'init-lsp-configure)
 
 (require 'init-terraform)
 (require-init 'init-eldoc)
 
-(setq zw/common-lisp-use-slime 't)
-(if zw/common-lisp-use-slime
-    (progn
-      (require 'init-common-lisp-with-slime)
-      (message "use slime for common-lisp"))
-  (progn
-    (require 'init-common-lisp)
-    (message "use sly for common-lisp")))
+(require 'init-common-lisp-configure)
 
 (require-init 'init-racket)
 (require-init 'init-scheme)

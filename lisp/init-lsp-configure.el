@@ -14,4 +14,4 @@
     (message "use nox as language server protocol client")))
 
 
-(provide 'init-my-lsp-configure)
+(provide 'init-lsp-configure)
