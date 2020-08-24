@@ -57,25 +57,11 @@
   (when window-system
     (setq show-paren-style 'expression))
 
-  (if (string-equal custom-enabled-theme "doom-Iosvkem")
-      (set-face-attribute 'show-paren-match nil
-                          :weight 'normal
-                          :underline nil
-                          :foreground (face-background 'default t t)
-                          :background "black")
-    (set-face-attribute 'show-paren-match nil
-                        :weight 'normal
-                        :underline nil
-                        :foreground (face-background 'default t t)
-                        :background zw/blue-purple))
-
-  (when (string-equal custom-enabled-theme "doom-Iosvkem")
-    (set-face-attribute 'link nil
-                        :foreground zw/green
-                        :weight 'bold
-                        :underline t)
-    (set-face-attribute 'highlight nil
-                        :background zw/red))
+  (set-face-attribute 'show-paren-match nil
+                      :weight 'normal
+                      :underline nil
+                      :foreground (face-background 'default t t)
+                      :background zw/blue-purple)
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
@@ -95,15 +81,7 @@
                                    :foreground (face-foreground 'default t t)
                                    :background "black"
                                    :inverse-video nil
-                                   :weight 'extrabold)
-               ;; customized the company selection list color for doom-Iosvkem theme
-               (when (string-equal custom-enabled-theme "doom-Iosvkem")
-                 (set-face-attribute 'company-tooltip-common nil
-                                     :foreground zw/green
-                                     :weight 'bold)
-                 (set-face-attribute 'company-preview-common nil
-                                     :foreground zw/green
-                                     :background (face-background 'default t t)))))
+                                   :weight 'extrabold)))
 
   
   ;; set different org-mode color
