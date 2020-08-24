@@ -12,5 +12,9 @@
                 (nox-ensure)
                 (zw/customize-xref-key-bindings))))
 
+(add-hook 'nox-managed-mode-hook
+          '(lambda ()
+             (when (nox-managed-p)
+               (zw/set-company-backends-global))))
 
 (provide 'init-nox)
