@@ -1,8 +1,9 @@
 (setq zw/use-lsp 'nil)
 
-(setq my-lsp-mode-set '(js-mode
-                        python-mode
-                        sh-mode))
+;; (setq zw/lsp-clients-set '(js-mode
+;;                            python-mode
+;;                            sh-mode))
+(setq zw/lsp-clients-set 'nil)
 
 (if zw/use-lsp
     (progn

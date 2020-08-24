@@ -6,7 +6,7 @@
              "~/.emacs.d/site-lisp/nox")
 (require 'nox)
 
-(dolist (each-mode my-lsp-mode-set)
+(dolist (each-mode zw/lsp-clients-set)
   (add-hook (intern (format "%s-hook" each-mode))
             #'(lambda ()
                 (nox-ensure)

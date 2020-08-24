@@ -73,7 +73,7 @@
                         python-mode
                         sh-mode))
 
-(dolist (each-mode my-lsp-mode-set)
+(dolist (each-mode zw/lsp-clients-set)
   (let ((each-mode-hook (intern (format "%s-hook" each-mode))))
     (add-hook each-mode-hook
               #'(lambda ()
