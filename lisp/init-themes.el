@@ -25,12 +25,17 @@
   :ensure t
   :defer t)
 
+(use-package zenburn-theme
+  :ensure t
+  :defer t)
+
+
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'doom-Iosvkem)
+(setq-default custom-enabled-theme 'zenburn)
 
 (use-package symbol-overlay
   :ensure t
