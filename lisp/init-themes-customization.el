@@ -11,7 +11,7 @@
       zw/red  "IndianRed"
       zw/blue-purple "#352d67"
       zw/blue-for-org-code-in-leuven "#336699"
-      zw/light-purple "#e6e6ff"
+      zw/light-purple "#ccccff"
       zw/white "#def")
 
 
