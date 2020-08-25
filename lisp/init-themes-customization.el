@@ -64,11 +64,18 @@
     
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
-                                                    :foreground zw/blue-for-org-code-in-leuven)))
+                                                    :foreground zw/blue-for-org-code-in-leuven)
+                                (setq org-emphasis-alist
+                                      '(("*" (bold :foreground "#336699"))
+                                        ("/" italic)
+                                        ("_" underline)
+                                        ("=" org-verbatim verbatim)
+                                        ("~" org-code verbatim)
+                                        ("+" (:strike-through t))))))
     (set-face-attribute 'region nil
                         :background "#cce6ff"
-                        :extend t)
-    )
+                        :extend t))
+   
    ;; for theme: doom-Iosvkem
    ((string-equal custom-enabled-theme "doom-Iosvkem")
     (add-hook 'company-mode-hook
@@ -111,10 +118,10 @@
                                         ("_" underline)
                                         ("=" org-verbatim verbatim)
                                         ("~" org-code verbatim)
-                                        ("+" (:strike-through t))))))))
+                                        ("+" (:strike-through t))))))
 
-  (add-hook 'org-mode-hook '(lambda ()
-                              (set-face-attribute 'org-block nil
-                                                  :foreground (face-foreground 'default t t)))))
+    (add-hook 'org-mode-hook '(lambda ()
+                                (set-face-attribute 'org-block nil
+                                                    :foreground (face-foreground 'default t t)))))))
 
 (provide 'init-themes-customization)
