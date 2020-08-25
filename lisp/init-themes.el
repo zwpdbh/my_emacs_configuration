@@ -51,58 +51,6 @@
                       :background (face-background 'default t t)
                       :underline t))
 
-
-(defun zw/customize-theme ()
-  (load-theme custom-enabled-theme)
-
-  (when window-system
-    (set-cursor-color zw/red)
-    (setq-default cursor-type '(bar . 2)))
-
-  (when window-system
-    (setq show-paren-style 'expression))
-
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground (face-background 'default t t)
-                      :background zw/blue-purple)
-
-  ;; make helm related selection use underline
-  (set-face-attribute 'helm-selection nil
-                      :underline t
-                      :weight 'bold)
-
-  ;; make swiper use code default color as foreground
-  (set-face-attribute 'isearch nil
-                      :foreground (face-foreground 'default t t)
-                      :weight 'normal)
-  
-
-  ;; set company selection highlight
-  (add-hook 'company-mode-hook
-            '(lambda ()
-               (set-face-attribute 'company-tooltip-selection nil
-                                   :foreground (face-foreground 'default t t)
-                                   :background "black"
-                                   :inverse-video nil
-                                   :weight 'extrabold)))
-
-  
-  ;; set different org-mode color
-  (add-hook 'org-mode-hook '(lambda ()
-                              (set-face-attribute 'org-code nil
-                                                  :foreground zw/green)
-                              (set-face-attribute 'org-block nil
-                                                  :foreground (face-foreground 'default t t))
-                              (setq org-emphasis-alist
-                                    '(("*" (bold :foreground "Gold"))
-                                      ("/" italic)
-                                      ("_" underline)
-                                      ("=" org-verbatim verbatim)
-                                      ("~" org-code verbatim)
-                                      ("+" (:strike-through t)))))))
-
 ;; make swiper selection use underline
 (defun zw/customize-ivy-current-match ()
   (interactive)
@@ -112,7 +60,6 @@
                       :background nil
                       :underline t
                       :weight 'bold))
-;; (add-hook 'ivy-mode-hook #'zw/customize-ivy-current-match)
 
 
 ;; Ensure that themes will be applied even if they have not been customized

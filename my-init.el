@@ -57,8 +57,10 @@
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
-(require 'init-themes)
+
 (require 'init-themes-customization)
+(require 'init-themes)
+
 (require-init 'init-interface-tweaks)
 (require 'init-highlight-symbol)
 
