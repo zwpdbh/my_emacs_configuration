@@ -22,5 +22,13 @@
                       :foreground (face-background 'default t t)
                       :background "black"))
 
+(when (string-equal custom-enabled-theme "leuven")
+  (set-background-color "honeydew")
+  
+  (set-face-attribute 'show-paren-match nil
+                      :weight 'normal
+                      :underline nil
+                      :foreground (face-background 'default t t)
+                      :background "#ccccff"))
 
 (provide 'init-themes-customization)
