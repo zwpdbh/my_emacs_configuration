@@ -34,16 +34,20 @@
                         :foreground (face-background 'default t t)
                         :background zw/light-purple)
 
+    (set-face-attribute 'helm-match-item nil
+                        :weight 'bold
+                        :background "#FFFF00"
+                        :underline nil
+                        :extend t)
+    (set-face-attribute 'swiper-match-face-2 nil
+                        :weight 'bold
+                        :background "#FFFF00"
+                        :underline nil
+                        :extend t)
+    
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
-                                                    :foreground "#336699")
-                                (setq org-emphasis-alist
-                                      '(("*" (bold :foreground "Gold"))
-                                        ("/" italic)
-                                        ("_" underline)
-                                        ("=" org-verbatim verbatim)
-                                        ("~" org-code verbatim)
-                                        ("+" (:strike-through t)))))))
+                                                    :foreground "#336699"))))
    ;; for theme: doom-Iosvkem
    ((string-equal custom-enabled-theme "doom-Iosvkem")
     (add-hook 'company-mode-hook

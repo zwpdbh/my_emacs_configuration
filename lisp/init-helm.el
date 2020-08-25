@@ -6,7 +6,7 @@
 
 (use-package helm-swoop
   :ensure t
-  :bind ("C-s" . helm-multi-swoop-projectile)
+  ;; :bind ("C-s" . helm-multi-swoop-projectile)
   :config
   (progn
     (setq helm-swoop-use-fuzzy-match t)

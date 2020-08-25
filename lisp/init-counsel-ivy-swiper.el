@@ -90,7 +90,7 @@
 
 (use-package swiper
   :ensure try
-  :bind (;; ("C-s" . swiper)
+  :bind (("C-s" . swiper)
          ("C-c C-r" . ivy-resume)
          ;; ("C-x C-f" . counsel-find-file)
          ("M-x" . counsel-M-x))
