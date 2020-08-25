@@ -29,13 +29,17 @@
   :ensure t
   :defer t)
 
+(use-package leuven-theme
+  :ensure t
+  :defer t)
+
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'zenburn)
+(setq-default custom-enabled-theme 'leuven)
 
 (use-package symbol-overlay
   :ensure t
