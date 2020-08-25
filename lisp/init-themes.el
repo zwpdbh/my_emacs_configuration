@@ -14,6 +14,7 @@
       zw/yellow "#f0c674"
       zw/red  "IndianRed"
       zw/blue-purple "#352d67"
+      zw/light-purple "#ccccff"
       zw/white "#def")
 
 

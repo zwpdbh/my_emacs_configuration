@@ -29,6 +29,6 @@
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "#ccccff"))
+                      :background zw/light-purple))
 
 (provide 'init-themes-customization)
