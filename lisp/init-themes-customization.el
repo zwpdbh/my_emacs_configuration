@@ -99,7 +99,7 @@
                         :underline nil
                         :foreground (face-background 'default t t)
                         :background "black"))
-
+   ;; for other themes
    (t
     ;; set company selection highlight
     (add-hook 'company-mode-hook
