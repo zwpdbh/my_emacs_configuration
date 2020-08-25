@@ -2,22 +2,6 @@
 
 ;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, sanityinc-tomorrow-night, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
 
-(defvar zw/green)
-(defvar zw/purple)
-(defvar zw/yellow)
-(defvar zw/red)
-(defvar zw/blue-purple)
-(defvar zw/white)
-
-(setq zw/green "#73c936"
-      zw/purple "#b294bb"
-      zw/yellow "#f0c674"
-      zw/red  "IndianRed"
-      zw/blue-purple "#352d67"
-      zw/light-purple "#ccccff"
-      zw/white "#def")
-
-
 (use-package doom-themes
   :ensure t
   :defer t)

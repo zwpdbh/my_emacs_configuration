@@ -1,3 +1,20 @@
+(defvar zw/green)
+(defvar zw/purple)
+(defvar zw/yellow)
+(defvar zw/red)
+(defvar zw/blue-purple)
+(defvar zw/white)
+
+(setq zw/green "#73c936"
+      zw/purple "#b294bb"
+      zw/yellow "#f0c674"
+      zw/red  "IndianRed"
+      zw/blue-purple "#352d67"
+      zw/blue-for-org-code-in-leuven "#336699"
+      zw/light-purple "#ccccff"
+      zw/white "#def")
+
+
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
 
@@ -47,7 +64,7 @@
     
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
-                                                    :foreground "#336699"))))
+                                                    :foreground zw/blue-for-org-code-in-leuven))))
    ;; for theme: doom-Iosvkem
    ((string-equal custom-enabled-theme "doom-Iosvkem")
     (add-hook 'company-mode-hook
@@ -84,14 +101,16 @@
 
     ;; set different org-mode color
     (add-hook 'org-mode-hook '(lambda ()
-                                (set-face-attribute 'org-block nil
-                                                    :foreground (face-foreground 'default t t))
                                 (setq org-emphasis-alist
                                       '(("*" (bold :foreground "Gold"))
                                         ("/" italic)
                                         ("_" underline)
                                         ("=" org-verbatim verbatim)
                                         ("~" org-code verbatim)
-                                        ("+" (:strike-through t)))))))))
+                                        ("+" (:strike-through t))))))))
+
+  (add-hook 'org-mode-hook '(lambda ()
+                              (set-face-attribute 'org-block nil
+                                                  :foreground (face-foreground 'default t t)))))
 
 (provide 'init-themes-customization)
