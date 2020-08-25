@@ -11,7 +11,7 @@
       zw/red  "IndianRed"
       zw/blue-purple "#352d67"
       zw/blue-for-org-code-in-leuven "#336699"
-      zw/light-purple "#ccccff"
+      zw/light-purple "#e6e6ff"
       zw/white "#def")
 
 
@@ -29,7 +29,7 @@
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background zw/blue-purple)
+                      :background zw/light-purple)
 
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
@@ -64,7 +64,11 @@
     
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
-                                                    :foreground zw/blue-for-org-code-in-leuven))))
+                                                    :foreground zw/blue-for-org-code-in-leuven)))
+    (set-face-attribute 'region nil
+                        :background "#cce6ff"
+                        :extend t)
+    )
    ;; for theme: doom-Iosvkem
    ((string-equal custom-enabled-theme "doom-Iosvkem")
     (add-hook 'company-mode-hook
