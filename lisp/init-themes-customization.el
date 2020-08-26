@@ -65,6 +65,10 @@
                         :background "#FFFF00"
                         :underline nil
                         :extend t)
+
+    (set-face-attribute 'doom-modeline-project-dir nil
+                        :weight 'bold
+                        :foreground "#99cc00")
     
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
