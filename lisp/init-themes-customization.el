@@ -45,6 +45,10 @@
    ;; for theme leuven
    ((string-equal custom-enabled-theme "leuven")
     (set-background-color "honeydew")
+    ;; for Border/frame around Emacs frame
+    (set-face-attribute 'fringe nil
+                        :foreground "#4C9ED9"
+                        :background (face-attribute 'default :background))
     (set-face-attribute 'show-paren-match nil
                         :weight 'normal
                         :underline nil
