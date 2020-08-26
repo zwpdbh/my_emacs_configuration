@@ -34,8 +34,8 @@
                (tooltip-mode -1))
              ;; (when (fboundp 'scroll-bar-mode)
              ;;   (scroll-bar-mode -1))
-             ;; (when (fboundp 'menu-bar-mode)
-             ;;   (menu-bar-mode -1))
+             (when (fboundp 'menu-bar-mode)
+               (menu-bar-mode -1))
 
              ;; I generally prefer to hide the menu bar, but doing this on OS X
              ;; simply makes it update unreliably in GUI frames, so we make an

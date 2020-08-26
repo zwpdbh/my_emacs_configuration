@@ -11,6 +11,7 @@
       (require 'ob-js)
       (require 'org-eldoc)
       (require 'org-tempo)
+      (require 'org-table)
       
       (global-set-key (kbd "<f12>") (kbd "C-c '"))
       (define-key org-mode-map [f5] #'org-toggle-inline-images)
