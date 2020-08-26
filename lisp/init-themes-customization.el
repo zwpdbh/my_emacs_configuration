@@ -69,6 +69,9 @@
     (set-face-attribute 'doom-modeline-project-dir nil
                         :weight 'bold
                         :foreground "#99cc00")
+    (set-face-attribute 'doom-modeline-buffer-modified nil
+                        :weight 'bold
+                        :foreground "#ffcc00")
     
     (add-hook 'org-mode-hook '(lambda ()
                                 (set-face-attribute 'org-code nil
