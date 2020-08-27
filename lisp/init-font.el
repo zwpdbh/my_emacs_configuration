@@ -108,10 +108,15 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                             "新宋体"
                             "宋体"))
 
-(qiang-set-font bhj-english-fonts
-                11
-                bhj-chinese-fonts
-                0.9)
+(if (member "Monaco" (font-family-list))
+    (qiang-set-font bhj-english-fonts
+                    10
+                    bhj-chinese-fonts
+                    0.9)
+  (qiang-set-font bhj-english-fonts
+                  11
+                  bhj-chinese-fonts
+                  0.9))
 
 
 ;; On different platforms, I need to set different scaling rate for
