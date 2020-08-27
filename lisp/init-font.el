@@ -108,7 +108,8 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                             "新宋体"
                             "宋体"))
 
-(if (member "Monaco" (font-family-list))
+(if (or (member "Monaco" (font-family-list))
+        (member "Monaco Nerd Font Mono" (font-family-list)))
     (qiang-set-font bhj-english-fonts
                     10
                     bhj-chinese-fonts
