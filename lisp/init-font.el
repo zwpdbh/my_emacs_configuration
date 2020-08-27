@@ -88,9 +88,9 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (global-emojify-mode 1)))
 
 
-(defvar bhj-english-fonts '("Inconsolata"
-                            "Monaco Nerd Font Mono"
+(defvar bhj-english-fonts '("Monaco Nerd Font Mono"
                             "Monaco"
+                            "Inconsolata"
                             "Anonymous Pro"
                             "Source Code Pro"
                             "Terminus (TTF) for Windows"
