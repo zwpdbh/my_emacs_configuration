@@ -69,9 +69,6 @@
         (define-key (current-local-map) (kbd "M-/") 'lsp-ui-peek-find-references)
       (define-key (current-local-map) (kbd "C-x .") 'lsp-ui-peek-find-references))))
 
-(setq my-lsp-mode-set '(js-mode
-                        python-mode
-                        sh-mode))
 
 (dolist (each-mode zw/lsp-clients-set)
   (let ((each-mode-hook (intern (format "%s-hook" each-mode))))

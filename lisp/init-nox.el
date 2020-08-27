@@ -1,6 +1,9 @@
 (add-to-list 'load-path
              "~/.emacs.d/site-lisp/posfram")
-(require 'posframe)
+
+(unless sys/win32p
+  (require 'posframe))
+
 
 (add-to-list 'load-path
              "~/.emacs.d/site-lisp/nox")
