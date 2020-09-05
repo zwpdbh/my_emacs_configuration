@@ -17,7 +17,8 @@
 
 (if (display-graphic-p)
     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
-  (global-set-key (kbd "C-\\") 'comment-or-uncomment-region))
+  ;; That is because in terminal "^/" is mapped into "^_", check this from "showkey -a"
+  (global-set-key (kbd "C-_") 'comment-or-uncomment-region))
 
 
 ;; use c-c c-c to execute a lisp function
