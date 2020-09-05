@@ -17,7 +17,8 @@
 
 (if (display-graphic-p)
     (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
-  ;; That is because in terminal "^/" is mapped into "^_", check this from "showkey -a"
+  ;; That is because in terminal "^/" is mapped into "^_", check this from "showkey -a".
+  ;; For example, "Ctrl-left" is "^[[1;5D" which could be written as "\e[1;5D" as well.
   (global-set-key (kbd "C-_") 'comment-or-uncomment-region))
 
 
