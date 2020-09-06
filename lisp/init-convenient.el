@@ -51,4 +51,12 @@
 ;;   (nyan-mode 1)
 ;;   (setq nyan-cat-face-number 3))
 
+;; Instant scratch buffer for current mode
+;; https://github.com/ieure/scratch-el
+(add-to-list 'load-path
+             "~/.emacs.d/site-lisp/scratch-el")
+;; uses package "scratch"
+(autoload 'scratch "scratch" nil t)
+
+
 (provide 'init-convenient)
