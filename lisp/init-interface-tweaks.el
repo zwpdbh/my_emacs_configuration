@@ -12,7 +12,7 @@
 ;; ===== make cursor blink time 
 (setq blink-cursor-blinks 10)
 
-;; ===== use y-or-n 
+;; ===== reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; ===== adaptive-wrap

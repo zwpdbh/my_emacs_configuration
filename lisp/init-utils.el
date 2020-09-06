@@ -407,9 +407,6 @@ you can '(setq my-mplayer-extra-opts \"-ao alsa -vo vdpau\")'.")
                                       (unless (string= (substring signal 0 -1) "finished")
                                         (message "Failed to run \"%s\"." ,command))))))))
 
-;; reply y/n instead of yes/no
-(fset 'yes-or-no-p 'y-or-n-p)
-
 ;; set encoding 
 (set-language-environment "UTF-8")
 
