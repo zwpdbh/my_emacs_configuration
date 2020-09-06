@@ -75,6 +75,7 @@
 
 (require-init 'init-convenient)
 (require-init 'init-all-the-icons)
+(require-init 'init-clipboard)
 (require-init 'init-keybinding)
 (require-init 'init-whichkey)
 
@@ -87,8 +88,6 @@
 (require-init 'init-markdown)
 (require-init 'init-json)
 (require-init 'init-docker)
-
-(require-init 'init-clipboard)
 
 (require 'init-dired)
 (require 'init-grep)

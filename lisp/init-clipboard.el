@@ -65,76 +65,24 @@ If N is not nil, copy file name and line number."
                                 ;; echo
                                 (message "%s%s" msg hint)))))
 
-(defun copy-to-x-clipboard (&optional num)
-  "If NUM equals 1, copy the downcased string.
-If NUM equals 2, copy the captalized string.
-If NUM equals 3, copy the upcased string.
-If NUM equals 4, indent 4 spaces."
-  (interactive "P")
+(defun copy-to-x-clipboard ()
+  (interactive)
   (let* ((thing (my-use-selected-string-or-ask "")))
     (if (region-active-p) (deactivate-mark))
-    (cond
-     ((not num))
-     ((= num 1)
-      (setq thing (downcase thing)))
-     ((= num 2)
-      (setq thing (capitalize thing)))
-     ((= num 3)
-      (setq thing (upcase thing)))
-     ((= num 4)
-      (setq thing (string-trim-right (concat "    "
-                                             (mapconcat 'identity (split-string thing "\n") "\n    ")))))
-     (t
-      (message "C-h f copy-to-x-clipboard to find right usage")))
+    (my-pclip thing)))
 
-    (my-pclip thing)
-    (if (not (and num (= 4 num))) (message "kill-ring => clipboard")
-      (message "thing => clipboard!"))))
-
-(defun paste-from-x-clipboard(&optional n)
-  "Remove selected text and paste string clipboard.
-If N is 1, we paste diff hunk whose leading char should be removed.
-If N is 2, paste into `kill-ring' too.
-If N is 3, converted dashed to camelcased then paste.
-If N is 4, rectangle paste. "
-  (interactive "P")
-  (when (and (functionp 'evil-normal-state-p)
-             (functionp 'evil-move-cursor-back)
-             (evil-normal-state-p)
-             (not (eolp))
-             (not (eobp)))
-    (forward-char))
+(defun paste-from-x-clipboard()
+  (interactive)
   (let* ((str (my-gclip))
          (fn 'insert))
-
-    (when (> (length str) (* 256 1024))
-      ;; use light weight `major-mode' like `js-mode'
-      (when (derived-mode-p 'js2-mode)
-        (js-mode 1))
-      ;; turn off syntax highlight
-      (font-lock-mode -1))
-
-    ;; past a big string, stop lsp temporarily
-    (when (and (> (length str) 1024)
-               (boundp 'lsp-mode)
-               lsp-mode)
-      (lsp-disconnect)
-      (run-at-time 300 nil  #'lsp-deferred))
-
     (my-delete-selected-region)
-
-    ;; paste after the cursor in evil normal state
-    (cond
-     ((not n)) ; do nothing
-     ((= 1 n)
-      (setq str (replace-regexp-in-string "^\\(+\\|-\\|@@ $\\)" "" str)))
-     ((= 2 n)
-      (kill-new str))
-     ((= 3 n)
-      (setq str (mapconcat (lambda (s) (capitalize s)) (split-string str "-") "")))
-     ((= 4 n)
-      (setq fn 'insert-rectangle)
-      (setq str (split-string str "[\r]?\n"))))
     (funcall fn str)))
+
+(defun cut-to-x-clipboard ()
+  (interactive)
+  (let* ((thing (my-use-selected-string-or-ask "")))
+    (my-pclip thing))
+  (my-delete-selected-region))
+
 
 (provide 'init-clipboard)
