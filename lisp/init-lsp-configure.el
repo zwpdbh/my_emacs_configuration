@@ -1,9 +1,10 @@
+;; use this variable to control which client to use: lsp or nox 
 (setq zw/use-lsp 'nil)
 
 ;; (setq zw/lsp-clients-set '(js-mode
 ;;                            python-mode
 ;;                            sh-mode))
-(setq zw/lsp-clients-set 'nil)
+(setq zw/lsp-clients-set '(js-mode))
 
 (if zw/use-lsp
     (progn
