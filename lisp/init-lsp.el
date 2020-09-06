@@ -65,9 +65,7 @@
   (interactive)
   (when (featurep 'lsp-ui)
     (define-key (current-local-map) (kbd "M-.") 'lsp-ui-peek-find-definitions)
-    (if (display-graphic-p)
-        (define-key (current-local-map) (kbd "M-/") 'lsp-ui-peek-find-references)
-      (define-key (current-local-map) (kbd "C-x .") 'lsp-ui-peek-find-references))))
+    (define-key (current-local-map) (kbd "M-/") 'lsp-ui-peek-find-references)))
 
 
 (dolist (each-mode zw/lsp-clients-set)
