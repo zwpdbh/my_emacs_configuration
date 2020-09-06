@@ -13,7 +13,8 @@
       zw/blue-for-org-code-in-leuven "#336699"
       zw/light-purple "#ccccff"
       zw/white "#def")
-
+;; show hex color string's corresponding color
+(add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
