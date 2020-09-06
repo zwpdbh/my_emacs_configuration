@@ -72,5 +72,10 @@
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
+;; when runing in -nw, use xclip
+(unless (display-graphic-p)
+  (global-set-key [remap whole-line-or-region-kill-ring-save] 'copy-to-x-clipboard)
+  (global-set-key [remap whole-line-or-region-yank] 'paste-from-x-clipboard)
+  (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard))
 
 (provide 'init-keybinding)
