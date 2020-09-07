@@ -45,7 +45,9 @@
   (cond
    ;; for theme leuven
    ((string-equal custom-enabled-theme "leuven")
-    (set-background-color "honeydew")
+    ;; (set-background-color "#ffffff")
+    ;; (set-background-color "#f2f2f2")
+    ;; (set-background-color "honeydew")
     ;; for Border/frame around Emacs frame
     (set-face-attribute 'fringe nil
                         :foreground "#4C9ED9"
@@ -78,12 +80,12 @@
                         :weight 'bold
                         :foreground "#339933")
 
-    (add-hook 'highlight-indent-guides-mode-hook
-              '(lambda ()
-                 (set-face-attribute 'highlight-indent-guides-even-face nil
-                                     :background "#c1f0c1")
-                 (set-face-attribute 'highlight-indent-guides-odd-face nil
-                                     :background "#d6f5d6")))
+    ;; (add-hook 'highlight-indent-guides-mode-hook
+    ;;           '(lambda ()
+    ;;              (set-face-attribute 'highlight-indent-guides-even-face nil
+    ;;                                  :background "#c1f0c1")
+    ;;              (set-face-attribute 'highlight-indent-guides-odd-face nil
+    ;;                                  :background "#d6f5d6")))
     
     
     (add-hook 'org-mode-hook '(lambda ()
