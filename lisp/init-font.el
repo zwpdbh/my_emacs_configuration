@@ -112,15 +112,15 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
         (member "Monaco Nerd Font Mono" (font-family-list)))
     (if sys/win32p
         (qiang-set-font bhj-english-fonts
-                        10
+                        9
                         bhj-chinese-fonts
                         0.9)
       (qiang-set-font bhj-english-fonts
-                      11
+                      10
                       bhj-chinese-fonts
                       0.9))
   (qiang-set-font bhj-english-fonts
-                  12
+                  11
                   bhj-chinese-fonts
                   0.9))
 
