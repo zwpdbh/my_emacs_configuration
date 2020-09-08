@@ -75,7 +75,9 @@
 ;; when runing in -nw, use xclip
 (unless (display-graphic-p)
   (global-set-key [remap whole-line-or-region-kill-ring-save] 'copy-to-x-clipboard)
+  (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard)
   (global-set-key [remap whole-line-or-region-yank] 'paste-from-x-clipboard)
-  (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard))
+  (when (fboundp 'paste-from-x-clipboard)
+    (global-set-key [remap yank] 'paste-from-x-clipboard)))
 
 (provide 'init-keybinding)
