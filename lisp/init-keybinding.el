@@ -13,7 +13,7 @@
   (define-key input-decode-map "^[[1;5D" [C-left])
   (define-key input-decode-map "^[[1;5C" [C-right])
   (define-key input-decode-map "^[[1;3D" [M-left])
-  (define-key input-decode-map "^[[1;3C" [m-left]))
+  (define-key input-decode-map "^[[1;3C" [M-right]))
 
 ;; resize bindings
 (global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)

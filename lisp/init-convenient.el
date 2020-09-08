@@ -40,8 +40,8 @@
   :ensure t
   :config
   (progn
-    (global-set-key (kbd "C-=") 'er/expand-region)
-    (global-set-key (kbd "C--") 'er/contract-region)))
+    (global-set-key (kbd "M-=") 'er/expand-region)
+    (global-set-key (kbd "M--") 'er/contract-region)))
 
 
 ;; show a cat in modeline
