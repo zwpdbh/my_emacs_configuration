@@ -74,9 +74,9 @@
           helm-buffers-fuzzy-matching t
           helm-recentf-fuzzy-match t
           helm-completion-in-region-fuzzy-match t
-          helm-imenu-fuzzy-match t
 
-          ;; TOOD: helm-semantic has not syntax coloring! How can I fix that?
+          ;; for helm-semantic-or-imenu
+          helm-imenu-fuzzy-match t
           helm-semantic-fuzzy-match t)
 
     (defun spacemacs//helm-hide-minibuffer-maybe ()
