@@ -31,7 +31,7 @@
   :diminish
   :ensure t
   :bind (("M-x" . helm-M-x)
-         ("C-x b" . helm-buffers-list))
+         ("C-x b" . helm-mini))
   :config
   (progn
     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
