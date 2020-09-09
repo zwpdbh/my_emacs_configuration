@@ -2,6 +2,8 @@
              "~/.emacs.d/site-lisp/counsel-etags")
 
 (require 'counsel-etags)
+(setq tags-add-tables nil)
+
 (defun zw/counsel-etags-list-tag-at-point ()
   "List tag at point, case insensitively"
   (interactive)
