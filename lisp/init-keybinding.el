@@ -59,9 +59,11 @@
 ;; adjust key-bindings for xref
 (defun zw/customize-xref-key-bindings ()
   (interactive)
+  (define-key (current-local-map) (kbd "M-.") 'xref-find-definitions)
+  (define-key (current-local-map) (kbd "M-/") 'xref-find-references)
   (when (fboundp 'counsel-etags-find-tag-at-point)
     (define-key (current-local-map) [remap xref-find-definitions] 'counsel-etags-find-tag-at-point)
-    (define-key (current-local-map) [remap xref-find-references] 'counsel-etags-list-tag-function)))
+    (define-key (current-local-map) [remap xref-find-references] 'counsel-etags-list-tag)))
 
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
