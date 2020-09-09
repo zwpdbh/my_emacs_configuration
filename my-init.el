@@ -114,7 +114,7 @@
 (require-init 'init-company)
 ;; (require-init 'init-smartparens)
 (require 'init-counsel-etags)
-(require 'init-lsp-configure)
+;; (require 'init-lsp-configure)
 
 (require 'init-terraform)
 (require-init 'init-eldoc)
