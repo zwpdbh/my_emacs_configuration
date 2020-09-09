@@ -78,4 +78,11 @@
   (when (fboundp 'paste-from-x-clipboard)
     (global-set-key [remap yank] 'paste-from-x-clipboard)))
 
+;; for ivy minibuffer
+(when (fboundp 'ivy-previous-line-and-call)
+  (define-key ivy-minibuffer-map (kbd "C-n") 'ivy-next-line-and-call)
+  (define-key ivy-minibuffer-map (kbd "C-p") 'ivy-previous-line-and-call)
+  (define-key ivy-minibuffer-map (kbd "C-M-n") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-M-p") 'ivy-previous-line))
+
 (provide 'init-keybinding)
