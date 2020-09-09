@@ -62,7 +62,7 @@
   (define-key (current-local-map) (kbd "M-.") 'xref-find-definitions)
   (define-key (current-local-map) (kbd "M-/") 'xref-find-references)
   (when (fboundp 'counsel-etags-find-tag-at-point)
-    (define-key (current-local-map) [remap xref-find-definitions] 'counsel-etags-list-tag)
+    (define-key (current-local-map) [remap xref-find-definitions] 'zw/counsel-etags-list-tag-at-point)
     (define-key (current-local-map) [remap xref-find-references] 'counsel-etags-find-tag-at-point)))
 
 ;; ===== adjust meta key for Mac OSX

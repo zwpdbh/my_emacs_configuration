@@ -1,4 +1,16 @@
 (when (maybe-require-package 'counsel-etags)
+  (defun zw/counsel-etags-list-tag-at-point ()
+    "List tag at point, case insensitively"
+    (interactive)
+    (counsel-etags-tags-file-must-exist)
+    (let* ((tagname (counsel-etags-tagname-at-point))
+           (context (counsel-etags-execute-collect-function)))
+      (cond
+       (tagname
+        (counsel-etags-find-tag-api tagname t buffer-file-name))
+       (t
+        (counsel-etags-find-tag-api nil t buffer-file-name)))))
+
   (setq imenu-create-index-function 'counsel-etags-imenu-default-create-index-function)
 
   ;; Don't ask before rereading the TAGS files if they have changed
@@ -25,5 +37,6 @@
     ;; counsel-etags-ignore-filenames supports wildcast
     (push "TAGS" counsel-etags-ignore-filenames)
     (push "#*" counsel-etags-ignore-filenames)))
+
 
 (provide 'init-counsel-etags)
