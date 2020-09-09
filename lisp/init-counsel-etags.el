@@ -1,8 +1,3 @@
-
-
-
-
-
 (use-package counsel-etags
   :ensure t
   :bind (("C-]" . counsel-etags-find-tag-at-point))
@@ -14,9 +9,6 @@
   :config
   (setq counsel-etags-update-interval 60)
   (push "build" counsel-etags-ignore-directories))
-
-
-
 
 
 (provide 'init-counsel-etags)
