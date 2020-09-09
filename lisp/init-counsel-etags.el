@@ -22,8 +22,6 @@
      (t
       (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
-
-
 ;; Setup auto update now
 (setq zw/use-counsel-etags-modes '(js-mode
                                    python-mode
