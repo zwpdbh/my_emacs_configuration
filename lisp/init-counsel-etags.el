@@ -3,11 +3,18 @@
 
 (require 'counsel-etags)
 
-;; adjust key-bindings for counsel-etags
-(defun zw/counsel-etags-key-bindings ()
+(defun zw/counsel-etags-list-tag-at-point ()
+  "List tag at point, case insensitively"
   (interactive)
-  (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
-  (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+  (counsel-etags-tags-file-must-exist)
+
+  (let* ((tagname (counsel-etags-tagname-at-point))
+         (context (counsel-etags-execute-collect-function)))
+    (cond
+     (tagname
+      (counsel-etags-find-tag-api tagname t buffer-file-name))
+     (t
+      (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
 (defun zw/counsel-etags-grep-at-point (&optional hint root)
   (interactive)
@@ -59,6 +66,14 @@
                                                       ,default-directory
                                                       ,keyword))
               :caller 'counsel-etags-grep)))
+
+;; adjust key-bindings for counsel-etags
+(defun zw/counsel-etags-key-bindings ()
+  (interactive)
+  ;; (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
+  (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
+  (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+
 
 ;; Setup auto update now
 (setq zw/use-counsel-etags-modes '(js-mode
