@@ -27,7 +27,12 @@
 ;; Setup auto update now
 (setq zw/use-counsel-etags-modes '(js-mode
                                    python-mode
-                                   sh-mode))
+                                   sh-mode
+                                   c-mode
+                                   c++-mode
+                                   yaml-mode
+                                   json-mode))
+
 (dolist (each-mode zw/use-counsel-etags-modes)
   (add-hook (intern (format "%s-hook" each-mode))
             '(lambda ()
