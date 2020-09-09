@@ -2,7 +2,6 @@
              "~/.emacs.d/site-lisp/counsel-etags")
 
 (require 'counsel-etags)
-(setq tags-add-tables nil)
 
 ;; adjust key-bindings for counsel-etags
 (defun zw/counsel-etags-key-bindings ()
@@ -23,12 +22,7 @@
      (t
       (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
-(setq imenu-create-index-function 'counsel-etags-imenu-default-create-index-function)
 
-;; Don't ask before rereading the TAGS files if they have changed
-(setq tags-revert-without-query t)
-;; Don't warn when TAGS files are large
-(setq large-file-warning-threshold nil)
 
 ;; Setup auto update now
 (setq zw/use-counsel-etags-modes '(js-mode
@@ -48,6 +42,15 @@
 
 ;; Ignore directories and files
 (with-eval-after-load 'counsel-etags
+  (setq tags-add-tables t)
+  (setq imenu-create-index-function 'counsel-etags-imenu-default-create-index-function)
+
+  ;; Don't ask before rereading the TAGS files if they have changed
+  (setq tags-revert-without-query t)
+  ;; Don't warn when TAGS files are large
+  (setq large-file-warning-threshold nil)
+  
+  (setq counsel-etags-update-interval 30)
   ;; counsel-etags-ignore-directories does NOT support wildcast
   (push "build_clang" counsel-etags-ignore-directories)
   (push "node_modules" counsel-etags-ignore-directories)
