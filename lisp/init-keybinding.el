@@ -56,12 +56,6 @@
              (global-set-key (kbd "M-.") 'xref-find-definitions)
              (global-set-key (kbd "M-/") 'xref-find-references)))
 
-;; adjust key-bindings for xref
-(defun zw/customize-xref-key-bindings ()
-  (interactive)
-  (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
-  (define-key (current-local-map) (kbd "M-/") 'counsel-etags-find-tag-at-point))
-
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
   ;; use macbook's command(cmd) key as meta key 

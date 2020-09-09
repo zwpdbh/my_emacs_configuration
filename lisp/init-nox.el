@@ -12,8 +12,7 @@
 (dolist (each-mode zw/lsp-clients-set)
   (add-hook (intern (format "%s-hook" each-mode))
             #'(lambda ()
-                (nox-ensure)
-                (zw/customize-xref-key-bindings))))
+                (nox-ensure))))
 
 (add-hook 'nox-managed-mode-hook
           '(lambda ()

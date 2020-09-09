@@ -4,6 +4,12 @@
 (require 'counsel-etags)
 (setq tags-add-tables nil)
 
+;; adjust key-bindings for counsel-etags
+(defun zw/counsel-etags-key-bindings ()
+  (interactive)
+  (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
+  (define-key (current-local-map) (kbd "M-/") 'counsel-etags-find-tag-at-point))
+
 (defun zw/counsel-etags-list-tag-at-point ()
   "List tag at point, case insensitively"
   (interactive)
@@ -36,7 +42,7 @@
 (dolist (each-mode zw/use-counsel-etags-modes)
   (add-hook (intern (format "%s-hook" each-mode))
             '(lambda ()
-               (zw/customize-xref-key-bindings)
+               (zw/counsel-etags-key-bindings)
                (add-hook 'after-save-hook
                          'counsel-etags-virtual-update-tags 'append 'local))))
 
