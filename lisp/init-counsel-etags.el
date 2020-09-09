@@ -100,13 +100,17 @@
   (setq tags-revert-without-query t)
   ;; Don't warn when TAGS files are large
   (setq large-file-warning-threshold nil)
-  
   (setq counsel-etags-update-interval 30)
+  
   ;; counsel-etags-ignore-directories does NOT support wildcast
   (push "build_clang" counsel-etags-ignore-directories)
   (push "node_modules" counsel-etags-ignore-directories)
+  (push "dist" counsel-etags-ignore-directories)
+  
   ;; counsel-etags-ignore-filenames supports wildcast
   (push "TAGS" counsel-etags-ignore-filenames)
-  (push "#*" counsel-etags-ignore-filenames))
+  (push "#*" counsel-etags-ignore-filenames)
+  (push "#*.*#" counsel-etags-ignore-filenames)
+  (push "*.*#" counsel-etags-ignore-filenames))
 
 (provide 'init-counsel-etags)
