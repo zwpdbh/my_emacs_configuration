@@ -68,6 +68,7 @@
 
     (set-face-attribute 'helm-match-item nil
                         :weight 'bold
+                        :foreground "black"
                         :background "#FFFF00"
                         :underline nil
                         :extend t)
