@@ -17,16 +17,6 @@
 (add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
 
-;; ;; make swiper selection use underline
-;; (defun zw/customize-ivy-current-match ()
-;;   (interactive)
-;;   (set-face-attribute 'ivy-current-match nil
-;;                       :inherit nil
-;;                       :foreground nil
-;;                       :background nil
-;;                       :underline t
-;;                       :weight 'bold))
-
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
 
@@ -52,6 +42,12 @@
   (set-face-attribute 'isearch nil
                       :foreground (face-foreground 'default t t)
                       :weight 'normal)
+  
+  (set-face-attribute 'swiper-line-face nil
+                      :underline t)
+  (set-face-attribute 'swiper-match-face-2 nil
+                      :foreground "black")
+
 
   (cond
    ;; for theme leuven
