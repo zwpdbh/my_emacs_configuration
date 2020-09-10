@@ -37,7 +37,6 @@
   (set-face-attribute 'helm-selection nil
                       :underline t
                       :weight 'bold)
-  ;; (set-face-attribute )
 
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
@@ -50,7 +49,7 @@
                       :foreground "black")
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
-
+  
   (cond
    ;; for theme leuven
    ((string-equal custom-enabled-theme "leuven")
