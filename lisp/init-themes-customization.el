@@ -47,7 +47,8 @@
                       :underline t)
   (set-face-attribute 'swiper-match-face-2 nil
                       :foreground "black")
-
+  ;; make selection highlight-background expand full width of the minibuffer
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
   (cond
    ;; for theme leuven
