@@ -35,16 +35,6 @@
                       :background (face-background 'default t t)
                       :underline t))
 
-;; make swiper selection use underline
-(defun zw/customize-ivy-current-match ()
-  (interactive)
-  (set-face-attribute 'ivy-current-match nil
-                      :inherit nil
-                      :foreground nil
-                      :background nil
-                      :underline t
-                      :weight 'bold))
-
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun apply-theme ()
@@ -55,8 +45,7 @@
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
   
-  (zw/customize-theme)
-  (zw/customize-ivy-current-match))
+  (zw/customize-theme))
 
 (add-hook 'after-init-hook 'apply-theme)
 

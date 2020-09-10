@@ -16,6 +16,17 @@
 ;; show hex color string's corresponding color
 (add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
+
+;; ;; make swiper selection use underline
+;; (defun zw/customize-ivy-current-match ()
+;;   (interactive)
+;;   (set-face-attribute 'ivy-current-match nil
+;;                       :inherit nil
+;;                       :foreground nil
+;;                       :background nil
+;;                       :underline t
+;;                       :weight 'bold))
+
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
 
