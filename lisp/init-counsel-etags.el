@@ -16,56 +16,11 @@
      (t
       (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
-(defun zw/counsel-etags-grep-at-point (&optional hint root)
+
+(defun zw/counsel-etags-grep-at-point ()
   (interactive)
-  (let* ((text (counsel-etags-tagname-at-point))
-         (keyword (funcall counsel-etags-convert-grep-keyword text))
-         (default-directory (file-truename (or root
-                                               (counsel-etags-locate-project))))
-         (time (current-time))
-         (cmd (counsel-etags-grep-cli keyword nil))
-         (cands (split-string (shell-command-to-string cmd) "[\r\n]+" t))
-         (dir-summary (counsel-etags-dirname default-directory)))
+  (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil))
 
-    (when (and cands
-               buffer-file-name
-               counsel-etags-sort-grep-result-p
-               counsel-etags-candidates-optimize-limit
-               ;; string-distance is faster
-               (< (length cands) (* 4 counsel-etags-candidates-optimize-limit))
-               (fboundp 'string-distance))
-      ;; grep should not waste time on lisp version of string distance
-      ;; So `string-distance' from Emacs 27 is required
-      (let* ((ref (file-relative-name buffer-file-name root)))
-        (setq cands
-              (sort cands
-                    `(lambda (a b)
-                       (< (string-distance (car (split-string a ":")) ,ref t)
-                          (string-distance (car (split-string b ":")) ,ref t)))))))
-
-    (if counsel-etags-debug (message "counsel-etags-grep called => %s %s %s %s"
-                                     keyword default-directory cmd cands))
-    (counsel-etags-put :ignore-dirs
-                       counsel-etags-ignore-directories
-                       counsel-etags-opts-cache)
-
-    (counsel-etags-put :ignore-file-names
-                       counsel-etags-ignore-filenames
-                       counsel-etags-opts-cache)
-
-    ;; Slow down grep 10 times
-    (ivy-read (concat hint (format "Grep \"%s\" at %s (%s): "
-                                   text
-                                   dir-summary
-                                   (counsel-etags--time-cost time)))
-              cands
-              :history 'counsel-git-grep-history ; share history with counsel
-              :action `(lambda (item)
-                         ;; when grepping, we grepping in project root
-                         (counsel-etags-open-file-api item
-                                                      ,default-directory
-                                                      ,keyword))
-              :caller 'counsel-etags-grep)))
 
 ;; adjust key-bindings for counsel-etags
 (defun zw/counsel-etags-key-bindings ()
