@@ -20,7 +20,7 @@
 
 (defun zw/counsel-etags-grep-at-point ()
   (interactive)
-  (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil))
+  (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil t))
 
 
 ;; adjust key-bindings for counsel-etags
