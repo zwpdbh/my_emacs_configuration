@@ -3,6 +3,7 @@
 
 (require 'counsel-etags)
 
+
 (defun zw/counsel-etags-list-tag-at-point ()
   "List tag at point, case insensitively"
   (interactive)
