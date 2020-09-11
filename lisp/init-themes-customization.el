@@ -38,7 +38,7 @@
                       :underline t
                       :weight 'bold
                       :extend t)
-  
+  (setq helm-buffer-max-length 80)
 
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
