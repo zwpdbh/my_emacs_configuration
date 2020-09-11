@@ -36,7 +36,9 @@
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t
-                      :weight 'bold)
+                      :weight 'bold
+                      :extend t)
+  
 
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
