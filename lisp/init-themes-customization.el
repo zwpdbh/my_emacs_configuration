@@ -73,7 +73,7 @@
                         :foreground "black"
                         :background "#FFFF00"
                         :underline nil
-                        :extend t)
+                        :extend nil)
     (set-face-attribute 'swiper-match-face-2 nil
                         :weight 'bold
                         :background "#FFFF00"
