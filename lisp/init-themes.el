@@ -53,7 +53,7 @@
 (add-hook 'helm-mode-hook 'zw/customize-theme-for-helm)
 (add-hook 'org-mode-hook 'zw/customize-theme-for-org)
 (add-hook 'ivy-mode-hook 'zw/customize-theme-for-swiper)
-(add-hook 'doom-modeline-mode-hook 'zw/customize-theme-for-doom-line )
+(add-hook 'doom-modeline-mode-hook 'zw/customize-theme-for-doom-modeline)
 
 
 (provide 'init-themes)

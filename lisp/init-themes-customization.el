@@ -85,13 +85,15 @@
                       :weight 'normal))
 
 
-(defun zw/customize-theme-for-doom-line ()
+(defun zw/customize-theme-for-doom-modeline ()
   (set-face-attribute 'doom-modeline-project-dir nil
                       :weight 'bold
                       :foreground "#99cc00")
   (set-face-attribute 'doom-modeline-buffer-modified nil
                       :weight 'bold
-                      :foreground "#ffcc00"))
+                      :foreground "#ffcc00")
+  (set-face-attribute 'doom-modeline-info nil
+                      :foreground "#99cc00"))
 
 
 (defun zw/customize-theme ()
