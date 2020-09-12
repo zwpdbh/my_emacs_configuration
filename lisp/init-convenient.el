@@ -17,10 +17,6 @@
 ;; ===== make window/buffer move easier 
 (when (maybe-require-package 'buffer-move)
   (add-hook 'after-init-hook '(lambda ()
-                                ;; (global-unset-key (kbd "<M-S-up>"))
-                                ;; (global-unset-key (kbd "<M-S-down>"))
-                                ;; (global-unset-key (kbd "<M-S-left>"))
-                                ;; (global-unset-key (kbd "<M-S-right>"))
                                 (global-set-key (kbd "C-x C-<up>") 'buf-move-up)
                                 (global-set-key (kbd "C-x C-<left>") 'buf-move-left)
                                 (global-set-key (kbd "C-x C-<right>") 'buf-move-right)
