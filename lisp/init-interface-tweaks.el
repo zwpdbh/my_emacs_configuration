@@ -22,12 +22,6 @@
 (when (require 'adaptive-wrap)
   (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
 
-;; (when (require 'visual-fill-column)
-;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
-
-
-
-
 
 ;; ===== highlight current line 
 (global-hl-line-mode +1)
