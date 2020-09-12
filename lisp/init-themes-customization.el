@@ -103,7 +103,7 @@
                                 (set-face-attribute 'org-code nil
                                                     :foreground zw/blue-for-org-code-in-leuven)
                                 (setq org-emphasis-alist
-                                      '(("*" (bold :foreground "#336699"))
+                                      '(("*" (bold :foreground zw/green))
                                         ("/" italic)
                                         ("_" underline)
                                         ("=" org-verbatim verbatim)
