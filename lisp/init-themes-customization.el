@@ -62,11 +62,11 @@
   (set-face-attribute 'org-block nil
                       :foreground (face-foreground 'default t t))
   (setq org-emphasis-alist
-        '(("*" bold (:foreground "chocolate"))
+        '(("*" (:foreground "chocolate"))
           ("/" italic)
           ("_" underline)
           ("=" (:background "maroon" :foreground "white"))
-          ("~" (:foreground "#336699"))
+          ("~" (:foreground "DogerBlue"))
           ("+" (:strike-through t)))))
 
 
