@@ -72,9 +72,7 @@
 
 (defun zw/customize-theme-for-company ()
   (set-face-attribute 'company-tooltip-selection nil
-                      :foreground (face-foreground 'default t t)
-                      :inverse-video nil
-                      :weight 'extrabold))
+                      :weight 'normal))
 
 
 (defun zw/customize-theme-for-doom-line ()
