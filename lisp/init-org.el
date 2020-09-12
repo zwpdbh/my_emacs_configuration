@@ -1,8 +1,9 @@
 (use-package org
-  :init
-  (setq org-link-file-path-type 'adaptive)
   :defer t
   :ensure org-plus-contrib)
+
+(setq org-link-file-path-type 'adaptive)
+(setq org-hide-emphasis-markers t)
 
 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
 (eval-after-load 'org
@@ -12,6 +13,8 @@
       (require 'org-eldoc)
       (require 'org-tempo)
       (require 'org-table)
+
+      
       
       (global-set-key (kbd "<f12>") (kbd "C-c '"))
       (define-key org-mode-map [f5] #'org-toggle-inline-images)
