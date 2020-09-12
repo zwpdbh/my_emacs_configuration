@@ -66,7 +66,7 @@
           ("/" italic)
           ("_" underline)
           ("=" (:background "maroon" :foreground "white"))
-          ("~" (:foreground "DogerBlue"))
+          ("~" (:foreground "#0595bd"))
           ("+" (:strike-through t)))))
 
 
