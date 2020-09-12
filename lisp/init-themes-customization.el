@@ -30,11 +30,15 @@
                       :background "#FFFF00"
                       :underline nil
                       :extend nil)
+  (if (display-graphic-p)
+      (setq zw/helm-ff-dir-color "#336699")
+    (setq zw/helm-ff-dir-color "purple"))
+  
   (set-face-attribute 'helm-ff-directory nil
-                      :foreground "#336699"
+                      :foreground zw/helm-ff-dir-color
                       :weight 'bold)
   (set-face-attribute 'helm-ff-dotted-directory nil
-                      :foreground "#336699"
+                      :foreground zw/helm-ff-dir-color
                       :weight 'bold))
 
 
