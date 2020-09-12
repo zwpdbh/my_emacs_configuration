@@ -17,6 +17,75 @@
 (add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
 
+(defun zw/customize-theme-for-helm ()
+  ;; make helm related selection use underline
+  (set-face-attribute 'helm-selection nil
+                      :underline t
+                      :weight 'bold
+                      :extend t)
+  (setq helm-buffer-max-length 80)
+  (set-face-attribute 'helm-match-item nil
+                      :weight 'bold
+                      :foreground "black"
+                      :background "#FFFF00"
+                      :underline nil
+                      :extend nil))
+
+
+(defun zw/customize-theme-for-swiper ()
+  ;; make swiper use code default color as foreground
+  (set-face-attribute 'isearch nil
+                      :foreground (face-foreground 'default t t)
+                      :weight 'normal)
+  
+  (set-face-attribute 'swiper-line-face nil
+                      :underline t)
+  (set-face-attribute 'swiper-match-face-2 nil
+                      :foreground "black")
+  ;; make selection highlight-background expand full width of the minibuffer
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  (set-face-attribute 'swiper-match-face-2 nil
+                      :weight 'bold
+                      :background "#FFFF00"
+                      :underline nil
+                      :extend t))
+
+
+(defun zw/customize-theme-for-org ()
+  (visual-line-mode)
+  (setq org-link-file-path-type 'adaptive)
+  (setq org-hide-emphasis-markers t)
+  
+  (set-face-attribute 'org-code nil
+                      :foreground zw/blue-for-org-code-in-leuven)
+  (set-face-attribute 'org-block nil
+                      :foreground (face-foreground 'default t t))
+  (setq org-emphasis-alist
+        '(("*" bold (:foreground "chocolate"))
+          ("/" italic)
+          ("_" underline)
+          ("=" (:background "maroon" :foreground "white"))
+          ("~" (:foreground "#336699"))
+          ("+" (:strike-through t)))))
+
+
+(defun zw/customize-theme-for-company ()
+  (set-face-attribute 'company-tooltip-selection nil
+                      :foreground (face-foreground 'default t t)
+                      :inverse-video nil
+                      :weight 'extrabold))
+
+
+(defun zw/customize-theme-for-doom-line ()
+  (set-face-attribute 'doom-modeline-project-dir nil
+                      :weight 'bold
+                      :foreground "#99cc00")
+  (set-face-attribute 'doom-modeline-buffer-modified nil
+                      :weight 'bold
+                      :foreground "#ffcc00"))
+
+
 (defun zw/customize-theme ()
   (load-theme custom-enabled-theme)
 
@@ -33,132 +102,22 @@
                       :foreground (face-background 'default t t)
                       :background zw/light-purple)
 
-  ;; make helm related selection use underline
-  (set-face-attribute 'helm-selection nil
-                      :underline t
+  (set-face-attribute 'fringe nil
+                      :foreground "#4C9ED9"
+                      :background (face-attribute 'default :background))
+  (set-face-attribute 'show-paren-match nil
+                      :weight 'normal
+                      :underline nil
+                      :foreground (face-background 'default t t)
+                      :background zw/light-purple)
+  
+  (set-face-attribute 'success nil
                       :weight 'bold
-                      :extend t)
-  (setq helm-buffer-max-length 80)
+                      :foreground "#339933")
 
-  ;; make swiper use code default color as foreground
-  (set-face-attribute 'isearch nil
-                      :foreground (face-foreground 'default t t)
-                      :weight 'normal)
-  
-  (set-face-attribute 'swiper-line-face nil
-                      :underline t)
-  (set-face-attribute 'swiper-match-face-2 nil
-                      :foreground "black")
-  ;; make selection highlight-background expand full width of the minibuffer
-  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
-  
-  (cond
-   ;; for theme leuven
-   ((string-equal custom-enabled-theme "leuven")
-    ;; (set-background-color "#ffffff")
-    ;; (set-background-color "#f2f2f2")
-    ;; (set-background-color "honeydew")
-    ;; for Border/frame around Emacs frame
-    (set-face-attribute 'fringe nil
-                        :foreground "#4C9ED9"
-                        :background (face-attribute 'default :background))
-    (set-face-attribute 'show-paren-match nil
-                        :weight 'normal
-                        :underline nil
-                        :foreground (face-background 'default t t)
-                        :background zw/light-purple)
+  (set-face-attribute 'region nil
+                      :background "#cce6ff"
+                      :extend t))
 
-    (set-face-attribute 'helm-match-item nil
-                        :weight 'bold
-                        :foreground "black"
-                        :background "#FFFF00"
-                        :underline nil
-                        :extend nil)
-    (set-face-attribute 'swiper-match-face-2 nil
-                        :weight 'bold
-                        :background "#FFFF00"
-                        :underline nil
-                        :extend t)
-
-    (set-face-attribute 'doom-modeline-project-dir nil
-                        :weight 'bold
-                        :foreground "#99cc00")
-    (set-face-attribute 'doom-modeline-buffer-modified nil
-                        :weight 'bold
-                        :foreground "#ffcc00")
-    
-    (set-face-attribute 'success nil
-                        :weight 'bold
-                        :foreground "#339933")
-
-    ;; (add-hook 'highlight-indent-guides-mode-hook
-    ;;           '(lambda ()
-    ;;              (set-face-attribute 'highlight-indent-guides-even-face nil
-    ;;                                  :background "#c1f0c1")
-    ;;              (set-face-attribute 'highlight-indent-guides-odd-face nil
-    ;;                                  :background "#d6f5d6")))
-    
-    
-    (add-hook 'org-mode-hook '(lambda ()
-                                (set-face-attribute 'org-code nil
-                                                    :foreground zw/blue-for-org-code-in-leuven)
-                                (setq org-emphasis-alist
-                                      '(("*" (bold :foreground zw/green))
-                                        ("/" italic)
-                                        ("_" underline)
-                                        ("=" org-verbatim verbatim)
-                                        ("~" org-code verbatim)
-                                        ("+" (:strike-through t))))))
-    (set-face-attribute 'region nil
-                        :background "#cce6ff"
-                        :extend t))
-   
-   ;; for theme: doom-Iosvkem
-   ((string-equal custom-enabled-theme "doom-Iosvkem")
-    (add-hook 'company-mode-hook
-              '(lambda ()
-                 (set-face-attribute 'company-tooltip-common nil
-                                     :foreground zw/green
-                                     :weight 'bold)
-                 (set-face-attribute 'company-preview-common nil
-                                     :foreground zw/green
-                                     :background (face-background 'default t t))))
-
-    (set-face-attribute 'link nil
-                        :foreground zw/green
-                        :weight 'bold
-                        :underline t)
-    (set-face-attribute 'highlight nil
-                        :background zw/red)
-
-    (set-face-attribute 'show-paren-match nil
-                        :weight 'normal
-                        :underline nil
-                        :foreground (face-background 'default t t)
-                        :background "black"))
-   ;; for other themes
-   (t
-    ;; set company selection highlight
-    (add-hook 'company-mode-hook
-              '(lambda ()
-                 (set-face-attribute 'company-tooltip-selection nil
-                                     :foreground (face-foreground 'default t t)
-                                     :background "black"
-                                     :inverse-video nil
-                                     :weight 'extrabold)))
-
-    ;; set different org-mode color
-    (add-hook 'org-mode-hook '(lambda ()
-                                (setq org-emphasis-alist
-                                      '(("*" (bold :foreground "Gold"))
-                                        ("/" italic)
-                                        ("_" underline)
-                                        ("=" org-verbatim verbatim)
-                                        ("~" org-code verbatim)
-                                        ("+" (:strike-through t))))))
-
-    (add-hook 'org-mode-hook '(lambda ()
-                                (set-face-attribute 'org-block nil
-                                                    :foreground (face-foreground 'default t t)))))))
 
 (provide 'init-themes-customization)
