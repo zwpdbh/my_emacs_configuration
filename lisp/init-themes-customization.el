@@ -29,7 +29,13 @@
                       :foreground "black"
                       :background "#FFFF00"
                       :underline nil
-                      :extend nil))
+                      :extend nil)
+  (set-face-attribute 'helm-ff-directory nil
+                      :foreground "#336699"
+                      :weight 'bold)
+  (set-face-attribute 'helm-ff-dotted-directory nil
+                      :foreground "#336699"
+                      :weight 'bold))
 
 
 (defun zw/customize-theme-for-swiper ()
