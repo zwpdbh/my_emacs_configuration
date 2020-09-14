@@ -1,19 +1,19 @@
-;; use this variable to control which client to use: lsp or nox 
-(setq zw/use-lsp 'nil)
+;; ;; use this variable to control which client to use: lsp or nox 
+;; (setq zw/use-lsp 'nil)
 
-;; (setq zw/lsp-clients-set '(js-mode
-;;                            python-mode
-;;                            sh-mode))
-(setq zw/lsp-clients-set '(js-mode))
+;; ;; (setq zw/lsp-clients-set '(js-mode
+;; ;;                            python-mode
+;; ;;                            sh-mode))
+;; (setq zw/lsp-clients-set '(js-mode))
 
-(if zw/use-lsp
-    (progn
-      (require 'init-lsp)
-      (require 'init-dap)
-      (message "use lsp as language server protocol client"))
-  (progn
-    (require 'init-nox)
-    (message "use nox as language server protocol client")))
+;; (if zw/use-lsp
+;;     (progn
+;;       (require 'init-lsp)
+;;       (require 'init-dap)
+;;       (message "use lsp as language server protocol client"))
+;;   (progn
+;;     (require 'init-nox)
+;;     (message "use nox as language server protocol client")))
 
 
-(provide 'init-lsp-configure)
+;; (provide 'init-lsp-configure)
