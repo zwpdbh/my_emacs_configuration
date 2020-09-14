@@ -41,9 +41,7 @@
                       :foreground zw/helm-ff-dir-color
                       :weight 'bold))
 
-;; Because some settings must be set before the mode is loaded.
-;; make selection highlight-background expand full width of the minibuffer
-(setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
 (defun zw/customize-theme-for-swiper ()
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
@@ -58,7 +56,9 @@
                       :weight 'bold
                       :background "#FFFF00"
                       :underline nil
-                      :extend t))
+                      :extend t)
+  ;; make selection highlight-background expand full width of the minibuffer
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
 
 
 (defun zw/customize-theme-for-org ()
