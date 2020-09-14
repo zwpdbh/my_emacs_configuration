@@ -43,11 +43,18 @@
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
-  
-  (zw/customize-theme))
+  (doom-themes-treemacs-config))
 
-(add-hook 'after-init-hook 'apply-theme)
+
+(apply-theme)
+(zw/customize-theme)
+
+(add-hook 'company-mode-hook 'zw/customize-theme-for-company)
+(add-hook 'helm-mode-hook 'zw/customize-theme-for-helm)
+(add-hook 'org-mode-hook 'zw/customize-theme-for-org)
+(add-hook 'ivy-mode-hook 'zw/customize-theme-for-swiper)
+(add-hook 'doom-modeline-mode-hook 'zw/customize-theme-for-doom-modeline)
+
 
 (provide 'init-themes)
 ;;; init-themes.el ends here

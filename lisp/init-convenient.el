@@ -17,10 +17,6 @@
 ;; ===== make window/buffer move easier 
 (when (maybe-require-package 'buffer-move)
   (add-hook 'after-init-hook '(lambda ()
-                                ;; (global-unset-key (kbd "<M-S-up>"))
-                                ;; (global-unset-key (kbd "<M-S-down>"))
-                                ;; (global-unset-key (kbd "<M-S-left>"))
-                                ;; (global-unset-key (kbd "<M-S-right>"))
                                 (global-set-key (kbd "C-x C-<up>") 'buf-move-up)
                                 (global-set-key (kbd "C-x C-<left>") 'buf-move-left)
                                 (global-set-key (kbd "C-x C-<right>") 'buf-move-right)
@@ -29,12 +25,8 @@
 ;; ===== set mode-line 
 (use-package doom-modeline
   :ensure t
+  :init (setq doom-modeline-vcs-max-length 20)
   :hook (after-init . doom-modeline-mode))
-
-;; ===== magit 
-;; (use-package magit
-;;   :bind (("C-x g" . magit))
-;;   :ensure t)
 
 (use-package expand-region
   :ensure t
@@ -43,13 +35,6 @@
     (global-set-key (kbd "M-=") 'er/expand-region)
     (global-set-key (kbd "M--") 'er/contract-region)))
 
-
-;; show a cat in modeline
-;; (use-package nyan-mode
-;;   :ensure t
-;;   :config
-;;   (nyan-mode 1)
-;;   (setq nyan-cat-face-number 3))
 
 ;; Instant scratch buffer for current mode
 ;; https://github.com/ieure/scratch-el

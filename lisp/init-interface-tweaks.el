@@ -18,14 +18,9 @@
 ;; ===== adaptive-wrap
 (global-visual-line-mode t)
 (set-default 'fill-column 120)
-
+;; (add-hook 'org-mode-hook 'visual-line-mode)
 (when (require 'adaptive-wrap)
   (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
-;; (when (require 'visual-fill-column)
-;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
-
-
-
 
 
 ;; ===== highlight current line 
