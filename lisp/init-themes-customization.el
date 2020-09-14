@@ -55,27 +55,6 @@
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
-<<<<<<< HEAD
-  ;; ;; make counsel-etags also highlight candiate
-  ;; (set-face-attribute 'ivy-highlight-face nil
-  ;;                     :underline t
-  ;;                     :background "black")
-  ;; (set-face-attribute 'ivy-completions-annotations nil
-  ;;                     :background "blue")
-  ;; (set-face-attribute 'ivy-minibuffer-match-highlight nil
-  ;;                     :background "green")
-  ;; (set-face-attribute 'ivy-modified-buffer nil
-  ;;                     :background "green")
-  ;; (set-face-attribute 'ivy-modified-outside-buffer nil
-  ;;                     :background "green")
-  ;; (set-face-attribute 'counsel--mark-ring-highlight nil
-  ;;                     :background "green")
-  ;; (set-face-attribute 'ivy-yanked-word nil
-  ;;                     :background "green")
-
-  ;; (set-face-attribute 'counsel-outline-1 nil
-  ;;                     :background "green")
-=======
   (set-face-attribute 'swiper-match-face-2 nil
                       :weight 'bold
                       :background "#FFFF00"
@@ -87,7 +66,6 @@
   (visual-line-mode)
   (setq org-link-file-path-type 'adaptive)
   (setq org-hide-emphasis-markers t)
->>>>>>> 0cac5ac8d3efe304b604fc1464dbc76f0da255cf
   
   (set-face-attribute 'org-code nil
                       :foreground zw/blue-for-org-code-in-leuven)
