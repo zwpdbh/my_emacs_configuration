@@ -156,12 +156,12 @@
 ;; (require 'init-bib)
 (require 'init-erlang)
 
-;; ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
-;; ;; Adding directories under "site-lisp/" to `load-path' slows
-;; ;; down all `require' statement. So we do this at the end of startup
-;; ;; NO ELPA package is dependent on "site-lisp/".
-;; (setq load-path (cdr load-path))
-;; (my-add-subdirs-to-load-path "~/.emacs.d/site-lisp/")
+;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
+;; Adding directories under "site-lisp/" to `load-path' slows
+;; down all `require' statement. So we do this at the end of startup
+;; NO ELPA package is dependent on "site-lisp/".
+(setq load-path (cdr load-path))
+(my-add-subdirs-to-load-path "~/.emacs.d/site-lisp/")
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
