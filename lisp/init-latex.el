@@ -57,8 +57,7 @@
   (autoload 'latex-math-preview-expression "latex-math-preview" nil t)
   (autoload 'latex-math-preview-insert-symbol "latex-math-preview" nil t)
   (autoload 'latex-math-preview-save-image-file "latex-math-preview" nil t)
-  (autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t)
-  (define-key TeX-mode-map (kbd "C-c C-c") 'latex-math-preview-expression))
+  (autoload 'latex-math-preview-beamer-frame "latex-math-preview" nil t))
 
 
 (if (executable-find "xelatex")
@@ -109,6 +108,7 @@
   (define-key TeX-mode-map (kbd "<f7>") 'preview-clearout-buffer)
   (define-key TeX-mode-map (kbd "TAB") 'complete-if-no-space)
   (define-key TeX-mode-map (kbd "<tab>") 'complete-if-no-space)
+  (define-key TeX-mode-map (kbd "C-c C-c") 'latex-math-preview-expression)
   
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
