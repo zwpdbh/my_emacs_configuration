@@ -1,5 +1,7 @@
+(setq scimax-dir "~/.emacs.d/site-lisp/scimax")
 (add-to-list 'load-path
-             "~/.emacs.d/site-lisp/scimax")
+             scimax-dir)
 
+;; (require 'scimax)
 
 (provide 'init-scimax)
