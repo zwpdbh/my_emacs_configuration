@@ -7,3 +7,6 @@
 [submodule "site-lisp/counsel-etags"]
 	path = site-lisp/counsel-etags
 	url = https://github.com/redguardtoo/counsel-etags.git
+[submodule "site-lisp/scimax"]
+	path = site-lisp/scimax
+	url = https://github.com/jkitchin/scimax.git

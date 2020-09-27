@@ -137,6 +137,7 @@
 (require-init 'init-web)
 (require-init 'init-go)
 (require-init 'init-R)
+(require 'init-erlang)
 
 (require-init 'init-org)
 (require-init 'init-org-babel)
@@ -151,10 +152,12 @@
 
 (require-init 'init-pomodoro)
 
-;; error prone configuration
-(require-init 'init-latex)
-;; (require 'init-bib)
-(require 'init-erlang)
+;; ;; Latex related
+;; (require-init 'init-latex)
+;; ;; (require 'init-bib)
+
+;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
+(require 'init-scimax)
 
 ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
 ;; Adding directories under "site-lisp/" to `load-path' slows
