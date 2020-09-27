@@ -49,5 +49,12 @@
 (after-load 'ox-extra
   (ox-extras-activate '(ignore-headlines)))
 
+(when (maybe-require-package 'ox-pandoc)
+  ;; (setq org-pandoc-options-for-docx '((standalone . nil)))
+  (setq org-pandoc-menu-entry '(
+                                (119 "to docx." org-pandoc-export-to-docx)
+                                (87 "to docx and open." org-pandoc-export-to-docx-and-open)))
+  (after-load 'ox
+    (require 'ox-pandoc)))
 
 (provide 'init-org-tools)

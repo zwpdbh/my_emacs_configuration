@@ -38,7 +38,8 @@
       (add-hook 'org-mode-hook '(lambda ()
                                   ;; set org to user the current window when edit src code
                                   (setq org-src-window-setup 'current-window)
-                                  (setq org-log-done t)))))
+                                  (setq org-log-done t)
+                                  (setq org-odt-preferred-output-format "docx")))))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
