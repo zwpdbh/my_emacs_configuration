@@ -152,9 +152,9 @@
 
 (require-init 'init-pomodoro)
 
-;; ;; Latex related
-;; (require-init 'init-latex)
-;; ;; (require 'init-bib)
+;; Latex related
+(require-init 'init-latex)
+;; (require 'init-bib)
 
 ;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
 ;; (require 'init-scimax)
