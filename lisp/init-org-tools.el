@@ -50,10 +50,15 @@
   (ox-extras-activate '(ignore-headlines)))
 
 (when (maybe-require-package 'ox-pandoc)
-  ;; (setq org-pandoc-options-for-docx '((standalone . nil)))
   (setq org-pandoc-menu-entry '(
-                                (119 "to docx." org-pandoc-export-to-docx)
-                                (87 "to docx and open." org-pandoc-export-to-docx-and-open)))
+                                (88 "to docx." org-pandoc-export-to-docx)
+                                (120 "to docx and open." org-pandoc-export-to-docx-and-open)))
+
+  ;; TODO figure out what exactly these 2 options mean 
+  (setq org-pandoc-options '((standalone . t)))
+  (setq org-pandoc-options-for-docx '(
+                                      (standalone . t)))
+  
   (after-load 'ox
     (require 'ox-pandoc)))
 
