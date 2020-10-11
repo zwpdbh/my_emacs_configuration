@@ -55,9 +55,14 @@
                                 (120 "to docx and open." org-pandoc-export-to-docx-and-open)))
 
   ;; TODO figure out what exactly these 2 options mean 
-  (setq org-pandoc-options '((standalone . t)))
+  (setq org-pandoc-options '((standalone . nil)))
+  
+  ;; create custom reference file for style using
+  ;; pandoc --print-default-data-file reference.docx > custom-reference.docx
   (setq org-pandoc-options-for-docx '(
-                                      (standalone . t)))
+                                      (toc . t)
+                                      (toc-depth . 2)
+                                      (reference-doc . "~/.emacs.d/pandoc-templates/custom-reference.docx")))
   
   (after-load 'ox
     (require 'ox-pandoc)))
