@@ -2,6 +2,10 @@
 ;; need to install https://github.com/facebook/flow
 ;; Tern is a stand-alone code-analysis engine for JavaScript, need to install: sudo npm install -g tern.
 
+(add-hook 'js-mode-hook
+          '(lambda ()
+             (setq js-indent-level 2)))
+
 (use-package js2-mode
   :defer t
   :init
