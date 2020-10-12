@@ -60,8 +60,8 @@
   ;; create custom reference file for style using
   ;; pandoc --print-default-data-file reference.docx > custom-reference.docx
   (setq org-pandoc-options-for-docx '(
-                                      (toc . t)
-                                      (toc-depth . 2)
+                                      ;; (toc . t)
+                                      ;; (toc-depth . 2)
                                       (reference-doc . "~/.emacs.d/pandoc-templates/custom-reference.docx")))
   
   (after-load 'ox
