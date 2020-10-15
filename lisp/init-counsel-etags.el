@@ -33,6 +33,7 @@
 
 ;; Setup auto update now
 (setq zw/use-counsel-etags-modes '(js-mode
+                                   typescript-mode
                                    python-mode
                                    sh-mode
                                    c-mode
@@ -59,14 +60,15 @@
   (setq counsel-etags-update-interval 30)
   
   ;; counsel-etags-ignore-directories does NOT support wildcast
-  (push "build_clang" counsel-etags-ignore-directories)
-  (push "node_modules" counsel-etags-ignore-directories)
-  (push "dist" counsel-etags-ignore-directories)
+  (add-to-list 'counsel-etags-ignore-directories "dist")
+  (add-to-list 'counsel-etags-ignore-directories "build_clang")
+  (add-to-list 'counsel-etags-ignore-directories "node_modules")
   
   ;; counsel-etags-ignore-filenames supports wildcast
-  (push "TAGS" counsel-etags-ignore-filenames)
-  (push "#*" counsel-etags-ignore-filenames)
-  (push "#*.*#" counsel-etags-ignore-filenames)
-  (push "*.*#" counsel-etags-ignore-filenames))
+  (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+  (add-to-list 'counsel-etags-ignore-filenames "package-lock.json")
+  (add-to-list 'counsel-etags-ignore-filenames "#*")
+  (add-to-list 'counsel-etags-ignore-filenames "#*.*#")
+  (add-to-list 'counsel-etags-ignore-filenames "*.*#"))
 
 (provide 'init-counsel-etags)

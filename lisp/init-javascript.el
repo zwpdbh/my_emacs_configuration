@@ -22,7 +22,10 @@
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 
-
+(use-package typescript-mode
+  :defer t
+  :init
+  :ensure t)
 
 ;; (defun zw/use-tern-javascript ()
 ;;   "Use tern as javascript backend"
