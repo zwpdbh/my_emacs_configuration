@@ -1,52 +1,53 @@
-(add-to-list 'load-path
-             "~/.emacs.d/site-lisp/counsel-etags")
+;; (add-to-list 'load-path
+;;              "~/.emacs.d/site-lisp/counsel-etags")
+;; (require 'counsel-etags)
 
-(require 'counsel-etags)
+(when (maybe-require-package 'counsel-etags)
+  (require 'counsel-etags)
+  (defun zw/counsel-etags-list-tag-at-point ()
+    "List tag at point, case insensitively"
+    (interactive)
+    (counsel-etags-tags-file-must-exist)
 
-
-(defun zw/counsel-etags-list-tag-at-point ()
-  "List tag at point, case insensitively"
-  (interactive)
-  (counsel-etags-tags-file-must-exist)
-
-  (let* ((tagname (counsel-etags-tagname-at-point))
-         (context (counsel-etags-execute-collect-function)))
-    (cond
-     (tagname
-      (counsel-etags-find-tag-api tagname t buffer-file-name))
-     (t
-      (counsel-etags-find-tag-api nil t buffer-file-name)))))
-
-
-(defun zw/counsel-etags-grep-at-point ()
-  (interactive)
-  (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil t))
+    (let* ((tagname (counsel-etags-tagname-at-point))
+           (context (counsel-etags-execute-collect-function)))
+      (cond
+       (tagname
+        (counsel-etags-find-tag-api tagname t buffer-file-name))
+       (t
+        (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
 
-;; adjust key-bindings for counsel-etags
-(defun zw/counsel-etags-key-bindings ()
-  (interactive)
-  ;; (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
-  (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
-  (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+  (defun zw/counsel-etags-grep-at-point ()
+    (interactive)
+    (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil t))
 
 
-;; Setup auto update now
-(setq zw/use-counsel-etags-modes '(js-mode
-                                   typescript-mode
-                                   python-mode
-                                   sh-mode
-                                   c-mode
-                                   c++-mode
-                                   yaml-mode
-                                   json-mode))
+  ;; adjust key-bindings for counsel-etags
+  (defun zw/counsel-etags-key-bindings ()
+    (interactive)
+    ;; (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
+    (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
+    (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
 
-(dolist (each-mode zw/use-counsel-etags-modes)
-  (add-hook (intern (format "%s-hook" each-mode))
-            '(lambda ()
-               (zw/counsel-etags-key-bindings)
-               (add-hook 'after-save-hook
-                         'counsel-etags-virtual-update-tags 'append 'local))))
+
+
+  ;; Setup auto update now
+  (setq zw/use-counsel-etags-modes '(js-mode
+                                     typescript-mode
+                                     python-mode
+                                     sh-mode
+                                     c-mode
+                                     c++-mode
+                                     yaml-mode
+                                     json-mode))
+
+  (dolist (each-mode zw/use-counsel-etags-modes)
+    (add-hook (intern (format "%s-hook" each-mode))
+              '(lambda ()
+                 (zw/counsel-etags-key-bindings)
+                 (add-hook 'after-save-hook
+                           'counsel-etags-virtual-update-tags 'append 'local)))))
 
 ;; Ignore directories and files
 (with-eval-after-load 'counsel-etags
