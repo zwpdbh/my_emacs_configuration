@@ -67,4 +67,13 @@
   (after-load 'ox
     (require 'ox-pandoc)))
 
+
+(when (maybe-require-package 'toc-org)
+  (add-hook 'org-mode-hook 'toc-org-mode)
+
+  ;; enable in markdown, too
+  (add-hook 'markdown-mode-hook 'toc-org-mode)
+
+  (add-to-list 'org-tag-alist '("TOC" . ?T)))
+
 (provide 'init-org-tools)
