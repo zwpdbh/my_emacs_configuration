@@ -10,7 +10,7 @@
       (require 'org-eldoc)
       (require 'org-tempo)
       (require 'org-table)
-
+      
       (global-set-key (kbd "<f12>") (kbd "C-c '"))
       (define-key org-mode-map [f5] #'org-toggle-inline-images)
       (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)
@@ -32,7 +32,10 @@
       ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
       ;; Another way is to invoke the function ~org-agenda-file-to-front~.
       ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
-      (setq org-agenda-files (directory-files-recursively "~/code/capture-org/" "\\.org$"))
+      ;; To update org-agenda-files, just delete outdated cache configuration from init.el
+      (setq org-agenda-files (directory-files-recursively "~/code/capture-org/" "\\.org$")
+            org-tags-match-list-sublevels 'indented
+            org-use-tag-inheritance nil)
       
       ;; Code run from org-mode-hook is for buffer-specific things which means code is evaluated for every org buffer.
       (add-hook 'org-mode-hook '(lambda ()
