@@ -51,6 +51,8 @@
 
 (when (maybe-require-package 'ox-pandoc)
   (setq org-pandoc-menu-entry '(
+                                (77 "to markdown." org-pandoc-export-to-markdown)
+                                (109 "to markdown and open." org-pandoc-export-to-markdown-and-open)
                                 (88 "to docx." org-pandoc-export-to-docx)
                                 (120 "to docx and open." org-pandoc-export-to-docx-and-open)))
 
@@ -63,6 +65,9 @@
                                       ;; (toc . t)
                                       ;; (toc-depth . 2)
                                       (reference-doc . "~/.emacs.d/pandoc-templates/custom-reference.docx")))
+  (setq org-pandoc-options-for-markdown '(
+                                          (toc . t)
+                                          (toc-depth . 2)))
   
   (after-load 'ox
     (require 'ox-pandoc)))
