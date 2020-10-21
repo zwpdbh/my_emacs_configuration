@@ -89,7 +89,7 @@
 (when (fboundp 'ivy-previous-line-and-call)
   (define-key ivy-minibuffer-map (kbd "C-n") 'ivy-next-line-and-call)
   (define-key ivy-minibuffer-map (kbd "C-p") 'ivy-previous-line-and-call)
-  (define-key ivy-minibuffer-map (kbd "C-M-n") 'ivy-next-line)
-  (define-key ivy-minibuffer-map (kbd "C-M-p") 'ivy-previous-line))
+  (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "<up>") 'ivy-previous-line))
 
 (provide 'init-keybinding)
