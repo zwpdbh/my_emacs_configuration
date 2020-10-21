@@ -87,10 +87,12 @@
 
 ;; for ivy minibuffer
 (when (fboundp 'ivy-previous-line-and-call)
-  (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-call-and-recenter)
-  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call-and-recenter)
+  (define-key ivy-minibuffer-map (kbd "<tab>") 'ivy-call)
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
+  
   (define-key ivy-minibuffer-map (kbd "C-n") 'ivy-next-line-and-call)
   (define-key ivy-minibuffer-map (kbd "C-p") 'ivy-previous-line-and-call)
+  
   (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
   (define-key ivy-minibuffer-map (kbd "<up>") 'ivy-previous-line))
 
