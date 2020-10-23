@@ -63,6 +63,7 @@
   ;; counsel-etags-ignore-directories does NOT support wildcast
   (add-to-list 'counsel-etags-ignore-directories "dist")
   (add-to-list 'counsel-etags-ignore-directories "build_clang")
+  (add-to-list 'counsel-etags-ignore-directories "build")
   (add-to-list 'counsel-etags-ignore-directories "node_modules")
   
   ;; counsel-etags-ignore-filenames supports wildcast
