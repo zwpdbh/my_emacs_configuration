@@ -28,6 +28,7 @@
         '(("vue" . "\\.vue\\'")))
 
   (add-hook 'web-mode-hook (lambda()
+                             (zw/counsel-etags-setup)
                              (cond ((equal web-mode-content-type "html")
                                     ;; TODO: implement my/web-html-setup for html properly
                                     ;; (my/web-html-setup)

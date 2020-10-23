@@ -42,12 +42,16 @@
                                      yaml-mode
                                      json-mode))
 
+  (defun zw/counsel-etags-setup ()
+    (interactive)
+    (zw/counsel-etags-key-bindings)
+    (add-hook 'after-save-hook
+              'counsel-etags-virtual-update-tags 'append 'local))
+
   (dolist (each-mode zw/use-counsel-etags-modes)
     (add-hook (intern (format "%s-hook" each-mode))
-              '(lambda ()
-                 (zw/counsel-etags-key-bindings)
-                 (add-hook 'after-save-hook
-                           'counsel-etags-virtual-update-tags 'append 'local)))))
+              'zw/counsel-etags-setup)))
+
 
 ;; Ignore directories and files
 (with-eval-after-load 'counsel-etags
