@@ -1,20 +1,7 @@
-
-(defun my/web-vue-setup()
-  "Setup for js related."
-  (message "web-mode use vue related setup")
-  (require 'company-css)
-  (setq-local company-backends (append '(company-web-html company-css) company-backends))
-  (unless emacs/>=27p
-    (setq-local company-backends (add-to-list 'company-backends 'company-tern)))
-  (tern-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-select-checker 'javascript-eslint)
-  (my/use-eslint-from-node-modules))
-
 (use-package web-mode
   :defer t
   :ensure t
-  :mode ("\\.html\\'" "\\.vue\\'")
+  :mode ("\\.html\\'")
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
@@ -24,17 +11,12 @@
   ;; (set-face-attribute 'web-mode-html-tag-face nil :foreground "royalblue")
   ;; (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "powderblue")
   ;; (set-face-attribute 'web-mode-doctype-face nil :foreground "lightskyblue")
-  (setq web-mode-content-types-alist
-        '(("vue" . "\\.vue\\'")))
+  
+  ;; (setq web-mode-content-types-alist
+  ;;       '(("vue" . "\\.vue\\'")))
 
   (add-hook 'web-mode-hook (lambda()
-                             (zw/counsel-etags-setup)
-                             (cond ((equal web-mode-content-type "html")
-                                    ;; TODO: implement my/web-html-setup for html properly
-                                    ;; (my/web-html-setup)
-                                    (my/web-vue-setup))
-                                   ((member web-mode-content-type '("vue"))
-                                    (my/web-vue-setup))))))
+                             (zw/counsel-etags-setup))))
 
 (use-package emmet-mode
   :ensure t

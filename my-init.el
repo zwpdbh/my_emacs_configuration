@@ -135,6 +135,7 @@
 (require-init 'init-c-and-c++)
 (require-init 'init-javascript)
 (require-init 'init-web)
+(require-init 'init-vue)
 (require-init 'init-go)
 (require-init 'init-R)
 (require 'init-erlang)
