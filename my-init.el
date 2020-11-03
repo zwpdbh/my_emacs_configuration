@@ -26,13 +26,16 @@
 ;;   (setq gc-cons-threshold init-gc-cons-threshold)
 ;;   (add-hook 'emacs-startup-hook
 ;;             (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024))
 
 ;; To test that both the fast JSON and native compilation is working
 (if (and (fboundp 'native-comp-available-p)
          (native-comp-available-p))
-    (message "Native compilation is available")
+    (progn
+      (setq comp-deferred-compilation t)
+      (message "Native compilation is available"))
   (message "Native complation is *not* available"))
 
 ;; And for the JSON
@@ -40,7 +43,7 @@
     (message "Native JSON is available")
   (message "Native JSON is *not* available"))
 
-(setq comp-deferred-compilation t)
+
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
