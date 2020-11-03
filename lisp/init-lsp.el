@@ -3,6 +3,9 @@
 
 (when (maybe-require-package 'lsp-mode)
   (setq lsp-idle-delay 0.500)
+  (setf (lsp-session-folders-blacklist (lsp-session)) nil)
+  (lsp--persist-session (lsp-session))
+  
   (when (symbol-function 'helm)
     (maybe-require-package 'helm-lsp))
   (when (symbol-function 'treemacs)
