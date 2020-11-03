@@ -1,11 +1,7 @@
 ;; lsp performance tuning, see
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 
-(when (maybe-require-package 'lsp-mode)
-  (setq lsp-idle-delay 0.500)
-  (setf (lsp-session-folders-blacklist (lsp-session)) nil)
-  (lsp--persist-session (lsp-session))
-  
+(when (maybe-require-package 'lsp-mode)  
   (when (symbol-function 'helm)
     (maybe-require-package 'helm-lsp))
   (when (symbol-function 'treemacs)
@@ -14,19 +10,23 @@
     (maybe-require-package 'company-lsp))
   (maybe-require-package 'lsp-ui))
 
-
-(after-load 'company-lsp
-  (setq company-lsp-cache-candidates nil)
-  (setq company-lsp-async t)
-  (setq company-lsp-enable-recompletion t))
-
 (after-load 'lsp-mode
+  (setq lsp-idle-delay 0.500)
   (setq lsp-message-project-root-warning t)
   ;; change nil to 't to enable logging of packets between emacs and the LS
   ;; this was invaluable for debugging communication with the MS Python Language Server
   ;; and comparing this with what vs.code is doing
   (setq lsp-print-io nil)
+
+  (setf (lsp-session-folders-blacklist (lsp-session)) nil)
+  (lsp--persist-session (lsp-session))
+  
   (lsp-ui-mode t))
+
+(after-load 'company-lsp
+  (setq company-lsp-cache-candidates nil)
+  (setq company-lsp-async t)
+  (setq company-lsp-enable-recompletion t))
 
 (after-load 'lsp-ui
   ;; Establishing keybindings for lsp-ui-mode
