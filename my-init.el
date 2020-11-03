@@ -18,7 +18,7 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;;----------------------------------------------------------------------------
-;; Adjust garbage collection thresholds during startup, and thereafter
+;; Tune Emacs performance
 ;;----------------------------------------------------------------------------
 
 ;; (let ((normal-gc-cons-threshold (* 20 1024 1024))
@@ -29,6 +29,18 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024))
 
+;; To test that both the fast JSON and native compilation is working
+(if (and (fboundp 'native-comp-available-p)
+         (native-comp-available-p))
+    (message "Native compilation is available")
+  (message "Native complation is *not* available"))
+
+;; And for the JSON
+(if (functionp 'json-serialize)
+    (message "Native JSON is available")
+  (message "Native JSON is *not* available"))
+
+(setq comp-deferred-compilation t)
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
