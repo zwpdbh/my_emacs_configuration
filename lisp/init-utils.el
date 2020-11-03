@@ -1,12 +1,7 @@
 ;;; init-utils.el --- Elisp helper functions and commands -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-
-
 (require 'cl-lib) ;; (require 'cl) since cl is deprecated
-
-
-
 
 (if (fboundp 'with-eval-after-load)
     (defalias 'after-load 'with-eval-after-load)
