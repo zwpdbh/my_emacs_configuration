@@ -16,8 +16,6 @@
   ;; change nil to 't to enable logging of packets between emacs and the LS
   ;; this was invaluable for debugging communication with the MS Python Language Server
   ;; and comparing this with what vs.code is doing
-  (setf (lsp-session-folders-blacklist (lsp-session)) nil)
-  (lsp--persist-session (lsp-session))
   
   (setq lsp-print-io nil)
   (lsp-ui-mode t))
