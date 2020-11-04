@@ -17,10 +17,6 @@
   ;; this was invaluable for debugging communication with the MS Python Language Server
   ;; and comparing this with what vs.code is doing
   (setq lsp-print-io nil)
-
-  (setf (lsp-session-folders-blacklist (lsp-session)) nil)
-  (lsp--persist-session (lsp-session))
-  
   (lsp-ui-mode t))
 
 (after-load 'company-lsp
