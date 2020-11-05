@@ -38,6 +38,7 @@
       (defun org-babel-execute:yaml (body params) body)
       (defun org-babel-execute:json (body params) body)
       (defun org-babel-execute:java (body params) body)
+      (defun org-babel-execute:vue (body params) body)
       (defun org-babel-execute:typescript (body params) body)
       (defun org-babel-execute:cmake (body params) body)
       (defun org-babel-execute:example (body params) body)
@@ -90,6 +91,7 @@
       
       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
+      (add-to-list 'org-structure-template-alist '("vue" . "src vue"))
       (add-to-list 'org-structure-template-alist '("java" . "src java"))
       (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
       (add-to-list 'org-structure-template-alist '("cmake" . "src cmake"))
