@@ -5,7 +5,7 @@
 ;;----------------------------------------------------------------------------
 ;; Multiple major modes
 ;;----------------------------------------------------------------------------
-(require-package 'mmm-mode)
+;; (require-package 'mmm-mode)
 (use-package mmm-mode
   :ensure t
   :config
