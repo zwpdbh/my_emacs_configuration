@@ -43,14 +43,6 @@
 ;;   :defer t
 ;;   :ensure t)
 
-
-(defun zw/show-inline-images-after-execute ()
-  (when org-inline-image-overlays
-    (org-redisplay-inline-images)))
-
-(add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
-
-
 (add-hook 'org-mode-hook #'(lambda ()
                              (progn
                                ;; all languages needed to be confirmed to execute except:
@@ -60,6 +52,11 @@
 
 (eval-after-load 'org
   #'(lambda ()
+      (defun zw/show-inline-images-after-execute ()
+        (when org-inline-image-overlays
+          (org-redisplay-inline-images)))
+      (add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
+      
       ;; since yaml mode is not supported by org, create the command yourself
       (defun org-babel-execute:yaml (body params) body)
       (defun org-babel-execute:json (body params) body)
