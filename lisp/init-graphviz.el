@@ -2,6 +2,11 @@
   (setq graphviz-dot-indent-width 4)
   (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
 
+  (add-hook 'graphviz-dot-mode-hook
+            '(lambda ()
+               (define-key (current-local-map) (kbd "C-c C-c") 'graphviz-dot-preview)
+               (define-key (current-local-map) (kbd "C-c C-p") 'compile)))
+  
   (add-hook 'org-mode-hook
             '(lambda ()
                (require 'ob-dot)
