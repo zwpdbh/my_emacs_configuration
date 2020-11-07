@@ -9,6 +9,36 @@
   :defer t
   :ensure t)
 
+(setq zw/org-babel-evaluate-whitelist
+      '("emacs-lisp"
+        "lisp"
+        "scheme"
+        "clojure"
+        "python"
+        "R"
+        "C"
+        "latex"
+        "dot"
+        "plantuml"
+        "erlang"))
+
+(setq zw/org-babel-load-language-list
+      '((emacs-lisp . t)
+        (lisp . t)
+        (clojure . t)
+        (scheme . t)
+        ;; (racket . t)
+        (C . t)
+        (shell . t)
+        (js . t)
+        (python . t)
+        (R . t)
+        (http . t)
+        (latex . t)
+        (dot . t)
+        (plantuml . t)
+        (erlang . t)))
+
 ;;;; https://github.com/DEADB17/ob-racket
 ;; (use-package ob-racket
 ;;   :after org
@@ -19,17 +49,7 @@
                              (progn
                                ;; all languages needed to be confirmed to execute except:
                                (defun my-org-confirm-babel-evaluate (lang body)
-                                 (not (member lang '("emacs-lisp"
-                                                     "lisp"
-                                                     "scheme"
-                                                     "clojure"
-                                                     "python"
-                                                     "R"
-                                                     "C"
-                                                     "latex"
-                                                     "dot"
-                                                     "plantuml"
-                                                     "erlang"))))
+                                 (not (member lang zw/org-babel-evaluate-whitelist)))
                                (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate))))
 
 (eval-after-load 'org
@@ -51,21 +71,7 @@
       
       (org-babel-do-load-languages
        'org-babel-load-languages
-       '((emacs-lisp . t)
-         (lisp . t)
-         (clojure . t)
-         (scheme . t)
-         ;; (racket . t)
-         (C . t)
-         (shell . t)
-         (js . t)
-         (python . t)
-         (R . t)
-         (http . t)
-         (latex . t)
-         (dot . t)
-         (plantuml . t)
-         (erlang . t)))
+       zw/org-babel-load-language-list)
 
       ;; (add-to-list 'org-structure-template-alist '("racket" . "src racket :lang sicp"))
       
