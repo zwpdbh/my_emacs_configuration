@@ -7,10 +7,7 @@
                (require 'ob-dot)
                (add-to-list 'zw/org-babel-evaluate-whitelist "dot")
                (add-to-list 'zw/org-babel-load-language-list '(dot . t))
-
-               (if *win64*
-                   (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng :file img/tmp.png"))
-                 (add-to-list 'org-structure-template-alist '("dot" . "src dot :file img/tmp.png")))
+               (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng :file img/tmp.png"))
                
                ;; set the major-mode for edit babel dot src block 
                (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot))))))
