@@ -18,7 +18,6 @@
         "R"
         "C"
         "latex"
-        "dot"
         "plantuml"
         "erlang"))
 
@@ -35,7 +34,6 @@
         (R . t)
         (http . t)
         (latex . t)
-        (dot . t)
         (plantuml . t)
         (erlang . t)))
 
@@ -88,12 +86,6 @@
       (add-to-list 'org-structure-template-alist '("r" . "src R"))
       (add-to-list 'org-structure-template-alist '("js" . "src js"))
       (add-to-list 'org-structure-template-alist '("http" . "src http"))
-      
-      (if *win64*
-          (add-to-list 'org-structure-template-alist '("dot" . "src dot :cmdline -Kdot -Tpng :file img/tmp.png"))
-        (add-to-list 'org-structure-template-alist '("dot" . "src dot :file img/tmp.png")))
-      ;; set the major-mode for edit babel dot src block 
-      (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
       
       (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
