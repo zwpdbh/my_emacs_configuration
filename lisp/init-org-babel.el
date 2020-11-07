@@ -43,6 +43,14 @@
 ;;   :defer t
 ;;   :ensure t)
 
+
+(defun zw/show-inline-images-after-execute ()
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
+
+(add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
+
+
 (add-hook 'org-mode-hook #'(lambda ()
                              (progn
                                ;; all languages needed to be confirmed to execute except:
