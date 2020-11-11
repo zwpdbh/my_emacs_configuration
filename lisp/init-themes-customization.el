@@ -16,6 +16,13 @@
 ;; show hex color string's corresponding color
 (add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
+(defun zw/customize-weyland-theme-for-helm ()
+  ;; make helm related selection use underline
+  (set-face-attribute 'helm-selection nil
+                      :underline t
+                      :weight 'bold
+                      :extend t)
+  (setq helm-buffer-max-length 80))
 
 (defun zw/customize-leuven-theme-for-helm ()
   ;; make helm related selection use underline
@@ -94,6 +101,14 @@
   (set-face-attribute 'doom-modeline-info nil
                       :foreground "#99cc00"))
 
+(defun zw/customize-general-weyland-theme ()
+  (message "customize weyland-yutani theme")
+  (setq show-paren-style 'expression)
+  (set-face-attribute 'show-paren-match nil
+                      :weight 'normal
+                      :underline nil
+                      :foreground (face-background 'default t t)
+                      :background "black"))
 
 (defun zw/customize-general-leuven-theme ()  
   (when window-system

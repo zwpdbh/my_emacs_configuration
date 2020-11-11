@@ -62,15 +62,13 @@
   (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
   (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline))
 
+(defun customize-for-weyland-theme ()
+  (zw/customize-general-weyland-theme)
+  (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm))
+
 ;; customize themes based on current theme
 (cond ((eql custom-enabled-theme 'weyland-yutani)
-       (message "customize weyland-yutani theme")
-       (setq show-paren-style 'expression)
-       (set-face-attribute 'show-paren-match nil
-                           :weight 'normal
-                           :underline nil
-                           :foreground (face-background 'default t t)
-                           :background "black"))
+       (customize-for-weyland-theme))
       ((eql custom-enabled-theme 'leuven)
        (customize-for-leuven-theme)))
 
