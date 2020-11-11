@@ -37,7 +37,9 @@
   (setq sqlformat-command 'pgformatter)
   (add-hook 'sql-mode-hook
             '(lambda ()
+               (undefine)
                (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat-buffer)
+               (define-key map [remap indent-region] 'sqlformat-region)
                ;; (add-hook 'before-save-hook 'sqlformat-buffer nil 'local)
                (sqlformat-on-save-mode))))
 
