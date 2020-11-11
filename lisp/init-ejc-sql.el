@@ -23,7 +23,8 @@
               (ejc-set-max-rows 50)
               (ejc-set-show-too-many-rows-message t)
               (ejc-set-column-width-limit 25)
-              (ejc-set-use-unicode t))))
-
+              (ejc-set-use-unicode t)))
+  (add-hook 'sql-mode-hook
+            'ejc-sql-mode))
 
 (provide 'init-ejc-sql)
