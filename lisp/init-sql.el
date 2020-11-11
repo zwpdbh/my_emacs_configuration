@@ -5,12 +5,12 @@
         (port :default 5432)))
 
 (setq sql-connection-alist
-      '((local-postgres (sql-product 'postgres)
-                        (sql-port 5432)
-                        (sql-server "localhost")
-                        (sql-user "postgres")
-                        (sql-password "postgres")
-                        (sql-database "postgres"))
+      '((local-dsconsole (sql-product 'postgres)
+                         (sql-port 5432)
+                         (sql-server "localhost")
+                         (sql-user "atlas")
+                         ;; (sql-password "atlas")
+                         (sql-database "dsconsole"))
         (server2 (sql-product 'postgres)
                  (sql-port 5432)
                  (sql-server "localhost")
@@ -19,9 +19,9 @@
                  (sql-database "db2"))))
 
 
-(defun zw/sql-connect-local-postgres ()
+(defun zw/sql-connect-dsconsole ()
   (interactive)
-  (my-sql-connect 'postgres 'local-postgres))
+  (my-sql-connect 'postgres 'local-dsconsole))
 
 (defun zw/sql-connect-server2 ()
   (interactive)
