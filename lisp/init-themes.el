@@ -64,7 +64,7 @@
 
 (defun customize-for-weyland-theme ()
   (zw/customize-general-weyland-theme)
-  (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
+  (add-hook 'helm-mode-hook 'zw/customize-weyland-theme-for-helm)
   (add-hook 'ivy-mode-hook 'zw/customize-weyland-theme-for-swiper))
 
 ;; customize themes based on current theme
