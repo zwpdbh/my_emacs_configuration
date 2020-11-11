@@ -37,4 +37,13 @@
           (lambda ()
             (toggle-truncate-lines t)))
 
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (add-to-list 'zw/org-babel-evaluate-whitelist "sql")
+             (add-to-list 'zw/org-babel-load-language-list '(sql . t))
+             (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
+             ;; ;; set the major-mode for edit babel dot src block 
+             ;; (add-to-list 'org-src-lang-modes (quote ("sql" . ejc-sql)))
+             ))
+
 (provide 'init-sql)

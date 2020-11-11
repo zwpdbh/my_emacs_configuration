@@ -25,4 +25,5 @@
               (ejc-set-column-width-limit 25)
               (ejc-set-use-unicode t))))
 
+
 (provide 'init-ejc-sql)
