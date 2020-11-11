@@ -99,24 +99,19 @@
   (when window-system
     (set-cursor-color zw/red)
     (setq-default cursor-type '(bar . 2)))
-
-  (when window-system
-    (setq show-paren-style 'expression))
-
+  
+  (setq show-paren-style 'expression)
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
                       :background zw/light-purple)
-
   (set-face-attribute 'fringe nil
                       :foreground "#4C9ED9"
                       :background (face-attribute 'default :background))
-  
   (set-face-attribute 'success nil
                       :weight 'bold
                       :foreground "#339933")
-
   (set-face-attribute 'region nil
                       :background "#cce6ff"
                       :extend t))

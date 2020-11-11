@@ -29,6 +29,9 @@
 ;; gruber-darker
 
 (setq-default custom-enabled-theme 'weyland-yutani)
+(if (display-graphic-p)
+    (setq custom-enabled-theme 'weyland-yutani)
+  (setq custom-enabled-theme 'leuven))
 
 (use-package symbol-overlay
   :ensure t
@@ -59,20 +62,15 @@
   (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
   (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline))
 
+;; customize themes based on current theme
 (cond ((eql custom-enabled-theme 'weyland-yutani)
        (message "customize weyland-yutani theme")
        (setq show-paren-style 'expression)
-       (if (display-graphic-p)
-           (progn
-             (set-face-attribute 'show-paren-match nil
-                                 :weight 'normal
-                                 :underline nil
-                                 :foreground (face-background 'default t t)
-                                 :background "black"))
-         (progn
-           (load-theme 'leuven)
-           (set-background-color "honeydew")
-           (customize-for-leuven-theme))))
+       (set-face-attribute 'show-paren-match nil
+                           :weight 'normal
+                           :underline nil
+                           :foreground (face-background 'default t t)
+                           :background "black"))
       ((eql custom-enabled-theme 'leuven)
        (customize-for-leuven-theme)))
 
