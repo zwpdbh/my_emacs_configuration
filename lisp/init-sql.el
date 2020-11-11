@@ -36,6 +36,8 @@
 ;; sudo apt-get install pgformatter -y
 (when (maybe-require-package 'sqlformat)
   (setq sqlformat-command 'pgformatter)
+  (setq sqlformat-args '("-s4" "-g"))
+  
   (add-hook 'sql-mode-hook
             '(lambda ()
                (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat-buffer)
