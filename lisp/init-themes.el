@@ -51,21 +51,30 @@
   (load-theme custom-enabled-theme))
 (apply-theme)
 
+(defun customize-for-leuven-theme ()
+  (zw/customize-general-leuven-theme)
+  (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
+  (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
+  (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
+  (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
+  (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline))
+
 (cond ((eql custom-enabled-theme 'weyland-yutani)
        (message "customize weyland-yutani theme")
        (setq show-paren-style 'expression)
-       (set-face-attribute 'show-paren-match nil
-                           :weight 'normal
-                           :underline nil
-                           :foreground (face-background 'default t t)
-                           :background "black"))
+       (if (display-graphic-p)
+           (progn
+             (set-face-attribute 'show-paren-match nil
+                                 :weight 'normal
+                                 :underline nil
+                                 :foreground (face-background 'default t t)
+                                 :background "black"))
+         (progn
+           (load-theme 'leuven)
+           (set-background-color "honeydew")
+           (customize-for-leuven-theme))))
       ((eql custom-enabled-theme 'leuven)
-       (zw/customize-general-leuven-theme)
-       (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
-       (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
-       (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
-       (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
-       (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline)))
+       (customize-for-leuven-theme)))
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
