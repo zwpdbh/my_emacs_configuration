@@ -33,6 +33,14 @@
   (setq sql-product product)
   (sql-connect connection))
 
+(when (maybe-require-package 'sqlformat)
+  (setq sqlformat-command 'pgformatter)
+  (add-hook 'sql-mode-hook
+            '(lambda ()
+               (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat-buffer)
+               ;; (add-hook 'before-save-hook 'sqlformat-buffer nil 'local)
+               (sqlformat-on-save-mode))))
+
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
