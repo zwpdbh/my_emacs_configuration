@@ -113,7 +113,10 @@
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background "black"))
+                      :background "black")
+  (set-face-attribute 'header-line nil
+                      :height 1.2
+                      :underline nil))
 
 (defun zw/customize-general-leuven-theme ()  
   (when window-system
