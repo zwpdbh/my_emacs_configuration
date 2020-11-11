@@ -18,13 +18,17 @@
   :ensure t
   :defer t)
 
+(use-package weyland-yutani-theme
+  :ensure t
+  :defer t)
+
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
 ;; gruber-darker
 
-(setq-default custom-enabled-theme 'leuven)
+(setq-default custom-enabled-theme 'weyland-yutani)
 
 (use-package symbol-overlay
   :ensure t
@@ -43,18 +47,25 @@
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config))
-
-
+  (doom-themes-treemacs-config)
+  (load-theme custom-enabled-theme))
 (apply-theme)
-(zw/customize-theme)
 
-(add-hook 'company-mode-hook 'zw/customize-theme-for-company)
-(add-hook 'helm-mode-hook 'zw/customize-theme-for-helm)
-(add-hook 'org-mode-hook 'zw/customize-theme-for-org)
-(add-hook 'ivy-mode-hook 'zw/customize-theme-for-swiper)
-(add-hook 'doom-modeline-mode-hook 'zw/customize-theme-for-doom-modeline)
-
+(cond ((eql custom-enabled-theme 'weyland-yutani)
+       (message "customize weyland-yutani theme")
+       (setq show-paren-style 'expression)
+       (set-face-attribute 'show-paren-match nil
+                           :weight 'normal
+                           :underline nil
+                           :foreground (face-background 'default t t)
+                           :background "black"))
+      ((eql custom-enabled-theme 'leuven)
+       (zw/customize-general-leuven-theme)
+       (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
+       (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
+       (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
+       (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
+       (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline)))
 
 (provide 'init-themes)
 ;;; init-themes.el ends here

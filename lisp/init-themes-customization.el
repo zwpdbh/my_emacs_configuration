@@ -17,7 +17,7 @@
 (add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
 
 
-(defun zw/customize-theme-for-helm ()
+(defun zw/customize-leuven-theme-for-helm ()
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t
@@ -42,7 +42,7 @@
                       :weight 'bold))
 
 
-(defun zw/customize-theme-for-swiper ()
+(defun zw/customize-leuven-theme-for-swiper ()
   ;; make swiper use code default color as foreground
   (set-face-attribute 'isearch nil
                       :foreground (face-foreground 'default t t)
@@ -61,7 +61,7 @@
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
 
 
-(defun zw/customize-theme-for-org ()
+(defun zw/customize-leuven-theme-for-org ()
   (visual-line-mode)
   (setq org-link-file-path-type 'adaptive)
   (setq org-hide-emphasis-markers t)
@@ -79,12 +79,12 @@
           ("+" (:strike-through t)))))
 
 
-(defun zw/customize-theme-for-company ()
+(defun zw/customize-leuven-theme-for-company ()
   (set-face-attribute 'company-tooltip-selection nil
                       :weight 'normal))
 
 
-(defun zw/customize-theme-for-doom-modeline ()
+(defun zw/customize-leuven-theme-for-doom-modeline ()
   (set-face-attribute 'doom-modeline-project-dir nil
                       :weight 'bold
                       :foreground "#99cc00")
@@ -95,9 +95,7 @@
                       :foreground "#99cc00"))
 
 
-(defun zw/customize-theme ()
-  (load-theme custom-enabled-theme)
-
+(defun zw/customize-general-leuven-theme ()  
   (when window-system
     (set-cursor-color zw/red)
     (setq-default cursor-type '(bar . 2)))
@@ -114,11 +112,6 @@
   (set-face-attribute 'fringe nil
                       :foreground "#4C9ED9"
                       :background (face-attribute 'default :background))
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground (face-background 'default t t)
-                      :background zw/light-purple)
   
   (set-face-attribute 'success nil
                       :weight 'bold
