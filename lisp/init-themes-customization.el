@@ -68,6 +68,10 @@
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
 
+(defun zw/customize-weyland-theme-for-swiper ()
+  ;; make selection highlight-background expand full width of the minibuffer
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+
 
 (defun zw/customize-leuven-theme-for-org ()
   (visual-line-mode)
