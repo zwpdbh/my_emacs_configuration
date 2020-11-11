@@ -20,6 +20,7 @@
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline t
+                      :foreground (face-foreground 'default t t)
                       :weight 'bold
                       :extend t)
   (setq helm-buffer-max-length 80))
