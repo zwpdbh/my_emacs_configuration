@@ -29,6 +29,7 @@
 
 (add-hook 'after-init-hook '(lambda ()
                               ;; Hooks to Enable Tabs
+                              (add-hook 'text-mode 'zw/enable-tabs)
                               (add-hook 'plantuml-mode-hook '(lambda ()
                                                                ;; plantuml seems always use tabs to do indent format
                                                                (zw/enable-tabs)
