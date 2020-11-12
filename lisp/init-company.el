@@ -68,17 +68,21 @@
     (add-hook 'company-completion-started-hook 'sanityinc/page-break-lines-disable)
     (add-hook 'company-after-completion-hook 'sanityinc/page-break-lines-maybe-reenable)))
 
-(use-package company-posframe
-  :if (posframe-workable-p)
-  :ensure t
-  :config
-  (progn
+(when (maybe-require-package 'company-posframe)
+  (when (posframe-workable-p)
     (setq company-posframe-show-metadata nil)
     (setq company-posframe-quickhelp-delay 1)
     (setq company-posframe-show-indicator nil)
 
-    (define-key company-posframe-active-map [(up)] 'company-posframe-quickhelp-scroll-down)
-    (define-key company-posframe-active-map [(down)] 'company-posframe-quickhelp-scroll-up)))
+
+    (add-hook 'company-posframe-mode-hook
+              '(lambda ()
+                 (define-key company-posframe-active-map [(up)] 'company-posframe-quickhelp-scroll-down)
+                 (define-key company-posframe-active-map [(down)] 'company-posframe-quickhelp-scroll-up)))
+    (add-hook 'company-mode-hook
+              '(lambda ()
+                 (company-posframe-mode 1)))))
+
 
 (provide 'init-company)
 ;;; init-company.el ends here
