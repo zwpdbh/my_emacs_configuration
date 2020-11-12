@@ -25,7 +25,9 @@
               (ejc-set-show-too-many-rows-message t)
               (ejc-set-column-width-limit 25)
               (ejc-set-use-unicode t)))
-  (add-hook 'sql-mode-hook
-            'ejc-sql-mode))
+  ;; (add-hook 'sql-mode-hook
+  ;;           '(lambda ()
+  ;;              (ejc-sql-mode t)))
+  )
 
 (provide 'init-ejc-sql)
