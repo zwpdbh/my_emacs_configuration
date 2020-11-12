@@ -22,6 +22,7 @@
                              "宋体"
                              ))
 
+;; Given a list of fonts, select the first one available. So, put favorite font at the beginning of the list
 (defun zw/select-available-font (my-fonts)
   (let ((result nil))
     (catch 'response
