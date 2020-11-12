@@ -70,10 +70,12 @@
 
 (use-package company-posframe
   :if (posframe-workable-p)
-  :init (setq company-posframe-show-indicator nil)
   :ensure t
   :config
   (progn
+    (setq company-posframe-show-metadata nil)
+    (setq company-posframe-quickhelp-delay 2)
+    (setq company-posframe-show-indicator nil)
     (company-posframe-mode 1)))
 
 (provide 'init-company)
