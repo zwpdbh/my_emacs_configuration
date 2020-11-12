@@ -74,9 +74,11 @@
   :config
   (progn
     (setq company-posframe-show-metadata nil)
-    (setq company-posframe-quickhelp-delay 2)
+    (setq company-posframe-quickhelp-delay 1)
     (setq company-posframe-show-indicator nil)
-    (company-posframe-mode 1)))
+
+    (define-key company-posframe-active-map [(up)] 'company-posframe-quickhelp-scroll-down)
+    (define-key company-posframe-active-map [(down)] 'company-posframe-quickhelp-scroll-up)))
 
 (provide 'init-company)
 ;;; init-company.el ends here
