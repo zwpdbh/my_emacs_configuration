@@ -46,7 +46,7 @@
         company-echo-delay 0
         company-idle-delay 0
         company-selection-wrap-around t
-        company-minimum-prefix-length 1
+        company-minimum-prefix-length 2
         company-dabbrev-ignore-case t
         company-dabbrev-downcase nil
         company-show-numbers t

@@ -171,7 +171,7 @@
 (require-init 'init-graphviz)
 
 (require 'init-sql)
-(require 'init-ejc-sql)
+;; (require 'init-ejc-sql)
 
 (require-init 'init-folding)
 (require-init 'init-indent)
