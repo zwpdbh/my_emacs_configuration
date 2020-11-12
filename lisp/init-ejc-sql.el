@@ -10,7 +10,6 @@
   ;; (setq ejc-result-table-impl 'orgtbl-mode)
   (setq ejc-result-table-impl 'ejc-result-mode)
   
-  (require 'ejc-company)
   (add-hook 'ejc-sql-minor-mode-hook
             '(lambda ()
                (ejc-eldoc-setup)
@@ -27,6 +26,7 @@
               (ejc-set-use-unicode t)))
   (add-hook 'sql-mode-hook
             '(lambda ()
+               (require 'ejc-company)
                (ejc-sql-mode t))))
 
 (provide 'init-ejc-sql)

@@ -118,8 +118,11 @@
   (set-face-attribute 'header-line nil
                       :height 1.0
                       :underline nil)
-  ;; disable fringe 
-  (set-fringe-mode 0))
+  
+  (add-hook 'after-init-hook
+            '(lambda ()
+               ;; disable fringe 
+               (set-fringe-mode 0))))
 
 (defun zw/customize-general-leuven-theme ()  
   (when window-system
