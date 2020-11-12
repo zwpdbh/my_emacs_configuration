@@ -115,7 +115,7 @@
                       :foreground (face-background 'default t t)
                       :background "black")
   (set-face-attribute 'header-line nil
-                      :height 1.2
+                      :height 1.0
                       :underline nil))
 
 (defun zw/customize-general-leuven-theme ()  
