@@ -4,8 +4,6 @@
 
 ;; WAITING: haskell-mode sets tags-table-list globally, breaks tags-completion-at-point-function
 ;; TODO Default sort order should place [a-z] before punctuation
-
-
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 
@@ -26,7 +24,7 @@
 
 (after-load 'company
   (zw/set-company-backends-global)
-
+  (com)
   ;; company-ctags is much faster out of box. No further optimiation needed
   (unless (featurep 'company-ctags) (local-require 'company-ctags))
   (company-ctags-auto-setup)
@@ -70,7 +68,13 @@
     (add-hook 'company-completion-started-hook 'sanityinc/page-break-lines-disable)
     (add-hook 'company-after-completion-hook 'sanityinc/page-break-lines-maybe-reenable)))
 
-
+(use-package company-posframe
+  :if (posframe-workable-p)
+  :init (setq company-posframe-show-indicator nil)
+  :ensure t
+  :config
+  (progn
+    (company-posframe-mode 1)))
 
 (provide 'init-company)
 ;;; init-company.el ends here
