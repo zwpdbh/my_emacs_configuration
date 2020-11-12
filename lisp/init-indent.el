@@ -15,12 +15,12 @@
 (setq custom-indent-width 2)
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
-(defun disable-tabs () 
+(defun zw/disable-tabs () 
   (progn
     (setq-default indent-tabs-mode nil)
     (setq indent-tabs-mode nil)))
 
-(defun enable-tabs  ()
+(defun zw/enable-tabs  ()
   (progn
     ;; (local-set-key (kbd "TAB") 'tab-to-tab-stop)
     (setq-default tab-width custom-indent-width)
@@ -29,20 +29,19 @@
 
 (add-hook 'after-init-hook '(lambda ()
                               ;; Hooks to Enable Tabs
-                              ;; (add-hook 'prog-mode-hook 'enable-tabs)
-                              ;; (add-hook 'org-mode-hook 'enable-tabs)
+                              (add-hook 'text-mode 'zw/enable-tabs)
                               (add-hook 'plantuml-mode-hook '(lambda ()
                                                                ;; plantuml seems always use tabs to do indent format
-                                                               (enable-tabs)
+                                                               (zw/enable-tabs)
                                                                (setq plantuml-indent-level custom-indent-width)))
 
                               ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
-                              (add-hook 'prog-mode-hook 'disable-tabs)
-                              (add-hook 'org-mode-hook 'disable-tabs)
-                              (add-hook 'json-mode-hook 'disable-tabs)
-                              (add-hook 'lisp-mode-hook 'disable-tabs)
-                              (add-hook 'emacs-lisp-mode-hook 'disable-tabs)
-                              (add-hook 'yaml-mode-hook 'disable-tabs)
+                              (add-hook 'prog-mode-hook 'zw/disable-tabs)
+                              (add-hook 'org-mode-hook 'zw/disable-tabs)
+                              (add-hook 'json-mode-hook 'zw/disable-tabs)
+                              (add-hook 'lisp-mode-hook 'zw/disable-tabs)
+                              (add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
+                              (add-hook 'yaml-mode-hook 'zw/disable-tabs)
 
                               ;; Language-Specific Tweaks
                               (add-hook 'python-mode-hook '(lambda ()

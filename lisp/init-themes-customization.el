@@ -31,7 +31,7 @@
                       :underline t
                       :weight 'bold
                       :extend t)
-  (setq helm-buffer-max-length 80)
+  (setq helm-buffer-max-length 36)
   (set-face-attribute 'helm-match-item nil
                       :weight 'bold
                       :foreground "black"
