@@ -80,11 +80,12 @@
 (require 'init-themes-customization)
 (require 'init-themes)
 
-(require-init 'init-interface-tweaks)
+(require 'init-interface-tweaks)
+(require 'init-gui-frames)
 (require 'init-highlight-symbol)
 
 (require-init 'init-dashboard)
-(require-init 'init-gui-frames)
+
 
 (require-init 'init-helm)
 (require-init 'init-counsel-ivy-swiper)

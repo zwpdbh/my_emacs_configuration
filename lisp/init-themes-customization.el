@@ -114,9 +114,12 @@
                       :underline nil
                       :foreground (face-background 'default t t)
                       :background "black")
+  ;; make weyland theme use normal font size for header-line
   (set-face-attribute 'header-line nil
                       :height 1.0
-                      :underline nil))
+                      :underline nil)
+  ;; disable fringe 
+  (set-fringe-mode 0))
 
 (defun zw/customize-general-leuven-theme ()  
   (when window-system
