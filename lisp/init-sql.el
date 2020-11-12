@@ -48,6 +48,10 @@
                ;; (add-hook 'before-save-hook 'sqlformat-buffer nil 'local)
                (sqlformat-on-save-mode))))
 
+(when (maybe-require-package 'sql-indent)
+  (add-hook 'sql-mode-hook
+            'sqlind-minor-mode))
+
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
