@@ -113,12 +113,6 @@ If the new path's directories does not exist, create them."
         (apply f args)))
     (advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
 
-
-
-(when (fboundp 'global-prettify-symbols-mode)
-  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
-
-
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
 ;;----------------------------------------------------------------------------
