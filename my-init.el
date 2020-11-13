@@ -154,9 +154,12 @@
 
 ;; (require-init 'init-python)
 (require-init 'init-c-and-c++)
+
 (require-init 'init-javascript)
 (require-init 'init-web)
-(require-init 'init-vue)
+;; (require 'init-vue-with-lsp-plus-vue-mode)
+(require 'init-vue-with-lsp-plus-web-mode)
+
 (require-init 'init-go)
 (require-init 'init-R)
 (require 'init-erlang)
