@@ -1,9 +1,12 @@
 (when (maybe-require-package 'vue-mode)
-  (set-face-background 'mmm-default-submode-face nil)
+  (setq mmm-submode-decoration-level 2)
+  (set-face-background 'mmm-default-submode-face (face-attribute 'default :background))
   
   (add-hook 'vue-mode-hook
             '(lambda ()
-               ;; (zw/counsel-etags-setup)
+               (require 'vue-html-mode)
+
+               ;; (zw/counsel-etags-setup)               
                (lsp)
                (zw/lsp-ui-key-bindings))))
 
