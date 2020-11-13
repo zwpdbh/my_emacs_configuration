@@ -31,8 +31,6 @@
     (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
 
 
-
-  ;; Setup auto update now
   (setq zw/use-counsel-etags-modes '(js-mode
                                      typescript-mode
                                      python-mode
@@ -41,7 +39,7 @@
                                      c++-mode
                                      yaml-mode
                                      json-mode))
-
+  ;; Setup auto update now
   (defun zw/counsel-etags-setup ()
     (interactive)
     (zw/counsel-etags-key-bindings)
