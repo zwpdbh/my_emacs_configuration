@@ -23,7 +23,7 @@
                       :foreground (face-foreground 'default t t)
                       :weight 'bold
                       :extend t)
-  (setq helm-buffer-max-length 80))
+  (setq helm-buffer-max-length 36))
 
 (defun zw/customize-leuven-theme-for-helm ()
   ;; make helm related selection use underline
