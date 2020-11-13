@@ -20,15 +20,17 @@
   (progn
     (add-hook 'web-mode-hook  'emmet-mode)))
 
+(defun zw/set-company-backends-for-web-mode ()
+  (setq-local company-backends '(company-capf
+                                 company-dabbrev-code
+                                 company-web-html
+                                 company-keywords
+                                 company-files
+                                 company-dabbrev)))
 (when (maybe-require-package 'company-web)
   (add-hook 'web-mode-hook
             '(lambda ()
-               (setq-local company-backends '(company-capf
-                                              company-dabbrev-code
-                                              company-web-html
-                                              company-keywords
-                                              company-files
-                                              company-dabbrev)))))
+               (zw/set-company-backends-for-web-mode))))
 
 
 (defun zw/use-eslint-from-node-modules ()
