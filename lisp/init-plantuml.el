@@ -22,7 +22,6 @@
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode)))
 
 (add-hook 'plantuml-mode-hook '(lambda ()
-                                 ;; (smartparens-mode)
                                  (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))
 
 (provide 'init-plantuml)
