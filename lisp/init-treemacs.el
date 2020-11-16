@@ -33,6 +33,8 @@
         treemacs-filewatch-mode             t
         treemacs-git-mode nil)
   :config
+  (progn
+    (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
   :bind
   (:map global-map
         ("C-x t t"   . treemacs)
