@@ -7,7 +7,7 @@
   :init 
   (ivy-mode 1)
   :diminish (ivy-mode)
-  ;; :bind (("C-x b" . ivy-switch-buffer))
+  :bind (("C-x b" . ivy-switch-buffer))
   :config
   (progn
     (setq ivy-use-virtual-buffers t)
