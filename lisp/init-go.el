@@ -5,7 +5,7 @@
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 (when (maybe-require-package 'go-mode)
   (if (string-equal system-type "gnu/linux")
-      (add-to-list 'exec-path "/usr/local/go/bin")
+      (add-to-list 'exec-path "/usr/local/go/bin/")
     nil)
   
   (defun zw/lsp-go-steup ()

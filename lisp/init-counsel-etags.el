@@ -4,6 +4,9 @@
 
 (when (maybe-require-package 'counsel-etags)
   (require 'counsel-etags)
+  ;; (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
+  (add-to-list 'exec-path "/usr/local/bin/")
+  
   (defun zw/counsel-etags-list-tag-at-point ()
     "List tag at point, case insensitively"
     (interactive)
