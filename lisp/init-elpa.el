@@ -16,9 +16,15 @@
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
+  ;; for not in china
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")) t)
-  (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
+  (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
+
+  ;; see https://elpa.emacs-china.org/
+  (add-to-list 'package-archives (cons "melpa-cn" (concat proto "://elpa.emacs-china.org/melpa/")) t)
+  (add-to-list 'package-archives (cons "gnu-cn" (concat proto "://elpa.emacs-china.org/gnu/")) t)
+  (add-to-list 'package-archives (cons "org-cn" (concat proto "://elpa.emacs-china.org/org/")) t))
 
 ;; (setq package-archives '(("gnu-qinghua"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 ;; 			 ("melpa-qinghua" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
