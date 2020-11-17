@@ -49,6 +49,7 @@
 (after-load 'ox-extra
   (ox-extras-activate '(ignore-headlines)))
 
+;; prerequisite: install pandoc on system
 (when (maybe-require-package 'ox-pandoc)
   (setq org-pandoc-menu-entry '(
                                 (77 "to markdown." org-pandoc-export-to-markdown)
