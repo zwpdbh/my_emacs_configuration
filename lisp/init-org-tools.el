@@ -80,6 +80,10 @@
   ;; enable in markdown, too
   (add-hook 'markdown-mode-hook 'toc-org-mode)
 
-  (add-to-list 'org-tag-alist '("TOC" . ?T)))
+  (add-to-list 'org-tag-alist '("TOC" . ?t)))
+
+;; Add additional tags shortcut when adding tags through C-c C-q.
+(add-to-list 'org-tag-alist '("Emacs" . ?e))
+(add-to-list 'org-tag-alist '("howto" . ?h))
 
 (provide 'init-org-tools)
