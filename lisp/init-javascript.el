@@ -72,5 +72,8 @@
   (after-load 'js2-mode
     (add-hook 'js2-mode-hook 'add-node-modules-path)))
 
+(add-hook 'js-mode-hook 'zw/counsel-etags-setup)
+(add-hook 'typescript-mode-hook 'zw/counsel-etags-setup)
+
 
 (provide 'init-javascript)
