@@ -9,7 +9,7 @@
 
   (add-hook 'org-mode-hook
             '(lambda ()
-               ;; since yaml mode is not supported by org, create the command yourself
+               ;; since css mode is not supported by org source block, create the command yourself
                (defun org-babel-execute:css (body params) body)
                
                (add-to-list 'zw/org-babel-load-language-list '(css . t))
