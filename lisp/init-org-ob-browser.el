@@ -1,4 +1,5 @@
 
+;; Must install PhantomJS - Scriptable Headless Browser on system
 (when (maybe-require-package 'ob-browser)
   (add-hook 'org-mode-hook
             '(lambda ()
