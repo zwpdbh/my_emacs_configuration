@@ -171,6 +171,7 @@
 (require-init 'init-org-html)
 (require-init 'init-org-blog)
 (require-init 'init-org-tools)
+(require 'init-org-ob-browser)
 
 (require-init 'init-plantuml)
 (require-init 'init-mermaid)
