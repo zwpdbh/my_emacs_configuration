@@ -10,15 +10,15 @@
   :ensure t
   :defer t)
 
-(use-package zenburn-theme
-  :ensure t
-  :defer t)
-
 (use-package leuven-theme
   :ensure t
   :defer t)
 
 (use-package weyland-yutani-theme
+  :ensure t
+  :defer t)
+
+(use-package nimbus-theme
   :ensure t
   :defer t)
 
@@ -31,7 +31,7 @@
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
     (setq custom-enabled-theme 'weyland-yutani)
-  (setq custom-enabled-theme 'tango-dark))
+  (setq custom-enabled-theme 'nimbus))
 
 (use-package symbol-overlay
   :ensure t
