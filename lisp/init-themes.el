@@ -18,10 +18,9 @@
   :ensure t
   :defer t)
 
-(use-package nimbus-theme
+(use-package noctilux-theme
   :ensure t
-  :defer t)
-
+  :defer)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
@@ -31,7 +30,7 @@
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
     (setq custom-enabled-theme 'weyland-yutani)
-  (setq custom-enabled-theme 'nimbus))
+  (setq custom-enabled-theme 'noctilux))
 
 (use-package symbol-overlay
   :ensure t
