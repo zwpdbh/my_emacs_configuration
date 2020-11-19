@@ -30,7 +30,7 @@
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
     (setq custom-enabled-theme 'weyland-yutani)
-  (setq custom-enabled-theme 'noctilux))
+  (setq custom-enabled-theme 'doom-Iosvkem))
 
 (use-package symbol-overlay
   :ensure t
