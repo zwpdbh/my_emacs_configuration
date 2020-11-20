@@ -139,9 +139,16 @@
                       :underline nil
                       :foreground (face-background 'default t t)
                       :background zw/light-purple)
-  (set-face-attribute 'fringe nil
-                      :foreground "#4C9ED9"
-                      :background (face-attribute 'default :background))
+
+  ;; disable fringe
+  (add-hook 'after-init-hook
+            '(lambda ()
+               ;; disable fringe 
+               (set-fringe-mode 0)))
+  ;; (set-face-attribute 'fringe nil
+  ;;                     :foreground "#4C9ED9"
+  ;;                     :background (face-attribute 'default :background))
+  
   (set-face-attribute 'success nil
                       :weight 'bold
                       :foreground "#339933")
