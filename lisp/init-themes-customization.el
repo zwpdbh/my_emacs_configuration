@@ -33,13 +33,14 @@
                       :extend t)
   (setq helm-buffer-max-length 36)
   (set-face-attribute 'helm-match-item nil
-                      :weight 'bold
-                      :foreground "black"
+                      :weight 'normal
+                      :foreground (face-foreground 'default t t)
                       :background "#FFFF00"
                       :underline nil
                       :extend nil)
+  
   (if (display-graphic-p)
-      (setq zw/helm-ff-dir-color "#336699")
+      (setq zw/helm-ff-dir-color "#ccccff")
     (setq zw/helm-ff-dir-color "purple"))
   
   (set-face-attribute 'helm-ff-directory nil
