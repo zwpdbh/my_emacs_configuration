@@ -67,7 +67,12 @@
                       :underline nil
                       :extend t)
   ;; make selection highlight-background expand full width of the minibuffer
-  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  ;; make ivy current match background lighter
+  (set-face-attribute 'ivy-current-match nil
+                      :weight 'bold
+                      :background "#4C9ED9"))
 
 (defun zw/customize-weyland-theme-for-swiper ()
   ;; make selection highlight-background expand full width of the minibuffer
