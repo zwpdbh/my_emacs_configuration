@@ -50,7 +50,7 @@
   (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
   (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
   (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
-  (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline))
+  (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-modeline))
 
 (defun customize-for-weyland-theme ()
   (require 'init-themes-customization-for-weyland)
