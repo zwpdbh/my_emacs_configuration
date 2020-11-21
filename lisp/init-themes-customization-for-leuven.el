@@ -84,7 +84,6 @@
                       :foreground "#99cc00"))
 
 
-
 (defun zw/customize-general-leuven-theme ()  
   (when window-system
     (set-cursor-color zw/red)
@@ -95,7 +94,7 @@
                       :weight 'normal
                       :underline nil
                       :foreground (face-background 'default t t)
-                      :background zw/light-purple)
+                      :background "honeydew")
 
   ;; disable fringe
   (add-hook 'after-init-hook
