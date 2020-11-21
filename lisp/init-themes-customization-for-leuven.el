@@ -65,11 +65,12 @@
           ("_" underline)
           ("=" (:background "maroon" :foreground "white"))
           ("~" (:foreground "#0595bd"))
-          ("+" (:strike-through t)))))
+          ("+" (:Strike-through t)))))
 
 
 (defun zw/customize-leuven-theme-for-company ()
   (set-face-attribute 'company-tooltip-selection nil
+                      :background "#4C9ED9"
                       :weight 'normal))
 
 
@@ -110,7 +111,9 @@
                       :foreground "#339933")
   (set-face-attribute 'region nil
                       :background "#cce6ff"
-                      :extend t))
+                      :extend t)
+  (set-face-attribute 'mode-line nil
+                      :background "steelblue"))
 
 
 (provide 'init-themes-customization-for-leuven)
