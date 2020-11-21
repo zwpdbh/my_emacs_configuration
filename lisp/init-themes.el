@@ -54,6 +54,8 @@
 (apply-theme)
 
 (defun customize-for-leuven-theme ()
+  (require 'init-themes-customization-for-leuven)
+  
   (zw/customize-general-leuven-theme)
   (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
   (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
@@ -62,6 +64,8 @@
   (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-doom-modeline))
 
 (defun customize-for-weyland-theme ()
+  (require 'init-themes-customization-for-weyland)
+  
   (zw/customize-general-weyland-theme)
   (add-hook 'helm-mode-hook 'zw/customize-weyland-theme-for-helm)
   (add-hook 'ivy-mode-hook 'zw/customize-weyland-theme-for-swiper))

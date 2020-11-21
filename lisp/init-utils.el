@@ -626,7 +626,8 @@ Version 2017-03-12"
           'face (list :background (match-string-no-properties 0)))))))
   (font-lock-flush))
 
+;; show hex color string's corresponding color
+(add-hook 'emacs-lisp-mode-hook 'zw/syntax-color-hex)
+
 (provide 'init-utils)
-
-
 ;;; init-utils.el ends here

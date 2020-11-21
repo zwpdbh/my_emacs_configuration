@@ -77,7 +77,7 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 
-(require 'init-themes-customization)
+;; set my favorite themes 
 (require 'init-themes)
 
 (require 'init-interface-tweaks)

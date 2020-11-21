@@ -96,4 +96,22 @@
 (setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)))
 (setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)))
 
+
+;; for my color
+(defvar zw/green)
+(defvar zw/purple)
+(defvar zw/yellow)
+(defvar zw/red)
+(defvar zw/blue-purple)
+(defvar zw/white)
+
+(setq zw/green "#73c936"
+      zw/purple "#b294bb"
+      zw/yellow "#f0c674"
+      zw/red  "IndianRed"
+      zw/blue-purple "#352d67"
+      zw/blue-for-org-code-in-leuven "#336699"
+      zw/light-purple "#ccccff"
+      zw/white "#def")
+
 (provide 'init-const)
