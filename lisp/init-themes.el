@@ -42,17 +42,6 @@
                       :underline t))
 
 
-;; Ensure that themes will be applied even if they have not been customized
-(defun apply-theme ()
-  "Forcibly load the themes listed in `custom-enabled-themes'."
-  (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
-  
-  ;; remember to install https://github.com/domtronn/all-the-icons.el
-  (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
-  (load-theme custom-enabled-theme))
-(apply-theme)
-
 (defun customize-for-leuven-theme ()
   (require 'init-themes-customization-for-leuven)
   
@@ -70,11 +59,26 @@
   (add-hook 'helm-mode-hook 'zw/customize-weyland-theme-for-helm)
   (add-hook 'ivy-mode-hook 'zw/customize-weyland-theme-for-swiper))
 
+
+
+;; Ensure that themes will be applied even if they have not been customized
+(defun apply-theme ()
+  "Forcibly load the themes listed in `custom-enabled-themes'."
+  (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
+  
+  ;; remember to install https://github.com/domtronn/all-the-icons.el
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-treemacs-config)
+  (load-theme custom-enabled-theme))
+
+(apply-theme)
+
 ;; customize themes based on current theme
 (cond ((eql custom-enabled-theme 'weyland-yutani)
        (customize-for-weyland-theme))
       ((eql custom-enabled-theme 'leuven)
        (customize-for-leuven-theme)))
+
 
 (provide 'init-themes)
 ;;; init-themes.el ends here
