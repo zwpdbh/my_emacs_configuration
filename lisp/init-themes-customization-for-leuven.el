@@ -82,7 +82,16 @@
                       :weight 'bold
                       :foreground "#ffcc00")
   (set-face-attribute 'doom-modeline-info nil
-                      :foreground "#99cc00"))
+                      :foreground "#99cc00")
+
+
+
+  (set-face-attribute 'mode-line nil
+                      :width 1
+                      :background "steelblue")
+
+  )
+
 
 
 (defun zw/customize-general-leuven-theme ()  
@@ -111,9 +120,7 @@
                       :foreground "#339933")
   (set-face-attribute 'region nil
                       :background "#cce6ff"
-                      :extend t)
-  (set-face-attribute 'mode-line nil
-                      :background "steelblue"))
+                      :extend t))
 
 
 (provide 'init-themes-customization-for-leuven)
