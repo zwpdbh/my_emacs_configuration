@@ -29,19 +29,9 @@
 ;; ===== trump-mode
 (setq tramp-default-method "ssh")
 
-;; ===== display pretty characters
-;; common symbols: http://xahlee.info/comp/unicode_punctuation_symbols.html
-;; place to find map between unicode and symbol: https://www.fileformat.info/info/unicode/char/2264/index.htm
-(define-globalized-minor-mode zw/global-prettify-symbols-minor-mode prettify-symbols-mode
-  (lambda ()
-    (setq prettify-symbols-alist
-          '(
-            ("lambda" . 955) ; λ
-            ("checkmark" . 10003)   ; ✓
-            ))
-    (prettify-symbols-mode 1)))
+;; prettify-symbols
+(when (fboundp 'global-prettify-symbols-mode)
+  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
-(add-hook 'prog-mode-hook '(lambda ()
-                             (zw/global-prettify-symbols-minor-mode t)))
 
 (provide 'init-interface-tweaks)

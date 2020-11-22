@@ -42,15 +42,35 @@
                       :underline t))
 
 
+;; (defun customize-for-leuven-theme ()
+;;   (require 'init-themes-customization-for-leuven)
+
+;;   (zw/customize-general-leuven-theme)
+;;   (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
+;;   (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
+;;   (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
+
+;;   ;; (after-load 'swiper 'zw/customize-leuven-theme-for-swiper)
+;;   ;; (after-load 'ivy 'zw/customize-leuven-theme-for-ivy)
+;;   (add-hook 'ivy-mode-hook
+;;             '(lambda ()
+;;                (zw/customize-leuven-theme-for-swiper)
+;;                (zw/customize-leuven-theme-for-ivy)))
+
+;;   (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-modeline))
+
 (defun customize-for-leuven-theme ()
   (require 'init-themes-customization-for-leuven)
-  
-  (zw/customize-general-leuven-theme)
-  (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
-  (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
-  (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
-  (add-hook 'ivy-mode-hook 'zw/customize-leuven-theme-for-swiper)
-  (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-modeline))
+
+  (add-hook 'after-init-hook
+            '(lambda ()
+               (zw/customize-general-leuven-theme)
+               (zw/customize-leuven-theme-for-company)
+               (zw/customize-leuven-theme-for-helm)
+               (zw/customize-leuven-theme-for-org)
+               (zw/customize-leuven-theme-for-swiper)
+               (zw/customize-leuven-theme-for-ivy)
+               (zw/customize-leuven-theme-for-modeline))))
 
 (defun customize-for-weyland-theme ()
   (require 'init-themes-customization-for-weyland)
@@ -60,24 +80,24 @@
   (add-hook 'ivy-mode-hook 'zw/customize-weyland-theme-for-swiper))
 
 
-
 ;; Ensure that themes will be applied even if they have not been customized
-(defun apply-theme ()
+(defun zw/apply-theme ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
   (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
   
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
-  (load-theme custom-enabled-theme))
+  (load-theme custom-enabled-theme)
 
-(apply-theme)
+  ;; customize themes based on current theme
+  (cond ((eql custom-enabled-theme 'weyland-yutani)
+         (customize-for-weyland-theme))
+        ((eql custom-enabled-theme 'leuven)
+         (customize-for-leuven-theme))))
 
-;; customize themes based on current theme
-(cond ((eql custom-enabled-theme 'weyland-yutani)
-       (customize-for-weyland-theme))
-      ((eql custom-enabled-theme 'leuven)
-       (customize-for-leuven-theme)))
+
+(zw/apply-theme)
 
 
 (provide 'init-themes)

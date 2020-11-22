@@ -13,14 +13,16 @@
                       :extend nil)
   
   (if (display-graphic-p)
-      (setq zw/helm-ff-dir-color "#ccccff")
+      (setq zw/helm-ff-dir-color "steelblue")
     (setq zw/helm-ff-dir-color "purple"))
   
   (set-face-attribute 'helm-ff-directory nil
                       :foreground zw/helm-ff-dir-color
+                      :background (face-background 'default t t)
                       :weight 'bold)
   (set-face-attribute 'helm-ff-dotted-directory nil
                       :foreground zw/helm-ff-dir-color
+                      :background (face-background 'default t t)
                       :weight 'bold))
 
 
@@ -38,7 +40,9 @@
                       :weight 'bold
                       :background "#FFFF00"
                       :underline nil
-                      :extend t)
+                      :extend t))
+
+(defun zw/customize-leuven-theme-for-ivy ()
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
@@ -46,8 +50,6 @@
   (set-face-attribute 'ivy-current-match nil
                       :weight 'bold
                       :background "#4C9ED9"))
-
-
 
 
 (defun zw/customize-leuven-theme-for-org ()
