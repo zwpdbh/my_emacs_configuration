@@ -2,8 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-;; show a dashboard
-
+;; which is needed by other packages, such as company-posframe
+(use-package posframe
+  :ensure t)
 
 ;;----------------------------------------------------------------------------
 ;; Stop C-z from minimizing windows under OS X
