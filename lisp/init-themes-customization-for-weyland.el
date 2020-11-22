@@ -9,11 +9,12 @@
 
   (set-face-attribute 'helm-ff-directory nil
                       :foreground "steelblue"
+                      :background (face-background 'default t t)
                       :weight 'bold)
   (set-face-attribute 'helm-ff-dotted-directory nil
                       :foreground "steelblue"
-                      :weight 'bold)
-  )
+                      :background (face-background 'default t t)
+                      :weight 'bold))
 
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")

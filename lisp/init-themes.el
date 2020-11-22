@@ -29,7 +29,7 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'leuven)
+    (setq custom-enabled-theme 'weyland-yutani)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 (use-package symbol-overlay
@@ -42,26 +42,8 @@
                       :underline t))
 
 
-;; (defun customize-for-leuven-theme ()
-;;   (require 'init-themes-customization-for-leuven)
-
-;;   (zw/customize-general-leuven-theme)
-;;   (add-hook 'company-mode-hook 'zw/customize-leuven-theme-for-company)
-;;   (add-hook 'helm-mode-hook 'zw/customize-leuven-theme-for-helm)
-;;   (add-hook 'org-mode-hook 'zw/customize-leuven-theme-for-org)
-
-;;   ;; (after-load 'swiper 'zw/customize-leuven-theme-for-swiper)
-;;   ;; (after-load 'ivy 'zw/customize-leuven-theme-for-ivy)
-;;   (add-hook 'ivy-mode-hook
-;;             '(lambda ()
-;;                (zw/customize-leuven-theme-for-swiper)
-;;                (zw/customize-leuven-theme-for-ivy)))
-
-;;   (add-hook 'doom-modeline-mode-hook 'zw/customize-leuven-theme-for-modeline))
-
 (defun customize-for-leuven-theme ()
   (require 'init-themes-customization-for-leuven)
-
   (add-hook 'after-init-hook
             '(lambda ()
                (zw/customize-general-leuven-theme)
@@ -74,10 +56,11 @@
 
 (defun customize-for-weyland-theme ()
   (require 'init-themes-customization-for-weyland)
-  
-  (zw/customize-general-weyland-theme)
-  (add-hook 'helm-mode-hook 'zw/customize-weyland-theme-for-helm)
-  (add-hook 'ivy-mode-hook 'zw/customize-weyland-theme-for-swiper))
+  (add-hook 'after-init-hook
+            '(lambda ()
+               (zw/customize-general-weyland-theme)
+               (zw/customize-weyland-theme-for-helm)
+               (zw/customize-weyland-theme-for-swiper))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
