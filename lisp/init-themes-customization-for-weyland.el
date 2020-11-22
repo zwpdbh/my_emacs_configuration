@@ -28,14 +28,30 @@
   (set-face-attribute 'header-line nil
                       :height 1.0
                       :underline nil)
-  
-  (add-hook 'after-init-hook
-            '(lambda ()
-               ;; disable fringe 
-               (set-fringe-mode 0))))
+  ;; disable fringe 
+  (set-fringe-mode 0))
 
 (defun zw/customize-weyland-theme-for-swiper ()
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+
+
+(defun zw/customize-weyland-theme-for-org ()
+  (setq org-emphasis-alist
+        '(("*" (:foreground "gold"))
+          ("/" italic)
+          ("_" underline)
+          ("=" (:background "maroon" :foreground "white"))
+          ("~" (:foreground "#fb8a69"))
+          ("+" (:Strike-through t)))))
+
+(defun zw/customize-weyland-theme-for-symbol-overlay ()
+  (set-face-attribute 'symbol-overlay-default-face nil
+                      :inherit nil
+                      :weight 'normal
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)
+                      ;; :underline '(:color "gray")
+                      :underline t))
 
 (provide 'init-themes-customization-for-weyland)

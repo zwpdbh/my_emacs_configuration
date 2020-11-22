@@ -33,13 +33,7 @@
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 (use-package symbol-overlay
-  :ensure t
-  :config
-  (set-face-attribute 'symbol-overlay-default-face nil
-                      :inherit nil
-                      :foreground (face-foreground 'default t t)
-                      :background (face-background 'default t t)
-                      :underline t))
+  :ensure t)
 
 
 (defun customize-for-leuven-theme ()
@@ -52,7 +46,8 @@
                (zw/customize-leuven-theme-for-org)
                (zw/customize-leuven-theme-for-swiper)
                (zw/customize-leuven-theme-for-ivy)
-               (zw/customize-leuven-theme-for-modeline))))
+               (zw/customize-leuven-theme-for-modeline)
+               (zw/customize-leuven-theme-for-symbol-overlay))))
 
 (defun customize-for-weyland-theme ()
   (require 'init-themes-customization-for-weyland)
@@ -60,7 +55,9 @@
             '(lambda ()
                (zw/customize-general-weyland-theme)
                (zw/customize-weyland-theme-for-helm)
-               (zw/customize-weyland-theme-for-swiper))))
+               (zw/customize-weyland-theme-for-swiper)
+               (zw/customize-weyland-theme-for-org)
+               (zw/customize-weyland-theme-for-symbol-overlay))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized

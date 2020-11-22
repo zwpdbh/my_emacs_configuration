@@ -106,10 +106,8 @@
                       :background "honeydew")
 
   ;; disable fringe
-  (add-hook 'after-init-hook
-            '(lambda ()
-               ;; disable fringe 
-               (set-fringe-mode 0)))
+  (set-fringe-mode 0)
+
   ;; (set-face-attribute 'fringe nil
   ;;                     :foreground "#4C9ED9"
   ;;                     :background (face-attribute 'default :background))
@@ -120,6 +118,15 @@
   (set-face-attribute 'region nil
                       :background "#cce6ff"
                       :extend t))
+
+(defun zw/customize-leuven-theme-for-symbol-overlay ()
+  (set-face-attribute 'symbol-overlay-default-face nil
+                      :inherit nil
+                      :weight 'normal
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)
+                      ;; :underline '(:color "gray")
+                      :underline t))
 
 
 (provide 'init-themes-customization-for-leuven)
