@@ -5,7 +5,15 @@
                       :foreground (face-foreground 'default t t)
                       :weight 'bold
                       :extend t)
-  (setq helm-buffer-max-length 36))
+  (setq helm-buffer-max-length 36)
+
+  (set-face-attribute 'helm-ff-directory nil
+                      :foreground "steelblue"
+                      :weight 'bold)
+  (set-face-attribute 'helm-ff-dotted-directory nil
+                      :foreground "steelblue"
+                      :weight 'bold)
+  )
 
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
