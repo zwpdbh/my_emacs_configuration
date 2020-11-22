@@ -1,6 +1,5 @@
 (setq zw/favorite-en-fonts '(
                              "Anonymous Pro"
-                             "Inconsolata"
                              "Consolas"
                              "Terminus (TTF)"
                              "Source Code Pro"
@@ -48,8 +47,10 @@
     (set-face-attribute 'default nil :font en-font)
     (dolist (charset '(kana han cjk-misc bopomofo))
       (set-fontset-font t charset cn-font))))
+;; set font
 (zw/set-font 14)
 
+;; set emoji
 (when (and (boundp 'global-emojify-mode)
            global-emojify-mode)
   (global-emojify-mode 1))
