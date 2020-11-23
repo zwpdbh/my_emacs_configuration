@@ -8,11 +8,11 @@
   (setq helm-buffer-max-length 36)
 
   (set-face-attribute 'helm-ff-directory nil
-                      :foreground "#0595bd"
+                      :foreground "#20b2aa"
                       :background (face-background 'default t t)
                       :weight 'bold)
   (set-face-attribute 'helm-ff-dotted-directory nil
-                      :foreground "#0595bd"
+                      :foreground "#20b2aa"
                       :background (face-background 'default t t)
                       :weight 'bold))
 
