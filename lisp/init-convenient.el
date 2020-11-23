@@ -42,6 +42,8 @@
              "~/.emacs.d/site-lisp/scratch-el")
 ;; uses package "scratch"
 (autoload 'scratch "scratch" nil t)
+;; M-x scratch, Immediately create a scratch buffer with the same major mode as the current buffer’s.
+;; C-u M-x scratch, Prompts for a major mode to create a scratch buffer with.
 
 
 (provide 'init-convenient)
