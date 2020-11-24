@@ -120,13 +120,15 @@
                       :extend t))
 
 (defun zw/customize-leuven-theme-for-symbol-overlay ()
-  (set-face-attribute 'symbol-overlay-default-face nil
-                      :inherit nil
-                      :weight 'normal
-                      :foreground (face-foreground 'default t t)
-                      :background (face-background 'default t t)
-                      ;; :underline '(:color "gray")
-                      :underline t))
+  (add-hook 'symbol-overlay-mode-hook
+            '(lambda ()
+               (set-face-attribute 'symbol-overlay-default-face nil
+                                   :inherit nil
+                                   :weight 'normal
+                                   :foreground (face-foreground 'default t t)
+                                   :background (face-background 'default t t)
+                                   ;; :underline '(:color "gray")
+                                   :underline t))))
 
 
 (provide 'init-themes-customization-for-leuven)

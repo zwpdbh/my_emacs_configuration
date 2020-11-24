@@ -46,12 +46,14 @@
           ("+" (:Strike-through t)))))
 
 (defun zw/customize-weyland-theme-for-symbol-overlay ()
-  (set-face-attribute 'symbol-overlay-default-face nil
-                      :inherit nil
-                      :weight 'normal
-                      :foreground (face-foreground 'default t t)
-                      :background "#191970"
-                      ;; :underline '(:color "gray")
-                      :underline t))
+  (add-hook 'symbol-overlay-mode-hook
+            '(lambda ()
+               (set-face-attribute 'symbol-overlay-default-face nil
+                                   :inherit nil
+                                   :weight 'normal
+                                   :foreground (face-foreground 'default t t)
+                                   :background "#191970"
+                                   ;; :underline '(:color "gray")
+                                   :underline t))))
 
 (provide 'init-themes-customization-for-weyland)
