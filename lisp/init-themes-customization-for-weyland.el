@@ -50,7 +50,7 @@
                       :inherit nil
                       :weight 'normal
                       :foreground (face-foreground 'default t t)
-                      :background (face-background 'default t t)
+                      :background "#191970"
                       ;; :underline '(:color "gray")
                       :underline t))
 
