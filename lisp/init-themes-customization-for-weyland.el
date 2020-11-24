@@ -56,4 +56,10 @@
                                    ;; :underline '(:color "gray")
                                    :underline t))))
 
+(defun zw/customize-weyland-theme-for-js2 ()
+  (add-hook 'js2-mode-hook
+            '(lambda ()
+               (set-face-attribute 'js2-error nil
+                                   :foreground "tomato"))))
+
 (provide 'init-themes-customization-for-weyland)
