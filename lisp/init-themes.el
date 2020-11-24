@@ -33,7 +33,15 @@
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 (use-package symbol-overlay
-  :ensure t)
+  :ensure t
+  :config
+  (progn
+    (global-unset-key ["f5"])
+    ;; jump-prev by default also has kbd "M-p"
+    (global-set-key (kbd "<f5>") 'symbol-overlay-jump-prev)
+    
+    ;; jump-next by default also has kbd "M-n"
+    (global-set-key (kbd "<f6>") 'symbol-overlay-jump-next)))
 
 
 (defun customize-for-leuven-theme ()
