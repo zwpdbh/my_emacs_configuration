@@ -16,7 +16,7 @@
   (zw/set-company-backends-global))
 
 ;; define a group of common features needed by all lisp programming
-(defun zwpdbh/enhance-lisp-power ()
+(defun zw/enhance-lisp-power ()
   (interactive)
   (my-lisp-power-mode t)
   (turn-on-eldoc-mode)
@@ -45,6 +45,6 @@
 (add-hook 'after-init-hook '(lambda ()
                               (dolist (each-mode my-lisp-mode-set)
                                 (add-hook (intern (format "%s-hook" each-mode))
-                                          #'zwpdbh/enhance-lisp-power))))
+                                          #'zw/enhance-lisp-power))))
 
 (provide 'init-lisp-tool)
