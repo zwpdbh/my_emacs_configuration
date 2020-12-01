@@ -72,7 +72,7 @@
 
 (defun zw/customize-leuven-theme-for-company ()
   (set-face-attribute 'company-tooltip-selection nil
-                      :background "#4C9ED9"
+                      :background "#81BBE4"
                       :weight 'normal))
 
 
