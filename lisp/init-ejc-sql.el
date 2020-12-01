@@ -14,7 +14,7 @@
             '(lambda ()
                (ejc-eldoc-setup)
                (setq-local company-backends
-                           '(company-capf (company-dabbrev-code ejc-company-backend) company-keywords company-files company-dabbrev))
+                           '((company-capf company-dabbrev-code ejc-company-backend) company-keywords company-files company-dabbrev))
                (company-mode t)))
 
   (add-hook 'ejc-sql-connected-hook

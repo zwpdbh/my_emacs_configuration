@@ -58,12 +58,12 @@
                                    :background (face-background 'default t t)))))
 
 
-(add-hook 'lsp-mode-hook
-          '(lambda ()
-             ;; Code run from x-mode-hook is for buffer-specific things which means
-             ;; run the code for every x-mode buffer
-             (setq-local company-backends (add-to-list 'company-backends
-                                                       'company-capf))))
+;; (add-hook 'lsp-mode-hook
+;;           '(lambda ()
+;;              ;; Code run from x-mode-hook is for buffer-specific things which means
+;;              ;; run the code for every x-mode buffer
+;;              (setq-local company-backends (add-to-list 'company-backends
+;;                                                        'company-capf))))
 
 (defun zw/lsp-ui-key-bindings ()
   (interactive)
