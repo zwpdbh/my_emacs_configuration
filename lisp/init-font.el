@@ -1,5 +1,6 @@
-(setq zw/favorite-en-fonts '("Iosevka Slab"
+(setq zw/favorite-en-fonts '(
                              "Anonymous Pro"
+                             "Iosevka Slab"
                              "Consolas"
                              "Terminus (TTF)"
                              "Source Code Pro"
