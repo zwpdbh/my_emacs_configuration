@@ -14,3 +14,6 @@
 # 	path = site-lisp/counsel-etags
 # 	url = https://github.com/redguardtoo/counsel-etags.git
 
+[submodule "site-lisp/prettier-eslint-emacs"]
+	path = site-lisp/prettier-eslint-emacs
+	url = https://github.com/ProjectFrank/prettier-eslint-emacs.git
