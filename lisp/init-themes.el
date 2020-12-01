@@ -29,7 +29,7 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'leuven)
+    (setq custom-enabled-theme 'weyland-yutani)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 
