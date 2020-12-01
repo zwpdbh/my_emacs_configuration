@@ -158,9 +158,10 @@
 
 (require-init 'init-javascript)
 (require-init 'init-web)
+(require 'init-vue-with-just-vue-mode)
 ;; (require 'init-vue-with-lsp-plus-vue-mode)
 ;; (require 'init-vue-with-lsp-plus-web-mode)
-(require 'init-vue-with-eglot-plus-web-mode)
+;; (require 'init-vue-with-eglot-plus-web-mode)
 
 (require-init 'init-go)
 (require-init 'init-R)
