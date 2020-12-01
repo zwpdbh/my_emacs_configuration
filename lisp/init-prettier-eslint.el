@@ -1,3 +1,13 @@
+;; prettier is the tool used to format code, but the formatted code may not pass eslint
+
+;; eslint --fix is used to auto-format/fix much of code
+
+;; prettier-eslint is a tool: https://github.com/prettier/prettier-eslint which format javascript project using prettier followed by
+;; eslint --fix
+
+;; prettier-eslint-cli is the CLI for prettier-eslint
+
+;; Now, we use prettier-eslint-cli in emacs with the help from: https://github.com/ProjectFrank/prettier-eslint-emacs
 (add-to-list 'load-path
              "~/.emacs.d/site-lisp/prettier-eslint-emacs")
 (require 'prettier-eslint)
