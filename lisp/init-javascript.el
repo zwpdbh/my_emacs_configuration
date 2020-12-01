@@ -66,7 +66,8 @@
   (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
   (js2-imenu-extras-setup))
 
-;; searches the current files parent directories for the node_modules/.bin/ directory and adds it to the buffer local exec-path
+;; Searches the current files parent directories for the node_modules/.bin/ directory and adds it to the buffer local exec-path.
+;; This allows Emacs to find project based installs of e.g. eslint.
 (when (maybe-require-package 'add-node-modules-path)
   (after-load 'typescript-mode
     (add-hook 'typescript-mode-hook 'add-node-modules-path))
