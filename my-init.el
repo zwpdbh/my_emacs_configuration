@@ -162,7 +162,8 @@
 ;; (require 'init-vue-with-lsp-plus-vue-mode)
 ;; (require 'init-vue-with-lsp-plus-web-mode)
 ;; (require 'init-vue-with-eglot-plus-web-mode)
-(require 'init-prettier-eslint)
+(require 'init-prettier)
+;; (require 'init-prettier-eslint)
 
 (require-init 'init-go)
 (require-init 'init-R)

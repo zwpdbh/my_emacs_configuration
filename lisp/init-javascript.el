@@ -66,6 +66,7 @@
   (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
   (js2-imenu-extras-setup))
 
+;; searches the current files parent directories for the node_modules/.bin/ directory and adds it to the buffer local exec-path
 (when (maybe-require-package 'add-node-modules-path)
   (after-load 'typescript-mode
     (add-hook 'typescript-mode-hook 'add-node-modules-path))

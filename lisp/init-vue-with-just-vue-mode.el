@@ -4,6 +4,8 @@
   
   (add-hook 'vue-mode-hook
             '(lambda ()
-               (zw/counsel-etags-setup))))
+               (zw/counsel-etags-setup)))
+  (after-load 'vue-mode
+    (add-hook 'vue-mode-hook 'add-node-modules-path)))
 
 (provide 'init-vue-with-just-vue-mode)

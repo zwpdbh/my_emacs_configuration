@@ -30,8 +30,8 @@
 (setq tramp-default-method "ssh")
 
 ;; prettify-symbols
-(when (fboundp 'global-prettify-symbols-mode)
-  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+;; (when (fboundp 'global-prettify-symbols-mode)
+;;   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
 
 (provide 'init-interface-tweaks)
