@@ -2,9 +2,9 @@
 	path = site-lisp/scratch-el
 	url = https://github.com/ieure/scratch-el.git
 
-[submodule "site-lisp/scimax"]
-	path = site-lisp/scimax
-	url = https://github.com/jkitchin/scimax.git
+# [submodule "site-lisp/scimax"]
+# 	path = site-lisp/scimax
+# 	url = https://github.com/jkitchin/scimax.git
 	
 # [submodule "site-lisp/posframe"]
 # 	path = site-lisp/posframe
