@@ -18,6 +18,9 @@
 
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
+  (when window-system
+    (set-cursor-color zw/red)
+    (setq-default cursor-type '(bar . 3)))
   (setq show-paren-style 'expression)
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
@@ -31,9 +34,22 @@
   ;; disable fringe 
   (set-fringe-mode 0))
 
-(defun zw/customize-weyland-theme-for-swiper ()
+
+(defun zw/customize-weyland-theme-for-ivy ()
   ;; make selection highlight-background expand full width of the minibuffer
-  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  ;; Face for ‘ivy’ minibuffer matches covered by inputs
+  (set-face-attribute 'ivy-minibuffer-match-face-1 nil
+                      :weight 'normal
+                      :underline t
+                      :background (face-background 'default t t))
+  
+  ;; Face for ‘ivy’ minibuffer matches inputs 
+  (set-face-attribute 'ivy-minibuffer-match-face-2 nil
+                      :weight 'bold
+                      :underline t
+                      :background (face-background 'default t t)))
 
 
 (defun zw/customize-weyland-theme-for-org ()
