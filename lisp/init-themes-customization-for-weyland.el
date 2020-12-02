@@ -39,6 +39,12 @@
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
+  ;; make ivy current match background lighter
+  (set-face-attribute 'ivy-current-match nil
+                      :weight 'bold
+                      :foreground (face-background 'default t t)
+                      :background "#3b3559")
+  
   ;; Face for ‘ivy’ minibuffer matches covered by inputs
   (set-face-attribute 'ivy-minibuffer-match-face-1 nil
                       :weight 'normal
