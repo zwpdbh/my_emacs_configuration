@@ -71,11 +71,9 @@
   (add-hook 'symbol-overlay-mode-hook
             '(lambda ()
                (set-face-attribute 'symbol-overlay-default-face nil
-                                   :inherit nil
                                    :weight 'normal
                                    :foreground (face-foreground 'default t t)
-                                   :background "#191970"
-                                   ;; :underline '(:color "gray")
+                                   :background (face-background 'default t t)
                                    :underline t))))
 
 (defun zw/customize-weyland-theme-for-js2 ()
