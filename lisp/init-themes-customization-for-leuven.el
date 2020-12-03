@@ -53,7 +53,6 @@
 
 
 (defun zw/customize-leuven-theme-for-org ()
-  (visual-line-mode)
   (setq org-link-file-path-type 'adaptive)
   (setq org-hide-emphasis-markers nil)
   
