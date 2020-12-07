@@ -58,6 +58,42 @@
                       :background (face-background 'default t t)))
 
 
+(defun zw/customize-weyland-theme-for-swiper ()
+  (set-face-attribute 'swiper-line-face nil
+                      :inherit nil
+                      :weight 'bold
+                      :underline nil
+                      :foreground (face-foreground 'default t t)
+                      :background "#3b3559")
+  
+  (set-face-attribute 'swiper-match-face-1 nil
+                      :inherit nil
+                      :weight 'normal
+                      :underline t
+                      :foreground (face-foreground 'default t t)
+                      :background nil)
+
+  (set-face-attribute 'swiper-match-face-2 nil
+                      :inherit nil
+                      :weight 'normal
+                      :underline t
+                      :foreground (face-foreground 'default t t)
+                      :background nil)
+
+  (set-face-attribute 'swiper-match-face-3 nil
+                      :inherit nil
+                      :weight 'normal
+                      :underline t
+                      :foreground (face-foreground 'default t t)
+                      :background nil)
+
+  (set-face-attribute 'swiper-match-face-4 nil
+                      :inherit nil
+                      :weight 'normal
+                      :underline t
+                      :foreground (face-foreground 'default t t)
+                      :background nil))
+
 (defun zw/customize-weyland-theme-for-org ()
   (setq org-emphasis-alist
         '(("*" (:foreground "gold"))
