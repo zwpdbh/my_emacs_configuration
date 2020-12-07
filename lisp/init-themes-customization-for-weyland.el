@@ -25,7 +25,7 @@
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
                       :underline nil
-                      :foreground (face-background 'default t t)
+                      :foreground (face-foreground 'default t t)
                       :background "black")
   ;; make weyland theme use normal font size for header-line
   (set-face-attribute 'header-line nil
