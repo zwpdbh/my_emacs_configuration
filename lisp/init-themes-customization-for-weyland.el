@@ -73,7 +73,7 @@
                (set-face-attribute 'symbol-overlay-default-face nil
                                    :weight 'normal
                                    :foreground (face-foreground 'default t t)
-                                   :background (face-background 'default t t)
+                                   :background "gray"
                                    :underline t))))
 
 (defun zw/customize-weyland-theme-for-js2 ()
