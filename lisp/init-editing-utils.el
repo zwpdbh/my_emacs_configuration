@@ -98,21 +98,6 @@ If the new path's directories does not exist, create them."
 (after-load 'subword
   (diminish 'subword-mode))
 
-
-
-(when (fboundp 'display-line-numbers-mode)
-  (setq-default display-line-numbers-width 3)
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-
-(when (maybe-require-package 'goto-line-preview)
-  (global-set-key [remap goto-line] 'goto-line-preview)
-
-  (when (fboundp 'display-line-numbers-mode)
-    (defun sanityinc/with-display-line-numbers (f &rest args)
-      (let ((display-line-numbers t))
-        (apply f args)))
-    (advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
-
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
 ;;----------------------------------------------------------------------------

@@ -185,7 +185,7 @@
 
 (require-init 'init-folding)
 (require-init 'init-indent)
-(require-init 'init-pomodoro)
+;; (require-init 'init-pomodoro)
 
 ;; Latex related
 (require-init 'init-latex)
