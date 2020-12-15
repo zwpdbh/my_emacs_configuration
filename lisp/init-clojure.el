@@ -30,23 +30,23 @@
     ;; In order for Emacs to recognise .boot files as valid Clojure source code
     (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
     (add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
-    (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
+    (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))))
 
-    (add-hook 'clojure-mode-hook
-              '(lambda ()
-                 ;; To properly indent hoplon macros. 
-                 ;; Hoplon functions and macros
-                 (dolist (pair '((page . 'defun)
-                                 (loop-tpl . 'defun)
-                                 (if-tpl . '1)
-                                 (for-tpl . '1)
-                                 (case-tpl . '1)
-                                 (cond-tpl . 'defun)))
-                   (put-clojure-indent (car pair)
-                                       (car (last pair))))
-                 ;; See documentation clojure-mode for specific indentations
-                 (put-clojure-indent '>defn 2)
-                 (clj-refactor-mode 1)
-                 (cljr-add-keybindings-with-prefix "C-c C-/")))))
+(add-hook 'clojure-mode-hook
+          '(lambda ()
+             ;; To properly indent hoplon macros. 
+             ;; Hoplon functions and macros
+             (dolist (pair '((page . 'defun)
+                             (loop-tpl . 'defun)
+                             (if-tpl . '1)
+                             (for-tpl . '1)
+                             (case-tpl . '1)
+                             (cond-tpl . 'defun)))
+               (put-clojure-indent (car pair)
+                                   (car (last pair))))
+             ;; See documentation clojure-mode for specific indentations
+             (put-clojure-indent '>defn 2)
+             (clj-refactor-mode 1)
+             (cljr-add-keybindings-with-prefix "C-c C-/")))
 
 (setq org-babel-clojure-backend 'cider)
