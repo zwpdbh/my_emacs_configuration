@@ -26,8 +26,10 @@
 (global-set-key (kbd "s-p") (kbd "C-S-p"))
 
 ;; set paredit-backward and paredit-forward
-(global-set-key (kbd "<f8>") (kbd "C-M-f"))
-(global-set-key (kbd "<f7>") (kbd "C-M-b"))
+;; (global-set-key (kbd "<f8>") (kbd "C-M-f"))
+;; (global-set-key (kbd "<f7>") (kbd "C-M-b"))
+(global-set-key (kbd "<f8>") 'paredit-forward)
+(global-set-key (kbd "<f7>") 'paredit-backward)
 
 ;; use c-z to undo
 (global-set-key (kbd "C-z") #'undo)
