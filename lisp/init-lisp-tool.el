@@ -5,12 +5,12 @@
 
 
 ;; define additional minor mode to adjust keybindings without conflicts
-(defvar my-lisp-power-map (make-keymap))
-(define-minor-mode my-lisp-power-mode "Fix keybindings; add power."
+(defvar zw/lisp-power-map (make-keymap))
+(define-minor-mode zw/lisp-power-mode "Fix keybindings; add power."
   :lighter " (power)"
-  :keymap my-lisp-power-map)
-(define-key my-lisp-power-map [delete] 'paredit-forward-delete)
-(define-key my-lisp-power-map [backspace] 'paredit-backward-delete)
+  :keymap zw/lisp-power-map)
+(define-key zw/lisp-power-map [delete] 'paredit-forward-delete)
+(define-key zw/lisp-power-map [backspace] 'paredit-backward-delete)
 
 (defun zw/set-company-backends-for-lisp ()
   (zw/set-company-backends-global))
@@ -18,7 +18,7 @@
 ;; define a group of common features needed by all lisp programming
 (defun zw/enhance-lisp-power ()
   (interactive)
-  (my-lisp-power-mode t)
+  (zw/lisp-power-mode t)
   (turn-on-eldoc-mode)
   (subword-mode t)
   (paredit-mode t)
