@@ -123,9 +123,6 @@ Always focus on bigger window."
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
 
-;; https://github.com/abo-abo/ace-window
-;; `M-x ace-window ENTER m` to swap window
-(global-set-key (kbd "C-x o") 'ace-window)
 
 ;; {{ move focus between sub-windows
 (setq winum-keymap
@@ -160,6 +157,10 @@ Always focus on bigger window."
       (delete-other-windows)
     (winner-undo)))
 
+
+;; https://github.com/abo-abo/ace-window
+;; `M-x ace-window ENTER m` to swap window
+;; (global-set-key (kbd "C-x o") 'ace-window)
 (use-package ace-window
   :ensure t
   :init
@@ -170,6 +171,6 @@ Always focus on bigger window."
     (global-set-key [remap other-window] 'ace-window)
     (custom-set-faces
      '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
+       ((t (:inherit ace-jump-face-foreground :height 1.5)))))))
 
 (provide 'init-windows)
