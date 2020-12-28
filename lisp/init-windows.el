@@ -89,21 +89,20 @@ Always focus on bigger window."
   ;; by default, the sessions are saved in "~/.emacs_workgroups"
   (autoload 'wg-create-workgroup "workgroups2" nil t)
 
-  (defun my-wg-switch-workgroup ()
-    (interactive)
-    (let (group-names selected-group)
-      (unless (featurep 'workgroups2)
-        (require 'workgroups2))
-      (setq group-names
-            (mapcar (lambda (group)
-                      ;; re-shape list for the ivy-read
-                      (cons (wg-workgroup-name group) group))
-                    (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file))))))
-      (ivy-read "work groups" group-names
-                :action (lambda (group)
-                          (wg-find-session-file wg-default-session-file)
-                          (wg-switch-to-workgroup group)))))
-
+  ;; (defun my-wg-switch-workgroup ()
+  ;;   (interactive)
+  ;;   (let (group-names selected-group)
+  ;;     (unless (featurep 'workgroups2)
+  ;;       (require 'workgroups2))
+  ;;     (setq group-names
+  ;;           (mapcar (lambda (group)
+  ;;                     ;; re-shape list for the ivy-read
+  ;;                     (cons (wg-workgroup-name group) group))
+  ;;                   (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file))))))
+  ;;     (ivy-read "work groups" group-names
+  ;;               :action (lambda (group)
+  ;;                         (wg-find-session-file wg-default-session-file)
+  ;;                         (wg-switch-to-workgroup group)))))
 
   (eval-after-load 'workgroups2
     '(progn
