@@ -15,11 +15,6 @@
   (define-key input-decode-map "^[[1;3D" [M-left])
   (define-key input-decode-map "^[[1;3C" [M-right]))
 
-;; resize bindings
-(global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-s-<down>") 'shrink-window)
-(global-set-key (kbd "C-s-<up>") 'enlarge-window)
 
 ;; use cmd + n and cmd + p to select next and previous lines
 (global-set-key (kbd "s-n") (kbd "C-S-n"))
