@@ -18,13 +18,13 @@
 ;; define a group of common features needed by all lisp programming
 (defun zw/enhance-lisp-power ()
   (interactive)
+  ;; (zw/set-company-backends-for-lisp)
   (zw/lisp-power-mode t)
   (turn-on-eldoc-mode)
   (subword-mode t)
   (paredit-mode t)
   (rainbow-delimiters-mode-enable)
-  (aggressive-indent-mode t)
-  (zw/set-company-backends-for-lisp))
+  (aggressive-indent-mode t))
 
 ;; define a group of different lisp modes, so we could apply features on on them 
 (setq my-lisp-mode-set '(lisp-mode

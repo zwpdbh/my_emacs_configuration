@@ -25,13 +25,20 @@
 
   (setq geiser-default-implementation 'guile)
   (setq geiser-active-implementations '(guile chez))
-
   (setq geiser-mode-start-repl-p t)
+  
+  ;; the default extention for scheme is .scm
   (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.racket\\'" . scheme-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
+  
   (add-hook 'scheme-mode-hook 'geiser-mode)
   (after-load 'geiser-mode
-    (define-key geiser-mode-map (kbd "C-c C-c") 'geiser-eval-definition)))
+    (define-key geiser-mode-map (kbd "C-c C-c") 'geiser-eval-definition))
+  ;; it seems geiser-mode-hook is run after "after-load"
+  (add-hook 'geiser-mode-hook
+            '(lambda ()
+               (setq-local company-backends '((company-capf company-dabbrev-code geiser-company-backend) company-keywords company-files company-dabbrev)))))
+
 
 (provide 'init-scheme)
