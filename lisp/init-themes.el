@@ -56,7 +56,8 @@
                (zw/customize-weyland-theme-for-swiper)
                (zw/customize-weyland-theme-for-org)
                (zw/customize-weyland-theme-for-symbol-overlay)
-               (zw/customize-weyland-theme-for-js2))))
+               (zw/customize-weyland-theme-for-js2)
+               (zw/customize-weyland-theme-for-indent-guide))))
 
 
 ;; Ensure that themes will be applied even if they have not been customized

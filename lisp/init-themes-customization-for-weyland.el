@@ -126,4 +126,10 @@
                (set-face-attribute 'js2-error nil
                                    :foreground "tomato"))))
 
+(defun zw/customize-weyland-theme-for-indent-guide ()
+  (add-hook 'indent-guide-mode-hook
+            '(lambda ()
+               (set-face-attribute 'indent-guide-face nil
+                                   :foreground "DarkGray"))))
+
 (provide 'init-themes-customization-for-weyland)

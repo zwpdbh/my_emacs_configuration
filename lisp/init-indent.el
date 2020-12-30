@@ -9,6 +9,13 @@
     (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
     (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
 
+(use-package indent-guide
+  :ensure t
+  :config
+  (progn
+    (add-hook 'vue-mode-hook 'indent-guide-mode)
+    (add-hook 'sgml-mode-hook 'indent-guide-mode)))
+
 ;; make sure using tab/space to indent
 ;; START TABS CONFIG
 ;; Create a variable for our preferred tab width
