@@ -49,7 +49,7 @@
     (dolist (charset '(kana han cjk-misc bopomofo))
       (set-fontset-font t charset cn-font))))
 ;; set font
-(zw/set-font 14)
+(zw/set-font 10)
 
 ;; set emoji
 (when (and (boundp 'global-emojify-mode)
