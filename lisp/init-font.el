@@ -2,6 +2,7 @@
                              "Anonymous Pro"
                              "Iosevka Slab"
                              "Consolas"
+                             "Ubuntu Mono"
                              "Terminus (TTF)"
                              "Source Code Pro"
                              "Monaco Nerd Font Mono"
