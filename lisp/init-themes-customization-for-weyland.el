@@ -130,6 +130,6 @@
   (add-hook 'indent-guide-mode-hook
             '(lambda ()
                (set-face-attribute 'indent-guide-face nil
-                                   :foreground "DarkGray"))))
+                                   :foreground "DimGray"))))
 
 (provide 'init-themes-customization-for-weyland)
