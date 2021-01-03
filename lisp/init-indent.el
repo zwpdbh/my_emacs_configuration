@@ -44,6 +44,7 @@
 
                               ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
                               (add-hook 'prog-mode-hook 'zw/disable-tabs)
+                              (add-hook 'vue-mode-hook 'zw/disable-tabs)
                               (add-hook 'org-mode-hook 'zw/disable-tabs)
                               (add-hook 'json-mode-hook 'zw/disable-tabs)
                               (add-hook 'lisp-mode-hook 'zw/disable-tabs)
@@ -52,7 +53,8 @@
 
                               ;; Language-Specific Tweaks
                               (add-hook 'python-mode-hook '(lambda ()
-                                                             (set (make-local-variable 'custom-indent-width) 4)
+                                                             ;; (set (make-local-variable 'custom-indent-width) 4)
+                                                             (setq-local custom-indent-width 4)
                                                              (setq-default python-indent-offset custom-indent-width)
                                                              (setq python-indent-offset custom-indent-width)))))
 
