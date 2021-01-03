@@ -156,6 +156,8 @@
 ;; (require-init 'init-python)
 (require-init 'init-c-and-c++)
 
+(require 'init-haskell)
+
 (require-init 'init-javascript)
 (require-init 'init-web)
 (require 'init-vue-with-just-vue-mode)
