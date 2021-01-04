@@ -17,3 +17,6 @@
 [submodule "site-lisp/prettier-eslint-emacs"]
 	path = site-lisp/prettier-eslint-emacs
 	url = https://github.com/ProjectFrank/prettier-eslint-emacs.git
+[submodule "site-lisp/mmm-mode"]
+	path = site-lisp/mmm-mode
+	url = https://github.com/purcell/mmm-mode.git

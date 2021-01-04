@@ -11,6 +11,11 @@
                (add-hook 'before-save-hook
                          'prettier-prettify nil 'local)))
 
+  (add-hook 'web-mode-hook
+            '(lambda ()
+               (add-hook 'before-save-hook
+                         'prettier-prettify nil 'local)))
+
   (add-hook 'sgml-mode-hook
             '(lambda ()
                (add-hook 'before-save-hook

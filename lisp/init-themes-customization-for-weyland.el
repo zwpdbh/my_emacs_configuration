@@ -41,6 +41,12 @@
   ;; disable fringe 
   (set-fringe-mode 0))
 
+(defun zw/customize-weyland-theme-for-web-mode ()
+  (set-face-attribute 'web-mode-current-element-highlight-face nil
+                      :weight 'bold
+                      :foreground (face-foreground 'default t t)
+                      :background "black"))
+
 
 (defun zw/customize-weyland-theme-for-ivy ()
   ;; make selection highlight-background expand full width of the minibuffer
@@ -49,7 +55,7 @@
   ;; make ivy current match background lighter
   (set-face-attribute 'ivy-current-match nil
                       :weight 'bold
-                      :foreground (face-background 'default t t)
+                      :foreground (face-foreground 'default t t)
                       :background "#3b3559")
   
   ;; Face for ‘ivy’ minibuffer matches covered by inputs

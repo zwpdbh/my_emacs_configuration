@@ -44,7 +44,6 @@
 
                               ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
                               (add-hook 'prog-mode-hook 'zw/disable-tabs)
-                              (add-hook 'vue-mode-hook 'zw/disable-tabs)
                               (add-hook 'org-mode-hook 'zw/disable-tabs)
                               (add-hook 'json-mode-hook 'zw/disable-tabs)
                               (add-hook 'lisp-mode-hook 'zw/disable-tabs)
