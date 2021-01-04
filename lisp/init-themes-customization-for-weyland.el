@@ -43,9 +43,9 @@
 
 (defun zw/customize-weyland-theme-for-web-mode ()
   (set-face-attribute 'web-mode-current-element-highlight-face nil
-                      :weight 'bold
-                      :foreground (face-foreground 'default t t)
-                      :background "black"))
+                      :weight 'normal
+                      :foreground "#f5f5f5"
+                      :background "#3b3559"))
 
 
 (defun zw/customize-weyland-theme-for-ivy ()

@@ -57,7 +57,8 @@
                (zw/customize-weyland-theme-for-org)
                (zw/customize-weyland-theme-for-symbol-overlay)
                (zw/customize-weyland-theme-for-js2)
-               (zw/customize-weyland-theme-for-indent-guide))))
+               (zw/customize-weyland-theme-for-indent-guide)))
+  (add-hook 'web-mode-hook 'zw/customize-weyland-theme-for-web-mode))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
