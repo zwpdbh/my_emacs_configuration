@@ -16,32 +16,33 @@
     (add-hook 'vue-mode-hook 'indent-guide-mode)
     (add-hook 'sgml-mode-hook 'indent-guide-mode)))
 
+
 ;; make sure using tab/space to indent
 ;; START TABS CONFIG
 ;; Create a variable for our preferred tab width
-(setq custom-indent-width 2)
+;; Make them different to indicate: indent 2 is using spaces, indent 4 is using tabs
+(setq-default tab-width 4) 
+(setq zw/indent-width 2)
+(setq-default indent-tabs-mode nil)
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
-(defun zw/disable-tabs () 
-  (progn
-    (setq-default indent-tabs-mode nil)
-    (setq indent-tabs-mode nil)))
+(defun zw/disable-tabs ()
+  (interactive)
+  (setq indent-tabs-mode nil))
 
 (defun zw/enable-tabs  ()
-  (progn
-    ;; (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-    (setq-default tab-width custom-indent-width)
-    (setq tab-width custom-indent-width)
-    (setq indent-tabs-mode t)))
+  (interactive)
+  (setq indent-tabs-mode t))
 
 (add-hook 'after-init-hook '(lambda ()
+                              ;; All the mode in which indentation could insert tabs
                               ;; Hooks to Enable Tabs
-                              (add-hook 'text-mode 'zw/enable-tabs)
                               (add-hook 'plantuml-mode-hook '(lambda ()
                                                                ;; plantuml seems always use tabs to do indent format
                                                                (zw/enable-tabs)
-                                                               (setq plantuml-indent-level custom-indent-width)))
+                                                               (setq plantuml-indent-level zw/indent-width)))
 
+                              ;; All the mode in which indentation could not insert tabs
                               ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
                               (add-hook 'prog-mode-hook 'zw/disable-tabs)
                               (add-hook 'org-mode-hook 'zw/disable-tabs)
@@ -49,15 +50,13 @@
                               (add-hook 'lisp-mode-hook 'zw/disable-tabs)
                               (add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
                               (add-hook 'yaml-mode-hook 'zw/disable-tabs)
-
                               ;; Language-Specific Tweaks
                               (add-hook 'python-mode-hook '(lambda ()
-                                                             ;; (set (make-local-variable 'custom-indent-width) 4)
-                                                             (setq-local custom-indent-width 4)
-                                                             (setq-default python-indent-offset custom-indent-width)
-                                                             (setq python-indent-offset custom-indent-width)))))
+                                                             ;; (set (make-local-variable 'zw/indent-width) 4)
+                                                             (setq-local zw/indent-width 4)
+                                                             (setq python-indent-offset zw/indent-width)))))
 
-;; (setq-default js-indent-level custom-indent-width)      ;; Javascript
+;; (setq-default js-indent-level zw/indent-width)      ;; Javascript
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
