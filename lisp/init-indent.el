@@ -1,3 +1,6 @@
+(when (eval-when-compile (version< "24.4" emacs-version))
+  (add-hook 'after-init-hook 'electric-indent-mode))
+
 ;; indent guide
 (use-package highlight-indent-guides
   :ensure t

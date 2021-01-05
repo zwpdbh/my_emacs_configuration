@@ -16,6 +16,12 @@
                       :background (face-background 'default t t)
                       :weight 'bold))
 
+(defun zw/customize-weyland-theme-for-smartparens ()
+  (set-face-attribute 'sp-pair-overlay-face nil
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)
+                      :inherit nil))
+
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
   (when window-system

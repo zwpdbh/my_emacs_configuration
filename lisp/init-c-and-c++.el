@@ -22,7 +22,6 @@
             '(lambda ()
                ;; use counsel-etags
                (zw/counsel-etags-setup)
-
                (setq-local company-backends
                            (add-to-list 'company-backends
                                         'company-c-headers)))))
@@ -31,7 +30,6 @@
   (add-hook 'cmake-mode-hook
             '(lambda ()
                (zw/counsel-etags-setup)
-               
                (setq-local company-backends
                            (add-to-list 'company-backends
                                         'company-cmake)))))
