@@ -23,14 +23,10 @@
       (if (string-match (car my-pair) buffer-file-name)
           (funcall (cdr my-pair)))))
 
-(add-hook 'web-mode-hook #'(lambda ()                             
-                             (enable-minor-mode
-                              '("\\.jsx?\\'" . prettier-eslint-mode))))
-
-(add-hook 'vue-mode-hook
+(add-hook 'web-mode-hook
           '(lambda ()
              (prettier-eslint-mode)
-             (add-hook 'before-save-hook
-                       'prettier-eslint nil 'local)))
+             (enable-minor-mode
+              '("\\.jsx?\\'" . prettier-eslint-mode))))
 
 (provide 'init-prettier-eslint)

@@ -13,7 +13,7 @@
   :ensure t
   :config
   (progn
-    (add-hook 'vue-mode-hook 'indent-guide-mode)
+    (add-hook 'web-mode-hook 'indent-guide-mode)
     (add-hook 'sgml-mode-hook 'indent-guide-mode)))
 
 
