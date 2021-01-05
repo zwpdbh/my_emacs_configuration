@@ -46,20 +46,13 @@
   (setq show-paren-delay 0)
   (require 'paren))
 
-
 (when (maybe-require-package 'smartparens)
   (require 'smartparens-config)
+  (smartparens-global-mode t)
 
-  (defun zw/customize-sp-for-c-c++ ()
-    (interactive)
-    (smartparens-mode t)
-    (sp-local-pair 'c-mode "<" ">")
-    (sp-local-pair 'c++-mode "<" ">"))
-  (add-hook 'c-mode-hook 'zw/customize-sp-for-c-c++)
-  (add-hook 'c++-mode-hook 'zw/customize-sp-for-c-c++)
-  
-  (add-hook 'js-mode-hook 'smartparens-mode)
-  (add-hook 'python-mode-hook 'smartparens-mode))
+  ;; add addition pairs for certain mode
+  (sp-local-pair 'c-mode "<" ">")
+  (sp-local-pair 'c++-mode "<" ">"))
 
 (when (require-package 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))

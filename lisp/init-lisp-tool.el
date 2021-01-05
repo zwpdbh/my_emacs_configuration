@@ -44,6 +44,7 @@
 
 (add-hook 'after-init-hook '(lambda ()
                               (dolist (each-mode my-lisp-mode-set)
+                                (add-to-list 'sp-ignore-modes-list each-mode)
                                 (add-hook (intern (format "%s-hook" each-mode))
                                           #'zw/enhance-lisp-power))))
 
