@@ -48,11 +48,13 @@
 
 (when (maybe-require-package 'smartparens)
   (require 'smartparens-config)
-  (smartparens-global-mode t)
 
   ;; add addition pairs for certain mode
-  (sp-local-pair 'c-mode "<" ">")
-  (sp-local-pair 'c++-mode "<" ">"))
+  ;; It is not a solution, since in c++, we often have cout <<
+  ;; (sp-local-pair 'c-mode "<" ">")
+  ;; (sp-local-pair 'c++-mode "<" ">")
+  
+  (smartparens-global-mode t))
 
 (when (require-package 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
