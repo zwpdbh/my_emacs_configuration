@@ -96,14 +96,7 @@
   (when window-system
     (set-background-color "honeydew")
     (set-cursor-color zw/red)
-    (setq-default cursor-type '(bar . 3)))
-  
-  (setq show-paren-style 'expression)
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground (face-background 'default t t)
-                      :background "#cce6ff")
+    (setq-default cursor-type '(bar . 3)))  
 
   ;; disable fringe
   (set-fringe-mode 0)

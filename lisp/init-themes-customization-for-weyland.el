@@ -27,12 +27,7 @@
   (when window-system
     (set-cursor-color zw/red)
     (setq-default cursor-type '(bar . 3)))
-  (setq show-paren-style 'expression)
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground (face-foreground 'default t t)
-                      :background "black")
+
   ;; make weyland theme use normal font size for header-line
   (set-face-attribute 'header-line nil
                       :height 1.0

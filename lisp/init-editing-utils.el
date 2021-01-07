@@ -116,10 +116,6 @@ If the new path's directories does not exist, create them."
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disabled nil)
 
-;;----------------------------------------------------------------------------
-;; Show matching parens
-;;----------------------------------------------------------------------------
-(add-hook 'after-init-hook 'show-paren-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Expand region
