@@ -1,6 +1,6 @@
-(use-package rg
-  :ensure t
-  :defer t)
+
+(when (maybe-require-package 'rg)
+  (require 'rg))
 
 (use-package helm-rg
   :ensure t

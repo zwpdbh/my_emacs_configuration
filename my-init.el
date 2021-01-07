@@ -87,11 +87,15 @@
 (require-init 'init-dashboard)
 
 
-(require-init 'init-helm)
-(require-init 'init-counsel-ivy-swiper)
+;; (require-init 'init-helm)
+;; (require-init 'init-counsel-ivy-swiper)
+;; (require-init 'init-silver-search)
+;; (require 'init-ripgrep)
+(require 'init-selectrum)
+(require 'init-orderless)
+(require 'init-consult)
 (require-init 'init-parenthese)
-(require-init 'init-silver-search)
-(require 'init-ripgrep)
+
 
 (require-init 'init-convenient)
 (require-init 'init-all-the-icons)
