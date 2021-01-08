@@ -7,7 +7,8 @@
       ;; (message "testing company-slime")
       (when (symbol-function 'company-slime)
         ;; (message "set company-slime into company-backends properly")
-        (setq-local company-backends '((company-dabbrev-code company-slime) company-keywords company-files company-dabbrev))
+        ;; company-capf should put at behind because it cause too many extra candidates
+        (setq-local company-backends '((company-dabbrev-code company-slime) company-capf company-keywords company-files company-dabbrev))
         
         (setq slime-complete-symbol*-fancy t
               ;; options are slime-simple-completion-at-point, slime-complete-symbol*, slime-fuzzy-complete-symbol
