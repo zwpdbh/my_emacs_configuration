@@ -92,7 +92,11 @@
   (set-face-attribute 'ivy-minibuffer-match-face-2 nil
                       :weight 'bold
                       :underline t
-                      :background (face-background 'default t t)))
+                      :background (face-background 'default t t))
+  
+  (set-face-attribute 'ivy-grep-info nil
+                      :weight 'normal
+                      :foreground "#4F9FD2"))
 
 
 (defun zw/customize-weyland-theme-for-swiper ()
