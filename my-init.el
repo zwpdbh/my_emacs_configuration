@@ -87,10 +87,10 @@
 (require-init 'init-dashboard)
 
 
-;; (require-init 'init-helm)
+(require-init 'init-helm)
 ;; (require-init 'init-counsel-ivy-swiper)
 ;; (require-init 'init-silver-search)
-;; (require 'init-ripgrep)
+(require 'init-ripgrep)
 (require 'init-selectrum)
 (require 'init-orderless)
 (require 'init-consult)

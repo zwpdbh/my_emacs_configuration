@@ -2,11 +2,15 @@
 (when (maybe-require-package 'selectrum)
   (add-hook 'after-init-hook
             '(lambda ()
-               (selectrum-mode +1))))
+               (selectrum-mode +1)))
+  (after-load 'selectrum
+    (define-key selectrum-minibuffer-map (kbd "<tab>") 'selectrum-select-current-candidate))
+  )
 
 (when (maybe-require-package 'marginalia)
-  (set-face-attribute 'marginalia-documentation nil
-                      :underline nil)
+  (after-load 'marginalia
+    (set-face-attribute 'marginalia-documentation nil
+                        :underline nil))
   
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   (define-key minibuffer-local-map (kbd "C-M-a") 'marginalia-cycle)

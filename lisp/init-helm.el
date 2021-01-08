@@ -30,7 +30,7 @@
 (use-package helm
   :diminish
   :ensure t
-  :bind (("M-x" . helm-M-x))
+  ;; :bind (("M-x" . helm-M-x))
   :config
   (progn
     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
