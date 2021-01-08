@@ -14,6 +14,8 @@
   
   ;; Or use current-local-map: (define-key (current-local-map) (kbd "M-.") '<functional-to-call>)
   (after-load 'haskell-mode
+    ;; .hs is the common extension for haskell file
+    ;; use this command to start haskell-model REPL    
     (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
     (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
     (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
