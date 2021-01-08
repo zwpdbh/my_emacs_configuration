@@ -5,6 +5,9 @@
                (selectrum-mode +1))))
 
 (when (maybe-require-package 'marginalia)
+  (set-face-attribute 'marginalia-documentation nil
+                      :underline nil)
+  
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   (define-key minibuffer-local-map (kbd "C-M-a") 'marginalia-cycle)
   
