@@ -59,7 +59,11 @@
                (zw/customize-weyland-theme-for-js2)
                (zw/customize-weyland-theme-for-indent-guide)))
   (add-hook 'web-mode-hook 'zw/customize-weyland-theme-for-web-mode)
-  (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens))
+  (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens)
+  
+  (zw/customize-weyland-theme-for-selectrum)
+  (zw/customize-weyland-theme-for-marginalia)
+  (zw/customize-weyland-theme-for-consult))
 
 
 ;; Ensure that themes will be applied even if they have not been customized

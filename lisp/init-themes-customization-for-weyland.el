@@ -1,7 +1,7 @@
 (defun zw/customize-weyland-theme-for-helm ()
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
-                      :underline t
+                      :underline nil
                       :foreground (face-foreground 'default t t)
                       :weight 'bold
                       :extend t)
@@ -21,6 +21,29 @@
                       :foreground (face-foreground 'default t t)
                       :background (face-background 'default t t)
                       :inherit nil))
+
+(defun zw/customize-weyland-theme-for-selectrum ()
+  (after-load 'selectrum
+    (set-face-attribute 'selectrum-current-candidate nil
+                        :inherit nil 
+                        :foreground (face-foreground 'default t t)
+                        :background "#3b3559"
+                        :weight 'bold
+                        :underline nil)))
+
+(defun zw/customize-weyland-theme-for-consult ()
+  (after-load 'consult
+    (set-face-attribute 'consult-preview-line nil
+                        :inherit nil
+                        :underline nil
+                        :weight 'bold
+                        :foreground (face-foreground 'default t t)
+                        :background "#3b3559")))
+
+(defun zw/customize-weyland-theme-for-marginalia ()
+  (after-load 'marginalia
+    (set-face-attribute 'marginalia-documentation nil
+                        :underline nil)))
 
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
