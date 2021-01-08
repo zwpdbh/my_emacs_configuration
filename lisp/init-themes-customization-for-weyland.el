@@ -20,7 +20,10 @@
   (set-face-attribute 'sp-pair-overlay-face nil
                       :foreground (face-foreground 'default t t)
                       :background (face-background 'default t t)
-                      :inherit nil))
+                      :inherit nil)
+  (set-face-attribute 'show-paren-mismatch nil      
+                      :foreground "WhiteSmoke"
+                      :background (face-background 'default t t)))
 
 (defun zw/customize-weyland-theme-for-selectrum ()
   (after-load 'selectrum

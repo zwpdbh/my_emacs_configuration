@@ -11,6 +11,12 @@
         haskell-process-log t)
 
   (setq haskell-process-type 'cabal-repl)
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (add-to-list 'org-structure-template-alist '("haskell" . "src haskell"))
+               (org-babel-do-load-languages
+                'org-babel-load-languages
+                '((haskell . t)))))
   
   ;; Or use current-local-map: (define-key (current-local-map) (kbd "M-.") '<functional-to-call>)
   (after-load 'haskell-mode
