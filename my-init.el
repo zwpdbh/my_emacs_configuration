@@ -88,8 +88,8 @@
 
 
 (require-init 'init-helm)
-;; (require-init 'init-counsel-ivy-swiper)
-;; (require-init 'init-silver-search)
+(require-init 'init-counsel-ivy-swiper)
+(require-init 'init-silver-search)
 (require 'init-ripgrep)
 (require 'init-selectrum)
 (require 'init-orderless)
