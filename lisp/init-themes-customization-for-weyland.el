@@ -145,7 +145,12 @@
           ("_" underline)
           ("=" (:background "maroon" :foreground "white"))
           ("~" (:foreground "#fb8a69"))
-          ("+" (:Strike-through t)))))
+          ("+" (:strike-through t))))
+  
+  (set-face-attribute 'org-headline-done nil
+                      :weight 'bold
+                      :foreground "#606873"
+                      :strike-through nil))
 
 (defun zw/customize-weyland-theme-for-symbol-overlay ()
   (add-hook 'symbol-overlay-mode-hook
