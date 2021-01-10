@@ -28,20 +28,20 @@
 (defun zw/customize-weyland-theme-for-selectrum ()
   (after-load 'selectrum
     (set-face-attribute 'selectrum-current-candidate nil
-                        :inherit nil 
-                        :foreground (face-foreground 'default t t)
+                        :inherit nil
+                        :foreground "WhiteSmoke"
                         :background "#3b3559"
-                        :weight 'bold
-                        :underline nil)))
+                        :weight 'normal
+                        :underline t)))
 
 (defun zw/customize-weyland-theme-for-consult ()
   (after-load 'consult
     (set-face-attribute 'consult-preview-line nil
                         :inherit nil
                         :underline nil
-                        :weight 'bold
-                        :foreground (face-foreground 'default t t)
-                        :background "#3b3559")))
+                        :weight 'normal
+                        :foreground "WhiteSmoke"
+                        :background "Black")))
 
 (defun zw/customize-weyland-theme-for-marginalia ()
   (after-load 'marginalia
