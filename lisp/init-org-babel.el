@@ -17,6 +17,7 @@
         "python"
         "R"
         "C"
+        "C++"
         "latex"
         "plantuml"
         "erlang"))
@@ -77,9 +78,11 @@
        zw/org-babel-load-language-list)
 
       ;; (add-to-list 'org-structure-template-alist '("racket" . "src racket :lang sicp"))
-      
-      (setq org-structure-template-alist (remove* "C" org-structure-template-alist :test 'equal :key 'car))
-      (add-to-list 'org-structure-template-alist '("C" . "src C"))
+
+      ;; Otherwise, it will has error: duplicated key in org-structure-template-alist
+      (setq org-structure-template-alist (remove* "c" org-structure-template-alist :test 'equal :key 'car))
+      (add-to-list 'org-structure-template-alist '("c" . "src C"))
+      (add-to-list 'org-structure-template-alist '("cpp" . "src C++ :include <stdio.h> :includes <iostream>"))
       
       (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
       (add-to-list 'org-structure-template-alist '("py" . "src python"))
