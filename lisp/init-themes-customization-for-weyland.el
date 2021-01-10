@@ -29,7 +29,7 @@
   (after-load 'selectrum
     (set-face-attribute 'selectrum-current-candidate nil
                         :inherit nil
-                        :foreground "WhiteSmoke"
+                        :foreground (face-foreground 'default t t)
                         :background "#3b3559"
                         :weight 'normal
                         :underline t)))
@@ -40,8 +40,8 @@
                         :inherit nil
                         :underline nil
                         :weight 'normal
-                        :foreground "WhiteSmoke"
-                        :background "Black")))
+                        :foreground "Yellow"
+                        :background "#3b3559")))
 
 (defun zw/customize-weyland-theme-for-marginalia ()
   (after-load 'marginalia
