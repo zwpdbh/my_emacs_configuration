@@ -60,6 +60,7 @@
                (zw/customize-weyland-theme-for-indent-guide)))
   (add-hook 'web-mode-hook 'zw/customize-weyland-theme-for-web-mode)
   (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens)
+  (add-hook 'flycheck-mode-hook 'zw/customize-weyland-theme-for-flycheck)
   
   (zw/customize-weyland-theme-for-selectrum)
   (zw/customize-weyland-theme-for-marginalia)

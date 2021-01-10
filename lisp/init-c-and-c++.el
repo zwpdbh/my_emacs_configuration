@@ -22,6 +22,7 @@
             '(lambda ()
                ;; use counsel-etags
                (zw/counsel-etags-setup)
+               (flycheck-mode t)
                (setq-local company-backends
                            (add-to-list 'company-backends
                                         'company-c-headers)))))
@@ -33,5 +34,6 @@
                (setq-local company-backends
                            (add-to-list 'company-backends
                                         'company-cmake)))))
+
 
 (provide 'init-c-and-c++)

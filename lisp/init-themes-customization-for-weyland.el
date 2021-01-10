@@ -34,6 +34,11 @@
                         :foreground "WhiteSmoke"
                         :background "#3b3559")))
 
+(defun zw/customize-weyland-theme-for-flycheck ()
+  (after-load 'flycheck
+    (set-face-attribute 'flycheck-error nil
+                        :underline '(:color "yellow" :style wave))))
+
 (defun zw/customize-weyland-theme-for-consult ()
   (after-load 'consult
     (set-face-attribute 'consult-preview-line nil
