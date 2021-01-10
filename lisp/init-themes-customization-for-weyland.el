@@ -29,10 +29,10 @@
   (after-load 'selectrum
     (set-face-attribute 'selectrum-current-candidate nil
                         :inherit nil
-                        :foreground (face-foreground 'default t t)
-                        :background "#3b3559"
+                        :underline nil
                         :weight 'normal
-                        :underline t)))
+                        :foreground "WhiteSmoke"
+                        :background "#3b3559")))
 
 (defun zw/customize-weyland-theme-for-consult ()
   (after-load 'consult
