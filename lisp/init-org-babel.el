@@ -107,5 +107,9 @@
       (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
       (add-to-list 'org-structure-template-alist '("erlang" . "src erlang"))))
 
+;; Do not use flycheck in org-src-mode since it is used most of time for documentation
+(add-hook 'org-src-mode-hook
+          '(lambda ()
+             (flycheck-mode 0)))
 
 (provide 'init-org-babel)
