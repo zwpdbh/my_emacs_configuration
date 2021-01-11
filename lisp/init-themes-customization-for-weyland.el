@@ -37,6 +37,8 @@
 (defun zw/customize-weyland-theme-for-flycheck ()
   (after-load 'flycheck
     (set-face-attribute 'flycheck-error nil
+                        :underline '(:color "firebrick" :style wave))
+    (set-face-attribute 'flycheck-warning nil
                         :underline '(:color "yellow" :style wave))))
 
 (defun zw/customize-weyland-theme-for-consult ()
@@ -56,7 +58,7 @@
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
   (when window-system
-    (set-cursor-color zw/red)
+    (set-cursor-color "tomato")
     (setq-default cursor-type '(bar . 3)))
 
   ;; make weyland theme use normal font size for header-line
