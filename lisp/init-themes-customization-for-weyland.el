@@ -31,7 +31,7 @@
                         :inherit nil
                         :underline nil
                         :weight 'normal
-                        :foreground "WhiteSmoke"
+                        :foreground "Yellow"
                         :background "#3b3559")))
 
 (defun zw/customize-weyland-theme-for-flycheck ()
