@@ -16,18 +16,18 @@
       (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
     (add-to-list 'exec-path "/snap/bin/")
     
-    (defun zw/counsel-etags-list-tag-at-point ()
-      "List tag at point, case insensitively"
-      (interactive)
-      (counsel-etags-tags-file-must-exist)
+    ;; (defun zw/counsel-etags-list-tag-at-point ()
+    ;;   "List tag at point, case insensitively"
+    ;;   (interactive)
+    ;;   (counsel-etags-tags-file-must-exist)
 
-      (let* ((tagname (counsel-etags-tagname-at-point))
-             (context (counsel-etags-execute-collect-function)))
-        (cond
-         (tagname
-          (counsel-etags-find-tag-api tagname t buffer-file-name))
-         (t
-          (counsel-etags-find-tag-api nil t buffer-file-name)))))
+    ;;   (let* ((tagname (counsel-etags-tagname-at-point))
+    ;;          (context (counsel-etags-execute-collect-function)))
+    ;;     (cond
+    ;;      (tagname
+    ;;       (counsel-etags-find-tag-api tagname t buffer-file-name))
+    ;;      (t
+    ;;       (counsel-etags-find-tag-api nil t buffer-file-name)))))
 
 
     (defun zw/counsel-etags-grep-at-point ()
@@ -39,7 +39,7 @@
     (defun zw/counsel-etags-key-bindings ()
       (interactive)
       ;; (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
-      (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-list-tag-at-point)
+      (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
       (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
 
 
