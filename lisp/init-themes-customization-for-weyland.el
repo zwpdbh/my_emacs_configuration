@@ -55,6 +55,17 @@
     (set-face-attribute 'marginalia-documentation nil
                         :underline nil)))
 
+(defun zw/customize-weyland-theme-for-orderless ()
+  (after-load 'orderless
+    (set-face-attribute 'orderless-match-face-0 nil
+                        :weight 'normal)
+    (set-face-attribute 'orderless-match-face-1 nil
+                        :weight 'normal)
+    (set-face-attribute 'orderless-match-face-2 nil
+                        :weight 'normal)
+    (set-face-attribute 'orderless-match-face-3 nil
+                        :weight 'normal)))
+
 (defun zw/customize-general-weyland-theme ()
   (message "customize weyland-yutani theme")
   (when window-system

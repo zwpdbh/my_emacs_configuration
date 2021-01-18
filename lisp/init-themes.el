@@ -64,7 +64,8 @@
   
   (zw/customize-weyland-theme-for-selectrum)
   (zw/customize-weyland-theme-for-marginalia)
-  (zw/customize-weyland-theme-for-consult))
+  (zw/customize-weyland-theme-for-consult)
+  (zw/customize-weyland-theme-for-orderless))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
