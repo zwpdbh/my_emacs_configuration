@@ -1,4 +1,6 @@
 ;; "#a9b7ca" is the default foreground color in weyland-theme
+;; "#1f2226" is the default background color in weyland-theme
+
 (defun zw/customize-weyland-theme-for-company ()
   (after-load 'company
     (set-face-attribute 'company-tooltip-common-selection nil
