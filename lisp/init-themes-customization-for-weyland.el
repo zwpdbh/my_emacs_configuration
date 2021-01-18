@@ -3,8 +3,8 @@
   (after-load 'company
     (set-face-attribute 'company-tooltip-common-selection nil
                         :inherit nil
-                        :foreground "Yellow"
-                        :weight 'normal)
+                        :foreground "#a9b7ca"
+                        :weight 'bold)
 
     (set-face-attribute 'company-tooltip-selection nil
                         :inherit nil
