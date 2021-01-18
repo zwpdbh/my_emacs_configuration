@@ -11,7 +11,11 @@
     (set-face-attribute 'company-tooltip-selection nil
                         :inherit nil
                         :foreground "#a9b7ca"
-                        :background "#3b3559")))
+                        :background "#3b3559")
+    
+    (set-face-attribute 'company-tooltip-annotation-selection nil
+                        :inherit nil
+                        :foreground "#59b9b4")))
 
 (defun zw/customize-weyland-theme-for-helm ()
   ;; make helm related selection use underline
