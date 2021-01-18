@@ -1,3 +1,16 @@
+;; "#a9b7ca" is the default foreground color in weyland-theme
+(defun zw/customize-weyland-theme-for-company ()
+  (after-load 'company
+    (set-face-attribute 'company-tooltip-common-selection nil
+                        :inherit nil
+                        :foreground "Yellow"
+                        :weight 'normal)
+
+    (set-face-attribute 'company-tooltip-selection nil
+                        :inherit nil
+                        :foreground "#a9b7ca"
+                        :background "#3b3559")))
+
 (defun zw/customize-weyland-theme-for-helm ()
   ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
