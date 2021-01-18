@@ -88,20 +88,29 @@
 
   ;; make ivy current match background lighter
   (set-face-attribute 'ivy-current-match nil
-                      :weight 'bold
+                      :weight 'normal
                       :foreground (face-foreground 'default t t)
                       :background "#3b3559")
   
   ;; Face for ‘ivy’ minibuffer matches covered by inputs
   (set-face-attribute 'ivy-minibuffer-match-face-1 nil
                       :weight 'normal
-                      :underline t
+                      :underline nil
+                      :foreground "Yellow"
                       :background (face-background 'default t t))
   
   ;; Face for ‘ivy’ minibuffer matches inputs 
   (set-face-attribute 'ivy-minibuffer-match-face-2 nil
-                      :weight 'bold
-                      :underline t
+                      :weight 'normal
+                      :underline nil
+                      :foreground "Yellow"
+                      :background (face-background 'default t t))
+  
+  ;; Face for "ivy" minibuffer matches other segement input
+  (set-face-attribute 'ivy-minibuffer-match-face-3 nil
+                      :weight 'normal
+                      :underline nil
+                      :foreground "Yellow"
                       :background (face-background 'default t t))
   
   (set-face-attribute 'ivy-grep-info nil
