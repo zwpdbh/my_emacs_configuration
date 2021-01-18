@@ -4,13 +4,11 @@
   :init 
   (setq dockerfile-mode-command "docker"))
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-
 (after-load 'org
   ;; since yaml mode is not supported by org, create the command yourself
   (defun org-babel-execute:Dockerfile (body params) body)
   ;; notice: it is case sensitive
   (add-to-list 'org-structure-template-alist '("docker" . "src dockerfile")))
-
 
 (use-package docker-compose-mode
   :after (dockerfile-mode)
@@ -30,5 +28,15 @@
   :after eshell
   :config 
   (add-hook 'eshell-mode-hook #'eshell-bookmark-setup))
+
+;; Use emacs to manage dockers
+;; https://github.com/Silex/docker.el
+(use-package docker
+  :ensure t
+  :defer t)
+(add-hook 'after-init-hook
+          '(lambda ()
+             (global-set-key (kbd "C-c d") 'docker)))
+
 
 (provide 'init-docker)
