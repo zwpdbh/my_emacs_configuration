@@ -15,6 +15,13 @@
   (define-key input-decode-map "^[[1;3D" [M-left])
   (define-key input-decode-map "^[[1;3C" [M-right]))
 
+;; ===== make window/buffer move easier 
+(when (maybe-require-package 'buffer-move)
+  (add-hook 'after-init-hook '(lambda ()
+                                (global-set-key (kbd "C-x C-<up>") 'buf-move-up)
+                                (global-set-key (kbd "C-x C-<left>") 'buf-move-left)
+                                (global-set-key (kbd "C-x C-<right>") 'buf-move-right)
+                                (global-set-key (kbd "C-x C-<down>") 'buf-move-down))))
 
 ;; use cmd + n and cmd + p to select next and previous lines
 (global-set-key (kbd "s-n") (kbd "C-S-n"))

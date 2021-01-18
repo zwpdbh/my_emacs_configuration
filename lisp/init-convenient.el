@@ -13,15 +13,6 @@
   :commands (try)
   :ensure t)
 
-
-;; ===== make window/buffer move easier 
-(when (maybe-require-package 'buffer-move)
-  (add-hook 'after-init-hook '(lambda ()
-                                (global-set-key (kbd "C-x C-<up>") 'buf-move-up)
-                                (global-set-key (kbd "C-x C-<left>") 'buf-move-left)
-                                (global-set-key (kbd "C-x C-<right>") 'buf-move-right)
-                                (global-set-key (kbd "C-x C-<down>") 'buf-move-down))))
-
 ;; ===== set mode-line 
 (use-package doom-modeline
   :ensure t
