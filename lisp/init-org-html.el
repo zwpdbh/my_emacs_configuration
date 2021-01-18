@@ -4,11 +4,10 @@
   :ensure t)
 
 ;; publish the ~/code/org/ project to HTML
-(eval-after-load 'org
-  #'(lambda ()
-      (require 'ox-publish)
-      (setq org-publish-project-alist
-            '(;; the netes components, it publishes all the org-mode files to HTML 
+(after-load 'org
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        '(;; the netes components, it publishes all the org-mode files to HTML 
 	      ("org-notes"
 	       :base-directory "~/code/org/"
 	       :base-extension "org"
@@ -27,11 +26,12 @@
 	       :recursive t
 	       :publishing-function org-publish-attachment)
 	      ("org"
-               :components ("org-notes" "org-static"))
+           :components ("org-notes" "org-static"))
 	      ("hugo-notes"
 	       :base-directory "~/code/org/"
 	       :base-extension "org"
 	       :publishing-directory "~/code/my-site/content-org/"
-	       :recursive t)))))
+	       :recursive t))))
+
 
 (provide 'init-org-html)
