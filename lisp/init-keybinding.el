@@ -50,6 +50,7 @@
 
 (add-hook 'after-init-hook
           '(lambda ()
+             (setq xref-prompt-for-identifier nil)
              (global-set-key (kbd "M-.") 'xref-find-definitions)
              (global-set-key (kbd "M-/") 'xref-find-references)))
 
