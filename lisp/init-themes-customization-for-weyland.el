@@ -63,7 +63,11 @@
                         :underline nil
                         :weight 'normal
                         :foreground "Yellow"
-                        :background "#3b3559")))
+                        :background "#3b3559")
+    
+    (set-face-attribute 'consult-file nil
+                        :inherit nil
+                        :foreground "#a9b7ca")))
 
 (defun zw/customize-weyland-theme-for-marginalia ()
   (after-load 'marginalia
