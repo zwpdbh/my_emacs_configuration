@@ -224,4 +224,10 @@
                (set-face-attribute 'indent-guide-face nil
                                    :foreground "DimGray"))))
 
+(defun zw/customize-weyland-theme-for-eshell ()
+  (after-load 'eshell
+    (set-face-attribute 'eshell-prompt nil
+                        :weight 'normal
+                        :foreground "#86dc2f")))
+
 (provide 'init-themes-customization-for-weyland)

@@ -188,6 +188,8 @@
 
 (require-init 'init-folding)
 (require-init 'init-indent)
+(require 'init-eshell)
+
 ;; (require-init 'init-pomodoro)
 
 ;; Latex related
