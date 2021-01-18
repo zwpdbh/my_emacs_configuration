@@ -95,11 +95,15 @@ FACE defaults to inheriting from default and highlight."
                             (line-end-position)))))
     (overlay-put ol 'display str)
     (overlay-put ol 'face
-                 (or face '(:inherit default :inherit highlight :foreground "Yellow")))
+                 (or face '(
+                            :inherit default 
+                            ;; :inherit highlight 
+                            :foreground "Yellow" 
+                            :weight 'normal)))
     ol))
 
 
-;; customize how to show matched parentheses
+;; customize how to show matched parentheses: 'expression or 'parenthesis
 (setq show-paren-style 'expression
       show-paren-delay 0
       show-paren-highlight-openparen t
