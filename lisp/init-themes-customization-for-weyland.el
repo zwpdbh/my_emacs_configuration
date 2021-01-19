@@ -230,4 +230,17 @@
                         :weight 'normal
                         :foreground "#86dc2f")))
 
+(defun zw/customize-weyland-theme-for-magit ()
+  (after-load 'magit
+    (set-face-attribute 'diff-refine-removed nil
+                        :inherit nil
+                        :weight 'bold
+                        :foreground (face-foreground 'default t t)
+                        :background (face-background 'default t t))
+    (set-face-attribute 'diff-refine-added nil
+                        :inherit nil
+                        :weight 'bold
+                        :foreground (face-foreground 'default t t)
+                        :background (face-background 'default t t))))
+
 (provide 'init-themes-customization-for-weyland)

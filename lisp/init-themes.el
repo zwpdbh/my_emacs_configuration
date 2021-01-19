@@ -67,7 +67,8 @@
   (zw/customize-weyland-theme-for-consult)
   (zw/customize-weyland-theme-for-orderless)
   
-  (zw/customize-weyland-theme-for-company))
+  (zw/customize-weyland-theme-for-company)
+  (zw/customize-weyland-theme-for-magit))
 
 
 ;; Ensure that themes will be applied even if they have not been customized
