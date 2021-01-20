@@ -21,8 +21,10 @@
   (local-unset-key (kbd "RET"))
   (define-key (current-local-map) (kbd "RET") 'newline-and-indent))
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
+(add-hook 'conf-mode-hook 'zw/set-electrify-return)
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
+
 
 (when (maybe-require-package 'paredit)
   ;; Show matching parenthesis
