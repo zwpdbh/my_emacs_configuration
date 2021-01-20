@@ -59,7 +59,6 @@
       (add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
       
       ;; since yaml mode is not supported by org, create the command yourself
-      (defun org-babel-execute:yaml (body params) body)
       (defun org-babel-execute:json (body params) body)
       (defun org-babel-execute:java (body params) body)
       (defun org-babel-execute:vue (body params) body)
@@ -95,7 +94,6 @@
       (add-to-list 'org-structure-template-alist '("js" . "src js"))
       (add-to-list 'org-structure-template-alist '("http" . "src http"))
       
-      (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
       (add-to-list 'org-structure-template-alist '("json" . "src json"))
       (add-to-list 'org-structure-template-alist '("vue" . "src vue"))
       (add-to-list 'org-structure-template-alist '("java" . "src java"))
