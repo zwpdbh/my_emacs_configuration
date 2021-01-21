@@ -36,7 +36,8 @@
         (http . t)
         (latex . t)
         (plantuml . t)
-        (erlang . t)))
+        (erlang . t)
+        (haskell . t)))
 
 ;;;; https://github.com/DEADB17/ob-racket
 ;; (use-package ob-racket
