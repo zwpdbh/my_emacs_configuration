@@ -12,7 +12,7 @@
   ;; since yaml mode is not supported by org, create the command yourself
   (defun org-babel-execute:Dockerfile (body params) body)
   ;; notice: it is case sensitive
-  (add-to-list 'org-structure-template-alist '("docker" . "src dockerfile"))
-  (add-to-list 'org-structure-template-alist '("dockerfile" . "src dockerfile")))
+  (add-to-list 'org-structure-template-alist '("yml" . "src yaml"))
+  (add-to-list 'org-structure-template-alist '("yaml" . "src yaml")))
 
 (provide 'init-yaml)
