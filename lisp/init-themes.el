@@ -57,14 +57,12 @@
                (zw/customize-weyland-theme-for-org)
                (zw/customize-weyland-theme-for-symbol-overlay)
                (zw/customize-weyland-theme-for-js2)
-               (zw/customize-weyland-theme-for-indent-guide)))
+               (zw/customize-weyland-theme-for-indent-guide)
+               (set-face-attribute 'dashboard-items-face nil
+                                   :weight 'normal)))
   (add-hook 'web-mode-hook 'zw/customize-weyland-theme-for-web-mode)
   (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens)
   (add-hook 'flycheck-mode-hook 'zw/customize-weyland-theme-for-flycheck)
-  
-  (after-load 'dashboard
-    (set-face-attribute 'dashboard-items-face nil
-                        :weight 'normal))
   
   (zw/customize-weyland-theme-for-selectrum)
   (zw/customize-weyland-theme-for-marginalia)
