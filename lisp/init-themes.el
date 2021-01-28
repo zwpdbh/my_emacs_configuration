@@ -62,6 +62,10 @@
   (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens)
   (add-hook 'flycheck-mode-hook 'zw/customize-weyland-theme-for-flycheck)
   
+  (after-load 'dashboard
+    (set-face-attribute 'dashboard-items-face nil
+                        :weight 'normal))
+  
   (zw/customize-weyland-theme-for-selectrum)
   (zw/customize-weyland-theme-for-marginalia)
   (zw/customize-weyland-theme-for-consult)

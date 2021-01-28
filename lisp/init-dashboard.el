@@ -4,9 +4,5 @@
   (setq dashboard-items '((recents . 10)
                           (projects . 5))))
 
-(after-load 'dashboard
-  (set-face-attribute 'dashboard-items-face nil
-                      :weight 'normal))
-
 
 (provide 'init-dashboard)
