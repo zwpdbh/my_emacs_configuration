@@ -203,14 +203,12 @@
                       :strike-through nil))
 
 (defun zw/customize-weyland-theme-for-symbol-overlay ()
-  (add-hook 'symbol-overlay-mode-hook
-            '(lambda ()
-               (set-face-attribute 'symbol-overlay-default-face nil
-                                   :weight 'normal
-                                   :foreground (face-foreground 'default t t)
-                                   :background nil
-                                   :underline t
-                                   :inherit nil))))
+  (set-face-attribute 'symbol-overlay-default-face nil
+                      :weight 'normal
+                      :foreground (face-foreground 'default t t)
+                      :background nil
+                      :underline t
+                      :inherit nil))
 
 (defun zw/customize-weyland-theme-for-js2 ()
   (add-hook 'js2-mode-hook
