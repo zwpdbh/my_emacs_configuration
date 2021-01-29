@@ -3,7 +3,7 @@
   :commands (org-export-dispatch)
   :ensure t)
 
-;; publish the ~/code/org/ project to HTML
+;; ref: https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html#org625a5c5
 (after-load 'org
   (require 'ox-publish)
   (setq org-publish-project-alist
