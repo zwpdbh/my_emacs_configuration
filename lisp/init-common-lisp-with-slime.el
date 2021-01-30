@@ -85,10 +85,14 @@
   ;;    (with-gensyms ((&whole 4 &rest 1) &body))
   ;;    (once-only (as with-gensyms))))
   ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
-  (setq common-lisp-style-default "modern")
-  (if (search "sbcl" inferior-lisp-program)
-      (setq common-lisp-style "sbcl")
-    (setq common-lisp-style "modern"))
+  (if (and (search "sbcl" inferior-lisp-program)
+           (search "sbcl" (car (car (cdr (car slime-lisp-implementations))))))
+      (progn
+        (setq common-lisp-style-default "sbcl")
+        (setq common-lisp-style "sbcl"))
+    (progn
+      (setq common-lisp-style-default "modern")
+      (setq common-lisp-style "modern")))
 
   
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
