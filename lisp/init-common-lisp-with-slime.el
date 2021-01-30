@@ -1,9 +1,11 @@
 (when (maybe-require-package 'slime)  
   (require 'slime-autoloads)
+  
   ;; set some contribs
   ;; If met error: not found file or directory slime-fancy,
   ;; make sure lisp system works first, then restart Emacs and try again for several times.
   (setq slime-contribs '(slime-fancy
+                         slime-indentation
                          slime-autodoc
                          slime-editing-commands
                          slime-references
@@ -17,6 +19,7 @@
 (when (maybe-require-package 'slime-company)
   (setq slime-company-completion 'fuzzy
         slime-company-after-completion 'slime-company-just-one-space)
+  (add-to-list 'slime-contribs 'slime-company)
   
   ;; set company-slime into company-backends properly
   (defun zw/set-company-slime ()
@@ -29,16 +32,34 @@
           slime-completion-at-point-functions 'slime-simple-completion-at-point
           slime-when-complete-filename-expand t
           slime-truncate-lines nil
-          slime-autodoc-use-multiline-p t)
-    (add-to-list 'slime-contribs 'slime-company)))
+          slime-autodoc-use-multiline-p t))
+  
+  (add-hook 'lisp-mode-hook 'zw/set-company-slime)
+  (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
+  (add-hook 'slime-mode-hook 'zw/set-company-slime))
 
-(after-load 'slime-company
-  (zw/set-company-slime))
 
-(after-load 'slime
-  (require 'slime-cl-indent)
-  (add-to-list 'slime-contribs 'slime-cl-indent)
-  (setq common-lisp-style-default "classic")
+(add-hook 'lisp-mode-hook
+          '(lambda ()
+             (setq lisp-indent-function 'common-lisp-indent-function)))
+
+(after-load 'slime            
+  ;; ;; Set the alignment of the indents under him
+  ;; ;; Learn more about customization of this case you can read
+  ;; ;; SLIME source, namely
+  ;; ;; %путь_к_slime%/contrib/slime-cl-indent.el
+  ;; (define-common-lisp-style "zw/common-lisp-indent-style"
+  ;;   "My custom indent style."
+  ;;   (:inherit "modern")
+  ;;   (:variables
+  ;;    (lisp-loop-indent-subclauses t)) 
+  ;;   (:indentation
+  ;;    (if (4 2 2))
+  ;;    (define (&lambda 2))
+  ;;    (with-gensyms ((&whole 4 &rest 1) &body))
+  ;;    (once-only (as with-gensyms))))
+  ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
+  (setq common-lisp-style-default "modern")
   
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
@@ -46,9 +67,6 @@
   (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
   (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
 
-;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
-(add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
-(add-hook 'slime-mode-hook 'zw/set-company-slime)
 
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
