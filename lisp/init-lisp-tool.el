@@ -24,7 +24,8 @@
   (subword-mode t)
   (paredit-mode t)
   (rainbow-delimiters-mode-enable)
-  (aggressive-indent-mode t))
+  (aggressive-indent-mode t)
+  (zw/unset-electrify-return))
 
 ;; define a group of different lisp modes, so we could apply features on on them 
 (setq my-lisp-mode-set '(lisp-mode
