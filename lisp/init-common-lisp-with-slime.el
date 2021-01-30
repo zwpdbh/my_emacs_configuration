@@ -59,7 +59,8 @@
   ;;    (with-gensyms ((&whole 4 &rest 1) &body))
   ;;    (once-only (as with-gensyms))))
   ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
-  (setq common-lisp-style-default "modern")
+  
+  ;; (setq common-lisp-style-default "modern")
   
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)

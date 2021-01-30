@@ -54,11 +54,10 @@
                (zw/customize-weyland-theme-for-helm)
                (zw/customize-weyland-theme-for-ivy)
                ;; (zw/customize-weyland-theme-for-swiper)
-               (zw/customize-weyland-theme-for-org)
-               (zw/customize-weyland-theme-for-symbol-overlay)
                (zw/customize-weyland-theme-for-js2)
                (zw/customize-weyland-theme-for-indent-guide)))
   
+  (add-hook 'org-mode-hook 'zw/customize-weyland-theme-for-org)
   (add-hook 'symbol-overlay-mode-hook 'zw/customize-weyland-theme-for-symbol-overlay)
   (add-hook 'web-mode-hook 'zw/customize-weyland-theme-for-web-mode)
   (add-hook 'smartparens-mode-hook 'zw/customize-weyland-theme-for-smartparens)

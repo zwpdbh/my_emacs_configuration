@@ -3,6 +3,8 @@
 ;;; Code:
 
 (require-package 'exec-path-from-shell)
+(setq default-directory "~/code/")
+(setq exec-path-from-shell-check-startup-files 'nil)
 
 (if *win64*
     (progn
@@ -10,8 +12,6 @@
       (when (string-match "x86_64-w64-mingw" (emacs-version))
         (setq exec-path (append exec-path '("c:/tools/msys64/usr/bin")))))
   (setq exec-path (append exec-path '("/usr/local/bin"))))
-
-(setq default-directory "~/code/")
 
 (after-load 'exec-path-from-shell
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
