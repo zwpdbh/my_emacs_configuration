@@ -1,5 +1,5 @@
 (when (maybe-require-package 'slime)  
-  (require 'slime-autoloads)
+  ;; (require 'slime-autoloads)
   
   ;; set some contribs
   ;; If met error: not found file or directory slime-fancy,
@@ -17,24 +17,24 @@
   (add-to-list 'slime-contribs 'helm-slime))
 
 (when (maybe-require-package 'slime-company)
-  (setq slime-company-completion 'fuzzy
-        slime-company-after-completion 'slime-company-just-one-space)
-  (add-to-list 'slime-contribs 'slime-company)
+  (setq slime-company-completion 'fuzzy)
+  (setq slime-company-after-completion 'slime-company-just-one-space)
   
   ;; set company-slime into company-backends properly
   (defun zw/set-company-slime ()
     (interactive)
+    (require 'slime-company)
     ;; company-capf should put at behind because it cause too many extra candidates
     (setq-local company-backends '((company-dabbrev-code company-slime) company-capf company-keywords company-files company-dabbrev))
-    
-    (setq slime-complete-symbol*-fancy t
-          ;; options are slime-simple-completion-at-point, slime-complete-symbol*, slime-fuzzy-complete-symbol
-          slime-completion-at-point-functions 'slime-simple-completion-at-point
-          slime-when-complete-filename-expand t
-          slime-truncate-lines nil
-          slime-autodoc-use-multiline-p t))
-  
-  (add-hook 'lisp-mode-hook 'zw/set-company-slime)
+    (setq slime-company-completion 'fuzzy)
+    (setq slime-company-after-completion 'slime-company-just-one-space)
+    (setq slime-complete-symbol*-fancy t)
+    (setq slime-completion-at-point-functions 'slime-simple-completion-at-point)
+    (setq slime-when-complete-filename-expand t)
+    (setq slime-truncate-lines nil)
+    (setq slime-autodoc-use-multiline-p t))
+
+  ;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
   (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
   (add-hook 'slime-mode-hook 'zw/set-company-slime))
 
@@ -59,8 +59,9 @@
   ;;    (with-gensyms ((&whole 4 &rest 1) &body))
   ;;    (once-only (as with-gensyms))))
   ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
-  
-  ;; (setq common-lisp-style-default "modern")
+  (setq common-lisp-style-default "modern")
+  (setq common-lisp-style "modern")  
+
   
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
