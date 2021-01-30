@@ -1,17 +1,17 @@
 (when (maybe-require-package 'slime)  
   ;; (require 'slime-autoloads)
-  
   ;; set some contribs
   ;; If met error: not found file or directory slime-fancy,
   ;; make sure lisp system works first, then restart Emacs and try again for several times.
   (setq slime-contribs '(slime-fancy
-                         slime-indentation
+                         slime-cl-indent
                          slime-autodoc
                          slime-editing-commands
                          slime-references
                          slime-repl
                          slime-scratch
-                         slime-xref-browser)))
+                         slime-xref-browser))
+  (slime-setup))
 
 (when (maybe-require-package 'helm-slime)
   (add-to-list 'slime-contribs 'helm-slime))
@@ -43,7 +43,7 @@
           '(lambda ()
              (setq lisp-indent-function 'common-lisp-indent-function)))
 
-(after-load 'slime            
+(after-load 'slime
   ;; ;; Set the alignment of the indents under him
   ;; ;; Learn more about customization of this case you can read
   ;; ;; SLIME source, namely
@@ -59,9 +59,8 @@
   ;;    (with-gensyms ((&whole 4 &rest 1) &body))
   ;;    (once-only (as with-gensyms))))
   ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
-  (setq common-lisp-style-default "modern")
-  (setq common-lisp-style "modern")  
-
+  (setq common-lisp-style-default "sbcl")
+  (setq common-lisp-style "sbcl")
   
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
