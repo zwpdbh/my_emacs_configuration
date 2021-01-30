@@ -36,15 +36,15 @@
   (zw/set-company-slime))
 
 (after-load 'slime
+  (require 'slime-cl-indent)
+  (add-to-list 'slime-contribs 'slime-cl-indent)
+  (setq common-lisp-style-default "classic")
+  
   (define-key slime-mode-map  (kbd "C-c C-c") nil)
   (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
   (define-key slime-mode-map  (kbd "C-c C-e") nil)
   (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
-  (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup)
-
-  (require 'slime-cl-indent)
-  (add-to-list 'slime-contribs 'slime-cl-indent)
-  (setq common-lisp-style-default "classic"))
+  (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
 
 ;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
 (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
