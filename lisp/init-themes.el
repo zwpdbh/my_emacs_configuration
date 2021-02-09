@@ -29,29 +29,8 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-Iosvkem)
+    (setq custom-enabled-theme 'wombat)
   (setq custom-enabled-theme 'doom-Iosvkem))
-
-
-(defun zw/load-themes ()
-  (interactive)
-  (require 'init-themes-customization)
-  
-  (load-theme custom-enabled-theme)
-  (zw/customize-pkg-with-fn 'company 'zw/customize-themes-for-company))
-
-
-(setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
-;; remember to install https://github.com/domtronn/all-the-icons.el
-(setq doom-themes-treemacs-theme "doom-colors")
-(doom-themes-treemacs-config)
-
-(add-hook 'after-init-hook 'zw/load-themes)
-
-
-(provide 'init-themes)
-;;; init-themes.el ends here
-
 
 ;;; previous configurations
 ;; (defun customize-for-weyland-theme ()
@@ -78,3 +57,24 @@
 
 ;;   (zw/customize-weyland-theme-for-company)
 ;;   (zw/customize-weyland-theme-for-magit))
+
+
+(defun zw/load-themes ()
+  (interactive)
+  (require 'init-themes-customization)
+  
+  (load-theme custom-enabled-theme)
+  ;; (zw/customize-pkg-with-fn 'company 'zw/customize-themes-for-company)
+  )
+
+
+(setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
+;; remember to install https://github.com/domtronn/all-the-icons.el
+(setq doom-themes-treemacs-theme "doom-colors")
+(doom-themes-treemacs-config)
+
+(add-hook 'after-init-hook 'zw/load-themes)
+
+
+(provide 'init-themes)
+;;; init-themes.el ends here
