@@ -4,6 +4,46 @@
     (after-load 'pkg
       (funcall fn))))
 
+(defun zw/customize-themes-for-general ()
+  (when window-system
+    (set-cursor-color "tomato")
+    (setq-default cursor-type '(bar . 3)))
+
+  ;; make weyland theme use normal font size for header-line
+  (set-face-attribute 'header-line nil
+                      :height 1.0
+                      :underline nil)
+
+  ;; set highlight face
+  (set-face-attribute 'highlight nil
+                      :weight 'bold
+                      :foreground "#86dc2f"
+                      :background (face-background 'default t t))
+  ;; disable fringe 
+  (set-fringe-mode 0)
+
+  ;; customize how to show matched parentheses: 'expression or 'parenthesis
+  (setq show-paren-style 'parenthesis
+        show-paren-delay 0
+        show-paren-highlight-openparen t
+        show-paren-when-point-inside-paren nil
+        show-paren-when-point-in-periphery t)
+  
+  ;; ;; customize themes based on current theme
+  ;; (cond ((eql custom-enabled-theme 'weyland-yutani)
+  ;;        (set-face-attribute 'show-paren-match nil
+  ;;                            :weight 'normal
+  ;;                            :underline nil
+  ;;                            :foreground (face-foreground 'default t t)
+  ;;                            :background "black"))
+  ;;       ((eql custom-enabled-theme 'leuven)
+  ;;        (set-face-attribute 'show-paren-match nil
+  ;;                            :weight 'normal
+  ;;                            :underline nil
+  ;;                            :foreground (face-background 'default t t)
+  ;;                            :background "#cce6ff")))  
+  )
+
 (defun zw/customize-themes-for-company ()
   (set-face-attribute 'company-tooltip-common-selection nil
                       :inherit nil
@@ -87,23 +127,7 @@
   (set-face-attribute 'orderless-match-face-3 nil
                       :weight 'normal))
 
-(defun zw/customize-themes-for-general ()
-  (when window-system
-    (set-cursor-color "tomato")
-    (setq-default cursor-type '(bar . 3)))
 
-  ;; make weyland theme use normal font size for header-line
-  (set-face-attribute 'header-line nil
-                      :height 1.0
-                      :underline nil)
-
-  ;; set highlight face
-  (set-face-attribute 'highlight nil
-                      :weight 'bold
-                      :foreground "#86dc2f"
-                      :background (face-background 'default t t))
-  ;; disable fringe 
-  (set-fringe-mode 0))
 
 (defun zw/customize-themes-for-web-mode ()
   (set-face-attribute 'web-mode-current-element-highlight-face nil

@@ -108,25 +108,6 @@ FACE defaults to inheriting from default and highlight."
     ol))
 
 
-;; customize how to show matched parentheses: 'expression or 'parenthesis
-(setq show-paren-style 'expression
-      show-paren-delay 0
-      show-paren-highlight-openparen t
-      show-paren-when-point-inside-paren nil
-      show-paren-when-point-in-periphery t)
-;; customize themes based on current theme
-(cond ((eql custom-enabled-theme 'weyland-yutani)
-       (set-face-attribute 'show-paren-match nil
-                           :weight 'normal
-                           :underline nil
-                           :foreground (face-foreground 'default t t)
-                           :background "black"))
-      ((eql custom-enabled-theme 'leuven)
-       (set-face-attribute 'show-paren-match nil
-                           :weight 'normal
-                           :underline nil
-                           :foreground (face-background 'default t t)
-                           :background "#cce6ff")))
 (show-paren-mode 1)
 
 
