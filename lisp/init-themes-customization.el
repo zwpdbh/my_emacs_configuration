@@ -20,14 +20,21 @@
                       :foreground "#86dc2f"
                       :background (face-background 'default t t))
   ;; disable fringe 
-  (set-fringe-mode 0)
+  (set-fringe-mode 0))
 
+(defun zw/customize-themes-for-parenthesis ()
   ;; customize how to show matched parentheses: 'expression or 'parenthesis
   (setq show-paren-style 'parenthesis
         show-paren-delay 0
         show-paren-highlight-openparen t
         show-paren-when-point-inside-paren nil
         show-paren-when-point-in-periphery t)
+
+  (set-face-attribute 'show-paren-match nil
+                      :weight 'bold
+                      :underline t
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t))
   
   ;; ;; customize themes based on current theme
   ;; (cond ((eql custom-enabled-theme 'weyland-yutani)

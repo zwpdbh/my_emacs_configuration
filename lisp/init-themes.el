@@ -66,6 +66,7 @@
   (require 'init-themes-customization)
   
   (load-theme custom-enabled-theme)
+  (zw/customize-themes-for-parenthesis)
   (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
   
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
