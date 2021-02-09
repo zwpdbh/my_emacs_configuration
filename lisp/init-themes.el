@@ -72,10 +72,16 @@
   (zw/customize-weyland-theme-for-magit))
 
 
-(defun zw/customize-theme ()
+(defun zw/customize-themes ()
   (interactive)
-  ;; get corresponding colors from loaded color
+  (require 'init-themes-customization)
+  ;; (if (featurep 'company)
+  ;;     (zw/customize-themes-for-company)
+  ;;   (after-load 'company
+  ;;     (zw/customize-themes-for-company)))
+  (zw/customize-theme 'company 'zw/customize-themes-for-company)
   
+
   )
 
 ;; Ensure that themes will be applied even if they have not been customized
@@ -91,7 +97,7 @@
   (add-hook 'after-init-hook
             '(lambda ()
                (load-theme custom-enabled-theme)
-               (zw/customize-theme)))
+               (zw/customize-themes)))
   
   ;; customize themes based on current theme
   (cond ((eql custom-enabled-theme 'weyland-yutani)
