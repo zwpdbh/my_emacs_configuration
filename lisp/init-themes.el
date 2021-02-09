@@ -22,6 +22,7 @@
   :ensure t
   :defer)
 
+
 ;; set default theme
 ;; sanityinc-tomorrow-night
 ;; sanityinc-tomorrow-bright
@@ -29,7 +30,7 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'wombat)
+    (setq custom-enabled-theme 'doom-monokai-spectrum)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;;; previous configurations
@@ -64,8 +65,9 @@
   (require 'init-themes-customization)
   
   (load-theme custom-enabled-theme)
+  
   ;; (zw/customize-pkg-with-fn 'company 'zw/customize-themes-for-company)
-  )
+  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm))
 
 
 (setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
