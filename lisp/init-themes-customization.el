@@ -33,7 +33,8 @@
   (set-face-attribute 'show-paren-match nil
                       :weight 'bold
                       :underline t
-                      :foreground (face-foreground 'default t t)
+                      ;; :underline "#86dc2f"
+                      ;; :foreground (face-foreground 'default t t)
                       :background (face-background 'default t t))
   
   ;; ;; customize themes based on current theme

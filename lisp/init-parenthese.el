@@ -43,9 +43,12 @@
   
   (smartparens-global-mode t))
 
-(when (require-package 'rainbow-delimiters)
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+;; (when (require-package 'rainbow-delimiters)
+;;   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+(use-package paren-face
+  :ensure
+  :defer)
 
 ;; ===show-paren-mode===
 ;; show matching lines when parentheses go off-screen
