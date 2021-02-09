@@ -72,6 +72,12 @@
   (zw/customize-weyland-theme-for-magit))
 
 
+(defun zw/customize-theme ()
+  (interactive)
+  ;; get corresponding colors from loaded color
+  
+  )
+
 ;; Ensure that themes will be applied even if they have not been customized
 (defun zw/apply-theme ()
   (interactive)
@@ -81,8 +87,12 @@
   ;; remember to install https://github.com/domtronn/all-the-icons.el
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
-  (load-theme custom-enabled-theme)
 
+  (add-hook 'after-init-hook
+            '(lambda ()
+               (load-theme custom-enabled-theme)
+               (zw/customize-theme)))
+  
   ;; customize themes based on current theme
   (cond ((eql custom-enabled-theme 'weyland-yutani)
          (customize-for-weyland-theme))
