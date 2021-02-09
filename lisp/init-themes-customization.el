@@ -1,7 +1,7 @@
 (defun zw/customize-pkg-with-fn (pkg fn)
   (if (featurep pkg)
       (funcall fn)
-    (after-load 'pkg
+    (after-load pkg
       (funcall fn))))
 
 (defun zw/customize-themes-for-general ()

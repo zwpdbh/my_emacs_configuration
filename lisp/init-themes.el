@@ -30,7 +30,7 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-monokai-spectrum)
+    (setq custom-enabled-theme 'doom-vibrant)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;;; previous configurations
@@ -66,9 +66,18 @@
   (require 'init-themes-customization)
   
   (load-theme custom-enabled-theme)
+  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
   
-  ;; (zw/customize-pkg-with-fn 'company 'zw/customize-themes-for-company)
-  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm))
+  ;; TODO: why zw/customize-pkg-with-fn doesn't work for below packages
+  (if (featurep 'selectrum)
+      (funcall 'zw/customize-themes-for-selectrum)
+    (after-load 'selectrum
+      (funcall 'zw/customize-themes-for-selectrum)))
+  
+  (if (featurep 'symbol-overlay)
+      (funcall 'zw/customize-themes-for-symbol-overlay)
+    (after-load 'symbol-overlay
+      (funcall 'zw/customize-themes-for-symbol-overlay))))
 
 
 ;; Don't prompt to confirm theme safety. This 
