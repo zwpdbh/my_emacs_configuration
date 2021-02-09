@@ -60,6 +60,7 @@
 ;;   (zw/customize-weyland-theme-for-magit))
 
 
+;; load theme and do customization for themes
 (defun zw/load-themes ()
   (interactive)
   (require 'init-themes-customization)
@@ -70,10 +71,13 @@
   (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm))
 
 
-(setq custom-safe-themes t) ; Don't prompt to confirm theme safety. This 
+;; Don't prompt to confirm theme safety. This 
+(setq custom-safe-themes t)
+
 ;; remember to install https://github.com/domtronn/all-the-icons.el
 (setq doom-themes-treemacs-theme "doom-colors")
 (doom-themes-treemacs-config)
+
 
 (add-hook 'after-init-hook 'zw/load-themes)
 
