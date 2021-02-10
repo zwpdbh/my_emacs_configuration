@@ -243,7 +243,8 @@
 
 (defun zw/customize-themes-for-indent-guide ()
   (set-face-attribute 'indent-guide-face nil
-                      :foreground "DimGray"))
+                      :foreground "DimGray"
+                      :background (face-background 'default)))
 
 (defun zw/customize-themes-for-eshell ()
   (set-face-attribute 'eshell-prompt nil
