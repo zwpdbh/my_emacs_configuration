@@ -78,7 +78,12 @@
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
     (after-load 'symbol-overlay
-      (funcall 'zw/customize-themes-for-symbol-overlay))))
+      (funcall 'zw/customize-themes-for-symbol-overlay)))
+
+  (if (featurep 'indent-guide)
+      (funcall 'zw/customize-themes-for-indent-guide)
+    (after-load 'indent-guide
+      (funcall 'zw/customize-themes-for-indent-guide))))
 
 
 ;; Don't prompt to confirm theme safety. This 
