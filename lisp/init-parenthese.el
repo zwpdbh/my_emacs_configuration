@@ -47,7 +47,7 @@
 ;;   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package paren-face
-  :ensure
+  :ensure t
   :defer)
 
 ;; ===show-paren-mode===
