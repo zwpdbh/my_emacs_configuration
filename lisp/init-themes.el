@@ -83,7 +83,11 @@
   (if (featurep 'indent-guide)
       (funcall 'zw/customize-themes-for-indent-guide)
     (after-load 'indent-guide
-      (funcall 'zw/customize-themes-for-indent-guide))))
+      (funcall 'zw/customize-themes-for-indent-guide)))
+  (if (featurep 'org)
+      (funcall 'zw/customize-themes-for-org)
+    (after-load 'org
+      (funcall 'zw/customize-themes-for-org))))
 
 
 ;; Don't prompt to confirm theme safety. This 

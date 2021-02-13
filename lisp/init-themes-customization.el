@@ -31,26 +31,11 @@
         show-paren-when-point-in-periphery t)
 
   (set-face-attribute 'show-paren-match nil
-                      :weight 'bold
-                      :underline t
-                      ;; :underline "#86dc2f"
-                      ;; :foreground (face-foreground 'default t t)
-                      :background (face-background 'default t t))
-  
-  ;; ;; customize themes based on current theme
-  ;; (cond ((eql custom-enabled-theme 'weyland-yutani)
-  ;;        (set-face-attribute 'show-paren-match nil
-  ;;                            :weight 'normal
-  ;;                            :underline nil
-  ;;                            :foreground (face-foreground 'default t t)
-  ;;                            :background "black"))
-  ;;       ((eql custom-enabled-theme 'leuven)
-  ;;        (set-face-attribute 'show-paren-match nil
-  ;;                            :weight 'normal
-  ;;                            :underline nil
-  ;;                            :foreground (face-background 'default t t)
-  ;;                            :background "#cce6ff")))  
-  )
+                      :weight 'normal
+                      :underline nil
+                      ;; :underline "#cce6ff"
+                      :foreground "#cce6ff"
+                      :background (face-background 'default t t)))
 
 (defun zw/customize-themes-for-company ()
   (set-face-attribute 'company-tooltip-common-selection nil
@@ -221,7 +206,7 @@
           ("/" italic)
           ("_" underline)
           ("=" (:background "maroon" :foreground "white"))
-          ("~" (:foreground "#fb8a69"))
+          ("~" (:foreground "#86dc2f"))
           ("+" (:strike-through t))))
   
   (set-face-attribute 'org-headline-done nil
