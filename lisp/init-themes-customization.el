@@ -4,11 +4,7 @@
     (after-load pkg
       (funcall fn))))
 
-(defun zw/customize-themes-for-general ()
-  (when window-system
-    (set-cursor-color "tomato")
-    (setq-default cursor-type '(bar . 3)))
-
+(defun zw/customize-themes-for-general ()  
   ;; make weyland theme use normal font size for header-line
   (set-face-attribute 'header-line nil
                       :height 1.0

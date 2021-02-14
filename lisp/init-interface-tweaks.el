@@ -9,8 +9,13 @@
                            (modes   . align-text-modes)
                            (repeat  . t)))))
 
-;; ===== make cursor blink time 
-(setq blink-cursor-blinks 10)
+;; customize cursor-type
+(when window-system
+  ;; (set-cursor-color "tomato")
+  (setq-default cursor-type '(bar . 2)))
+;; ===== make cursor blink forever
+(setq blink-cursor-blinks -1)
+
 
 ;; ===== reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
