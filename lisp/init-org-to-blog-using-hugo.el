@@ -84,4 +84,4 @@ See `org-capture-templates' for more information."
     (require 'ox-hugo)))
 
 
-(provide 'init-org-blog)
+(provide 'init-org-to-blog-using-hugo)

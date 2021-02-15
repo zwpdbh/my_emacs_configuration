@@ -174,9 +174,9 @@
 
 (require-init 'init-org)
 (require-init 'init-org-babel)
-(require-init 'init-org-html)
-(require-init 'init-org-blog)
 (require-init 'init-org-tools)
+(require-init 'init-org-html)
+(require 'init-org-to-blog-using-hugo)
 (require 'init-org-ob-browser)
 
 (require-init 'init-plantuml)
