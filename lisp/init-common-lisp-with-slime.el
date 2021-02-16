@@ -28,7 +28,7 @@
     (interactive)
     (require 'slime-company)
     ;; company-capf should put at behind because it cause too many extra candidates
-    (setq-local company-backends '((company-dabbrev-code company-slime) company-capf company-keywords company-files company-dabbrev))
+    (setq-local company-backends '((company-dabbrev-code company-slime company-yasnippet) company-capf company-keywords company-files company-dabbrev))
     (setq slime-company-completion 'fuzzy)
     (setq slime-company-after-completion 'slime-company-just-one-space)
     (setq slime-complete-symbol*-fancy t)
