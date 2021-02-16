@@ -8,6 +8,10 @@
 ;; disable emacs's automatic backup~ file 
 ;; (setq make-backup-files nil)
 
+;; Move autosave files, 
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;; set emacs backups in one dir with tree structure
 ;; See: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
 (defun zw/backup-file-name (fpath)

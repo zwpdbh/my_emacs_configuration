@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: hugo-post-setting-per-file
+# key: hugopostperfile
+# --
+
+
+#+HUGO_BASE_DIR: ~/code/org-site
+#+HUGO_SECTION: post
+
+#+hugo_weight: 2001
+#+hugo_auto_set_lastmod: t
+
+#+title: Writing Hugo blog in Org (File Export)
+
+#+date: 2017-09-10
+#+author: Kaushal Modi
+
+#+hugo_tags: hugo org
+#+hugo_categories: emacs
+#+hugo_menu: :menu "main" :weight 2001
+#+hugo_custom_front_matter: :foo bar :baz zoo :alpha 1 :beta "two words" :gamma 10
+# org-hugo-footer: "\n\n[//]: # \"Exported with love from a post written in Org mode\"\n[//]: # \"- https://github.com/kaushalmodi/ox-hugo\""
+# End:
