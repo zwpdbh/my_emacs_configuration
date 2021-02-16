@@ -1,16 +1,24 @@
-;; my private snippets, should be placed before enabling yasnippet
-(setq my-yasnippets (expand-file-name "~/my-yasnippets"))
+;; ;; my private snippets, should be placed before enabling yasnippet
+;; (setq my-yasnippets (expand-file-name "~/.emacs.d/my-yasnippets"))
 
+(when (maybe-require-package 'yasnippet)
+  (when (maybe-require-package 'yasnippet-snippets)))
+
+(defun add-yasnippet-to-company-backends (backends v)
+  (if (not (listp (car backends)))
+      (add-to-list (quote backends) v)
+    (cons (add-yasnippet-to-company-backends (car backends)
+                                             v)
+          (cdr backends))))
 (defun yasnippet-generic-setup-for-mode-hook ()
-  (unless (is-buffer-file-temp) (yas-minor-mode 1)))
+  (unless (is-buffer-file-temp) (yas-minor-mode 1))
+  (setq-local company-backends (add-yasnippet-to-company-backends company-backends 'company-yasnippet)))
 
 (add-hook 'prog-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'text-mode-hook 'yasnippet-generic-setup-for-mode-hook)
-;; {{ modes do NOT inherit from prog-mode
 (add-hook 'cmake-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'web-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'scss-mode-hook 'yasnippet-generic-setup-for-mode-hook)
-;; }}
 
 (defun my-yas-reload-all ()
   "Compile and reload yasnippets.  Run the command after adding new snippets."
@@ -94,27 +102,27 @@
      (t (setq rlt "")))
     rlt))
 
-(eval-after-load 'yasnippet
-  '(progn
-     ;; http://stackoverflow.com/questions/7619640/emacs-latex-yasnippet-why-are-newlines-inserted-after-a-snippet
-     (setq-default mode-require-final-newline nil)
-     ;; (message "yas-snippet-dirs=%s" (mapconcat 'identity yas-snippet-dirs ":"))
+(after-load 'yasnippet
+  ;; http://stackoverflow.com/questions/7619640/emacs-latex-yasnippet-why-are-newlines-inserted-after-a-snippet
+  (setq-default mode-require-final-newline nil)
+  ;; (message "yas-snippet-dirs=%s" (mapconcat 'identity yas-snippet-dirs ":"))
 
-     ;; Use `yas-dropdown-prompt' if possible. It requires `dropdown-list'.
-     (setq yas-prompt-functions '(yas-dropdown-prompt
-                                  yas-ido-prompt
-                                  yas-completing-prompt))
+  ;; Use `yas-dropdown-prompt' if possible. It requires `dropdown-list'.
+  (setq yas-prompt-functions '(yas-dropdown-prompt
+                               yas-ido-prompt
+                               yas-completing-prompt))
 
-     ;; use `yas-completing-prompt' when ONLY when `M-x yas-insert-snippet'
-     ;; thanks to capitaomorte for providing the trick.
-     (defadvice yas-insert-snippet (around use-completing-prompt activate)
-       "Use `yas-completing-prompt' for `yas-prompt-functions' but only here..."
-       (let* ((yas-prompt-functions '(yas-completing-prompt)))
-         ad-do-it))
+  ;; use `yas-completing-prompt' when ONLY when `M-x yas-insert-snippet'
+  ;; thanks to capitaomorte for providing the trick.
+  (defadvice yas-insert-snippet (around use-completing-prompt activate)
+    "Use `yas-completing-prompt' for `yas-prompt-functions' but only here..."
+    (let* ((yas-prompt-functions '(yas-completing-prompt)))
+      ad-do-it))
 
-     (when (and  (file-exists-p my-yasnippets)
-                 (not (member my-yasnippets yas-snippet-dirs)))
-       (add-to-list 'yas-snippet-dirs my-yasnippets))
-     (yas-reload-all)))
+  ;; (when (and  (file-exists-p my-yasnippets)
+  ;;             (not (member my-yasnippets yas-snippet-dirs)))
+  ;;   (add-to-list 'yas-snippet-dirs my-yasnippets))
+  
+  (yas-reload-all))
 
 (provide 'init-yasnippet)

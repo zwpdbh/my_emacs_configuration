@@ -16,17 +16,21 @@
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
+  
   (setq package-archives '())
-  ;; ;; for not in china
-  ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")) t)
-  ;; (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
+  
+  (defun zw/use-offical-package-archives ()
+    (interactive)
+    (setf package-archives (list (cons "melpa" (concat proto "://melpa.org/packages/"))
+                                 (cons "gnu" (concat proto "://elpa.gnu.org/packages/"))
+                                 (cons "org" (concat proto "://orgmode.org/elpa/")))))
 
-  ;; see https://elpa.emacs-china.org/
-  (add-to-list 'package-archives (cons "melpa-cn" (concat proto "://elpa.emacs-china.org/melpa/")) t)
-  (add-to-list 'package-archives (cons "gnu-cn" (concat proto "://elpa.emacs-china.org/gnu/")) t)
-  (add-to-list 'package-archives (cons "org-cn" (concat proto "://elpa.emacs-china.org/org/")) t))
-
+  (defun zw/use-china-package-archives ()
+    (interactive)
+    (setf package-archives (list (cons "melpa" (concat proto "://elpa.emacs-china.org/melpa/"))
+                                 (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/"))
+                                 (cons "org" (concat proto "://elpa.emacs-china.org/org/")))))
+  (zw/use-offical-package-archives))
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
 (when (and (version< emacs-version "26.3") (boundp 'libgnutls-version) (>= libgnutls-version 30604))
