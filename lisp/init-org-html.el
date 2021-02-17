@@ -10,31 +10,17 @@
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (setq org-reveal-mathjax t))
 
+(setq blog-org-files-dir "~/code/capture-org/publish/")
+(setq emacs-config-base-dir "~/.emacs.d/")
+(setq blog-publish-base-dir "~/code/blog/")
+
 ;; ref: https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html#org625a5c5
 (after-load 'org
   (require 'ox-publish)
-  ;; (setq org-publish-project-alist
-  ;;       '(;; the netes components, it publishes all the org-mode files to HTML 
-  ;;         ("org-notes"
-  ;;          :base-directory "~/code/capture-org/"
-  ;;          :base-extension "org"
-  ;;          :publishing-directory "~/code/org-site/"
-  ;;          :recursive t
-  ;;          :publishing-function org-html-publish-to-html
-  ;;          :auto-sitemap t)
-  ;;         ("org-static"
-  ;;          :base-directory "~/code/capture-org/"
-  ;;          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-  ;;          :publishing-directory "~/code/org-site/"
-  ;;          :recursive t
-  ;;          :publishing-function org-publish-attachment)
-  ;;         ("org"
-  ;;          :components ("org-notes" "org-static"))))
 
-  ;; setting to nil, avoids "Author: x" at the bottom
   (setq org-export-with-section-numbers nil
         org-export-with-smart-quotes t
-        org-export-with-toc nil)
+        org-export-with-toc t)
 
   (defvar this-date-format "%b %d, %Y")
 
@@ -108,14 +94,14 @@ is the property list for the given project.  PUB-DIR is the
 publishing directory. Returns output file name."
     (let ((org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
       (org-publish-org-to 'reveal filename ".html" plist pub-dir)))
-
+  
   (setq org-publish-project-alist
         `(("posts"
-           :base-directory "~/code/capture-org/"
+           :base-directory ,blog-org-files-dir
            :base-extension "org"
            :recursive t
            :publishing-function org-html-publish-to-html
-           :publishing-directory "~/code/org-site/"
+           :publishing-directory ,blog-publish-base-dir
            :exclude ,(regexp-opt '("README.org" "draft"))
            :auto-sitemap t
            :sitemap-filename "index.org"
@@ -128,24 +114,24 @@ publishing directory. Returns output file name."
            :html-head-include-scripts t
            :html-head-include-default-style nil
            :html-head ,me/website-html-head
-           :html-preamble me/website-html-preamble
-           :html-postamble me/website-html-postamble)
+           :html-preamble ,me/website-html-preamble
+           :html-postamble ,me/website-html-postamble)
           ("css"
-           :base-directory "~/code/capture-org/css"
+           :base-directory ,(concat emacs-config-base-dir "css")
            :base-extension "css"
-           :publishing-directory "~/code/org-site/css"
+           :publishing-directory ,(concat blog-publish-base-dir "css")
            :publishing-function org-publish-attachment
            :recursive t)
           ("images"
-           :base-directory "~/code/capture-org/img"
+           :base-directory ,(concat blog-org-files-dir "images")
            :base-extension ,site-attachments
-           :publishing-directory "~/code/org-site/img"
+           :publishing-directory ,(concat blog-publish-base-dir "images")
            :publishing-function org-publish-attachment
            :recursive t)
           ("assets"
-           :base-directory "~/code/capture-org/assets"
+           :base-directory ,(concat blog-org-files-dir "assets")
            :base-extension ,site-attachments
-           :publishing-directory "~/code/org-site/assets"
+           :publishing-directory ,(concat blog-publish-base-dir "assets")
            :publishing-function org-publish-attachment
            :recursive t)
           ("all" :components ("posts" "css" "images" "assets")))))
