@@ -143,12 +143,18 @@ publishing directory. Returns output file name."
            :publishing-directory ,(concat blog-publish-base-dir "images")
            :publishing-function org-publish-attachment
            :recursive t)
+          ("commonImgs"
+           :base-directory ,(concat emacs-config-base-dir "images")
+           :base-extension ,site-attachments
+           :publishing-directory ,(concat blog-publish-base-dir "images")
+           :publishing-function org-publish-attachment
+           :recursive t)
           ("assets"
            :base-directory ,(concat blog-org-files-dir "assets")
            :base-extension ,site-attachments
            :publishing-directory ,(concat blog-publish-base-dir "assets")
            :publishing-function org-publish-attachment
            :recursive t)
-          ("all" :components ("posts" "about" "css" "images" "assets")))))
+          ("all" :components ("posts" "about" "css" "images" "commonImgs" "assets")))))
 
 (provide 'init-org-html)
