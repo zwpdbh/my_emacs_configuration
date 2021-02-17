@@ -100,7 +100,7 @@
       (add-to-list 'org-structure-template-alist '("java" . "src java"))
       (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
       (add-to-list 'org-structure-template-alist '("cmake" . "src cmake"))
-      (add-to-list 'org-structure-template-alist '("ex" . "example"))
+      (add-to-list 'org-structure-template-alist '("example" . "example"))
       (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
       (add-to-list 'org-structure-template-alist '("uml" . "src plantuml"))
       (add-to-list 'org-structure-template-alist '("tex" . "src latex"))

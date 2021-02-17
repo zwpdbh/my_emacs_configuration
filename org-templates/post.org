@@ -1,4 +1,3 @@
 #+AUTHOR: Zhao Wei
 #+OPTIONS: toc:t
 #+HTML_DOCTYPE: xhtml-strict
-#+setupfile: ~/.emacs.d/org-templates/post.org
