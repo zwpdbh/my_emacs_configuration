@@ -129,7 +129,7 @@
 ;; (require 'init-github)
 
 (require 'init-compile)
-(require 'init-reveal)
+;; (require 'init-reveal)
 (require-init 'init-package)
 (require-init 'init-hydra)
 
@@ -176,7 +176,7 @@
 (require-init 'init-org-babel)
 (require-init 'init-org-tools)
 (require-init 'init-org-html)
-(require 'init-org-to-blog-using-hugo)
+;; (require 'init-org-to-blog-using-hugo)
 (require 'init-org-ob-browser)
 
 (require-init 'init-plantuml)

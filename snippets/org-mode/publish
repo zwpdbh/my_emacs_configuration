@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: org-publish-post
+# key: orgpublishpost
+# key: op
+# --
+
+#+AUTHOR: Zhao Wei
+#+OPTIONS: toc:t
+#+HTML_DOCTYPE: xhtml-strict
+#+SETUPFILE: ~/.emacs.d/org-templates/post.org
