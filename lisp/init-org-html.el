@@ -116,6 +116,21 @@ publishing directory. Returns output file name."
            :html-head ,me/website-html-head
            :html-preamble me/website-html-preamble
            :html-postamble me/website-html-postamble)
+          ("about"
+           :base-directory ,(concat emacs-config-base-dir "about")
+           :base-extension "org"
+           :exclude ,(regexp-opt '("README.org" "draft"))
+           :index-filename "index.org"
+           :recursive nil
+           :publishing-function org-html-publish-to-html
+           :publishing-directory ,(concat blog-publish-base-dir "about")
+           :html-link-home "/"
+           :html-link-up "/"
+           :html-head-include-scripts t
+           :html-head-include-default-style nil
+           :html-head ,me/website-html-head
+           :html-preamble me/website-html-preamble
+           :html-postamble me/website-html-postamble)
           ("css"
            :base-directory ,(concat emacs-config-base-dir "css")
            :base-extension "css"
@@ -134,6 +149,6 @@ publishing directory. Returns output file name."
            :publishing-directory ,(concat blog-publish-base-dir "assets")
            :publishing-function org-publish-attachment
            :recursive t)
-          ("all" :components ("posts" "css" "images" "assets")))))
+          ("all" :components ("posts" "about" "css" "images" "assets")))))
 
 (provide 'init-org-html)
