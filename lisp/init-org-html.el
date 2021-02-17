@@ -114,8 +114,8 @@ publishing directory. Returns output file name."
            :html-head-include-scripts t
            :html-head-include-default-style nil
            :html-head ,me/website-html-head
-           :html-preamble ,me/website-html-preamble
-           :html-postamble ,me/website-html-postamble)
+           :html-preamble me/website-html-preamble
+           :html-postamble me/website-html-postamble)
           ("css"
            :base-directory ,(concat emacs-config-base-dir "css")
            :base-extension "css"
