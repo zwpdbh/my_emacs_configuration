@@ -176,7 +176,7 @@
 (require-init 'init-org-babel)
 (require-init 'init-org-tools)
 (require-init 'init-org-html)
-;; (require 'init-org-capture)
+(require 'init-org-capture)
 (require 'init-org-ob-browser)
 
 (require-init 'init-plantuml)
