@@ -28,8 +28,8 @@
 
   (set-face-attribute 'show-paren-match nil
                       :weight 'normal
-                      :underline nil
-                      ;; :underline "#cce6ff"
+                      ;; :underline nil
+                      :underline "#cce6ff"
                       :foreground "#cce6ff"
                       :background (face-background 'default t t)))
 
