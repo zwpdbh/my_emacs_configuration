@@ -17,6 +17,11 @@
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 
+;; set default Emacs startup size
+(when window-system
+  (set-frame-position (selected-frame) 0 0)
+  (set-frame-size (selected-frame) 100 32))
+
 ;;----------------------------------------------------------------------------
 ;; Tune Emacs performance
 ;;----------------------------------------------------------------------------

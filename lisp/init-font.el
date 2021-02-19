@@ -1,10 +1,10 @@
 (setq zw/favorite-en-fonts '(
-                             "Anonymous Pro"
-                             "Iosevka Slab"
-                             "Consolas"
-                             "Ubuntu Mono"
-                             "Terminus (TTF)"
                              "Source Code Pro"
+                             "Anonymous Pro"                             
+                             "Consolas"                             
+                             "Ubuntu Mono"                             
+                             "Iosevka Slab"
+                             "Terminus (TTF)"
                              "Monaco Nerd Font Mono"
                              "Monaco"
                              "Terminus (TTF) for Windows"
@@ -49,8 +49,9 @@
     (set-face-attribute 'default nil :font en-font)
     (dolist (charset '(kana han cjk-misc bopomofo))
       (set-fontset-font t charset cn-font))))
+
 ;; set font
-(zw/set-font 14)
+(zw/set-font 13)
 
 ;; set emoji
 (when (and (boundp 'global-emojify-mode)
