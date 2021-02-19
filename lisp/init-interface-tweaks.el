@@ -16,6 +16,11 @@
 ;; ===== make cursor blink forever
 (setq blink-cursor-blinks -1)
 
+;; set default Emacs startup size
+(when window-system
+  (set-frame-position (selected-frame) 0 0)
+  (set-frame-size (selected-frame) 100 32))
+
 
 ;; ===== reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)

@@ -18,6 +18,10 @@
   ;; disable fringe 
   (set-fringe-mode 0))
 
+(defun zw/customize-themes-for-dashboard ()
+  (set-face-attribute 'dashboard-items-face nil
+                      :weight 'normal))
+
 (defun zw/customize-themes-for-parenthesis ()
   ;; customize how to show matched parentheses: 'expression or 'parenthesis
   (setq show-paren-style 'parenthesis

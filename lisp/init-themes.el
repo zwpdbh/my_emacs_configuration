@@ -58,6 +58,12 @@
       (funcall 'zw/customize-themes-for-indent-guide)
     (after-load 'indent-guide
       (funcall 'zw/customize-themes-for-indent-guide)))
+  
+  (if (featurep 'dashboard)
+      (funcall 'zw/customize-themes-for-dashboard)
+    (after-load 'dashboard
+      (funcall 'zw/customize-themes-for-dashboard)))
+  
   (if (featurep 'org)
       (funcall 'zw/customize-themes-for-org)
     (after-load 'org
