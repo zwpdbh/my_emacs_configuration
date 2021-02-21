@@ -40,7 +40,7 @@
 
   (dolist (each-mode zw/use-counsel-etags-modes)
     (add-hook (intern (format "%s-hook" each-mode))
-              'zw/counsel-etags-setup))))
+              'zw/counsel-etags-setup)))
 
 
 ;; Ignore directories and files

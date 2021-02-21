@@ -212,7 +212,10 @@
   (set-face-attribute 'org-headline-done nil
                       :weight 'bold
                       :foreground "#606873"
-                      :strike-through nil))
+                      :strike-through nil)
+  
+  ;; Make org-mode markup symbols invisible
+  (setq org-hide-emphasis-markers t))
 
 (defun zw/customize-themes-for-symbol-overlay ()
   (set-face-attribute 'symbol-overlay-default-face nil
