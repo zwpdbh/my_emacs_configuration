@@ -201,6 +201,9 @@
                       :background nil))
 
 (defun zw/customize-themes-for-org ()
+  ;; ;; Make org-mode markup symbols invisible
+  ;; (setq org-hide-emphasis-markers t)
+  
   (setq org-emphasis-alist
         '(("*" (:foreground "gold"))
           ("/" italic)
@@ -212,10 +215,7 @@
   (set-face-attribute 'org-headline-done nil
                       :weight 'bold
                       :foreground "#606873"
-                      :strike-through nil)
-  
-  ;; Make org-mode markup symbols invisible
-  (setq org-hide-emphasis-markers t))
+                      :strike-through nil))
 
 (defun zw/customize-themes-for-symbol-overlay ()
   (set-face-attribute 'symbol-overlay-default-face nil
