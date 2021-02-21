@@ -19,8 +19,12 @@
 
 ;; set default Emacs startup size
 (when window-system
+  ;; ;; set initial position and size
+  ;; (set-frame-position (selected-frame) 0 0)
+  ;; (set-frame-size (selected-frame) 100 32)
+  ;; set maximized fullscreen 
   (set-frame-position (selected-frame) 0 0)
-  (set-frame-size (selected-frame) 100 32))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 ;;----------------------------------------------------------------------------
 ;; Tune Emacs performance
