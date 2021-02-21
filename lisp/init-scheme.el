@@ -27,18 +27,17 @@
   (setq geiser-active-implementations '(guile chez))
   (setq geiser-mode-start-repl-p t)
   
-  ;; the default extention for scheme is .scm
+  ;; the default extention for scheme is .scm, .racket and .rkt are associated with racket-mode instead of scheme-mode
   (add-to-list 'auto-mode-alist '("\\.scheme\\'" . scheme-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.racket\\'" . scheme-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.rkt\\'" . scheme-mode))
-  
+
   (add-hook 'scheme-mode-hook 'geiser-mode)
+  ;; expression in after-load execute only once when the package loaded
   (after-load 'geiser-mode
-    (define-key geiser-mode-map (kbd "C-c C-c") 'geiser-eval-definition))
-  ;; it seems geiser-mode-hook is run after "after-load"
+              (define-key geiser-mode-map (kbd "C-c C-c") 'geiser-eval-definition))
+  ;; expression in mode-hook executed very time when buffer opened
   (add-hook 'geiser-mode-hook
             '(lambda ()
-               (setq-local company-backends '((company-capf company-dabbrev-code geiser-company-backend) company-keywords company-files company-dabbrev)))))
+              (setq-local company-backends '((company-capf company-dabbrev-code geiser-company-backend) company-keywords company-files company-dabbrev)))))
 
 
 (provide 'init-scheme)

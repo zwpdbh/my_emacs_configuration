@@ -214,11 +214,11 @@
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
 ;; ;;----------------------------------------------------------------------------
-;; (add-hook 'after-init-hook
-;;           (lambda ()
-;;             (require 'server)
-;;             (unless (server-running-p)
-;;               (server-start))))
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'server)
+            (unless (server-running-p)
+              (server-start))))
 
 
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/my-extra-init.org"))
