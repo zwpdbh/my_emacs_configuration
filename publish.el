@@ -1,3 +1,8 @@
+;; # By default, only modified files including new files are pubished
+;; emacs --script "~/.emacs.d/publish.el"
+;; # We could also force to publish all files
+;; emacs --script "~/.emacs.d/publish.el" t
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
