@@ -29,7 +29,7 @@ body #content {
     font-size: 10pt;
     position: fixed;
     z-index: 1000000;
-    background: rgba(255,255,255,.80);
+    background: rgba(255,255,255,.90);
     right: 0em;
     top: 3em;
     color: #dcdccc;
