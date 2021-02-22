@@ -1,5 +1,5 @@
 (when (maybe-require-package 'graphviz-dot-mode)
-  (setq graphviz-dot-indent-width 4)
+  (setq graphviz-dot-indent-width 2)
   (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
 
   (add-hook 'graphviz-dot-mode-hook

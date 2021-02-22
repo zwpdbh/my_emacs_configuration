@@ -24,8 +24,9 @@
 ;; START TABS CONFIG
 ;; Create a variable for our preferred tab width
 ;; Make them different to indicate: indent 2 is using spaces, indent 4 is using tabs
-(setq-default tab-width 4) 
-(setq zw/indent-width 2)
+(setq-default tab-width 2) 
+(setq zw/indent2 2)
+(setq zw/indent4 4)
 (setq-default indent-tabs-mode nil)
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
@@ -37,29 +38,29 @@
   (interactive)
   (setq indent-tabs-mode t))
 
-(add-hook 'after-init-hook '(lambda ()
-                              ;; All the mode in which indentation could insert tabs
-                              ;; Hooks to Enable Tabs
-                              (add-hook 'plantuml-mode-hook '(lambda ()
-                                                               ;; plantuml seems always use tabs to do indent format
-                                                               (zw/enable-tabs)
-                                                               (setq plantuml-indent-level zw/indent-width)))
+;; (add-hook 'after-init-hook '(lambda ()
+;;                               ))
 
-                              ;; All the mode in which indentation could not insert tabs
-                              ;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
-                              (add-hook 'prog-mode-hook 'zw/disable-tabs)
-                              (add-hook 'org-mode-hook 'zw/disable-tabs)
-                              (add-hook 'json-mode-hook 'zw/disable-tabs)
-                              (add-hook 'lisp-mode-hook 'zw/disable-tabs)
-                              (add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
-                              (add-hook 'yaml-mode-hook 'zw/disable-tabs)
-                              ;; Language-Specific Tweaks
-                              (add-hook 'python-mode-hook '(lambda ()
-                                                             ;; (set (make-local-variable 'zw/indent-width) 4)
-                                                             (setq-local zw/indent-width 4)
-                                                             (setq python-indent-offset zw/indent-width)))))
+;; All the mode in which indentation could insert tabs
+;; Hooks to Enable Tabs
+(add-hook 'plantuml-mode-hook '(lambda ()
+                                 ;; plantuml seems always use tabs to do indent format
+                                 (zw/enable-tabs)
+                                 (setq plantuml-indent-level zw/indent2)))
 
-;; (setq-default js-indent-level zw/indent-width)      ;; Javascript
+;; All the mode in which indentation could not insert tabs
+;; Hooks to Disable Tabs, since tab usually cause inconsistent visual appearence
+(add-hook 'prog-mode-hook 'zw/disable-tabs)
+(add-hook 'org-mode-hook 'zw/disable-tabs)
+(add-hook 'json-mode-hook 'zw/disable-tabs)
+(add-hook 'lisp-mode-hook 'zw/disable-tabs)
+(add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
+(add-hook 'yaml-mode-hook 'zw/disable-tabs)
+;; Language-Specific Tweaks
+(add-hook 'python-mode-hook '(lambda ()
+                               (setq python-indent-offset zw/indent4)))
+
+;; (setq-default js-indent-level zw/indent2)      ;; Javascript
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
