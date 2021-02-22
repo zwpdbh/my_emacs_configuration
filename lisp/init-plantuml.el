@@ -22,6 +22,11 @@
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode)))
 
 (add-hook 'plantuml-mode-hook '(lambda ()
-                                 (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))
+                                (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))
+
+(add-hook 'org-mode-hook
+          '(lambda ()
+            (add-to-list 'zw/org-babel-evaluate-whitelist "plantuml")
+            (add-to-list 'zw/org-babel-load-language-list '(plantuml . t))))
 
 (provide 'init-plantuml)
