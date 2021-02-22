@@ -22,7 +22,7 @@
   ;; set initial position and size
   ;; (set-frame-position (selected-frame) 0 0)
   ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (set-frame-position (selected-frame) 0 0)
+  (set-frame-position (selected-frame) 50 50)
   (set-frame-size (selected-frame) 100 32))
 
 ;;----------------------------------------------------------------------------
