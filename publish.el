@@ -18,11 +18,12 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; load org export related configuration
+;; prepare org export related configuration
 (require 'init-org)
 (require 'init-org-babel)
 (require 'init-org-html)
 
+;; load org
 (require 'org)
 (require 'ob)
 (require 'ob-js)
@@ -30,11 +31,15 @@
 (require 'org-tempo)
 (require 'org-table)
 
+;; load other dependencies
+(setq org-plantuml-jar-path "~/.emacs.d/plantuml.jar")
+
+
 (if (member "t" command-line-args)
     (progn
       (print "force publish all org files")
       (org-publish-all t)
       )
-    (progn
-      (print "only publish modified org files")
-      (org-publish-all)))
+  (progn
+    (print "only publish modified org files")
+    (org-publish-all)))

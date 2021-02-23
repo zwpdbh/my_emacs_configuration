@@ -138,9 +138,9 @@ publishing directory. Returns output file name."
            :publishing-function org-publish-attachment
            :recursive t)
           ("images"
-           :base-directory ,(concat blog-org-files-dir "images")
+           :base-directory ,blog-org-files-dir
            :base-extension ,site-attachments
-           :publishing-directory ,(concat blog-publish-base-dir "images")
+           :publishing-directory ,blog-publish-base-dir
            :publishing-function org-publish-attachment
            :recursive t)
           ("common-images"

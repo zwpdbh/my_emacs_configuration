@@ -1,0 +1,7 @@
+*.pdf
+.texpadtmp
+.log
+.aux
+Modercv_*
+Modercv**/*
+Modercv_Classic/**

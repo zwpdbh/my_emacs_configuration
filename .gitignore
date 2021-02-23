@@ -66,3 +66,7 @@ GTAGS
 GPATH
 GRTAGS
 site-lisp/scimax
+textput.log
+*.out
+*.gz
+*.log
