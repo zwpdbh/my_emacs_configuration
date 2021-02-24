@@ -5,20 +5,62 @@
   I am passionate about functional programming using Common Lisp and have strong desires to apply mathematics and algorithms to solve problem in a straight manner.
 
 * Education
-  - Otago University (2016 -- 2018)
+  - Otago University (2016/01 -- 2018/09)
     Master of Applied Science, specialized in Computer Science
-  - Beijing University and Technology (2004 -- 2009)
+  - Beijing University and Technology (2004/07 -- 2009/07)
     Bacholar degree in Computer Science
 
 * Work Experience (as Software Engineer)
-** Siemens PLM Software
-*** Project01
-*** Project02
+** Siemens PLM Software (2018/10 -- present)
+   My job includes
+   - Automate deployment of great products and services in cloud environments.
+   - Design and develop intelligent operation and operation platform, tools and system.
+   - Participate in solving the problems of capacity, performance and stability of cloud environment.
+   - Contribute individually or in a team as needed to meet the requirements of other non-cloud projects.
+   - Design and implement architecture core services for a CAD product.
+   - Maintain existing software code - analyze and resolve customer and internally reported problems
+     
+*** Distributed service admin-console (from 2020/07 to present)
+    An admin-dashboard for Atlas distributed service (stateless service for visualization). Implement frontend using Vuejs and backend using Nodejs.
 
+    My responsiblity includes:
+    1) Design relational database and implement it using PostgreSQL.
+    2) Frontend implementation using Vuejs.
+    3) Backend implementation using Nodejs.
+*** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
+    Many of our services are based on using AWS Cloud. We build an admin-dashboard to manage multiple different microservices including:
+    1) Log search
+    2) Task Definition
+    3) Worker Pool
+    4) Role-Based-Access
+
+    My responsibility includes:
+    1) Implementation frontend (Vuejs) and backend(Nodejs), especially features about authentication and authorization following OAuth2.0 standard.
+    2) Deployment using Docker + GitLab pipeline + AWS cloudformation template.
+    3) Using this dashboard to debug Atlas-stateful-service
+
+*** Tester for end-to-end test (from 2019/01 to present)
+    Based on many microserivces we built, we need a tester tool to do end-to-end test. My responsibility includes:
+    1) Implement it with nodejs, websocket and socket.
+    2) Deploy it using Docker + GitLab pipeline to AWS with cloudformation template.
+    3) Write pageduty runbook for handling incidents.
 
 * Work Experience (as non Software Engineer)
-** ATOS 
-  
+** ATOS (2012/02 -- 2015/06)
+   As a Linux system engineer, my job at Atos includes
+   - In VGIC (Volkswagen Group (Import) Co. Ltd.) project:
+     - Follow up project operation and optimize maintenance process.
+     - Make specifications about monthly report and project operation.
+     - Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
+   - Installing hardware and software, maintaining Linux Servers.
+   - Troubleshooting and resolution of application and system related problems.
+   - Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
+   - Performing backup administration, including backup and restore of data.
+   - Responding to outages both during normal business hours and in an after-hours, on call capacity.
+
+** JobKoo.com (2010/02 -- 2011/02)
+   I am doing destop service for Windows platform.
+
   
    
   
@@ -29,4 +71,40 @@
 
 
 
-   
+
+
+* Knowledge
+** Core skills
+   - Solid implementation of data structure and algorithm.
+   - Good understanding about operating system (Unix like system).
+
+** Strong at
+   - Object-oriented programming with Java and C++.
+   - Principles of designing a database, use of a database management system and implementation of the underlying database management system.
+
+** Experienced
+   - Nodejs
+   - Vuejs
+   - Python
+   - Network programming, such TCP/IP sockt, websocket.
+   - Database including
+     - PostgreSQL
+     - Oracle
+   - Devop tools, including
+     - GitLab CICD
+     - Docker
+     - Terraform
+   - AWS cloud infrastructure
+** Familar with
+   - iOS and OS x programming using Swift
+   - Linux driver development
+
+* Hobby
+  - Functional programming in Lisp.
+  - Having fun with interesting algorithms.
+  - Play the RTS game: Supreme commander: forged alliance.
+
+* Contant
+  - WeChat: 15811257483
+  - Email: hyperion_z@outlook.com
+    
