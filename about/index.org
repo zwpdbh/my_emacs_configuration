@@ -1,6 +1,32 @@
 #+title: About
 #+filetags: about
 
-* CV
+* About me
+  I am passionate about functional programming using Common Lisp and have strong desires to apply mathematics and algorithms to solve problem in a straight manner.
 
-* Test 01
+* Education
+  - Otago University (2016 -- 2018)
+    Master of Applied Science, specialized in Computer Science
+  - Beijing University and Technology (2004 -- 2009)
+    Bacholar degree in Computer Science
+
+* Work Experience (as Software Engineer)
+** Siemens PLM Software
+*** Project01
+*** Project02
+
+
+* Work Experience (as non Software Engineer)
+** ATOS 
+  
+  
+   
+  
+  
+
+    
+
+
+
+
+   
