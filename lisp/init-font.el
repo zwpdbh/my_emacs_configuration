@@ -51,7 +51,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(zw/set-font 13)
+(zw/set-font 11)
 
 ;; set emoji
 (when (and (boundp 'global-emojify-mode)
