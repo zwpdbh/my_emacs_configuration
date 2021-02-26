@@ -1,16 +1,19 @@
 ;;; init-themes.el --- Defaults for themes -*- lexical-binding: t -*-
 
 ;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, sanityinc-tomorrow-night, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
-
 (use-package doom-themes
   :ensure t
   :defer t)
 
-(use-package kaolin-themes
+(use-package weyland-yutani-theme
   :ensure t
   :defer t)
 
 (use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  :defer t)
+
+(use-package kaolin-themes
   :ensure t
   :defer t)
 
@@ -22,9 +25,6 @@
   :ensure t
   :defer t)
 
-(use-package weyland-yutani-theme
-  :ensure t
-  :defer t)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
