@@ -30,7 +30,7 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-vibrant)
+    (setq custom-enabled-theme 'doom-oceanic-next)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 
