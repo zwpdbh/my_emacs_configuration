@@ -6,6 +6,10 @@
   :ensure t
   :defer t)
 
+(use-package kaolin-themes
+  :ensure t
+  :defer t)
+
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :defer t)
@@ -14,14 +18,13 @@
   :ensure t
   :defer t)
 
-(use-package weyland-yutani-theme
+(use-package moe-theme
   :ensure t
   :defer t)
 
-(use-package noctilux-theme
+(use-package weyland-yutani-theme
   :ensure t
-  :defer)
-
+  :defer t)
 
 ;; set default theme
 ;; sanityinc-tomorrow-night
@@ -30,12 +33,12 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-oceanic-next)
+    (setq custom-enabled-theme 'doom-dracula)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 
 ;; load theme and do customization for themes
-(defun zw/load-themes ()
+(defun zw/load-theme ()
   (interactive)
   (require 'init-themes-customization)
   
@@ -77,8 +80,7 @@
 (setq doom-themes-treemacs-theme "doom-colors")
 (doom-themes-treemacs-config)
 
-
-(add-hook 'after-init-hook 'zw/load-themes)
+(add-hook 'after-init-hook 'zw/load-theme)
 
 
 (provide 'init-themes)

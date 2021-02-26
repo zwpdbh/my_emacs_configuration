@@ -20,6 +20,7 @@
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
+                      :underline nil
                       :weight 'normal))
 
 (defun zw/customize-themes-for-parenthesis ()
