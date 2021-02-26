@@ -70,7 +70,13 @@
   (set-face-attribute 'helm-ff-dotted-directory nil
                       :foreground "#20b2aa"
                       :background (face-background 'default t t)
-                      :weight 'bold))
+                      :weight 'bold)
+  (set-face-attribute 'helm-selection nil
+                      :inherit nil
+                      :underline nil
+                      :weight 'normal
+                      :foreground "yellow"
+                      :background "#3b3559"))
 
 (defun zw/customize-themes-for-smartparens ()
   (set-face-attribute 'sp-pair-overlay-face nil
