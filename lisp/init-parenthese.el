@@ -23,6 +23,7 @@
 
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)
+(add-hook 'text-mode-hook 'zw/set-electrify-return)
 
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)

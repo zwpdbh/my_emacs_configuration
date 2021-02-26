@@ -48,50 +48,48 @@
 
 
 (after-load 'org
-  (defun zw/show-inline-images-after-execute ()
-    (when org-inline-image-overlays
-      (org-redisplay-inline-images)))
-  (add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
-  
-  ;; since yaml mode is not supported by org, create the command yourself
-  (defun org-babel-execute:json (body params) body)
-  (defun org-babel-execute:java (body params) body)
-  (defun org-babel-execute:vue (body params) body)
-  (defun org-babel-execute:typescript (body params) body)
-  (defun org-babel-execute:cmake (body params) body)
-  (defun org-babel-execute:example (body params) body)
-  (defun org-babel-execute:terraform (body params) body)
-  (defun org-babel-execute:racket (body params) body)
-  
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   zw/org-babel-load-language-list)
+            (defun zw/show-inline-images-after-execute ()
+              (when org-inline-image-overlays
+                (org-redisplay-inline-images)))
+            (add-hook 'org-babel-after-execute-hook 'zw/show-inline-images-after-execute)
+            
+            ;; since yaml mode is not supported by org, create the command yourself
+            (defun org-babel-execute:json (body params) body)
+            (defun org-babel-execute:java (body params) body)
+            (defun org-babel-execute:vue (body params) body)
+            (defun org-babel-execute:typescript (body params) body)
+            (defun org-babel-execute:cmake (body params) body)
+            (defun org-babel-execute:terraform (body params) body)
+            (defun org-babel-execute:racket (body params) body)
+            
+            (org-babel-do-load-languages
+             'org-babel-load-languages
+             zw/org-babel-load-language-list)
 
-  ;; Otherwise, it will has error: duplicated key in org-structure-template-alist
-  (setq org-structure-template-alist (remove* "c" org-structure-template-alist :test 'equal :key 'car))
-  (add-to-list 'org-structure-template-alist '("c" . "src C"))
-  (add-to-list 'org-structure-template-alist '("cpp" . "src C++ :include <stdio.h> :includes <iostream>"))
-  
-  (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
-  (add-to-list 'org-structure-template-alist '("scheme" . "src scheme"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
-  (add-to-list 'org-structure-template-alist '("r" . "src R"))
-  (add-to-list 'org-structure-template-alist '("js" . "src js"))
-  (add-to-list 'org-structure-template-alist '("http" . "src http"))
-  
-  (add-to-list 'org-structure-template-alist '("json" . "src json"))
-  (add-to-list 'org-structure-template-alist '("vue" . "src vue"))
-  (add-to-list 'org-structure-template-alist '("java" . "src java"))
-  (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
-  (add-to-list 'org-structure-template-alist '("cmake" . "src cmake"))
-  (add-to-list 'org-structure-template-alist '("example" . "example"))
-  (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
-  (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
-  (add-to-list 'org-structure-template-alist '("erlang" . "src erlang")))
+            ;; Otherwise, it will has error: duplicated key in org-structure-template-alist
+            (setq org-structure-template-alist (remove* "c" org-structure-template-alist :test 'equal :key 'car))
+            (add-to-list 'org-structure-template-alist '("c" . "src C"))
+            (add-to-list 'org-structure-template-alist '("cpp" . "src C++ :include <stdio.h> :includes <iostream>"))
+            
+            (add-to-list 'org-structure-template-alist '("py3" . "src python3"))
+            (add-to-list 'org-structure-template-alist '("py" . "src python"))
+            (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+            (add-to-list 'org-structure-template-alist '("lisp" . "src lisp"))
+            (add-to-list 'org-structure-template-alist '("scheme" . "src scheme"))
+            (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+            (add-to-list 'org-structure-template-alist '("clojure" . "src clojure"))
+            (add-to-list 'org-structure-template-alist '("r" . "src R"))
+            (add-to-list 'org-structure-template-alist '("js" . "src js"))
+            (add-to-list 'org-structure-template-alist '("http" . "src http"))
+            
+            (add-to-list 'org-structure-template-alist '("json" . "src json"))
+            (add-to-list 'org-structure-template-alist '("vue" . "src vue"))
+            (add-to-list 'org-structure-template-alist '("java" . "src java"))
+            (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
+            (add-to-list 'org-structure-template-alist '("cmake" . "src cmake"))
+            (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
+            (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
+            (add-to-list 'org-structure-template-alist '("erlang" . "src erlang")))
 
 
 ;; Do not use flycheck in org-src-mode since it is used most of time for documentation
