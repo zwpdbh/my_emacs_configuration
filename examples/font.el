@@ -37,7 +37,7 @@
   (if (and (stringp font-size)
            (equal ":" (string (elt font-size 0))))
       (format "%s%s" font-name font-size)
-    (format "%s-%s" font-name font-size)))
+      (format "%s-%s" font-name font-size)))
 
 (defvar bhj-english-font-size nil)
 (defvar chinese-font-size-scale-alist nil)
@@ -70,12 +70,12 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
     (set-face-attribute
      'default nil :font en-font)
     (condition-case font-error
-        (progn
-          (set-face-font 'italic (font-spec :family "JetBrains Mono" :slant 'italic :weight 'normal :size (+ 0.0 english-font-size)))
-          (set-face-font 'bold-italic (font-spec :family "JetBrains Mono" :slant 'italic :weight 'bold :size (+ 0.0 english-font-size)))
+                    (progn
+                      (set-face-font 'italic (font-spec :family "JetBrains Mono" :slant 'italic :weight 'normal :size (+ 0.0 english-font-size)))
+                      (set-face-font 'bold-italic (font-spec :family "JetBrains Mono" :slant 'italic :weight 'bold :size (+ 0.0 english-font-size)))
 
-          (set-fontset-font t 'symbol (font-spec :family "JetBrains Mono")))
-      (error nil))
+                      (set-fontset-font t 'symbol (font-spec :family "JetBrains Mono")))
+                    (error nil))
     (set-fontset-font t 'symbol (font-spec :family "Unifont") nil 'append)
     (set-fontset-font t nil (font-spec :family "DejaVu Sans"))
 
@@ -115,25 +115,25 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
                         10 
                         bhj-chinese-fonts
                         0.9)
-      (qiang-set-font bhj-english-fonts
-                      11 
-                      bhj-chinese-fonts
-                      0.9))
-  (qiang-set-font bhj-english-fonts
-                  12
-                  bhj-chinese-fonts
-                  0.9))
+        (qiang-set-font bhj-english-fonts
+                        11 
+                        bhj-chinese-fonts
+                        0.9))
+    (qiang-set-font bhj-english-fonts
+                    12
+                    bhj-chinese-fonts
+                    0.9))
 
 
 ;; On different platforms, I need to set different scaling rate for
 ;; differnt font size.
 (cond
- ((and (boundp '*is-a-mac*) *is-a-mac*)
-  (setq chinese-font-size-scale-alist '((10.5 . 1.3) (11.5 . 1.3) (16 . 1.3) (18 . 1.25))))
- ((and (boundp '*is-a-win*) *is-a-win*)
-  (setq chinese-font-size-scale-alist '((11.5 . 1.25) (16 . 1.25))))
- (t ;; is a linux:-)
-  (setq chinese-font-size-scale-alist '((12 . 1.25) (12.5 . 1.25) (14 . 1.20) (16 . 1.25) (20 . 1.20)))))
+  ((and (boundp '*is-a-mac*) *is-a-mac*)
+   (setq chinese-font-size-scale-alist '((10.5 . 1.3) (11.5 . 1.3) (16 . 1.3) (18 . 1.25))))
+  ((and (boundp '*is-a-win*) *is-a-win*)
+   (setq chinese-font-size-scale-alist '((11.5 . 1.25) (16 . 1.25))))
+  (t ;; is a linux:-)
+   (setq chinese-font-size-scale-alist '((12 . 1.25) (12.5 . 1.25) (14 . 1.20) (16 . 1.25) (20 . 1.20)))))
 
 (defvar bhj-english-font-size-steps '(9 10.5 11.5 12 12.5 13 14 16 18 20 22 40))
 (defun bhj-step-frame-font-size (step)

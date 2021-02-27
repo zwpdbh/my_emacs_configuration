@@ -1,35 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; electric return in parenthesis
-(defvar electrify-return-match
-  "[\]}\)\"\']"
-  "If this regexp matches the text after the cursor, do an \"electric\"
-        return.")
-(defun electrify-return-if-match (arg)
-  "If the text after the cursor matches `electrify-return-match' then
-        open and indent an empty line between the cursor and the text.  Move the
-        cursor to the new line."
-  (interactive "P")
-  (let ((case-fold-search nil))
-    (if (looking-at electrify-return-match)
-        (save-excursion (newline-and-indent)))
-    (newline arg)
-    (indent-according-to-mode)))
-(defun zw/set-electrify-return ()
-  (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
-(defun zw/unset-electrify-return ()
-  (local-unset-key (kbd "RET"))
-  (define-key (current-local-map) (kbd "RET") 'newline-and-indent))
-
-(add-hook 'prog-mode-hook 'zw/set-electrify-return)
-(add-hook 'conf-mode-hook 'zw/set-electrify-return)
-(add-hook 'text-mode-hook 'zw/set-electrify-return)
-
-(add-hook 'c-mode-hook 'zw/unset-electrify-return)
-(add-hook 'c++-mode-hook 'zw/unset-electrify-return)
-(add-hook 'lisp-mode-hook 'zw/unset-electrify-return)
-(add-hook 'emacs-lisp-mode-hook 'zw/unset-electrify-return)
-
 (when (maybe-require-package 'paredit)
   ;; Show matching parenthesis
   (require 'paren))
