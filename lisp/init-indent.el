@@ -1,3 +1,5 @@
+;; ref: https://www.emacswiki.org/emacs/AutoIndentation
+
 (when (eval-when-compile (version< "24.4" emacs-version))
   (add-hook 'after-init-hook 'electric-indent-mode))
 
@@ -135,17 +137,37 @@
 ;; removing 1 space at a time.
 (setq backward-delete-char-untabify-method 'hungry)
 
-;; ;; WARNING: This will change your life
-;; ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
-;; ;; This will also show trailing characters as they are useful to spot.
-;; (setq whitespace-style '(face tabs tab-mark trailing))
-;; (custom-set-faces
-;;  '(whitespace-tab ((t (:foreground "#636363")))))
-;; (setq whitespace-display-mappings
-;;   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
-;; (global-whitespace-mode) ; Enable whitespace mode everywhere
 
-;; END TABS CONFIG
+;; Auto-indent yanked (pasted) code
+(dolist (command '(yank yank-pop))
+  (eval `(defadvice ,command (after indent-region activate)
+           (and (not current-prefix-arg)
+                (member major-mode '(emacs-lisp-mode
+                                     lisp-mode
+                                     clojure-mode
+                                     scheme-mode
+                                     haskell-mode
+                                     python-mode
+                                     c-mode
+                                     c++-mode
+                                     objc-mode
+                                     latex-mode
+                                     plain-tex-mode))
+                (let ((mark-even-if-inactive transient-mark-mode))
+                  (indent-region (region-beginning) (region-end) nil))))))
 
+
+;; From https://www.emacswiki.org/emacs/AutoIndentation
+(defun kill-and-join-forward (&optional arg)
+  "killing the newline between indented lines doesn’t remove any extra spaces caused by indentation."
+  (interactive "P")
+  (if (and (eolp) (not (bolp)))
+      (progn (forward-char 1)
+             (just-one-space 0)
+             (backward-char 1)
+             (kill-line arg))
+    (kill-line arg)))
+
+(global-set-key (kbd "C-k") 'kill-and-join-forward)
 
 (provide 'init-indent)
