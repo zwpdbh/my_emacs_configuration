@@ -94,11 +94,11 @@
 
 (require-init 'init-dashboard)
 
-
 (require-init 'init-helm)
 (require-init 'init-counsel-ivy-swiper)
 (require-init 'init-silver-search)
 (require 'init-ripgrep)
+
 (require 'init-selectrum)
 (require 'init-orderless)
 (require 'init-consult)
@@ -209,13 +209,9 @@
 
 ;; (require 'init-pinyin)
 
-
-;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
-;; Adding directories under "site-lisp/" to `load-path' slows
-;; down all `require' statement. So we do this at the end of startup
-;; NO ELPA package is dependent on "site-lisp/".
-(setq load-path (cdr load-path))
-(my-add-subdirs-to-load-path "~/.emacs.d/site-lisp/")
+;; To add packages from local site-lisp folders
+;; (add-to-list 'load-path
+;;              "~/.emacs.d/site-lisp/<local_package_dir>")
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; Allow access from emacsclient
