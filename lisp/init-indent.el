@@ -137,7 +137,6 @@
 ;; removing 1 space at a time.
 (setq backward-delete-char-untabify-method 'hungry)
 
-
 ;; Auto-indent yanked (pasted) code
 (dolist (command '(yank yank-pop))
   (eval `(defadvice ,command (after indent-region activate)
@@ -152,10 +151,9 @@
                                      c++-mode
                                      objc-mode
                                      latex-mode
-                                     plain-tex-mode))
+                                     tex-mode))
                 (let ((mark-even-if-inactive transient-mark-mode))
                   (indent-region (region-beginning) (region-end) nil))))))
-
 
 ;; From https://www.emacswiki.org/emacs/AutoIndentation
 (defun kill-and-join-forward (&optional arg)
@@ -169,5 +167,7 @@
     (kill-line arg)))
 
 (global-set-key (kbd "C-k") 'kill-and-join-forward)
+
+
 
 (provide 'init-indent)
