@@ -1,5 +1,4 @@
 ;; ref: https://www.emacswiki.org/emacs/AutoIndentation
-
 (when (eval-when-compile (version< "24.4" emacs-version))
   (add-hook 'after-init-hook 'electric-indent-mode))
 
@@ -21,20 +20,15 @@
     (add-hook 'web-mode-hook 'indent-guide-mode)
     (add-hook 'sgml-mode-hook 'indent-guide-mode)))
 
-;; make sure using tab/space to indent
-;; START TABS CONFIG
-;; Create a variable for our preferred tab width
-;; Make them different to indicate: indent 2 is using spaces, indent 4 is using tabs
+;; https://stackoverflow.com/questions/69934/set-4-space-indent-in-emacs-in-text-mode/10439239
 (setq tab-always-indent 'complete)
 (setq-default tab-width 2)
 (setq tab-width 2)
-(setq-default tab-stop-list (number-sequence 2 200 2))
 (setq-default standard-indent tab-width)
 (setq-default indent-tabs-mode nil)
 
 (defun zw/adjust-local-tab-width (offset)
-  (setq-local tab-width offset)
-  (setq-local tab-stop-list (number-sequence offset 200 offset)))
+  (setq-local tab-width offset))
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
 (defun zw/disable-tabs ()
@@ -44,15 +38,15 @@
 (defun zw/enable-tabs  ()
   (interactive)
   (setq indent-tabs-mode t)
-  (setq tab-width 2)
-  (setq indent-line-function 'indent-relative))
+  (setq tab-width 2))
 
 ;; All the mode in which indentation could insert tabs
 ;; Hooks to Enable Tabs
-(add-hook 'plantuml-mode-hook '(lambda ()
-                                 ;; plantuml seems always use tabs to do indent format
-                                 (zw/enable-tabs)
-                                 (setq plantuml-indent-level tab-width)))
+(add-hook 'plantuml-mode-hook
+          '(lambda ()
+             ;; plantuml seems always use tabs to do indent format
+             (zw/enable-tabs)
+             (setq plantuml-indent-level tab-width)))
 (add-hook 'text-mode-hook 'zw/enable-tabs)
 
 
@@ -65,9 +59,10 @@
 (add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
 (add-hook 'yaml-mode-hook 'zw/disable-tabs)
 ;; Adjust indent offset for specific mode
-(add-hook 'python-mode-hook '(lambda ()
-                               (zw/adjust-local-tab-width 4)
-                               (setq python-indent-offset tab-width)))
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (zw/adjust-local-tab-width 4)
+             (setq python-indent-offset tab-width)))
 
 ;; electric return in parenthesis
 (defvar electrify-return-match
@@ -130,6 +125,7 @@
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
 (add-hook 'lisp-mode-hook 'zw/unset-electrify-return)
 (add-hook 'emacs-lisp-mode-hook 'zw/unset-electrify-return)
+
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
 
