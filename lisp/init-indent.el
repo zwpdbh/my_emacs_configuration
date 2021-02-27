@@ -25,9 +25,14 @@
 ;; Make them different to indicate: indent 2 is using spaces, indent 4 is using tabs
 (setq tab-always-indent 'complete)
 (setq-default tab-width 2)
+(setq tab-width 2)
 (setq-default tab-stop-list (number-sequence 2 200 2))
 (setq-default standard-indent tab-width)
 (setq-default indent-tabs-mode nil)
+
+(defun zw/adjust-local-tab-width (offset)
+  (setq-local tab-width offset)
+  (setq-local tab-stop-list (number-sequence offset 200 offset)))
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
 (defun zw/disable-tabs ()
@@ -57,12 +62,10 @@
 (add-hook 'lisp-mode-hook 'zw/disable-tabs)
 (add-hook 'emacs-lisp-mode-hook 'zw/disable-tabs)
 (add-hook 'yaml-mode-hook 'zw/disable-tabs)
-;; (add-hook 'text-mode-hook 'zw/disable-tabs)
-
-;; Language-Specific Tweaks
+;; Adjust indent offset for specific mode
 (add-hook 'python-mode-hook '(lambda ()
-                              (setq python-indent-offset tab-width)))
-
+                               (zw/adjust-local-tab-width 4)
+                               (setq python-indent-offset tab-width)))
 
 ;; electric return in parenthesis
 (defvar electrify-return-match
@@ -70,6 +73,27 @@
   "If this regexp matches the text after the cursor, do an \"electric\"
         return.")
 
+(defun newline-and-previous-indent ()
+	"Insert a newline character and indent to the previous line.
+
+	If the left-behind line is all whitespace, trim it to \\n."
+	(interactive)
+	(when (region-active-p)
+		(delete-region (region-beginning) (region-end)))
+	(let ((p (point)) (indent ""))
+		(save-excursion
+		 (beginning-of-line)
+		 (when (or (not (equal (point) p)) t)
+			 (if nil
+					 ;; skip c-style comments, too. TODO: mode-specific
+					 (re-search-forward "\\(//\\)?[ \t]*")
+					 (re-search-forward "[ \t]*"))
+			 (setq indent (concat indent (match-string 0)))
+			 (when (looking-at "$") ; whitespace only line? clear it so we don't leave trailing whitespace
+				 (delete-horizontal-space))))
+		(insert "\n")
+		(delete-horizontal-space)
+		(insert indent)))
 
 (defun electrify-return-if-match (arg)
   "If the text after the cursor matches `electrify-return-match' then
@@ -78,9 +102,16 @@
   (interactive "P")
   (let ((case-fold-search nil))
     (if (looking-at electrify-return-match)
-        (save-excursion (newline-and-indent)))
-    (newline arg)    
-    (indent-according-to-mode)))
+        (progn
+          (save-excursion
+            ;; This is where the other part of match got placed
+            (newline-and-indent))
+          ;; This is where the cursor got placed
+          (newline-and-previous-indent)
+          (insert-tab))
+      (progn
+        (newline arg)
+        (indent-according-to-mode)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
