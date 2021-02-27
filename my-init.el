@@ -207,6 +207,9 @@
 ;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
 ;; (require 'init-scimax)
 
+;; (require 'init-pinyin)
+
+
 ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
 ;; Adding directories under "site-lisp/" to `load-path' slows
 ;; down all `require' statement. So we do this at the end of startup
