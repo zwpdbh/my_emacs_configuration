@@ -12,12 +12,12 @@
     (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
     (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
 
-(use-package indent-guide
-             :ensure t
-             :config
-             (progn
-               (add-hook 'web-mode-hook 'indent-guide-mode)
-               (add-hook 'sgml-mode-hook 'indent-guide-mode)))
+(use-package indent-guide  
+  :ensure t
+  :config
+  (progn
+    (add-hook 'web-mode-hook 'indent-guide-mode)
+    (add-hook 'sgml-mode-hook 'indent-guide-mode)))
 
 ;; make sure using tab/space to indent
 ;; START TABS CONFIG
@@ -48,9 +48,9 @@
 ;; All the mode in which indentation could insert tabs
 ;; Hooks to Enable Tabs
 (add-hook 'plantuml-mode-hook '(lambda ()
-                                ;; plantuml seems always use tabs to do indent format
-                                (zw/enable-tabs)
-                                (setq plantuml-indent-level tab-width)))
+                                 ;; plantuml seems always use tabs to do indent format
+                                 (zw/enable-tabs)
+                                 (setq plantuml-indent-level tab-width)))
 (add-hook 'text-mode-hook 'zw/enable-tabs)
 
 
@@ -82,15 +82,15 @@
 		(delete-region (region-beginning) (region-end)))
 	(let ((p (point)) (indent ""))
 		(save-excursion
-		 (beginning-of-line)
-		 (when (or (not (equal (point) p)) t)
-			 (if nil
-					 ;; skip c-style comments, too. TODO: mode-specific
-					 (re-search-forward "\\(//\\)?[ \t]*")
-					 (re-search-forward "[ \t]*"))
-			 (setq indent (concat indent (match-string 0)))
-			 (when (looking-at "$") ; whitespace only line? clear it so we don't leave trailing whitespace
-				 (delete-horizontal-space))))
+		  (beginning-of-line)
+		  (when (or (not (equal (point) p)) t)
+			  (if nil
+					  ;; skip c-style comments, too. TODO: mode-specific
+					  (re-search-forward "\\(//\\)?[ \t]*")
+					(re-search-forward "[ \t]*"))
+			  (setq indent (concat indent (match-string 0)))
+			  (when (looking-at "$") ; whitespace only line? clear it so we don't leave trailing whitespace
+				  (delete-horizontal-space))))
 		(insert "\n")
 		(delete-horizontal-space)
 		(insert indent)))
