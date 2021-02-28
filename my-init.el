@@ -147,8 +147,6 @@
 ;; (require-init 'init-smartparens)
 (require 'init-counsel-etags)
 (require 'init-lsp)
-(require 'init-eglot)
-;; (require 'init-lsp-configure)
 
 (require 'init-terraform)
 (require-init 'init-eldoc)

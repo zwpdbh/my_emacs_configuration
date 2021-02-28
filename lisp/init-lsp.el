@@ -26,44 +26,37 @@
   (setq company-lsp-enable-recompletion t))
 
 (after-load 'lsp-ui
-  ;; Establishing keybindings for lsp-ui-mode
-  ;; Variable lsp-ui-mode-map is available only after lsp-ui.el or lsp-ui.elc is loaded.
-  (setq lsp-ui-peek-force-fontify t)
-  (setq lsp-ui-imenu-enable t)
-  (setq lsp-ui-sideline-ignore-duplicate t)
-  (setq lsp-ui-sideline-enable nil)
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-ui-peek-fontify 'always)
+            ;; Establishing keybindings for lsp-ui-mode
+            ;; Variable lsp-ui-mode-map is available only after lsp-ui.el or lsp-ui.elc is loaded.
+            (setq lsp-ui-peek-force-fontify t)
+            (setq lsp-ui-imenu-enable t)
+            (setq lsp-ui-sideline-ignore-duplicate t)
+            (setq lsp-ui-sideline-enable nil)
+            (setq lsp-ui-doc-enable nil)
+            (setq lsp-ui-peek-fontify 'always)
 
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+            (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+            (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
-  ;; customize lsp-ui-peek appearance
-  (add-hook 'lsp-ui-mode-hook
-            '(lambda ()
-               (set-face-attribute 'lsp-ui-peek-selection nil
-                                   :foreground (face-foreground 'hl-line t t)
-                                   :background (face-background 'hl-line nil t)
-                                   :underline nil
-                                   :weight 'bold)
+            ;; customize lsp-ui-peek appearance
+            (add-hook 'lsp-ui-mode-hook
+                      '(lambda ()
+                        (set-face-attribute 'lsp-ui-peek-selection nil
+                         :foreground (face-foreground 'hl-line t t)
+                         :background (face-background 'hl-line nil t)
+                         :underline nil
+                         :weight 'bold)
 
-               (set-face-attribute 'lsp-ui-peek-highlight nil
-                                   :foreground "Yellow"
-                                   :background (face-background 'default t t)
-                                   :underline nil
-                                   :box nil
-                                   :weight 'normal)
-               (set-face-attribute 'lsp-ui-peek-peek nil
-                                   :foreground (face-foreground 'default t t)
-                                   :background (face-background 'default t t)))))
+                        (set-face-attribute 'lsp-ui-peek-highlight nil
+                         :foreground "Yellow"
+                         :background (face-background 'default t t)
+                         :underline nil
+                         :box nil
+                         :weight 'normal)
+                        (set-face-attribute 'lsp-ui-peek-peek nil
+                         :foreground (face-foreground 'default t t)
+                         :background (face-background 'default t t)))))
 
-
-;; (add-hook 'lsp-mode-hook
-;;           '(lambda ()
-;;              ;; Code run from x-mode-hook is for buffer-specific things which means
-;;              ;; run the code for every x-mode buffer
-;;              (setq-local company-backends (add-to-list 'company-backends
-;;                                                        'company-capf))))
 
 (defun zw/lsp-ui-key-bindings ()
   (interactive)
