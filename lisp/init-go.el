@@ -1,5 +1,3 @@
-;; - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
-;; - install it by ~go get golang.org/x/tools/gopls@latest~
 ;; - go-mode with ob-go
 
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
@@ -7,15 +5,7 @@
 (when (maybe-require-package 'go-mode)
   (if (string-equal system-type "gnu/linux")
       (add-to-list 'exec-path "/usr/local/go/bin/")
-    nil)
-  (add-hook 'go-mode-hook
-            '(lambda ()
-               (add-hook 'before-save-hook 'gofmt-before-save)
-               ;; Godef, lets you quickly jump around the code
-               ;; Install it by: go get github.com/rogpeppe/godef
-               ;; Installing go-mode automatically installs godef bindings.
-               (define-key go-mode-map (kbd "M-.") 'godef-jump)
-               (define-key go-mode-map (kbd "M-,") 'pop-tag-mark))))
+    nil))
 
 (when (maybe-require-package 'ob-go)
   (after-load 'org
@@ -34,6 +24,23 @@
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
   (zw/customize-lsp-ui-key-bindings))
 
+(add-hook 'go-mode-hook
+          '(lambda ()
+             (add-hook 'before-save-hook 'gofmt-before-save)
+             ;; Godef, lets you quickly jump around the code
+             ;; Install it by: go get github.com/rogpeppe/godef
+             (if (locate-file "godef" exec-path)
+                 (progn
+                   (define-key go-mode-map (kbd "M-.") 'godef-jump)
+                   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+                   (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+               (progn
+                 (define-key go-mode-map (kbd "M-.") 'counsel-etags-find-tag-at-point)
+                 (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+                 (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point)))))
+
+;; - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
+;; - install it by ~go get golang.org/x/tools/gopls@latest~
 ;; Need to install gopls to use lsp
 ;; go get golang.org/x/tools/gopls@latest
 ;; (add-hook 'go-mode-hook #'lsp-deferred)
