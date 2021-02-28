@@ -5,18 +5,25 @@
       (funcall fn))))
 
 (defun zw/customize-themes-for-general ()  
-  ;; make weyland theme use normal font size for header-line
-  (set-face-attribute 'header-line nil
-                      :height 1.0
-                      :underline nil)
+  ;; ;; make weyland theme use normal font size for header-line
+  ;; (set-face-attribute 'header-line nil
+  ;;                     :height 1.0
+  ;;                     :underline nil)
 
-  ;; set highlight face
-  (set-face-attribute 'highlight nil
-                      :weight 'bold
-                      :foreground "#86dc2f"
-                      :background (face-background 'default t t))
-  ;; disable fringe 
-  (set-fringe-mode 0))
+  ;; ;; set highlight face
+  ;; (set-face-attribute 'highlight nil
+  ;;                     :weight 'bold
+  ;;                     :foreground "#86dc2f"
+  ;;                     :background (face-background 'default t t))
+  
+  ;; ;; disable fringe 
+  ;; (set-fringe-mode 0)
+
+  (set-face-attribute 'default nil
+                      :width 'regular
+                      :height 110
+                      :foreground "#a9b7ca"
+                      :background "#1f2226"))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
