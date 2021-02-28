@@ -7,6 +7,9 @@
 (when (maybe-require-package 'smartparens)
   (require 'smartparens-config)
 
+  ;; disable smartparens for certain mode
+  (add-to-list 'sp-ignore-modes-list 'org-mode)
+
   ;; add addition pairs for certain mode
   ;; It is not a solution, since in c++, we often have cout <<
   ;; (sp-local-pair 'c-mode "<" ">")
@@ -14,8 +17,6 @@
   
   (smartparens-global-mode t))
 
-;; (when (require-package 'rainbow-delimiters)
-;;   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package paren-face
   :ensure t
