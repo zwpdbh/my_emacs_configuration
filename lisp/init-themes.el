@@ -33,9 +33,8 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-dracula)
+    (setq custom-enabled-theme 'doom-acario-dark)
   (setq custom-enabled-theme 'doom-Iosvkem))
-
 
 ;; load theme and do customization for themes
 (defun zw/load-theme ()

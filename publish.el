@@ -38,8 +38,7 @@
 (if (member "t" command-line-args)
     (progn
       (print "force publish all org files")
-      (org-publish-all t)
-      )
-  (progn
-    (print "only publish modified org files")
-    (org-publish-all)))
+      (org-publish-all t))
+    (progn
+      (print "only publish modified org files")
+      (org-publish-all)))
