@@ -7,14 +7,22 @@
 (when (maybe-require-package 'go-mode)
   (if (string-equal system-type "gnu/linux")
       (add-to-list 'exec-path "/usr/local/go/bin/")
-      nil))
+    nil)
+  (add-hook 'go-mode-hook
+            '(lambda ()
+               (add-hook 'before-save-hook 'gofmt-before-save)
+               ;; Godef, lets you quickly jump around the code
+               ;; Install it by: go get github.com/rogpeppe/godef
+               ;; Installing go-mode automatically installs godef bindings.
+               (define-key go-mode-map (kbd "M-.") 'godef-jump)
+               (define-key go-mode-map (kbd "M-,") 'pop-tag-mark))))
 
 (when (maybe-require-package 'ob-go)
   (after-load 'org
-              (add-to-list 'org-structure-template-alist '("go" . "src go"))
-              (org-babel-do-load-languages
-               'org-babel-load-languages
-               '((go . t)))))
+    (add-to-list 'org-structure-template-alist '("go" . "src go"))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((go . t)))))
 
 ;; configure lsp related parameters
 (defun zw/lsp-go-steup ()
@@ -23,9 +31,7 @@
    '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)))
   
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
-  
   (zw/customize-lsp-ui-key-bindings))
 
 ;; Need to install gopls to use lsp
