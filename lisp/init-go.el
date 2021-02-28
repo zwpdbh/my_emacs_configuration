@@ -28,8 +28,10 @@
   
   (zw/customize-lsp-ui-key-bindings))
 
-(add-hook 'go-mode-hook #'lsp-deferred)
-(add-hook 'go-mode-hook '(lambda ()
-                          #'zw/lsp-go-steup))
+;; Need to install gopls to use lsp
+;; go get golang.org/x/tools/gopls@latest
+;; (add-hook 'go-mode-hook #'lsp-deferred)
+;; (add-hook 'go-mode-hook '(lambda ()
+;;                           #'zw/lsp-go-steup))
 
 (provide 'init-go)

@@ -65,12 +65,4 @@
     (define-key (current-local-map) (kbd "M-/") 'lsp-ui-peek-find-references)))
 
 
-;; (dolist (each-mode zw/lsp-clients-set)
-;;   (let ((each-mode-hook (intern (format "%s-hook" each-mode))))
-;;     (add-hook each-mode-hook
-;;               #'(lambda ()
-;;                   (lsp)
-;;                   (zw/customize-lsp-ui-key-bindings)))))
-
-
 (provide 'init-lsp)
