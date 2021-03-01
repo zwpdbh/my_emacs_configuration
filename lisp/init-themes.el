@@ -70,7 +70,9 @@
   (if (featurep 'org)
       (funcall 'zw/customize-themes-for-org)
     (after-load 'org
-      (funcall 'zw/customize-themes-for-org))))
+      (funcall 'zw/customize-themes-for-org)))
+
+  (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 
 
 ;; Don't prompt to confirm theme safety. This 

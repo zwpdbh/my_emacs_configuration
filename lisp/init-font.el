@@ -1,6 +1,6 @@
 (setq zw/favorite-en-fonts '(
-                             "Source Code Pro"
                              "Anonymous Pro"                             
+                             "Source Code Pro"
                              "Consolas"                             
                              "Ubuntu Mono"                             
                              "Iosevka Slab"
