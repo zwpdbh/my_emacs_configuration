@@ -232,8 +232,6 @@
 (defun zw/customize-themes-for-symbol-overlay ()
   (set-face-attribute 'symbol-overlay-default-face nil
                       :weight 'normal
-                      :foreground (face-foreground 'default t t)
-                      :background nil
                       :underline t
                       :inherit nil))
 
