@@ -16,6 +16,7 @@
                             :foreground "#606873"))
     (progn
       (set-face-attribute 'default nil
+                          :foreground "#B98000"
                           :background "black"))))
 
 (defun zw/customize-themes-for-dashboard ()
