@@ -5,13 +5,17 @@
       (funcall fn))))
 
 (defun zw/customize-themes-for-general ()
+  ;; weyland default, foreground color: #a9b7ca
+  ;; weyland default, background color: #1f2226
+  ;; weyland comment, foreground color: #606873
+  
   (if (display-graphic-p)
       (progn
         (set-face-attribute 'default nil
                             :width 'regular
                             :height 110
                             :foreground "#a9b7ca"
-                            :background "#1f2226")
+                            :background "black")
         (set-face-attribute 'font-lock-comment-face nil
                             :foreground "#606873"))
     (progn
