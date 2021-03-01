@@ -11,8 +11,16 @@
                              "JetBrains Mono"
                              "DejaVu Sans Mono"
                              "Monospace"
-                             "Courier New"
-                             ))
+                             "Courier New"))
+
+;; use terminal preferred fonts
+(unless (display-graphic-p)
+  (setq zw/favorite-en-fonts (delete "Terminus (TTF)" zw/favorite-en-fonts))
+  (setq zw/favorite-en-fonts (delete "Terminus (TTF) for Windows" zw/favorite-en-fonts))
+  (setq zw/favorite-en-fonts (cons "Terminus (TTF)" zw/favorite-en-fonts))
+  (setq zw/favorite-en-fonts (cons "Terminus (TTF) for Windows" zw/favorite-en-fonts)))
+
+
 (setq zw/favorite-cn-fonts '(
                              "Microsoft Yahei"
                              "Microsoft_Yahei"
@@ -20,8 +28,7 @@
                              "文泉驿等宽微米黑"
                              "黑体"
                              "新宋体"
-                             "宋体"
-                             ))
+                             "宋体"))
 
 ;; Given a list of fonts, select the first one available. So, put favorite font at the beginning of the list
 (defun zw/select-available-font (my-fonts)
