@@ -1,37 +1,30 @@
 ;;; -*- lexical-binding: t; -*-
-
-(when (maybe-require-package 'paredit)
-  ;; Show matching parenthesis
-  (require 'paren))
-
-(when (maybe-require-package 'smartparens)
-  (require 'smartparens-config)
-
-  ;; disable smartparens for certain mode
-  (add-to-list 'sp-ignore-modes-list 'org-mode)
-
-  ;; add addition pairs for certain mode
-  ;; It is not a solution, since in c++, we often have cout <<
-  ;; (sp-local-pair 'c-mode "<" ">")
-  ;; (sp-local-pair 'c++-mode "<" ">")
-  
-  (smartparens-global-mode t))
-
-
-(use-package paren-face
-  :ensure t
-  :defer)
-
 ;; ===show-paren-mode===
 ;; show matching lines when parentheses go off-screen
 ;; ref: https://with-emacs.com/posts/ui-hacks/show-matching-lines-when-parentheses-go-off-screen/
 ;; It need to be used with lexical-binding
-
 ;; we will call `blink-matching-open` ourselves...
 (remove-hook 'post-self-insert-hook
              #'blink-paren-post-self-insert-function)
 ;; this still needs to be set for `blink-matching-open` to work
 (setq blink-matching-paren 'show)
+
+(defun display-line-overlay+ (pos str &optional face)
+  "Display line at POS as STR with FACE.
+
+FACE defaults to inheriting from default and highlight."
+  (let ((ol (save-excursion
+              (goto-char pos)
+              (make-overlay (line-beginning-position)
+                            (line-end-position)))))
+    (overlay-put ol 'display str)
+    (overlay-put ol 'face
+                 (or face '(
+                            :inherit default 
+                            ;; :inherit highlight 
+                            :foreground "Yellow" 
+                            :weight 'normal)))
+    ol))
 
 (let ((ov nil)) ; keep track of the overlay
   (advice-add
@@ -65,23 +58,30 @@
                                 (window-start) msg ))))))
          (blink-matching-open))))))
 
-(defun display-line-overlay+ (pos str &optional face)
-  "Display line at POS as STR with FACE.
 
-FACE defaults to inheriting from default and highlight."
-  (let ((ol (save-excursion
-              (goto-char pos)
-              (make-overlay (line-beginning-position)
-                            (line-end-position)))))
-    (overlay-put ol 'display str)
-    (overlay-put ol 'face
-                 (or face '(
-                            :inherit default 
-                            ;; :inherit highlight 
-                            :foreground "Yellow" 
-                            :weight 'normal)))
-    ol))
+;; Useful for lisp code
+(when (maybe-require-package 'paredit)
+  ;; Show matching parenthesis
+  (require 'paren))
 
+
+;; Use smartparens to do auto pair for non-lisp code
+(when (maybe-require-package 'smartparens)
+  (require 'smartparens-config)
+
+  ;; disable smartparens for certain mode
+  (add-to-list 'sp-ignore-modes-list 'org-mode)
+
+  ;; add addition pairs for certain mode
+  ;; It is not a solution, since in c++, we often have cout <<
+  ;; (sp-local-pair 'c-mode "<" ">")
+  ;; (sp-local-pair 'c++-mode "<" ">")
+  (smartparens-global-mode t))
+
+;; Make parenthesis less obvious for readability
+(use-package paren-face
+  :ensure t
+  :defer)
 
 (show-paren-mode 1)
 
