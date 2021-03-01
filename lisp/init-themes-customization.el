@@ -4,14 +4,19 @@
     (after-load pkg
       (funcall fn))))
 
-(defun zw/customize-themes-for-general ()  
-  (set-face-attribute 'default nil
-                      :width 'regular
-                      :height 110
-                      :foreground "#a9b7ca"
-                      :background "#1f2226")
-  (set-face-attribute 'font-lock-comment-face nil
-                      :foreground "#606873"))
+(defun zw/customize-themes-for-general ()
+  (if (display-graphic-p)
+      (progn
+        (set-face-attribute 'default nil
+                            :width 'regular
+                            :height 110
+                            :foreground "#a9b7ca"
+                            :background "#1f2226")
+        (set-face-attribute 'font-lock-comment-face nil
+                            :foreground "#606873"))
+    (progn
+      (set-face-attribute 'default nil
+                          :background "black"))))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
