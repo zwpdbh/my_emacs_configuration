@@ -85,8 +85,7 @@
 
 (defun zw/customize-themes-for-smartparens ()
   (set-face-attribute 'sp-pair-overlay-face nil
-                      :foreground (face-foreground 'default t t)
-                      :background (face-background 'default t t)
+                      :background (face-background 'hl-line t t)
                       :inherit nil)
   (set-face-attribute 'show-paren-mismatch nil      
                       :foreground "WhiteSmoke"
