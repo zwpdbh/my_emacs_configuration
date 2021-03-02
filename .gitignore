@@ -74,12 +74,12 @@ CV/*.log
 CV/*.out
 CV/*.gz
 CV/*.aux
-CV/example/*.el 
-CV/example/*.log
-CV/example/*.pdf 
-CV/example/*.out
-CV/example/*.aux
-CV/example/*.gz
+CV/examples/*.el 
+CV/examples/*.log
+CV/examples/*.pdf 
+CV/examples/*.out
+CV/examples/*.aux
+CV/examples/*.gz
 CV/auto/*.el
 
 

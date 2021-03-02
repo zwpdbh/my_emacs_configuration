@@ -1,0 +1,82 @@
+
+* 背景
+  我对于functional programming, 尤其是Common Lisp很感兴趣. 非常期待能将所学的算法和数学知识应用到生产和工作中. 我目前定居在上海.
+  
+* 教育
+  - Otago (2016/01 -- 2018/09)
+    计算机硕士学位
+  - 北京工业大学 (2004/07 -- 2009/07)
+    计算机本科学位
+    
+* 工作经验 
+** 西门子工业软件（2018-10 至今）
+   工作内容：
+   - 基于云环境的自动化部署
+   - 为公司的平台和系统设计和编写程序
+   - 能够单独工作已经小组合作来完成任务
+   - 为CAD产品提供核心的服务
+   - 维护现有的代码， 分析并解决客户的需求并汇报问题
+     
+*** Distributed service admin-console (from 2020/07 to present)     
+    Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 这个dashboard是为了控制distributed-service.
+    我在其中的职责:
+    - 设计和实施关系型数据模型 (postgreSQL)
+    - 前端设计和实施(Vuejs)
+    - 后端设计和实施(Nodejs)
+
+*** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
+    由于我们很多的服务是使用AWS cloud, 为了控制各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务. 其内容包括:
+    - 日志搜索
+    - AWS EC2 task 管理
+    - 管理stateful service worker pool
+    - 基于角色的权限控制
+      
+    我的职责包括:
+    - 实施前端和后端, 尤其是关于角色的权限控制和登陆
+    - 使用Docker + GitLab + AWS cloudformation 来进行自动化部署
+    - 对Stateful-service 进行排错
+      
+*** Tester for end-to-end test (from 2019/01 to present)    
+    基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 我的职责包括:
+    - 使用nodejs, websocket和socket 来实现这个脚本工具.
+    - 自动化部署
+    - Pagerduty oncall.
+    
+    
+* 知识技能
+** 核心
+   - 算法和数据结构
+   - 对于操作系统的理解
+** 强项
+   - 面向对象编程(Java, C++)
+   - 设计和创建数据库对象模型
+     
+** 经验
+   - Nodejs
+   - Vuejs
+   - Python
+   - Network programming, such TCP/IP sockt, websocket.
+   - Database including
+     - PostgreSQL
+     - Oracle
+   - Devop tools, including
+     - GitLab CICD
+     - Docker
+     - Terraform
+   - AWS cloud infrastructure
+   - Lisp
+     - Common Lisp
+     - Elisp
+** 熟悉
+   - iOS and OS x programming using Swift
+   - Linux driver development
+    
+     
+* 兴趣
+  - Functional programming in Lisp
+  - 学习与分布式和信息检索有关的算法
+  - 打RTS游戏 
+    
+* 联系方式
+  - WeChat: 15811257483
+  - Email: hyperion_z@outlook.com
