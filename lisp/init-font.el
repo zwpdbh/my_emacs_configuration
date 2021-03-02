@@ -20,7 +20,12 @@
   (setq zw/favorite-en-fonts (cons "Terminus (TTF)" zw/favorite-en-fonts))
   (setq zw/favorite-en-fonts (cons "Terminus (TTF) for Windows" zw/favorite-en-fonts)))
 
-
+;; For cases which Chinese characters could not be displayed properly:
+;; 1) Ensure Chinese characters are installed in System.
+;; 2) Make sure system in terminal can display CN-font properly: For example, display file content with CN characters in terminal (powershell in Windows).
+;; 3) Make sure Emacs's env inherited from system env (step 2 is important).
+;; 4) Make sure Emacs use utf-8 for default encoding.
+;; If everyting works well, the following characters should be displayed properly.
 (setq zw/favorite-cn-fonts '(
                              "Microsoft Yahei"
                              "Microsoft_Yahei"
