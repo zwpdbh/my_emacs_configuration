@@ -24,6 +24,23 @@ If the new path's directories does not exist, create them."
     backupFilePath))
 (setq make-backup-file-name-function 'zw/backup-file-name)
 
+;; From http://ergoemacs.org/emacs/emacs_auto_save.html
+;; Real Auto Save File
+(defun xah-save-all-unsaved ()
+  "Save all unsaved files. no ask.
+Version 2019-11-05"
+  (interactive)
+  (save-some-buffers t ))
+
+(if (version< emacs-version "27")
+    (add-hook 'focus-out-hook 'xah-save-all-unsaved)
+  (setq after-focus-change-function 'xah-save-all-unsaved))
+;; disable emacs's “#auto-save#” backup
+(setq auto-save-default nil)
+;; stop emacs from creating .#lock file links
+(setq create-lockfiles nil)
+
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------

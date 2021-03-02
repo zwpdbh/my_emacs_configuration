@@ -129,12 +129,12 @@
 (require 'init-recentf)
 (require 'init-hippie-expand)
 (require 'init-windows)
-;; (require 'init-doc-view-auto-fit)
-(require 'init-mmm)
+
 (require 'init-editing-utils)
+(require 'init-mmm)
 (require 'init-vc)
 (require 'init-git)
-;; (require 'init-github)
+
 
 (require 'init-compile)
 ;; (require 'init-reveal)
