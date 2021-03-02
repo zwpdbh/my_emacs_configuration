@@ -1,0 +1,192 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% "ModernCV" CV and Cover Letter
+% LaTeX Template
+% Version 1.1 (9/12/12)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+% 
+% Original author:
+% Xavier Danaux (xdanaux@gmail.com)
+% 
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Important note:
+% This template requires the moderncv.cls and .sty files to be in the same 
+% directory as this .tex file. These files provide the resume style and themes 
+% used for structuring the document.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% ----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+% ----------------------------------------------------------------------------------------
+
+\documentclass[11pt,a4paper,sans]{moderncv} % Font sizes: 10, 11, or 12; paper sizes: a4paper, letterpaper, a5paper, legalpaper, executivepaper or landscape; font families: sans or roman
+
+\moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+
+% \usepackage{sansmathaccent}
+% \pdfmapfile{+sansmathaccent.map}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{xeCJK} % For Chinese characters: xeCJK with XeLaTeX
+\usepackage[scale=0.85]{geometry} % Reduce document margins
+% \setlength{\hintscolumnwidth}{3cm} % Uncomment to change the width of the dates column
+% \setlength{\makecvtitlenamewidth}{10cm} % For the 'classic' style, uncomment to adjust the width of the space allocated to your name
+
+% ----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION SECTION
+% ----------------------------------------------------------------------------------------
+
+\firstname{赵} % Your first name
+\familyname{伟} % Your last name
+
+% All information in this block is optional, comment out any lines you don't need
+% \title{Curriculum Vitae}
+\address{11C North Road\c North East Valley}{Dunedin, New Zealand 9016}
+\mobile{(+64) 21-085-13604}
+% \phone{(000) 111 1112}
+% \fax{(000) 111 1113}
+\email{hyperion\_z@outlook.com}
+% \homepage{staff.org.edu/~jsmith}{staff.org.edu/$\sim$jsmith} % The first argument is %the url for the clickable link, the second argument is the url displayed in the %template - this allows special characters to be displayed such as the tilde in this %example
+% \extrainfo{additional information}
+% \photo[70pt][0.4pt]{picture} % The first bracket is the picture height, the second is %the thickness of the frame around the picture (0pt for no frame)
+\quote{Seeking a job opportunity for software development.}
+
+% ----------------------------------------------------------------------------------------
+% self configuration%
+
+\begin{document}
+
+\makecvtitle % Print the CV title
+
+% ===about me===%
+\section{About me}
+\cvitem{}{As a computer science graduate, I have a solid understanding of algorithm, data structure, and system architecture. This lets me write efficient code to solve unseen problems in real business. Through finishing different projects, that not only strengthened my teamwork skill, but also extended my knowledge horizon to keep me in touch with the latest research in different disciplines, such as computer vision and information retrieval. Most of all, the postgraduate project teaches me how attitude and focus could be much more important than your intellectual ability. And that is a precious lesson for my future career and life.}
+% ----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+% ----------------------------------------------------------------------------------------
+
+\section{Education}
+\subsection{In New Zealand}
+\cventry{Currently}{Otago University}{Master of Applied Science}{Specialization in Computer Science}{}{}
+\cventry{2017}{Otago University}{Postgraduate Diploma in Science}{Specialization in Computer Science}{}{}
+\cventry{2016}{Otago University}{Diploma for Graduates}{Specialization in Computer Science}{}{}
+
+
+% ----------------------------------------------------------------------------------------
+%	COMPUTER SKILLS SECTION
+% ----------------------------------------------------------------------------------------
+\section{Knowledge}
+\cvitem{Core skills}{Solid implementation of data structure and algorithm.}
+\cvitem{}{Deep understanding about operating system (Linux).}
+\cvitem{Strong}{Object-oriented programming with Java, C++ and Objective-C.}
+\cvitem{}{Principles of designing a database, use of a database management system and implementation of the underlying database management system.}
+\cvitem{Experienced}{iOS and OS X programming, Linux driver development.}
+\cvitem{}{Network programming techniques, such as socket programming over TCP and UDP.}
+\cvitem{Familiar}{Python, Swift, PHP, Javascript, HTML, SQL, Bash.}
+\cvitem{Hobby}{Objective-C for iOS and OS X development.}
+% ----------------------------------------------------------------------------------------
+%	WORK EXPERIENCE SECTION
+% ----------------------------------------------------------------------------------------
+
+\section{Experience}
+\subsection{In New Zealand}
+% \cventry{time}{title}{subtitle}{1}{2}{3}
+\cventry{2018 first semester}{Independent Study Project}{}{}{}{Implemented a K Nearest Neighbor search algorithm described in other people's paper, and try to use memory locality to improve the performance under non-uniform memory access(NUMA).}
+\cventry{2018 first semester}{Neural Network Implementation}{}{}{}{Implement a simple fully connected neural network with one hidden layer using general delta rule for back-propagation. Adjust the number of hidden units and other constant to collect test accuracy on iris dataset.}
+\cventry{2017 full year}{Computational videography}{}{}{}{My program uses OpenCV to create a virtual 3D environment from a monocular video stream and the 3D environment is represented as a texture mapped piecewise planar graphical model.}
+\cventry{2017 second semester}{Machine learning assignment}{Anomaly detection}{}{}{Developing an incremental Power method for online analysis of data streams by using modified power PCA method.}
+\cventry{2017 second semester}{Advanced operating system assignment}{Writing Linux driver in Raspberry Pi}{}{}{Implemented a virtual ram disk as a character device, such as \$ls > \/dev\//asgn1 and \$cat \/dev\//asgn1. Based on that, design and code a driver for a dummy GPIO port device.}
+\cventry{2017 first semester}{Computer vision and graphics}{Fitting planes to points}{}{}{Point cloud models are a common output from depth sensors such as LiDAR or Microsoft's Kinect, stereo vision algorithms, etc. These models consist of isolated 3D points. Used RANSAC to find planes in point cloud data.}
+\cventry{2017 first semester}{Information Retrieval assignment}{Write a Search Engine based on XML files}{}{}{My program parses the Wall Street Journal collection of documents (more than 500M) marked up in XML, then builds an inverted-file index from it and saves the index to disk. At last, I could load the index and do key words search within 1 second.}
+\cventry{December 2016 -- January 2017}{Summer Scholarship Project}{High performance web-based heat-map visualization}{}{}{This project uses time-series data (power usage recorded with per minute precision) stored byInfluxDB, combined with JavaScript visualization library D3 to show the heat-map. Its high performance mainly comes from the InfluxDB which allows user to support high efficiency querying over time series data.}
+\cventry{2016 second semester}{Database Theory and Applications}{Database design and implementation}{}{}{Design and implement a book shop retail database using SQL and PHP.}
+\cventry{2016 second semester}{Object-Oriented Programming}{Lecture notes organizer}{}{}{Design and implemented a PDF viewer, using Cocoa, for viewing a set of PDF lecture notes.}
+\cventry{2016 first semester}{Artificial Intelligence}{Evolve a species}{}{}{Implemented a genetic algorithm to optimize the fitness of a species of creatures in a simulated two-dimensional world using Java.}
+
+\subsection{In China}
+\cventry{2012--2015}{ATOS(China)}{Main Role: System Engineer}{}{}{
+	Responsibility:
+	\begin{itemize}
+	\item[$.$] In VGIC (Volkswagen Group (Import) Co. Ltd.) project:\\
+		Follow up project operation and optimize maintenance process.\\
+		Make specifications about monthly report and project operation.\\
+		Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
+	\item[$.$] Installing hardware and software, maintaining Linux Servers. 
+	\item[$.$] Troubleshooting and resolution of application and system related problems.
+	\item[$.$] Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
+	\item[$.$] Performing backup administration, including backup and restore of data.
+	\item[$.$] Responding to outages both during normal business hours and in an after-hours, on call capacity.
+	\end{itemize}}
+
+\cventry{2010-2011}{JobKoo.com}{Main Role: IT Service Engineer}{}{}{
+	Responsibility:
+	\begin{itemize}
+	\item[$.$] Receiving service request from users and providing appropriate technical support and troubleshooting for IT related issues, including Office/Outlook, IE/Web Application, VPN/Remote Access, and Anti-virus updates. 		\item[$.$] Create AD account and make AD policy to support company regulations. 
+	\end{itemize}}
+
+% \cventry{October--June 2014}{Smart Wheelchair Control using EEG}{\small ENSTA Bretagne}{}{}{Developing a Low Cost EOG Signal Interface for a Smart Wheelchair with High Accuracy and Reliability. \textit{Matlab/Python environment}}
+% 
+% \cventry{July--August 2013}{Industrial Placement}{Hypios SAS}{Paris}{}{Database and Customer Relationship Management.}
+% 
+% \cventry{2012}{Supervised Personal Work}{}{Lyc\'{e}e Mohammed V}{}{Implementing a Best-Routing ADA Algorithm based on Paris Metro. \textit{ADA environment}}
+
+
+
+
+
+% ----------------------------------------------------------------------------------------
+%	LANGUAGES SECTION
+% ----------------------------------------------------------------------------------------
+
+\section{Languages}
+\begin{small}
+	\cvitemwithcomment{Mandarin}{Native Speaker}{}
+	\cvitemwithcomment{English}{Fluent}{}
+\end{small}
+
+
+% ----------------------------------------------------------------------------------------
+%	INTERESTS SECTION
+% ----------------------------------------------------------------------------------------
+% \bigskip
+
+% \section{Interests}
+% 
+% \renewcommand{\listitemsymbol}{-~} % Changes the symbol used for lists
+% 
+% \cvlistdoubleitem{Trecking}{Robotics (NAO Junior Developer)}
+% \cvlistdoubleitem{Robotics}{}
+
+
+% ----------------------------------------------------------------------------------------
+%	COVER LETTER
+% ----------------------------------------------------------------------------------------
+
+% To remove the cover letter, comment out this entire block
+
+% \clearpage
+
+% \recipient{HR Departmnet}{Corporation\\123 Pleasant Lane\\12345 City, State} % Letter recipient
+% \date{\today} % Letter date
+% \opening{Dear Sir or Madam,} % Opening greeting
+% \closing{Sincerely yours,} % Closing phrase
+% \enclosure[Attached]{curriculum vit\ae{}} % List of enclosed documents
+
+% \makelettertitle % Print letter title
+
+% \lipsum[1-3] % Dummy text
+
+% \makeletterclosing % Print letter signature
+
+% ----------------------------------------------------------------------------------------
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

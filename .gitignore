@@ -70,3 +70,7 @@ textput.log
 *.out
 *.gz
 *.log
+*.aux
+auto/*
+auto/*.el
+auto/*.pdf
