@@ -6,7 +6,7 @@
 ;;; ZW/Note
 ;; On windows10
 ;; Install MiKTex or texlive 
-;; Add its exe into system-path: "C:/tools/MiKTeX/miktex/bin/x64"
+;; Add its exe into system-path: C:\Users\hyper\AppData\Local\Programs\MiKTeX\miktex\bin\x64
 ;; If met error when F5, which is save-compile-latex; run MiKTex console and updates its packages
 
 ;; On Ubuntu
@@ -17,7 +17,10 @@
 
 (when (maybe-require-package 'auctex)
   (cond ((eq system-type 'darwin)
-         (setq exec-path (append exec-path '("/Library/TeX/texbin/")))))
+         (add-to-list 'exec-path "/Library/TeX/texbin/"))
+        ((eq system-type 'windows-nt)
+         (add-to-list 'exec-path "C:/Users/hyper/AppData/Local/Programs/MikTex/miktex/bin/x64")))
+  
   (when (maybe-require-package 'auctex-latexmk)
     (auctex-latexmk-setup)))
 
