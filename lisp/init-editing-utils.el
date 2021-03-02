@@ -2,11 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 (require-package 'unfill)
-
 (maybe-require-package 'list-unicode-display)
 
-;; disable emacs's automatic backup~ file 
-;; (setq make-backup-files nil)
 
 ;; Move autosave files, 
 (setq auto-save-file-name-transforms
