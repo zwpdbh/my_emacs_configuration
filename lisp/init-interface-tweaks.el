@@ -12,8 +12,9 @@
 ;; customize cursor-type
 (when window-system
   ;; (set-cursor-color "tomato")
-  (setq-default cursor-type '(bar . 2)))
+  (setq-default cursor-type '(bar . 3)))
 ;; ===== make cursor blink forever
+(setq-default blink-cursor-interval 0.618)
 (setq blink-cursor-blinks -1)
 
 ;; ===== reply y/n instead of yes/no

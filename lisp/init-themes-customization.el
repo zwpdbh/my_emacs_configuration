@@ -21,7 +21,9 @@
     (progn
       (set-face-attribute 'default nil
                           :foreground "#c6c6c6"
-                          :background "black"))))
+                          :background "black")))
+  (set-face-attribute 'hl-line nil
+                      :background (face-background 'default)))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
