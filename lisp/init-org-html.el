@@ -157,4 +157,14 @@ publishing directory. Returns output file name."
            :recursive t)
           ("all" :components ("posts" "about" "css" "images" "common-images" "assets")))))
 
+
+;; add dummy vue-mode ob for taking vue and html related note in org
+(after-load 'org
+  (defun org-babel-execute:vue (body params) body))
+
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (add-to-list 'org-structure-template-alist '("vue" . "src vue"))))
+
+
 (provide 'init-org-html)
