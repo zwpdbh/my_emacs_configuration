@@ -70,7 +70,12 @@ FACE defaults to inheriting from default and highlight."
   (require 'smartparens-config)
 
   ;; disable smartparens for certain mode
-  (add-to-list 'sp-ignore-modes-list 'org-mode)
+  ;; (add-to-list 'sp-ignore-modes-list 'org-mode)
+  
+  ;; disable for specific modes
+  (after-load 'org
+              (sp-local-pair '(org-mode) "~" "~" :actions nil)
+              (sp-local-pair '(org-mode) "*" "*" :actions nil))
 
   ;; add addition pairs for certain mode
   ;; It is not a solution, since in c++, we often have cout <<
