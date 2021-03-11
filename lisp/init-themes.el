@@ -33,8 +33,8 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'kaolin-ocean)
-  (setq custom-enabled-theme 'doom-Iosvkem))
+    (setq custom-enabled-theme 'kaolin-galaxy)
+    (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
 (defun zw/load-theme ()
@@ -49,28 +49,33 @@
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
   (if (featurep 'selectrum)
       (funcall 'zw/customize-themes-for-selectrum)
-    (after-load 'selectrum
-      (funcall 'zw/customize-themes-for-selectrum)))
+      (after-load 'selectrum
+                  (funcall 'zw/customize-themes-for-selectrum)))
   
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
-    (after-load 'symbol-overlay
-      (funcall 'zw/customize-themes-for-symbol-overlay)))
+      (after-load 'symbol-overlay
+                  (funcall 'zw/customize-themes-for-symbol-overlay)))
 
   (if (featurep 'indent-guide)
       (funcall 'zw/customize-themes-for-indent-guide)
-    (after-load 'indent-guide
-      (funcall 'zw/customize-themes-for-indent-guide)))
+      (after-load 'indent-guide
+                  (funcall 'zw/customize-themes-for-indent-guide)))
   
   (if (featurep 'dashboard)
       (funcall 'zw/customize-themes-for-dashboard)
-    (after-load 'dashboard
-      (funcall 'zw/customize-themes-for-dashboard)))
+      (after-load 'dashboard
+                  (funcall 'zw/customize-themes-for-dashboard)))
   
   (if (featurep 'org)
       (funcall 'zw/customize-themes-for-org)
-    (after-load 'org
-      (funcall 'zw/customize-themes-for-org)))
+      (after-load 'org
+                  (funcall 'zw/customize-themes-for-org)))
+
+  ;; (if (featurep 'company)
+  ;;     (funcall 'zw/customize-themes-for-company)
+  ;;     (after-load 'company
+  ;;                 (funcall 'zw/customize-themes-for-company)))
 
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 
