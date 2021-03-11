@@ -1,7 +1,7 @@
 ;;; init-themes.el --- Defaults for themes -*- lexical-binding: t -*-
 
 ;; tried themes: doom-themes, color-theme-sanityinc-tomorrow, sanityinc-tomorrow-night, zeno-theme, moe-theme, cloud-theme, kaolin-theme, gruber-darker-theme, nimbus-theme, leuven-theme
-(use-package doom-themes
+(use-package doom-themes  
   :ensure t
   :defer t)
 
