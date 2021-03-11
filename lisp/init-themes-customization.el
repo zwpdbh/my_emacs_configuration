@@ -18,13 +18,12 @@
                             :background "black")
         (set-face-attribute 'font-lock-comment-face nil
                             :foreground "#606873"))
-      (progn
-        (set-face-attribute 'default nil
-                            :foreground "#c6c6c6"
-                            :background "black")))
+    (progn
+      (set-face-attribute 'default nil
+                          :foreground "#c6c6c6"
+                          :background "black")))
   (set-face-attribute 'hl-line nil
                       :underline nil
-                      :foreground (face-foreground 'default)
                       :background (face-background 'default)))
 
 (defun zw/customize-themes-for-dashboard ()
