@@ -18,12 +18,16 @@
   :defer t)
 
 (use-package leuven-theme
-  :ensure t
-  :defer t)
+             :ensure t
+             :defer t)
+
+(use-package zenburn-theme
+             :ensure t
+             :defer t)
 
 (use-package moe-theme
-  :ensure t
-  :defer t)
+             :ensure t
+             :defer t)
 
 
 ;; set default theme
@@ -33,8 +37,8 @@
 
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-dracula)
-  (setq custom-enabled-theme 'doom-Iosvkem))
+    (setq custom-enabled-theme 'doom-solarized-dark)
+    (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
 (defun zw/load-theme ()
