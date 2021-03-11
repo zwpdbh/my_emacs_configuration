@@ -72,10 +72,10 @@
     (after-load 'org
       (funcall 'zw/customize-themes-for-org)))
 
-  ;; (if (featurep 'company)
-  ;;     (funcall 'zw/customize-themes-for-company)
-  ;;     (after-load 'company
-  ;;                 (funcall 'zw/customize-themes-for-company)))
+  (if (featurep 'company)
+      (funcall 'zw/customize-themes-for-company)
+      (after-load 'company
+                  (funcall 'zw/customize-themes-for-company)))
 
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 

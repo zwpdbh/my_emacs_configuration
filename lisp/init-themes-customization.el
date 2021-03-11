@@ -52,19 +52,21 @@
                       :background (face-background 'default t t)))
 
 (defun zw/customize-themes-for-company ()
-  (set-face-attribute 'company-tooltip-common-selection nil
-                      :inherit nil
-                      :foreground "#a9b7ca"
-                      :weight 'bold)
+  ;; (set-face-attribute 'company-tooltip-common-selection nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#a9b7ca"
+  ;;                     :weight 'bold)
 
-  (set-face-attribute 'company-tooltip-selection nil
-                      :inherit nil
-                      :foreground "#a9b7ca"
-                      :background "#3b3559")
+  ;; (set-face-attribute 'company-tooltip-selection nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#a9b7ca"
+  ;;                     :background "#3b3559")
   
-  (set-face-attribute 'company-tooltip-annotation-selection nil
-                      :inherit nil
-                      :foreground "#59b9b4"))
+  ;; (set-face-attribute 'company-tooltip-annotation-selection nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#59b9b4")
+  (set-face-attribute 'company-tooltip nil
+                      :weight 'normal))
 
 
 (defun zw/customize-themes-for-helm ()
