@@ -26,19 +26,15 @@
              :defer t)
 
 (use-package moe-theme
-             :ensure t
-             :defer t)
+  :ensure t
+  :defer t)
 
-
+;; kaolin-ocean
 ;; set default theme
-;; sanityinc-tomorrow-night
-;; sanityinc-tomorrow-bright
-;; gruber-darker
-
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-solarized-dark)
-    (setq custom-enabled-theme 'doom-Iosvkem))
+    (setq custom-enabled-theme 'kaolin-galaxy)
+  (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
 (defun zw/load-theme ()
