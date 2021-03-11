@@ -34,16 +34,16 @@
 
 ;; === Org-download moving images from A to B
 (use-package org-download
-  :commands (org-mode)
-  :ensure t
-  :config
-  (progn
-    (add-hook 'dired-mode-hook 'org-download-enable)))
+             :commands (org-mode)
+             :ensure t
+             :config
+             (progn
+               (add-hook 'dired-mode-hook 'org-download-enable)))
 
-;; ;; Github Flavored Markdown exporter for Org Mode
-;; (when (maybe-require-package 'ox-gfm)
-;;   (eval-after-load "org"
-;;     '(require 'ox-gfm nil t)))
+;; Github Flavored Markdown exporter for Org Mode
+(when (maybe-require-package 'ox-gfm)
+  (after-load 'org
+              (require 'ox-gfm nil t)))
 
 ;;export content of subtrees without their headings
 (after-load 'ox-extra
