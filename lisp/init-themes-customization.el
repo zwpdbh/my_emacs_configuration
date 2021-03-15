@@ -29,7 +29,10 @@
 
   ;; (set-face-attribute 'mode-line nil
   ;;                     :background (face-background 'default))
-  )
+
+  (cond ((string-match-p "kaolin" (symbol-name custom-enabled-theme))
+         (set-face-attribute 'font-lock-keyword-face nil
+                             :foreground "#91f368"))))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
