@@ -1,9 +1,11 @@
 (setq zw/favorite-en-fonts '(
+                             "Go"
+                              "Anonymous Pro"                             
                              "Source Code Pro"
-                             "Anonymous Pro"
+                             "Inconsolata"
+                             "Iosevka Slab"
                              "Ubuntu Mono"                             
                              "Consolas"                             
-                             "Iosevka Slab"
                              "Terminus (TTF)"
                              "Monaco Nerd Font Mono"
                              "Monaco"
