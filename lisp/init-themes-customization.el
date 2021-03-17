@@ -10,32 +10,31 @@
   ;; weyland comment, foreground color: #606873
   
   (if (display-graphic-p)
-      (progn
-        (set-face-attribute 'default nil
-                            :width 'regular
-                            :height 110
-                            :foreground "#a9b7ca"
-                            :background "black")
-        (set-face-attribute 'font-lock-comment-face nil
-                            :foreground "#606873"))
+      (cond ((string-match-p "dracula" (symbol-name custom-enabled-theme))
+             t)
+            (t
+             (set-face-attribute 'default nil
+                                 :width 'regular
+                                 :height 110
+                                 :foreground "#a9b7ca"
+                                 :background "black")
+             (set-face-attribute 'font-lock-comment-face nil
+                                 :foreground "#606873")))
     (progn
       (set-face-attribute 'default nil                          
                           :foreground "#c6c6c6"
                           :background "black")))
-  (set-face-attribute 'hl-line nil
-                      :underline nil
-                      ;; :foreground (face-foreground 'default)
-                      :background (face-background 'default))
-
-  ;; (set-face-attribute 'mode-line nil
-  ;;                     :background (face-background 'default))
 
   (cond ((string-match-p "kaolin" (symbol-name custom-enabled-theme))
          (set-face-attribute 'font-lock-keyword-face nil
                              :foreground "#91f368"))
         (t
          (set-face-attribute 'font-lock-keyword-face nil
-                             :foreground "#50fa7b"))))
+                             :foreground "#50fa7b")))
+  
+  (set-face-attribute 'hl-line nil
+                      :underline nil
+                      :background (face-background 'default)))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
