@@ -33,7 +33,7 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-oceanic-next)
+    (setq custom-enabled-theme 'doom-dracula)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
@@ -42,6 +42,7 @@
   (require 'init-themes-customization)
   
   (load-theme custom-enabled-theme)
+  
   (zw/customize-themes-for-general)
   (zw/customize-themes-for-parenthesis)
   (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)

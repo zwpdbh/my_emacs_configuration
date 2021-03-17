@@ -35,7 +35,7 @@
                              :foreground "#91f368"))
         (t
          (set-face-attribute 'font-lock-keyword-face nil
-                             :foreground "#91f368"))))
+                             :foreground "#50fa7b"))))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
