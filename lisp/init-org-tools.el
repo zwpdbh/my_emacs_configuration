@@ -81,9 +81,9 @@
 
   (after-load 'org
     ;; Add additional tags shortcut when adding tags through C-c C-q.
-    (add-to-list 'org-tag-alist '("Emacs" . ?e))
-    (add-to-list 'org-tag-alist '("howto" . ?h))
-    (add-to-list 'org-tag-alist '("TOC" . ?t))))
+    (add-to-list 'org-tag-alist '("Lisp" . ?L))
+    (add-to-list 'org-tag-alist '("Emacs" . ?E))
+    (add-to-list 'org-tag-alist '("TODO" . ?T))))
 
 
 ;; ;; Set the background of org-exported <code> blocks according to theme
