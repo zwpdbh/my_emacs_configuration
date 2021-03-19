@@ -97,7 +97,8 @@
 	\item On-Premise使用Ansible
 	\end{itemize}}
 
-\cventry{2019/05 -- }{Admin-dashbaord for stateful service based on AWS}{}{}{由于我们很多的服务是使用AWS cloud, 为了控制各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务. 其内容包括:}{
+\cventry{2019/05 -- }{Admin-dashbaord for stateful service based on AWS}{}{}{由于我们很多的服务是使用AWS cloud, 为了控制
+	各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务}{
 	\begin{itemize}
 	\item 日志搜索
 	\item AWS EC2 task 管理
@@ -106,10 +107,10 @@
 	\end{itemize}
 }
 
-\cventry{2019/01 -- }{Tester for end-to-end test}{}{}{基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 我的职责包括:}{
+\cventry{2019/01 -- }{Tester for end-to-end test}{}{}{基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测}{
 	\begin{itemize}
-	\item 使用nodejs, websocket和socket 来实现这个脚本工具.
-	\item 自动化部署到AWS, 通过GitLab CICD pipeline 和terraform
+	\item 使用nodejs和websocket连接stateful-service, 处理返回结果并更新结果到AWS Cloud Metrics.
+	\item 自动化部署到AWS Lambda: 通过GitLab CICD pipeline 和terraform
 	\item Pagerduty oncall排查stateful service 故障
 	\end{itemize}
 }
