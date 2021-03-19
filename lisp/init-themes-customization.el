@@ -227,8 +227,8 @@
                       :background nil))
 
 (defun zw/customize-themes-for-org ()
-  ;; ;; Make org-mode markup symbols invisible
-  ;; (setq org-hide-emphasis-markers t)
+  ;; Make org-mode markup symbols invisible
+  (setq org-hide-emphasis-markers t)
   
   (setq org-emphasis-alist
         '(("*" (:foreground "gold"))
