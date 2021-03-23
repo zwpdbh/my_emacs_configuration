@@ -27,6 +27,9 @@
 (global-set-key (kbd "s-n") (kbd "C-S-n"))
 (global-set-key (kbd "s-p") (kbd "C-S-p"))
 
+;; for quickly access replace string
+(global-set-key (kbd "C-c s") 'replace-string)
+
 ;; set paredit-backward and paredit-forward
 ;; (global-set-key (kbd "<f8>") (kbd "C-M-f"))
 ;; (global-set-key (kbd "<f7>") (kbd "C-M-b"))
