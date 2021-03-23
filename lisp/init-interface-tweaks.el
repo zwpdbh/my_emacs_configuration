@@ -11,7 +11,7 @@
 
 ;; customize cursor-type
 (when window-system
-  ;; (set-cursor-color "tomato")
+  (set-cursor-color "#a9b7ca")
   (setq-default cursor-type t))
 ;; ===== make cursor blink forever
 (setq-default blink-cursor-interval 0.618)
