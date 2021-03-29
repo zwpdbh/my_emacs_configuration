@@ -41,4 +41,8 @@
 (add-hook 'flycheck-mode-hook 'zw/use-eslint-from-node-modules)
 
 
+(after-load 'org
+  (defun org-babel-execute:web (body params) body)
+  (add-to-list 'org-structure-template-alist '("web" . "src web")))
+
 (provide 'init-web)
