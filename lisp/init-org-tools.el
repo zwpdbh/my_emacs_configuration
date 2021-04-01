@@ -79,12 +79,11 @@
   ;; enable in markdown, too
   (add-hook 'markdown-mode-hook 'toc-org-mode))
 
-;; ;; Add additional tags shortcut when adding tags through C-c C-q.
-;; (after-load 'org
-;;   (add-to-list 'org-tag-alist '("Lisp" . ?l))
-;;   (add-to-list 'org-tag-alist '("Emacs" . ?e))
-;;   (add-to-list 'org-tag-alist '("TODO" . ?t))
-;;   (add-to-list 'org-tag-alist '("Go" . ?g)))
+;; Add additional tags shortcut when adding tags through C-c C-q.
+(after-load 'org
+  (add-to-list 'org-tag-alist '("Lisp" . ?l))
+  (add-to-list 'org-tag-alist '("Emacs" . ?e))
+  (add-to-list 'org-tag-alist '("TODO" . ?t)))
 
 
 ;; ;; Set the background of org-exported <code> blocks according to theme
