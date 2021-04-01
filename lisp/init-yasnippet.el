@@ -1,5 +1,5 @@
 ;; ;; my private snippets, should be placed before enabling yasnippet
-;; (setq my-yasnippets (expand-file-name "~/.emacs.d/my-yasnippets"))
+(setq my-yasnippets (expand-file-name "~/.emacs.d/my-yasnippets"))
 
 (when (maybe-require-package 'yasnippet)
   (when (maybe-require-package 'yasnippet-snippets)))
@@ -119,9 +119,9 @@
     (let* ((yas-prompt-functions '(yas-completing-prompt)))
       ad-do-it))
 
-  ;; (when (and  (file-exists-p my-yasnippets)
-  ;;             (not (member my-yasnippets yas-snippet-dirs)))
-  ;;   (add-to-list 'yas-snippet-dirs my-yasnippets))
+  (when (and  (file-exists-p my-yasnippets)
+              (not (member my-yasnippets yas-snippet-dirs)))
+    (add-to-list 'yas-snippet-dirs my-yasnippets))
   
   (yas-reload-all))
 
