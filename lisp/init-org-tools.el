@@ -80,10 +80,12 @@
   (add-hook 'markdown-mode-hook 'toc-org-mode))
 
 ;; Add additional tags shortcut when adding tags through C-c C-q.
+;; See: https://orgmode.org/manual/Setting-Tags.html#Setting-tags
 (after-load 'org
-  (add-to-list 'org-tag-alist '("Lisp" . ?l))
-  (add-to-list 'org-tag-alist '("Emacs" . ?e))
-  (add-to-list 'org-tag-alist '("TODO" . ?t)))
+  (add-to-list 'org-tag-alist '("todo" . ?t))
+  (add-to-list 'org-tag-alist '("algorithm" . ?a))
+  (add-to-list 'org-tag-alist '("elisp" . ?e))
+  (add-to-list 'org-tag-alist '("common-lisp" . ?c)))
 
 
 ;; ;; Set the background of org-exported <code> blocks according to theme
