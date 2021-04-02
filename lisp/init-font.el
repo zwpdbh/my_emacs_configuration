@@ -1,8 +1,9 @@
 (setq zw/favorite-en-fonts '(
+                             "Iosevka Curly Slab"
                              "Iosevka Slab"
-                             "Anonymous Pro"                             
-                             "Source Code Pro"
+                             "Anonymous Pro"
                              "Inconsolata"
+                             "Source Code Pro"
                              "Consolas"                             
                              "Ubuntu Mono"                             
                              "Terminus (TTF)"
