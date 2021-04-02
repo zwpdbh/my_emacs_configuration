@@ -1,6 +1,6 @@
 (setq zw/favorite-en-fonts '(
-                             "Iosevka Curly Slab"
                              "Iosevka Slab"
+                             "Iosevka Curly Slab"
                              "Anonymous Pro"
                              "Inconsolata"
                              "Source Code Pro"
