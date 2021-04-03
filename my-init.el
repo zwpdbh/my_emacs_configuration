@@ -9,6 +9,9 @@
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
 ;;(setq debug-on-error t)
 
+;; Disable startup warning: "cl is deprecated"
+(setq byte-compile-warnings '(cl-functions))
+
 ;; (setq my-emacs-root-directory "~/.emacs.d/")
 ;; (add-to-list 'load-path (expand-file-name "lisp" my-emacs-root-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
