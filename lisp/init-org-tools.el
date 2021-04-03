@@ -80,7 +80,8 @@
   (add-hook 'org-mode-hook 'toc-org-mode)
   ;; enable in markdown, too
   (add-hook 'markdown-mode-hook 'toc-org-mode)
-  (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point)
+  (after-load 'markdown-mode
+    (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point))
 
   (after-load 'org
     (add-to-list 'org-tag-alist '("TOC" . ?T))))
