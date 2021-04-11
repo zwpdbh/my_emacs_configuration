@@ -46,10 +46,14 @@
 ;; use c-c c-c to execute a lisp function
 (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
-;; keyboard macro
-(global-set-key (kbd "<f1>") #'toggle-full-window)
-(global-set-key (kbd "<f2>") #'kmacro-start-macro)
-(global-set-key (kbd "<f3>") #'kmacro-end-macro)
+
+(after-load 'swiper
+  (global-set-key (kbd "C-s") 'swiper))
+(after-load 'ivy
+  (global-set-key (kbd "<f1>") 'ivy-resume))
+(global-set-key (kbd "<f2>") #'toggle-full-window)
+;; (global-set-key (kbd "<f2>") #'kmacro-start-macro)
+;; (global-set-key (kbd "<f3>") #'kmacro-end-macro)
 (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
 
 

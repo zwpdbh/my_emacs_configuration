@@ -158,7 +158,7 @@
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
-  ;; make ivy current match background lighter
+  ;; ;; make ivy current match background lighter
   (set-face-attribute 'ivy-current-match nil
                       :weight 'normal
                       :foreground (face-foreground 'default t t)
@@ -183,48 +183,14 @@
                       :weight 'normal
                       :underline nil
                       :foreground "Yellow"
-                      :background (face-background 'default t t))
-  
-  (set-face-attribute 'ivy-grep-info nil
-                      :weight 'normal
-                      :foreground "#4F9FD2"))
-
+                      :background (face-background 'default t t)))
 
 (defun zw/customize-themes-for-swiper ()
   (set-face-attribute 'swiper-line-face nil
-                      :inherit nil
-                      :weight 'bold
+                      :weight 'normal
                       :underline nil
                       :foreground (face-foreground 'default t t)
-                      :background "#3b3559")
-  
-  (set-face-attribute 'swiper-match-face-1 nil
-                      :inherit nil
-                      :weight 'normal
-                      :underline t
-                      :foreground (face-foreground 'default t t)
-                      :background nil)
-
-  (set-face-attribute 'swiper-match-face-2 nil
-                      :inherit nil
-                      :weight 'normal
-                      :underline t
-                      :foreground (face-foreground 'default t t)
-                      :background nil)
-
-  (set-face-attribute 'swiper-match-face-3 nil
-                      :inherit nil
-                      :weight 'normal
-                      :underline t
-                      :foreground (face-foreground 'default t t)
-                      :background nil)
-
-  (set-face-attribute 'swiper-match-face-4 nil
-                      :inherit nil
-                      :weight 'normal
-                      :underline t
-                      :foreground (face-foreground 'default t t)
-                      :background nil))
+                      :background "#3b3559"))
 
 (defun zw/customize-themes-for-org ()
   ;; Make org-mode markup symbols invisible

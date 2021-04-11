@@ -76,7 +76,17 @@
   (if (featurep 'company)
       (funcall 'zw/customize-themes-for-company)
       (after-load 'company
-                  (funcall 'zw/customize-themes-for-company)))
+        (funcall 'zw/customize-themes-for-company)))
+
+  (if (featurep 'swiper)
+      (funcall 'zw/customize-themes-for-swiper)
+    (after-load 'swiper
+      (funcall 'zw/customize-themes-for-swiper)))
+  
+  (if (featurep 'ivy)
+      (funcall 'zw/customize-themes-for-ivy)
+    (after-load 'ivy
+      (funcall 'zw/customize-themes-for-ivy)))
 
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 
