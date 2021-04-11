@@ -10,5 +10,8 @@
 (use-package swiper
   :ensure t)
 
+(when (maybe-require-package 'swiper)
+  (global-set-key (kbd "C-s") 'swiper))
+
 
 (provide 'init-counsel-ivy-swiper)
