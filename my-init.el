@@ -131,7 +131,7 @@
 (require 'init-windows)
 
 (require 'init-editing-utils)
-(require 'init-mmm)
+;; (require 'init-mmm)
 (require 'init-vc)
 (require 'init-git)
 
@@ -145,7 +145,7 @@
 ;; === programing language related ===
 (require-init 'init-company)
 (require 'init-counsel-etags)
-(require 'init-lsp)
+;; (require 'init-lsp)
 
 (require 'init-terraform)
 (require-init 'init-eldoc)
