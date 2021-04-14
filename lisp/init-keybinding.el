@@ -1,3 +1,5 @@
+;; Use C-h b runs the command helm-descbinds to show all keybindings
+
 ;; note about keybindings in terminal, two scnarios could happen
 ;; 1) key from outside is not mapped currectly
 ;; 2) key from outside is not mapped at all!

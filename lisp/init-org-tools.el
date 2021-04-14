@@ -73,11 +73,17 @@
 ;;     (require 'ox-pandoc)))
 
 
+;; Up-to-date table of contents in org files under a heading with tag: TOC
+;; So, create "Table of content" heading, then add it with tag: TOC.
+;; Now, anytime, you save the org file, it will generate/update table-of-content under that heading.
 (when (maybe-require-package 'toc-org)
   (add-hook 'org-mode-hook 'toc-org-mode)
-
   ;; enable in markdown, too
-  (add-hook 'markdown-mode-hook 'toc-org-mode))
+  (add-hook 'markdown-mode-hook 'toc-org-mode)
+  (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point)
+
+  (after-load 'org
+    (add-to-list 'org-tag-alist '("TOC" . ?T))))
 
 ;; Add additional tags shortcut when adding tags through C-c C-q.
 ;; See: https://orgmode.org/manual/Setting-Tags.html#Setting-tags
@@ -102,5 +108,31 @@
 ;; 	    (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
 ;; 		        my-pre-bg my-pre-fg))))))
 ;; (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+
+
+;; By John Kitchin:
+;; https://emacs.stackexchange.com/questions/29385/generate-a-toc-index-org-file-out-our-headings-from-all-org-files
+(defun zw/org-toc ()
+  "List all headings in your org file from current folder recursively."
+  (interactive)
+  (let ((files (f-entries "." (lambda (f) (f-ext? f "org")) t))
+        (headlines '())
+        choice) 
+    (loop for file in files do
+          (with-temp-buffer 
+            (insert-file-contents file) 
+            (goto-char (point-min))
+            (while (re-search-forward org-heading-regexp nil t)
+              (cl-pushnew (list
+                           (format "%-80s (%s)"
+                                   (match-string 0)
+                                   (file-name-nondirectory file))
+                           :file file
+                           :position (match-beginning 0))
+                          headlines))))
+    (setq choice
+          (completing-read "Headline: " (reverse headlines)))
+    (find-file (plist-get (cdr (assoc choice headlines)) :file))
+    (goto-char (plist-get (cdr (assoc choice headlines)) :position))))
 
 (provide 'init-org-tools)
