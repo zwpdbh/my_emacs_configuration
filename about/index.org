@@ -71,10 +71,12 @@
    - Good understanding about operating system (Unix like system).
 
 ** Strong at
+   - Self-driven, currently using Go to learn [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]].
    - Object-oriented programming with Java and C++.
    - Principles of designing a database, use of a database management system and implementation of the underlying database management system.
 
 ** Experienced
+   - Golang
    - Nodejs
    - Vuejs
    - Python
