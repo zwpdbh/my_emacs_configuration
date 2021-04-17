@@ -20,19 +20,22 @@
        (setq erlang-root-dir "/usr/local/otp")))
 
 (when (executable-find "erl")
-  (require 'erlang-start)
+  (defvar erlang-emacs-dir)
+  (cond (*win64*
+         (setq erlang-emacs-dir "c:/Program Files/erl-23.0/lib/tools-3.4/emacs/")
+         (add-to-list 'load-path erlang-emacs-dir))
+        (t
+         (setq erlang-emacs-dir "/usr/lib/erlang/lib/tools-2.11.1/emacs/")
+         (add-to-list 'load-path erlang-emacs-dir)))
 
-  ;; The OTP emacs mode doesn't come with some of my commonly used files that are Erlang code or terms.
-  (add-to-list 'auto-mode-alist '("rebar.config" . erlang-mode))
-  (add-to-list 'auto-mode-alist '("rebar.config.script" . erlang-mode))
-  (add-to-list 'auto-mode-alist '("app.config" . erlang-mode))
-  (add-to-list 'auto-mode-alist '("\\.erlang$" . erlang-mode))
-  ;;TODO: ??Have to set it again to make erlang could be loaded
-  (add-hook 'after-init-hook '(lambda ()
-                                (cond (*win64*
-                                       (add-to-list 'load-path "c:/Program Files/erl-23.0/lib/tools-3.4/emacs"))
-                                      (t
-                                       (add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.11.1/emacs"))))))
+  (when (file-exists-p (concat erlang-emacs-dir "erlang-start.el"))
+    (require 'erlang-start)
+    ;; The OTP emacs mode doesn't come with some of my commonly used files that are Erlang code or terms.
+    (add-to-list 'auto-mode-alist '("rebar.config" . erlang-mode))
+    (add-to-list 'auto-mode-alist '("rebar.config.script" . erlang-mode))
+    (add-to-list 'auto-mode-alist '("app.config" . erlang-mode))
+    (add-to-list 'auto-mode-alist '("\\.erlang$" . erlang-mode))))
+
 
 ;; set LFE where lfe-dir is where lfe installed
 (setq lfe-dir (concat (getenv "HOME") "/.cache/rebar3/plugins/lfe"))
