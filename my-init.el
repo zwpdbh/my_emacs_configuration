@@ -158,8 +158,8 @@
 (require-init 'init-racket)
 (require-init 'init-scheme)
 (require-init 'init-clojure)
+(require 'init-erlang)
 (require-init 'init-lisp-tool)
-
 
 (require-init 'init-clang-format)
 (require-init 'init-yaml)
@@ -178,7 +178,6 @@
 
 (require-init 'init-go)
 (require-init 'init-R)
-(require 'init-erlang)
 
 (require-init 'init-org)
 (require-init 'init-org-babel)
