@@ -34,6 +34,14 @@
                                       (t
                                        (add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.11.1/emacs"))))))
 
+;; set LFE where lfe-dir is where lfe installed
+(setq lfe-dir (concat (getenv "HOME") "/.cache/rebar3/plugins/lfe"))
+(add-to-list 'load-path (concat lfe-dir "/emacs"))
+
+(when (load "lfe-mode.el" t)
+  (add-to-list 'auto-mode-alist '("\\.lfe$" . lfe-mode))
+  (require 'lfe-start))
+
 
 (provide 'init-erlang)
 ;;; init-erlang ends here
