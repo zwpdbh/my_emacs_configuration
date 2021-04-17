@@ -60,6 +60,7 @@
             (defun org-babel-execute:cmake (body params) body)
             (defun org-babel-execute:terraform (body params) body)
             (defun org-babel-execute:racket (body params) body)
+            (defun org-babel-execute:make (body params) body)
             
             (org-babel-do-load-languages
              'org-babel-load-languages
@@ -88,7 +89,8 @@
             (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
             (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
             (add-to-list 'org-structure-template-alist '("text" . "src text"))
-            (add-to-list 'org-structure-template-alist '("erlang" . "src erlang")))
+            (add-to-list 'org-structure-template-alist '("erlang" . "src erlang"))
+            (add-to-list 'org-structure-template-alist '("makefile" . "src makefile")))
 
 
 ;; Do not use flycheck in org-src-mode since it is used most of time for documentation

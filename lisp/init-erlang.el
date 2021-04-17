@@ -40,7 +40,11 @@
 
 (when (load "lfe-mode.el" t)
   (add-to-list 'auto-mode-alist '("\\.lfe$" . lfe-mode))
-  (require 'lfe-start))
+  (require 'lfe-start)
+
+  (after-load 'org
+    (defun org-babel-execute:lfe (body params) body)
+    (add-to-list 'org-structure-template-alist '("lfe" . "src lfe"))))
 
 
 (provide 'init-erlang)
