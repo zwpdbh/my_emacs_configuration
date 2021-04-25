@@ -19,6 +19,8 @@
        (add-to-list 'exec-path "/usr/local/bin")
        (setq erlang-root-dir "/usr/local/otp")))
 
+;; When Erlang has been installed, it by default contains elisp code for Emacs to use.
+;; Configure to load those .el files for erlang-mode
 (when (executable-find "erl")
   (defvar erlang-emacs-dir)
   (cond (*win64*
@@ -37,7 +39,8 @@
     (add-to-list 'auto-mode-alist '("\\.erlang$" . erlang-mode))))
 
 
-;; set LFE where lfe-dir is where lfe installed
+;; Support LFE(lisp-flavoured-erlang)
+;; As LFE installed, it ships with .el configuration for Emacs. 
 (setq lfe-dir (concat (getenv "HOME") "/.cache/rebar3/plugins/lfe"))
 (add-to-list 'load-path (concat lfe-dir "/emacs"))
 
