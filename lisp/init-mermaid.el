@@ -25,10 +25,9 @@
   (when (maybe-require-package 'ob-mermaid)
     (setq ob-mermaid-cli-path "/usr/local/binmmdc")
 
-    (add-hook 'org-mode-hook
-              '(lambda ()
-                 (add-to-list 'zw/org-babel-evaluate-whitelist "mermaid")
-                 (add-to-list 'zw/org-babel-load-language-list '(mermaid . t))
-                 (add-to-list 'org-structure-template-alist '("mermaid" . "src mermaid"))))))
+    (after-load 'org
+      (add-to-list 'zw/org-babel-evaluate-whitelist "mermaid")
+      (add-to-list 'zw/org-babel-load-language-list '(mermaid . t))
+      (add-to-list 'org-structure-template-alist '("mermaid" . "src mermaid")))))
 
 (provide 'init-mermaid)

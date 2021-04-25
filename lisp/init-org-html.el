@@ -160,11 +160,8 @@ publishing directory. Returns output file name."
 
 ;; add dummy vue-mode ob for taking vue and html related note in org
 (after-load 'org
-  (defun org-babel-execute:vue (body params) body))
-
-(add-hook 'org-mode-hook
-          '(lambda ()
-             (add-to-list 'org-structure-template-alist '("vue" . "src vue"))))
+  (defun org-babel-execute:vue (body params) body)
+  (add-to-list 'org-structure-template-alist '("vue" . "src vue")))
 
 
 (provide 'init-org-html)

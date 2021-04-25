@@ -142,9 +142,10 @@
 
 ;; CDLaTeX is a minor mode supporting fast insertion of environment templates and math stuff in LaTeX.
 (when (maybe-require-package 'cdlatex)
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (add-hook 'org-mode-hook
             (lambda ()
-              (org-cdlatex-mode)
+              (turn-on-org-cdlatex)
               (add-hook 'post-self-insert-hook
                         #'(lambda ()
                             (when (looking-back (rx "$ "))

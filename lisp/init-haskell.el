@@ -2,10 +2,9 @@
 ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md#using-emacs-for-haskell-development
 
 (when (maybe-require-package 'haskell-mode)
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (add-to-list 'zw/org-babel-evaluate-whitelist "haskell")
-               (add-to-list 'org-structure-template-alist '("haskell" . "src haskell :results value"))))
+  (after-load 'org
+    (add-to-list 'zw/org-babel-evaluate-whitelist "haskell")
+    (add-to-list 'org-structure-template-alist '("haskell" . "src haskell :results value")))
   
   (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
     (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
