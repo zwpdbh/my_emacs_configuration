@@ -54,10 +54,10 @@
           (lambda ()
             (toggle-truncate-lines t)))
 
-(add-hook 'org-mode-hook
-          '(lambda ()
-             (add-to-list 'zw/org-babel-evaluate-whitelist "sql")
-             (add-to-list 'zw/org-babel-load-language-list '(sql . t))
-             (add-to-list 'org-structure-template-alist '("sql" . "src sql"))))
+(after-load 'org
+  (add-to-list 'zw/org-babel-evaluate-whitelist "sql")
+  (add-to-list 'zw/org-babel-load-language-list '(sql . t))
+  (add-to-list 'org-structure-template-alist '("sql" . "src sql")))
+
 
 (provide 'init-sql)
