@@ -32,7 +32,6 @@
         (js . t)
         (python . t)
         (R . t)
-        (plantuml . t)        
         (http . t)
         (latex . t)
         (erlang . t)

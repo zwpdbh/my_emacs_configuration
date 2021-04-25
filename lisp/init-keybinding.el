@@ -38,6 +38,9 @@
 (global-set-key (kbd "<f8>") 'paredit-forward)
 (global-set-key (kbd "<f7>") 'paredit-backward)
 
+;; use f11 to do align text
+(global-set-key (kbd "<f11>") 'align-regexp)
+
 ;; use c-z to undo
 (global-set-key (kbd "C-z") #'undo)
 
