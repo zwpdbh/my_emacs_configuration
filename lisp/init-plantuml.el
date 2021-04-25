@@ -11,9 +11,6 @@
                                  (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))
 
 (after-load 'org
-  (add-to-list 'org-structure-template-alist '("plantuml" . "src plantuml"))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((plantuml . t))))
+  (add-to-list 'org-structure-template-alist '("plantuml" . "src plantuml")))
 
 (provide 'init-plantuml)

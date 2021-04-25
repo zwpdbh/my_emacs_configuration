@@ -35,6 +35,7 @@
         (http . t)
         (latex . t)
         (erlang . t)
+        (plantuml . t)
         (haskell . t)))
 
 (add-hook 'org-mode-hook
