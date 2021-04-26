@@ -14,16 +14,6 @@
      'org-babel-load-languages
      '((go . t)))))
 
-;; configure lsp related parameters
-(defun zw/lsp-go-steup ()
-  (setq lsp-gopls-use-placeholders t)
-  (lsp-register-custom-settings
-   '(("gopls.completeUnimported" t t)
-     ("gopls.staticcheck" t t)))
-  
-  (add-hook 'before-save-hook #'lsp-organize-imports t t)
-  (zw/customize-lsp-ui-key-bindings))
-
 (add-hook 'go-mode-hook
           '(lambda ()
              (add-hook 'before-save-hook 'gofmt-before-save nil 'local)
@@ -39,10 +29,23 @@
                  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
                  (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point)))))
 
+
+
 ;; - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
 ;; - install it by ~go get golang.org/x/tools/gopls@latest~
 ;; Need to install gopls to use lsp
 ;; go get golang.org/x/tools/gopls@latest
+
+;; ;; configure lsp related parameters
+;; (defun zw/lsp-go-steup ()
+;;   (setq lsp-gopls-use-placeholders t)
+;;   (lsp-register-custom-settings
+;;    '(("gopls.completeUnimported" t t)
+;;      ("gopls.staticcheck" t t)))
+  
+;;   (add-hook 'before-save-hook #'lsp-organize-imports t t)
+;;   (zw/customize-lsp-ui-key-bindings))
+
 ;; (add-hook 'go-mode-hook #'lsp-deferred)
 ;; (add-hook 'go-mode-hook '(lambda ()
 ;;                           #'zw/lsp-go-steup))

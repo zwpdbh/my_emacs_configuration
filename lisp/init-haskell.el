@@ -43,7 +43,7 @@
     (let ((default-directory (my/project-root)))
       (compile "hlint .")))
 
-  (defun zw/haskell-hlint-buffer ()
+  (defun zw/haskell-lint-buffer ()
     "Run  hlint over the current buffer."
     (interactive)
     (let* ((current-file (buffer-file-name))
