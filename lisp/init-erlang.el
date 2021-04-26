@@ -43,11 +43,33 @@
 ;; As LFE installed, it ships with .el configuration for Emacs. 
 (setq lfe-dir (concat (getenv "HOME") "/.cache/rebar3/plugins/lfe"))
 (add-to-list 'load-path (concat lfe-dir "/emacs"))
+;; add lfe execution file
+(add-to-list 'exec-path (concat lfe-dir "/bin"))
 
 (when (load "lfe-mode.el" t)
   (add-to-list 'auto-mode-alist '("\\.lfe$" . lfe-mode))
   (require 'lfe-start)
 
+  ;; ref: https://erickgnavar.github.io/emacs-config/#org092dac2
+  ;; sexp eval for LFE-mode
+  (defun zw/lfe-eval-buffer ()
+    "Send current buffer to inferior LFE process."
+    (interactive)
+    (if (eq (get-buffer-window "*inferior-lfe*") nil)
+        (run-lfe nil))
+    (lfe-eval-region (point-min) (point-max) nil))
+  
+  ;; Copied from default lfe-eval-last-sexp
+  (defun zw/lfe-eval-last-sexp (&optional and-go)
+    "Send the previous sexp to the inferior LFE process. `AND-GO' means switch to the LFE buffer afterwards."
+    (interactive "P")
+    (if (eq (get-buffer-window "*inferior-lfe*") nil)
+        (run-lfe nil))
+    (lfe-eval-region (save-excursion (backward-sexp) (point)) (point) and-go))
+  
+  (define-key lfe-mode-map (kbd "C-c C-e") 'zw/lfe-eval-buffer)  
+  (define-key lfe-mode-map (kbd "C-c C-c") 'zw/lfe-eval-last-sexp)
+  
   (after-load 'org
     (defun org-babel-execute:lfe (body params) body)
     (add-to-list 'org-structure-template-alist '("lfe" . "src lfe"))))
