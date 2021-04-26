@@ -35,7 +35,32 @@
     (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
     (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
     (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
-    (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile)))
+    (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+  (defun zw/haskell-lint ()
+    "Run  hlint over the current project."
+    (interactive)
+    (let ((default-directory (my/project-root)))
+      (compile "hlint .")))
+
+  (defun zw/haskell-hlint-buffer ()
+    "Run  hlint over the current buffer."
+    (interactive)
+    (let* ((current-file (buffer-file-name))
+           (default-directory (my/project-root)))
+      (compile (concat "hlint " current-file))))
+
+
+  (reformatter-define haskell-format
+    :program "hindent"
+    :group 'haskell)
+
+  (add-hook 'haskell-mode-hook
+            '(lambda ()
+               (add-hook 'before-save-hook 'haskell-format-buffer nil 'local))))
+
+
+
 
 ;; ;; TODO: install ghc from cabal
 ;; (when (maybe-require-package 'company-ghc)

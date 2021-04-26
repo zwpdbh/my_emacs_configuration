@@ -26,7 +26,7 @@
 
 (add-hook 'go-mode-hook
           '(lambda ()
-             (add-hook 'before-save-hook 'gofmt-before-save)
+             (add-hook 'before-save-hook 'gofmt-before-save nil 'local)
              ;; Godef, lets you quickly jump around the code
              ;; Install it by: go get github.com/rogpeppe/godef
              (if (locate-file "godef" exec-path)
