@@ -25,8 +25,7 @@
       (t
        (setq erlang-root-dir "/usr/lib/erlang/")
        (setq erlang-man-root-dir (concat erlang-root-dir "man"))
-       (add-to-list 'exec-path "/usr/local/bin")
-       (add-to-list 'exec-path "/usr/bin")
+       (add-to-list 'exec-path (concat erlang-root-dir "bin"))
        (add-to-list 'load-path (concat erlang-root-dir "lib/tools-2.11.1/emacs"))))
 
 (when (executable-find "erl")
