@@ -20,3 +20,6 @@
 [submodule "site-lisp/mmm-mode"]
 	path = site-lisp/mmm-mode
 	url = https://github.com/purcell/mmm-mode.git
+[submodule "site-lisp/distel"]
+	path = site-lisp/distel
+	url = https://github.com/massemanet/distel.git
