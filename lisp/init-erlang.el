@@ -32,10 +32,10 @@
   (require 'erlang-start)
   (setq inferior-erlang-machine-options '("-sname" "emacs")))
 
-;; TODO:: not very powerful, try it after feel the limitation
-;; ref: https://github.com/s-kostyaev/ivy-erlang-complete
-(when (maybe-require-package 'ivy-erlang-complete))
-(when (maybe-require-package 'company-erlang))
+;; ;; TODO:: not very powerful, try it after feel the limitation
+;; ;; ref: https://github.com/s-kostyaev/ivy-erlang-complete
+;; (when (maybe-require-package 'ivy-erlang-complete))
+;; (when (maybe-require-package 'company-erlang))
 
 (add-hook 'erlang-mode-hook
           '(lambda ()
