@@ -29,16 +29,14 @@
        (add-to-list 'exec-path "/usr/bin")
        (add-to-list 'load-path (concat erlang-root-dir "lib/tools-2.11.1/emacs"))))
 
-;; for loading https://github.com/massemanet/distel
-(add-to-list 'load-path
-             "~/.emacs.d/site-lisp/distel/elisp")
-
 (when (executable-find "erl")
   (require 'erlang-start)
 
   (after-load 'erlang
     ;; ref: http://alexott.net/en/writings/emacs-devenv/EmacsErlang.html
     ;; Installation & customization of distel
+    ;; for loading https://github.com/massemanet/distel
+    (add-to-list 'load-path "~/.emacs.d/site-lisp/distel/elisp")
     (require 'distel)
     (distel-setup)))
 
