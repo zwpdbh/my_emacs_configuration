@@ -30,18 +30,21 @@
 
 (when (executable-find "erl")
   (require 'erlang-start)
-
-  (after-load 'erlang
-    ;; ref: http://alexott.net/en/writings/emacs-devenv/EmacsErlang.html
-    ;; Installation & customization of distel
-    ;; for loading https://github.com/massemanet/distel
-    (add-to-list 'load-path "~/.emacs.d/site-lisp/distel/elisp")
-    (require 'distel)
-    (distel-setup)))
+  (setq inferior-erlang-machine-options '("-sname" "emacs")))
 
 (add-hook 'erlang-mode-hook
           '(lambda ()
-             (setq inferior-erlang-machine-options '("-sname" "emacs"))))
+             (define-key erlang-mode-map (kbd "C-c C-c") 'erlang-compile)))
+
+;; ;; TODO:: could not compile the downloaded package
+;; ;; Tracking issue: https://github.com/massemanet/distel/issues/70
+;; ;; ref: http://alexott.net/en/writings/emacs-devenv/EmacsErlang.html
+;; ;; Installation & customization of distel
+;; (after-load 'erlang
+;;   (add-to-list 'load-path "~/.emacs.d/site-lisp/distel/elisp")
+;;   (require 'distel)
+;;   (distel-setup))
+
 
 
 ;; Support LFE(lisp-flavoured-erlang)
