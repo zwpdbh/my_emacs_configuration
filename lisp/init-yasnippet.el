@@ -4,17 +4,11 @@
 (when (maybe-require-package 'yasnippet)
   (when (maybe-require-package 'yasnippet-snippets)))
 
-(defun add-yasnippet-to-company-backends (backends v)
-  (if (not (listp (car backends)))
-      (add-to-list (quote backends) v)
-    (cons (add-yasnippet-to-company-backends (car backends) v)
-          (cdr backends))))
-
 (defun yasnippet-generic-setup-for-mode-hook ()
   (unless (is-buffer-file-temp)
     (yas-minor-mode 1)
     (when (featurep 'company)
-      (setq-local company-backends (add-yasnippet-to-company-backends company-backends 'company-yasnippet)))))
+      (setq-local company-backends (zw/add-to-company-backends company-backends 'company-yasnippet)))))
 
 (add-hook 'prog-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'text-mode-hook 'yasnippet-generic-setup-for-mode-hook)

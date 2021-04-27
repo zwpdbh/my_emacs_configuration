@@ -20,6 +20,14 @@
       #'company-quickhelp-mode
       (define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))))
 
+;; Add a new backend to the head of company-backends recursively:
+;; If the head is a list, add new backen into the list at head.
+(defun zw/add-to-company-backends (backends v)
+  (if (not (listp (car backends)))
+      (add-to-list (quote backends) v)
+    (cons (zw/add-to-company-backends (car backends) v)
+          (cdr backends))))
+
 
 (after-load 'company
   (zw/set-company-backends-global)
