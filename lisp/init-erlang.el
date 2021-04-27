@@ -40,6 +40,10 @@
     (require 'distel)
     (distel-setup)))
 
+(add-hook 'erlang-mode-hook
+          '(lambda ()
+             (setq inferior-erlang-machine-options '("-sname" "emacs"))))
+
 
 ;; Support LFE(lisp-flavoured-erlang)
 ;; As LFE installed, it ships with .el configuration for Emacs. 
