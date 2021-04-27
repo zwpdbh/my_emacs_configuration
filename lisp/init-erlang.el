@@ -32,23 +32,26 @@
   (require 'erlang-start)
   (setq inferior-erlang-machine-options '("-sname" "emacs")))
 
+;; TODO:: not very powerful, try it after feel the limitation
 ;; ref: https://github.com/s-kostyaev/ivy-erlang-complete
 (when (maybe-require-package 'ivy-erlang-complete))
 (when (maybe-require-package 'company-erlang))
 
 (add-hook 'erlang-mode-hook
           '(lambda ()
+             ;; ;; configuration for ivy-erlang-complete with company-erlang
+             ;; (setq-local company-backends
+             ;;             '((company-erlang company-dabbrev-code) company-keywords company-files company-dabbrev))
+             ;; (add-hook 'after-save-hook 'ivy-erlang-complete-reparse 'append 'local)
+
+             ;; ;; key-bindings for ivy-erlang-complete
+             ;; (define-key erlang-mode-map (kbd "M-.") 'ivy-erlang-complete-find-definition)
+             ;; (define-key erlang-mode-map (kbd "M-/") 'ivy-erlang-complete-find-references)
+             ;; (define-key erlang-mode-map (kbd "C-c C-f") 'ivy-erlang-complete-find-spec)
+             ;; (define-key erlang-mode-map (kbd "C-c C-o") 'ivy-erlang-complete-find-file)
+
              ;; key-bindings for erlang-mode
-             (define-key erlang-mode-map (kbd "C-c C-c") 'erlang-compile)
-             ;; key-bindings for ivy-erlang-complete
-             (define-key erlang-mode-map (kbd "M-.") 'ivy-erlang-complete-find-definition)
-             (define-key erlang-mode-map (kbd "M-/") 'ivy-erlang-complete-find-references)
-             (define-key erlang-mode-map (kbd "C-c C-f") 'ivy-erlang-complete-find-spec)
-             (define-key erlang-mode-map (kbd "C-c C-o") 'ivy-erlang-complete-find-file)
-             
-             (setq-local company-backends
-                         '((company-erlang company-dabbrev-code) company-keywords company-files company-dabbrev))
-             (add-hook 'after-save-hook 'ivy-erlang-complete-reparse 'append 'local)))
+             (define-key erlang-mode-map (kbd "C-c C-c") 'erlang-compile)))
 
 ;; ;; TODO:: could not compile the downloaded package
 ;; ;; Tracking issue: https://github.com/massemanet/distel/issues/70
