@@ -78,92 +78,6 @@ Always focus on bigger window."
     (winner-undo)))
 
 
-(when (maybe-require-package 'workgroups2)
-  ;; (setq wg-use-default-session-file nil)
-  ;; don't open last workgroup automatically in `wg-open-session',
-  ;; I only want to check available workgroups! Nothing more.
-  (setq wg-load-last-workgroup nil)
-  (setq wg-open-this-wg nil)
-
-  ;;(workgroups-mode 1) ; put this one at the bottom of .emacs
-  ;; by default, the sessions are saved in "~/.emacs_workgroups"
-  (autoload 'wg-create-workgroup "workgroups2" nil t)
-
-  ;; (defun my-wg-switch-workgroup ()
-  ;;   (interactive)
-  ;;   (let (group-names selected-group)
-  ;;     (unless (featurep 'workgroups2)
-  ;;       (require 'workgroups2))
-  ;;     (setq group-names
-  ;;           (mapcar (lambda (group)
-  ;;                     ;; re-shape list for the ivy-read
-  ;;                     (cons (wg-workgroup-name group) group))
-  ;;                   (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file))))))
-  ;;     (ivy-read "work groups" group-names
-  ;;               :action (lambda (group)
-  ;;                         (wg-find-session-file wg-default-session-file)
-  ;;                         (wg-switch-to-workgroup group)))))
-
-  (eval-after-load 'workgroups2
-    '(progn
-       ;; make sure wg-create-workgroup always success
-       (defadvice wg-create-workgroup (around wg-create-workgroup-hack activate)
-         (unless (file-exists-p (wg-get-session-file))
-           (wg-reset t)
-           (wg-save-session t))
-
-         (unless wg-current-session
-           ;; code extracted from `wg-open-session'.
-           ;; open session but do NOT load any workgroup.
-           (let ((session (read (f-read-text (file-truename wg-session-file)))))
-             (setf (wg-session-file-name session) wg-session-file)
-             (wg-reset-internal (wg-unpickel-session-parameters session))))
-         ad-do-it
-         ;; save the session file in real time
-         (wg-save-session t))
-
-       (defadvice wg-reset (after wg-reset-hack activate)
-         (wg-save-session t))
-
-       ;; I'm fine to to override the original workgroup
-       (defadvice wg-unique-workgroup-name-p (around wg-unique-workgroup-name-p-hack activate)
-         (setq ad-return-value t)))))
-
-
-;; (defun rotate-windows ()
-;;   "Rotate windows in clock-wise direction."
-;;   (interactive)
-;;   (cond ((not (> (count-windows)1))
-;;          (message "You can't rotate a single window!"))
-;;         (t
-;;          (setq i 1)
-;;          (setq numWindows (count-windows))
-;;          (while (< i numWindows)
-;;            (let* (
-;;                   (w1 (elt (window-list) i))
-;;                   (w2 (elt (window-list) (+ (% i numWindows) 1)))
-
-;;                   (b1 (window-buffer w1))
-;;                   (b2 (window-buffer w2))
-
-;;                   (s1 (window-start w1))
-;;                   (s2 (window-start w2))
-;;                   )
-;;              (set-window-buffer w1 b2)
-;;              (set-window-buffer w2 b1)
-;;              (set-window-start w1 s2)
-;;              (set-window-start w2 s1)
-;;              (setq i (1+ i)))))))
-
-;; resize bindings
-;; (global-set-key (kbd "C-s-<left>") 'shrink-window-horizontally)
-;; (global-set-key (kbd "C-s-<right>") 'enlarge-window-horizontally)
-;; (global-set-key (kbd "C-s-<down>") 'shrink-window)
-;; (global-set-key (kbd "C-s-<up>") 'enlarge-window)
-
-
-
-
 ;; {{ move focus between sub-windows
 (setq winum-keymap
       (let ((map (make-sparse-keymap)))
@@ -204,5 +118,65 @@ Always focus on bigger window."
     (custom-set-faces
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 1.5)))))))
+
+;; Use to quickly transpose A|B(horizontally) to A/B(vertically) for window split
+(when (maybe-require-package 'transpose-frame))
+
+
+
+
+;; https://github.com/pashinin/workgroups2
+;; ;; TODO:: to practise its usage
+;; (when (maybe-require-package 'workgroups2)
+;;   ;; (setq wg-use-default-session-file nil)
+;;   ;; don't open last workgroup automatically in `wg-open-session',
+;;   ;; I only want to check available workgroups! Nothing more.
+;;   (setq wg-load-last-workgroup nil)
+;;   (setq wg-open-this-wg nil)
+
+;;   ;;(workgroups-mode 1) ; put this one at the bottom of .emacs
+;;   ;; by default, the sessions are saved in "~/.emacs_workgroups"
+;;   (autoload 'wg-create-workgroup "workgroups2" nil t)
+
+;;   (defun my-wg-switch-workgroup ()
+;;     (interactive)
+;;     (let (group-names selected-group)
+;;       (unless (featurep 'workgroups2)
+;;         (require 'workgroups2))
+;;       (setq group-names
+;;             (mapcar (lambda (group)
+;;                       ;; re-shape list for the ivy-read
+;;                       (cons (wg-workgroup-name group) group))
+;;                     (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file))))))
+;;       (ivy-read "work groups" group-names
+;;                 :action (lambda (group)
+;;                           (wg-find-session-file wg-default-session-file)
+;;                           (wg-switch-to-workgroup group)))))
+
+;;   (eval-after-load 'workgroups2
+;;     '(progn
+;;        ;; make sure wg-create-workgroup always success
+;;        (defadvice wg-create-workgroup (around wg-create-workgroup-hack activate)
+;;          (unless (file-exists-p (wg-get-session-file))
+;;            (wg-reset t)
+;;            (wg-save-session t))
+
+;;          (unless wg-current-session
+;;            ;; code extracted from `wg-open-session'.
+;;            ;; open session but do NOT load any workgroup.
+;;            (let ((session (read (f-read-text (file-truename wg-session-file)))))
+;;              (setf (wg-session-file-name session) wg-session-file)
+;;              (wg-reset-internal (wg-unpickel-session-parameters session))))
+;;          ad-do-it
+;;          ;; save the session file in real time
+;;          (wg-save-session t))
+
+;;        (defadvice wg-reset (after wg-reset-hack activate)
+;;          (wg-save-session t))
+
+;;        ;; I'm fine to to override the original workgroup
+;;        (defadvice wg-unique-workgroup-name-p (around wg-unique-workgroup-name-p-hack activate)
+;;          (setq ad-return-value t)))))
+
 
 (provide 'init-windows)
