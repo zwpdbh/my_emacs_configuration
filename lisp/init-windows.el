@@ -120,8 +120,11 @@ Always focus on bigger window."
        ((t (:inherit ace-jump-face-foreground :height 1.5)))))))
 
 ;; Use to quickly transpose A|B(horizontally) to A/B(vertically) for window split
-(when (maybe-require-package 'transpose-frame))
-
+(when (maybe-require-package 'transpose-frame)
+  (defun zw/toggle-window-split ()
+    "Compile Erlang module in current buffer."
+    (interactive)
+    (transpose-frame)))
 
 
 
