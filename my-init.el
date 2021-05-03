@@ -168,7 +168,7 @@
 
 ;; (require-init 'init-python)
 (require-init 'init-c-and-c++)
-
+(require 'init-lua)
 (require 'init-haskell)
 
 (require-init 'init-javascript)
