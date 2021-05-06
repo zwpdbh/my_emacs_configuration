@@ -32,15 +32,6 @@
 ;; for quickly access replace string
 (global-set-key (kbd "C-c s") 'replace-string)
 
-;; set paredit-backward and paredit-forward
-;; (global-set-key (kbd "<f8>") (kbd "C-M-f"))
-;; (global-set-key (kbd "<f7>") (kbd "C-M-b"))
-(global-set-key (kbd "<f8>") 'paredit-forward)
-(global-set-key (kbd "<f7>") 'paredit-backward)
-
-;; use f11 to do align text
-(global-set-key (kbd "<f11>") 'align-regexp)
-
 ;; use c-z to undo
 (global-set-key (kbd "C-z") #'undo)
 
@@ -54,6 +45,7 @@
 
 (after-load 'swiper
   (global-set-key (kbd "C-s") 'swiper))
+
 (after-load 'ivy
   (global-set-key (kbd "<f1>") 'ivy-resume))
 (global-set-key (kbd "<f2>") #'toggle-full-window)
@@ -61,11 +53,18 @@
 ;; (global-set-key (kbd "<f3>") #'kmacro-end-macro)
 (global-set-key (kbd "<f4>") 'call-last-kbd-macro)
 
+;; set paredit-backward and paredit-forward
+(global-set-key (kbd "<f8>") 'paredit-forward)
+(global-set-key (kbd "<f7>") 'paredit-backward)
+(global-set-key (kbd "<f9>") 'align-regexp)
 
 ;; use f10 to format whole buffer
 (global-set-key (kbd "<f10>") (progn
                                 #'mark-whole-buffer
                                 #'indent-region))
+(global-set-key (kbd "<f11>") 'yafolding-toggle-element)
+
+
 
 (add-hook 'after-init-hook
           '(lambda ()
