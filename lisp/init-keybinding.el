@@ -59,9 +59,7 @@
 (global-set-key (kbd "<f9>") 'align-regexp)
 
 ;; use f10 to format whole buffer
-(global-set-key (kbd "<f10>") (progn
-                                #'mark-whole-buffer
-                                #'indent-region))
+(global-set-key (kbd "<f10>") 'indent-region)
 (global-set-key (kbd "<f11>") 'yafolding-toggle-element)
 
 
