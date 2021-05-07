@@ -101,6 +101,14 @@
     (add-to-list 'org-structure-template-alist '("lfe" . "src lfe"))))
 
 
+(after-load 'org
+  ;; (add-to-list 'load-path
+  ;;              "~/.emacs.d/site-lisp/ob-erlang")
+  ;; (require 'ob-erlang)
+  (add-to-list 'zw/org-babel-evaluate-whitelist "erlang")
+  (add-to-list 'zw/org-babel-load-language-list '(erlang . t))
+  (add-to-list 'org-structure-template-alist '("erlang" . "src erlang")))
+
 
 (provide 'init-erlang)
 ;;; init-erlang ends here
