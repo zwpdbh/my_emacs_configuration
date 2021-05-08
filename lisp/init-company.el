@@ -90,6 +90,16 @@
               '(lambda ()
                  (company-posframe-mode 1)))))
 
+(when (maybe-require-package 'company-math)
+  (add-hook 'LaTeX-mode-hook (lambda ()
+                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
+                               (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))
+                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))))
+  ;; (add-hook 'org-mode-hook (lambda ()
+  ;;                            (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
+  ;;                            (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))))
+  )
+
 
 (provide 'init-company)
 ;;; init-company.el ends here

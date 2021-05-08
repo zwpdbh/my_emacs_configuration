@@ -131,14 +131,6 @@
 (add-hook 'LaTeX-mode-hook #'turn-on-auto-fill)
 (add-hook 'LaTeX-mode-hook #'linum-mode)
 
-(when (maybe-require-package 'company-math)
-  (add-hook 'LaTeX-mode-hook (lambda ()
-                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
-                               (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))
-                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))))
-  (add-hook 'org-mode-hook (lambda ()
-                             (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
-                             (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands)))))
 
 ;; CDLaTeX is a minor mode supporting fast insertion of environment templates and math stuff in LaTeX.
 (when (maybe-require-package 'cdlatex)
