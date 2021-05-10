@@ -1,6 +1,6 @@
 
 * 背景
-  我对于functional programming, 尤其是Common Lisp很感兴趣. 非常期待能将所学的算法和数学知识应用到生产和工作中. 我目前定居在上海.
+  作为一名软件工程师我对于functional programming, 尤其是Erlang 和 Lisp很感兴趣. 我总是 非常期待能将所学的算法和数学知识应用到生产和工作中. 我目前定居在上海, 秉持开放的心态去探索这个世界.
   
 * 教育
   - Otago (2016/01 -- 2018/09)
@@ -8,21 +8,22 @@
   - 北京工业大学 (2004/07 -- 2009/07)
     计算机本科学位
     
-* 工作经验 
+* 工作经验
 ** 西门子工业软件（2018-10 至今）
    工作内容：
-   - 基于云环境的自动化部署
+   - 基于云环境(AWS)的自动化部署
    - 为公司的平台和系统设计和编写程序
    - 能够单独工作已经小组合作来完成任务
    - 为CAD产品提供核心的服务
    - 维护现有的代码， 分析并解决客户的需求并汇报问题
      
-*** Distributed service admin-console (from 2020/07 to present)     
+*** Distributed service admin-dashboard (from 2020/07 to present)     
     Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 这个dashboard是为了控制distributed-service.
     我在其中的职责:
     - 设计和实施关系型数据模型 (postgreSQL)
     - 前端设计和实施(Vuejs)
     - 后端设计和实施(Nodejs)
+    - 修改node-oidc-provider 来做OAuth2.0 认证服务
 
 *** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
     由于我们很多的服务是使用AWS cloud, 为了控制各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务. 其内容包括:
@@ -39,19 +40,35 @@
 *** Tester for end-to-end test (from 2019/01 to present)    
     基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 我的职责包括:
     - 使用nodejs, websocket和socket 来实现这个脚本工具.
-    - 自动化部署
+    - 自动化部署(Docker + GitLab pipeline + AWS cloudformation).
     - Pagerduty oncall.
     
-    
-* 知识技能
-** 核心
+* 工作经验(非程序开发)    
+** ATOS(源讯) (2012/02 - 2015/06)
+   作为一名Linux系统维护工程师, 我在ATOS的工作包括:
+   - 大众进口项目(最主要的工作)
+     - 跟进项目进度和优化维护流程
+     - 绘制月报量化项目实施的进展
+     - 联系多方: 大众, 联通和4S店推进项目进展, 尤其是确保经销商的服务器的正常运行.
+     - 远程支持, 跟踪汇报服务质量
+   - 安装, 维护大众的汽车检测服务.
+   - 定期更新系统和安全补丁.
+   - 定期备份系统.
+** Jobkook.com(2010/02-2011/02)     
+   维护内部使用的Windows系统, 包括: Outlook, DNS, 以及AD.
+     
+* 专业知识
+** 核心技能
    - 算法和数据结构
    - 对于操作系统的理解
 ** 强项
+   - 自我驱动的强烈好奇心. 比如对于Functional Programming的探索.
    - 面向对象编程(Java, C++)
-   - 设计和创建数据库对象模型
+   - 设计和创建关系型数据库对象模型
      
 ** 经验
+   - Erlang
+   - Golang
    - Nodejs
    - Vuejs
    - Python
@@ -64,18 +81,18 @@
      - Docker
      - Terraform
    - AWS cloud infrastructure
-   - Lisp
-     - Common Lisp
-     - Elisp
+
 ** 熟悉
    - iOS and OS x programming using Swift
    - Linux driver development
-    
-     
-* 兴趣
-  - Functional programming in Lisp
-  - 学习与分布式和信息检索有关的算法
-  - 打RTS游戏 
+   - Lisp
+     - Common Lisp
+     - Elisp
+   - Haskell
+
+* 兴趣爱好
+  - 学习有趣的计算机知识
+  - 打RTS游戏
     
 * 联系方式
   - WeChat: 15811257483
