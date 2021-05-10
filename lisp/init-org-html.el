@@ -20,7 +20,8 @@
 
   (setq org-export-with-section-numbers nil
         org-export-with-smart-quotes t
-        org-export-with-toc 3)
+        org-export-with-toc 3
+        org-export-preserve-breaks t)
 
   (defvar this-date-format "%b %d, %Y")
 
