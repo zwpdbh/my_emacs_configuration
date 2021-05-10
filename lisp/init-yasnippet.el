@@ -1,5 +1,5 @@
 ;; ;; my private snippets, should be placed before enabling yasnippet
-(setq my-yasnippets (expand-file-name "~/.emacs.d/my-yasnippets"))
+(setq my-yasnippets (expand-file-name "~/.emacs.d/my-snippets"))
 
 (when (maybe-require-package 'yasnippet)
   (when (maybe-require-package 'yasnippet-snippets)))
@@ -16,10 +16,11 @@
 (add-hook 'web-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'scss-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 
-(defun my-yas-reload-all ()
+(defun zw/yas-reload-all ()
   "Compile and reload yasnippets.  Run the command after adding new snippets."
   (interactive)
   (yas-compile-directory (file-truename "~/.emacs.d/snippets"))
+  (yas-compile-directory my-yasnippets)
   (yas-reload-all)
   (yas-minor-mode 1))
 
@@ -101,7 +102,6 @@
 (after-load 'yasnippet
   ;; http://stackoverflow.com/questions/7619640/emacs-latex-yasnippet-why-are-newlines-inserted-after-a-snippet
   (setq-default mode-require-final-newline nil)
-  ;; (message "yas-snippet-dirs=%s" (mapconcat 'identity yas-snippet-dirs ":"))
 
   ;; Use `yas-dropdown-prompt' if possible. It requires `dropdown-list'.
   (setq yas-prompt-functions '(yas-dropdown-prompt

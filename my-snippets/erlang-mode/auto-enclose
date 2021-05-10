@@ -1,0 +1,5 @@
+# automatically enclose for bit-syntax
+# name: <<
+# key: <<
+# --
+<<${0:}>>

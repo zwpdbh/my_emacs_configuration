@@ -4,6 +4,13 @@
 (require-package 'unfill)
 (maybe-require-package 'list-unicode-display)
 
+;; my simple indent while region
+(defun zw/indent-buffer ()
+  (interactive)
+  (save-excursion
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))))
 
 ;; Move autosave files, 
 (setq auto-save-file-name-transforms

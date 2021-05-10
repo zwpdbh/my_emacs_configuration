@@ -45,10 +45,7 @@
                
                (local-unset-key "<f10>")
                (define-key (current-local-map) (kbd "<f10>") 'sqlformat-region)
-               
-               ;; (add-hook 'before-save-hook 'sqlformat-buffer nil 'local)
                (sqlformat-on-save-mode))))
-
 
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
