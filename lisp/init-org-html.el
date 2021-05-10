@@ -18,7 +18,7 @@
 (after-load 'org
   (require 'ox-publish)
 
-  (setq org-export-with-section-numbers nil
+  (setq org-export-with-section-numbers 3
         org-export-with-smart-quotes t
         org-export-with-toc 3
         org-export-preserve-breaks t)
