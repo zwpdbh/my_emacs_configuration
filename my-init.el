@@ -196,7 +196,8 @@
 
 (require-init 'init-folding)
 (require-init 'init-indent)
-(require 'init-eshell)
+(require 'init-shell)
+;; (require 'init-eshell) ; disable it for not using currently
 
 ;; (require-init 'init-pomodoro)
 
