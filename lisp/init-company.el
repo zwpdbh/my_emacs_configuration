@@ -56,7 +56,7 @@
         company-dabbrev-downcase nil
         company-show-numbers t
         completion-ignore-case t)
-  (setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode shell-mode)))
+  (setq company-global-modes '(not erc-mode message-mode help-mode gud-mode eshell-mode)))
 
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)

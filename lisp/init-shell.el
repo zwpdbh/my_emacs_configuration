@@ -8,4 +8,8 @@
   (add-hook 'shell-dynamic-complete-functions
             'bash-completion-dynamic-complete))
 
+(add-hook 'shell-mode-hook
+          '(lambda ()
+             (setq-local company-backends '((company-dabbrev company-files) company-keywords company-dabbrev-code))))
+
 (provide 'init-shell)
