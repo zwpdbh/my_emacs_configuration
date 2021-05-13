@@ -19,13 +19,14 @@
 
 (when (maybe-require-package 'company-c-headers)
   (add-hook 'c-mode-common-hook
-            '(lambda ()
-               ;; use counsel-etags
-               (zw/counsel-etags-setup)
-               (flycheck-mode t)
-               (setq-local company-backends
-                           (add-to-list 'company-backends
-                                        'company-c-headers)))))
+            (lambda ()
+              (setq-local c-basic-offset 4)
+              ;; use counsel-etags
+              (zw/counsel-etags-setup)
+              (flycheck-mode t)
+              (setq-local company-backends
+                          (add-to-list 'company-backends
+                                       'company-c-headers)))))
 
 (when (maybe-require-package 'cmake-mode)
   (add-hook 'cmake-mode-hook

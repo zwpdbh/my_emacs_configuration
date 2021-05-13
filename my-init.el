@@ -194,8 +194,9 @@
 (require 'init-sql)
 (require 'init-ejc-sql)
 
-(require-init 'init-folding)
-(require-init 'init-indent)
+(require 'init-folding)
+(require 'init-indent)
+(require 'init-electrify)
 (require 'init-shell)
 ;; (require 'init-eshell) ; disable it for not using currently
 
