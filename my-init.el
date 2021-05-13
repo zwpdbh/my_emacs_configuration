@@ -118,7 +118,7 @@
   (require-init 'init-font))
 
 (require-init 'init-projectile)
-(require-init 'init-treemacs)
+;; (require-init 'init-treemacs)
 (require-init 'init-ggtags)
 (require-init 'init-markdown)
 (require-init 'init-json)
