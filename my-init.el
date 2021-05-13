@@ -213,13 +213,9 @@
 ;;              "~/.emacs.d/site-lisp/<local_package_dir>")
 
 ;; ;;----------------------------------------------------------------------------
-;; ;; Allow access from emacsclient
+;; ;; emacs server related
 ;; ;;----------------------------------------------------------------------------
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'server)
-            (unless (server-running-p)
-              (server-start))))
-
-
-;; (org-babel-load-file (expand-file-name "~/.emacs.d/my-extra-init.org"))
+(defun zw/start-server ()
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
