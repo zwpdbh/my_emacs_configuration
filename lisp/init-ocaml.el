@@ -53,5 +53,9 @@
               (lambda ()
                 (setq-local company-backends (zw/add-to-company-backends company-backends 'merlin-company-backend))))))
 
+(after-load 'org
+  (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
+  (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
+  (add-to-list 'org-structure-template-alist '("ocaml" . "src ocaml :results verbatim")))
 
 (provide 'init-ocaml)
