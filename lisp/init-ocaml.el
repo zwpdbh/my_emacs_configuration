@@ -5,13 +5,21 @@
 (add-to-list 'load-path "~/.opam/system/share/emacs/site-lisp/")
 
 (when (maybe-require-package 'tuareg)
-  (add-to-list 'auto-mode-alist '("\\.ml[iylp]?$" . caml-mode))
+  (autoload ’tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+  (autoload ’ocamldebug "ocamldebug" "Run the Caml debugger" t)
   (autoload 'caml-mode "caml" "Major mode for editing OCaml code." t)
   (autoload 'run-caml "inf-caml" "Run an inferior OCaml process." t)
-  (autoload 'camldebug "camldebug" "Run ocamldebug on program." t)
+  
+  (add-to-list 'auto-mode-alist '("\\.ml[iylp]?$" . tuareg-mode))
+  (add-to-list 'auto-mode-alist '("\\.topml$" . tuareg-mode))
   (add-to-list 'interpreter-mode-alist '("ocamlrun" . caml-mode))
   (add-to-list 'interpreter-mode-alist '("ocaml" . caml-mode))
 
+  (add-hook 'tuareg-mode-hook
+            (lambda ()
+                (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
+                (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-region)))
+  
   (if window-system
       (progn
         (require 'caml-font)
