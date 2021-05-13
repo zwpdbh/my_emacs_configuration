@@ -1,3 +1,4 @@
+;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocp-indent
 ;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
 
