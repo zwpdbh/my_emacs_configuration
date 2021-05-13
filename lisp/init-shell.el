@@ -9,7 +9,8 @@
             'bash-completion-dynamic-complete))
 
 (add-hook 'shell-mode-hook
-          '(lambda ()
-             (setq-local company-backends '((company-dabbrev company-files) company-keywords company-dabbrev-code))))
+          #'(lambda ()
+              (setq-local company-backends '((company-dabbrev company-files) company-keywords company-dabbrev-code))
+              (ansi-color-for-comint-mode-on)))
 
 (provide 'init-shell)
