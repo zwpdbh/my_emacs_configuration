@@ -19,6 +19,9 @@
             (lambda ()
                 (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
                 (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-region)))
+  (after-load 'tuareg
+    (set-face-attribute 'tuareg-font-double-semicolon-face nil
+                        :foreground "#ffb86c"))
   
   (if window-system
       (progn
