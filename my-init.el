@@ -215,8 +215,8 @@
 ;; ;;----------------------------------------------------------------------------
 ;; ;; emacs server related
 ;; ;;----------------------------------------------------------------------------
-(defun zw/start-emacs-server ()
-  (interactive)
-  (require 'server)
-  (unless (server-running-p)
-    (server-start)))
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'server)
+            (unless (server-running-p)
+              (server-start))))
