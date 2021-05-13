@@ -28,6 +28,12 @@
     (cons (zw/add-to-company-backends (car backends) v)
           (cdr backends))))
 
+(defun zw/delete-from-company-backends (backends v)
+  (if (not (listp (car backends)))
+      (setq backends (delete v backends))
+    (let ((rest (cdr backends)))
+      (cons (zw/delete-from-company-backends (car backends) v) rest))))
+
 
 (after-load 'company
   (zw/set-company-backends-global)
