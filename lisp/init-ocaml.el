@@ -1,6 +1,8 @@
+;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
+
 ;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocp-indent
-;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
+(add-to-list 'load-path "~/.opam/system/share/emacs/site-lisp/")
 
 (when (maybe-require-package 'tuareg)
   (add-to-list 'auto-mode-alist '("\\.ml[iylp]?$" . caml-mode))
@@ -15,7 +17,7 @@
         (require 'caml-font)
         (set-face-foreground 'caml-font-doccomment-face "#cb4b16"))))
 
-(when (maybe-require-package 'ocp-indent)
+(when (maybe-require-package 'ocp-indent)  
   (setq ocp-indent-path
         (concat
          (replace-regexp-in-string "\n$" ""
