@@ -5,8 +5,8 @@
 (add-to-list 'load-path "~/.opam/system/share/emacs/site-lisp/")
 
 (when (maybe-require-package 'tuareg)
-  (autoload ’tuareg-mode "tuareg" "Major mode for editing Caml code" t)
-  (autoload ’ocamldebug "ocamldebug" "Run the Caml debugger" t)
+  (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+  (autoload 'ocamldebug "ocamldebug" "Run the Caml debugger" t)
   (autoload 'caml-mode "caml" "Major mode for editing OCaml code." t)
   (autoload 'run-caml "inf-caml" "Run an inferior OCaml process." t)
   
