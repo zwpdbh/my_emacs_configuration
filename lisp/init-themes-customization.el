@@ -25,21 +25,39 @@
                           :foreground "#c6c6c6"
                           :background "black")))
 
+  ;; (set-face-attribute 'hl-line nil
+  ;;                     :underline nil
+  ;;                     :background (face-background 'default))
+  
   (cond ((string-match-p "kaolin" (symbol-name custom-enabled-theme))
          (set-face-attribute 'font-lock-keyword-face nil
                              :foreground "#91f368"))
         (t
          (set-face-attribute 'font-lock-keyword-face nil
-                             :foreground "#50fa7b")))
-  
-  (set-face-attribute 'hl-line nil
-                      :underline nil
-                      :background (face-background 'default)))
+                             :foreground "#50fa7b"))))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
                       :underline nil
                       :weight 'normal))
+
+(defun zw/customize-themes-for-lsp-ui ()
+  ;; customize lsp-ui-peek appearance
+  (set-face-attribute 'lsp-ui-peek-selection nil
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default nil t)
+                      :underline nil
+                      :weight 'bold)
+
+  (set-face-attribute 'lsp-ui-peek-highlight nil
+                      :foreground "Yellow"
+                      :background (face-background 'default t t)
+                      :underline nil
+                      :box nil
+                      :weight 'normal)
+  (set-face-attribute 'lsp-ui-peek-peek nil
+                      :foreground (face-foreground 'default t t)
+                      :background (face-background 'default t t)))
 
 (defun zw/customize-themes-for-parenthesis ()
   ;; customize how to show matched parentheses: 'expression or 'parenthesis
@@ -100,7 +118,7 @@
 
 (defun zw/customize-themes-for-smartparens ()
   (set-face-attribute 'sp-pair-overlay-face nil
-                      :background (face-background 'hl-line t t)
+                      :background (face-background 'default t t)
                       :inherit nil)
   (set-face-attribute 'show-paren-mismatch nil      
                       :foreground "WhiteSmoke"

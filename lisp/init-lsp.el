@@ -36,26 +36,7 @@
             (setq lsp-ui-peek-fontify 'always)
 
             (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-            (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-
-            ;; customize lsp-ui-peek appearance
-            (add-hook 'lsp-ui-mode-hook
-                      '(lambda ()
-                        (set-face-attribute 'lsp-ui-peek-selection nil
-                         :foreground (face-foreground 'hl-line t t)
-                         :background (face-background 'hl-line nil t)
-                         :underline nil
-                         :weight 'bold)
-
-                        (set-face-attribute 'lsp-ui-peek-highlight nil
-                         :foreground "Yellow"
-                         :background (face-background 'default t t)
-                         :underline nil
-                         :box nil
-                         :weight 'normal)
-                        (set-face-attribute 'lsp-ui-peek-peek nil
-                         :foreground (face-foreground 'default t t)
-                         :background (face-background 'default t t)))))
+            (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 
 (defun zw/lsp-ui-key-bindings ()
