@@ -215,7 +215,8 @@
 ;; ;;----------------------------------------------------------------------------
 ;; ;; emacs server related
 ;; ;;----------------------------------------------------------------------------
-(defun zw/start-server ()
+(defun zw/start-emacs-server ()
+  (interactive)
   (require 'server)
   (unless (server-running-p)
     (server-start)))
