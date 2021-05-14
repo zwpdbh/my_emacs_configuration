@@ -12,6 +12,7 @@
 (add-to-list 'auto-mode-alist '("rebar.config" . erlang-mode))
 (add-to-list 'auto-mode-alist '("rebar.config.script" . erlang-mode))
 (add-to-list 'auto-mode-alist '("app.config" . erlang-mode))
+(add-to-list 'auto-mode-alist '("lib_chan.conf" . erlang-mode))
 (add-to-list 'auto-mode-alist '("\\.erlang$" . erlang-mode))
 
 
