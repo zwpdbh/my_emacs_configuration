@@ -111,10 +111,9 @@
   (add-to-list 'org-structure-template-alist '("erlang" . "src erlang")))
 
 
-(add-hook 'erlang-shell-mode
+(add-hook 'erlang-shell-mode-hook
           (lambda ()
-            (setq-local company-backends '((company-yasnippet company-dabbrev)
-                                           company-keywords company-files company-dabbrev-code))))
+            (setq-local company-backends '((company-dabbrev company-capf) company-keywords company-files company-dabbrev-code))))
 
 (provide 'init-erlang)
 ;;; init-erlang ends here
