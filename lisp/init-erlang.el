@@ -113,7 +113,7 @@
 
 (add-hook 'erlang-shell-mode-hook
           (lambda ()
-            (setq-local company-backends '(company-dabbrev company-keywords company-capf company-files company-dabbrev-code))))
+            (setq-local company-backends '((company-dabbrev company-capf) company-keywords company-files company-dabbrev-code))))
 
 (provide 'init-erlang)
 ;;; init-erlang ends here
