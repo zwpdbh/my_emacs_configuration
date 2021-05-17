@@ -3,6 +3,10 @@
 ;; # We could also force to publish all files
 ;; emacs --script "~/.emacs.d/publish.el" t
 
+;; Last, cd into blog base dir
+;; python3 -m http.server 3000
+;; Visit http://localhost:3000
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
