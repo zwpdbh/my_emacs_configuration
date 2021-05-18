@@ -8,7 +8,7 @@
   (unless (is-buffer-file-temp)
     (yas-minor-mode 1)
     (when (featurep 'company)
-      (setq-local company-backends (zw/add-to-company-backends company-backends 'company-yasnippet)))))
+      (setq-local company-backends (zw/add-to-company-backends 'company-yasnippet)))))
 
 (add-hook 'prog-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'text-mode-hook 'yasnippet-generic-setup-for-mode-hook)

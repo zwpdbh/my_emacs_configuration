@@ -37,7 +37,7 @@
   ;; expression in mode-hook executed very time when buffer opened
   (add-hook 'geiser-mode-hook
             '(lambda ()
-              (setq-local company-backends '((company-capf company-dabbrev-code geiser-company-backend) company-keywords company-files company-dabbrev)))))
+               (setq-local company-backends (zw/add-to-company-backends 'geiser-company-backend)))))
 
 
 (provide 'init-scheme)

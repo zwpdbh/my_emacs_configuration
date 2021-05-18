@@ -10,11 +10,11 @@
 
 (add-hook 'shell-mode-hook
           #'(lambda ()
-              (setq-local company-backends '((company-dabbrev company-files) company-keywords company-dabbrev-code))
+              (setq-local company-backends '((company-dabbrev company-files) company-keywords))
               (ansi-color-for-comint-mode-on)))
 
 (add-hook 'sh-mode-hook
           #'(lambda ()
-             (setq-local company-backends (zw/delete-from-company-backends company-backends 'company-capf))))
+             (setq-local company-backends (zw/delete-from-company-backends 'company-capf))))
 
 (provide 'init-shell)

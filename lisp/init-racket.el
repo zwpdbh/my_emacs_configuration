@@ -14,7 +14,7 @@
   :mode "\\.racket\\'"
   :ensure t)
 
-(defun my-racket-mode-hook () 
+(defun my-racket-mode-hook ()
   (set (make-local-variable 'company-backends)
        '((company-capf company-dabbrev-code)))
   (company-quickhelp-mode 0))

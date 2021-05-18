@@ -21,17 +21,21 @@
 
 ;; Add a new backend to the head of company-backends recursively:
 ;; If the head is a list, add new backen into the list at head.
-(defun zw/add-to-company-backends (backends v)
+(defun zw/add-to-company-backends (v)
+  (zw/add-to-company-backends-aux company-backends v))
+(defun zw/add-to-company-backends-aux (backends v)
   (if (not (listp (car backends)))
       (add-to-list (quote backends) v)
-    (cons (zw/add-to-company-backends (car backends) v)
+    (cons (zw/add-to-company-backends-aux (car backends) v)
           (cdr backends))))
 
-(defun zw/delete-from-company-backends (backends v)
+(defun zw/delete-from-company-backends (v)
+  (zw/delete-from-company-backends-aux company-backends v))
+(defun zw/delete-from-company-backends-aux (backends v)
   (if (not (listp (car backends)))
       (setq backends (delete v backends))
     (let ((rest (cdr backends)))
-      (cons (zw/delete-from-company-backends (car backends) v) rest))))
+      (cons (zw/delete-from-company-backends-aux (car backends) v) rest))))
 
 
 (after-load 'company

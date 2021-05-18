@@ -13,8 +13,7 @@
   (add-hook 'ejc-sql-minor-mode-hook
             '(lambda ()
                (ejc-eldoc-setup)
-               (setq-local company-backends
-                           '((company-capf company-dabbrev-code ejc-company-backend company-yasnippet) company-keywords company-files company-dabbrev))
+               (setq-local company-backends (zw/add-to-company-backends 'ejc-company-backend))
                (company-mode t)))
 
   (add-hook 'ejc-sql-connected-hook

@@ -15,12 +15,8 @@
 
 
 (defun zw/set-company-backends-for-web-mode ()
-  (setq-local company-backends '((company-capf
-                                  company-dabbrev-code
-                                  company-web-html)
-                                 company-keywords
-                                 company-files
-                                 company-dabbrev)))
+  (setq-local company-backends (zw/add-to-company-backends 'company-web-html)))
+
 
 (when (maybe-require-package 'company-web)
   (add-hook 'web-mode-hook

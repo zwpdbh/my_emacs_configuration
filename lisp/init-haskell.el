@@ -68,10 +68,10 @@
 ;;   (autoload 'ghc-init "ghc" nil t)
 ;;   (autoload 'ghc-debug "ghc" nil t)
 
-;;   (add-hook 'haskell-mode-hook
-;;             '(lambda ()
-;;                (ghc-init)
-;;                (setq-local company-backends '((company-capf company-dabbrev-code company-ghc) company-keywords company-files company-dabbrev)))))
+  (add-hook 'haskell-mode-hook
+            '(lambda ()
+               (ghc-init)
+               (setq-local company-backends (zw/add-to-company-backends 'company-ghc)))))
 
 
 (provide 'init-haskell)

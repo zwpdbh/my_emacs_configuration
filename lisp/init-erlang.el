@@ -41,7 +41,7 @@
 (add-hook 'erlang-mode-hook
           '(lambda ()
              ;; ;; configuration for ivy-erlang-complete with company-erlang
-             ;; (setq-local company-backends (zw/add-to-company-backends company-backends 'company-erlang))
+             ;; (setq-local company-backends (zw/add-to-company-backends 'company-erlang))
              ;; (add-hook 'after-save-hook 'ivy-erlang-complete-reparse 'append 'local)
 
              ;; ;; key-bindings for ivy-erlang-complete
