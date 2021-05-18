@@ -22,6 +22,11 @@
                 (local-unset-key (kbd "C-c C-e"))
                 (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
                 (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)))
+
+    (add-hook 'tuareg-interactive-mode-hook
+              (lambda ()
+                (setq-local company-backends '((merlin-company-backend company-dabbrev) company-keywords company-files company-dabbrev-code))))
+    
     (after-load 'tuareg
       (set-face-attribute 'tuareg-font-double-semicolon-face nil
                           :foreground "#ffb86c"))
@@ -40,20 +45,18 @@
 
   (when (maybe-require-package 'merlin)
     (autoload 'merlin-mode "merlin" "Merlin mode" t)
+    (add-hook 'tuareg-mode-hook #'merlin-mode)
+    (add-hook 'caml-mode-hook #'merlin-mode)
+    
     (require 'caml-types nil 'noerror)
     
     (setq merlin-use-auto-complete-mode 'easy)
     (setq merlin-command 'opam)
-    (setq merlin-error-on-single-line t)
-    
-    (add-hook 'tuareg-mode-hook #'merlin-mode)
-    (add-hook 'caml-mode-hook #'merlin-mode))
+    (setq merlin-error-on-single-line t))
 
-
-  (when (maybe-require-package 'merlin-company)
-    (add-hook 'caml-mode-hook
-              (lambda ()
-                (setq-local company-backends (zw/add-to-company-backends company-backends 'merlin-company-backend))))))
+  (add-hook 'tuareg-mode-hook
+            (lambda ()
+              (setq-local company-backends '((company-dabbrev-code company-capf) company-keywords company-files company-dabbrev)))))
 
 (after-load 'org
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
