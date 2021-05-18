@@ -25,7 +25,7 @@
 
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
-                (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backends))
+                (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
                 (setq-local company-backends (zw/delete-from-company-backends 'company-capf))))
     
     (after-load 'tuareg
