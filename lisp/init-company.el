@@ -9,7 +9,6 @@
 (when (maybe-require-package 'company)
   (defun zw/set-company-backends-global ()
     (interactive)
-    ;; (setq company-backends '((company-dabbrev-code company-capf) company-keywords company-files company-dabbrev))
     (setq company-backends '((company-dabbrev company-capf) company-keywords company-files)))
   
   (add-hook 'after-init-hook 'global-company-mode)
