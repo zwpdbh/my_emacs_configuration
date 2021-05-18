@@ -44,63 +44,63 @@
 
 (add-hook 'lisp-mode-hook
           '(lambda ()
-             (setq lisp-indent-function 'common-lisp-indent-function)))
+            (setq lisp-indent-function 'common-lisp-indent-function)))
 
 ;; set lisp system
 (if *win64*
     (setq my-ccl (executable-find "wx86cl64"))
-  (setq my-ccl (executable-find "ccl")))
+    (setq my-ccl (executable-find "ccl")))
 (setq my-sbcl (executable-find "sbcl"))
 (setq my-clisp (executable-find "clisp"))
 (setq my-roswell (executable-find "ros"))
 
 (cond
- (my-roswell
-  ;; Use ros default cl implementation.
-  ;; To switch different implementations, use ros use ccl-bin, or ros use sbcl/2.0.2
-  (setq inferior-lisp-program (concat my-roswell " -Q run")))
- (my-ccl
-  (setq inferior-lisp-program my-ccl)
-  (setq slime-lisp-implementations `((ccl (,my-ccl)))))
- (my-sbcl
-  (setq inferior-lisp-program my-sbcl)
-  (setq slime-lisp-implementations `((sbcl (,my-sbcl)))))
- (my-clisp
-  (setq inferior-lisp-program my-clisp)
-  (setq slime-lisp-implementations `((clisp (,my-clisp))))))
+  (my-roswell
+   ;; Use ros default cl implementation.
+   ;; To switch different implementations, use ros use ccl-bin, or ros use sbcl/2.0.2
+   (setq inferior-lisp-program (concat my-roswell " -Q run")))
+  (my-ccl
+   (setq inferior-lisp-program my-ccl)
+   (setq slime-lisp-implementations `((ccl (,my-ccl)))))
+  (my-sbcl
+   (setq inferior-lisp-program my-sbcl)
+   (setq slime-lisp-implementations `((sbcl (,my-sbcl)))))
+  (my-clisp
+   (setq inferior-lisp-program my-clisp)
+   (setq slime-lisp-implementations `((clisp (,my-clisp))))))
+
+
+;; ;; Set the alignment of the indents under him
+;; ;; Learn more about customization of this case you can read
+;; ;; SLIME source, namely
+;; ;; %путь_к_slime%/contrib/slime-cl-indent.el
+;; (define-common-lisp-style "zw/common-lisp-indent-style"
+;;   "My custom indent style."
+;;   (:inherit "modern")
+;;   (:variables
+;;    (lisp-loop-indent-subclauses t)) 
+;;   (:indentation
+;;    (if (4 2 2))
+;;    (define (&lambda 2))
+;;    (with-gensyms ((&whole 4 &rest 1) &body))
+;;    (once-only (as with-gensyms))))
+;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
 
 (after-load 'slime
-  ;; ;; Set the alignment of the indents under him
-  ;; ;; Learn more about customization of this case you can read
-  ;; ;; SLIME source, namely
-  ;; ;; %путь_к_slime%/contrib/slime-cl-indent.el
-  ;; (define-common-lisp-style "zw/common-lisp-indent-style"
-  ;;   "My custom indent style."
-  ;;   (:inherit "modern")
-  ;;   (:variables
-  ;;    (lisp-loop-indent-subclauses t)) 
-  ;;   (:indentation
-  ;;    (if (4 2 2))
-  ;;    (define (&lambda 2))
-  ;;    (with-gensyms ((&whole 4 &rest 1) &body))
-  ;;    (once-only (as with-gensyms))))
-  ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
-  (if (and (search "sbcl" inferior-lisp-program)
-           (search "sbcl" (car (car (cdr (car slime-lisp-implementations))))))
-      (progn
-        (setq common-lisp-style-default "sbcl")
-        (setq common-lisp-style "sbcl"))
-    (progn
-      (setq common-lisp-style-default "modern")
-      (setq common-lisp-style "modern")))
+            (if (and (search "sbcl" inferior-lisp-program)
+                     (search "sbcl" (car (car (cdr (car slime-lisp-implementations))))))
+                (progn
+                  (setq common-lisp-style-default "sbcl")
+                  (setq common-lisp-style "sbcl"))
+                (progn
+                  (setq common-lisp-style-default "modern")
+                  (setq common-lisp-style "modern")))
 
-  
-  (define-key slime-mode-map  (kbd "C-c C-c") nil)
-  (define-key slime-mode-map  (kbd "C-c C-c") #'slime-eval-last-expression)
-  (define-key slime-mode-map  (kbd "C-c C-e") nil)
-  (define-key slime-mode-map  (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
-  (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
-
+            (local-unset-key (kbd "C-c C-c"))
+            (local-unset-key (kbd "C-c C-e"))
+            (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
+            (define-key slime-mode-map (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
+            (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
 
 
 (provide 'init-common-lisp-with-slime)
