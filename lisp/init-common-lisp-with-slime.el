@@ -20,28 +20,25 @@
   (add-to-list 'slime-contribs 'helm-slime))
 
 (when (maybe-require-package 'slime-company)
-  (setq slime-company-completion 'fuzzy)
   (setq slime-company-after-completion 'slime-company-just-one-space)
-  
-  ;; set company-slime into company-backends properly
-  (defun zw/set-company-slime ()
-    (interactive)
-    (require 'slime-company)
-    ;; company-capf should put at behind because it cause too many extra candidates
-    (setq-local company-backends '((company-dabbrev company-slime company-yasnippet) company-capf company-keywords company-files))
-    (setq slime-company-completion 'fuzzy)
-    (setq slime-company-after-completion 'slime-company-just-one-space)
-    (setq slime-complete-symbol*-fancy t)
-    (setq slime-completion-at-point-functions 'slime-simple-completion-at-point)
-    (setq slime-when-complete-filename-expand t)
-    (setq slime-truncate-lines nil)
-    (setq slime-autodoc-use-multiline-p t))
+  (setq slime-company-completion 'simple)
+  (setq slime-complete-symbol*-fancy t)
+  (setq slime-completion-at-point-functions 'slime-simple-completion-at-point)
+  (setq slime-when-complete-filename-expand t)
+  (setq slime-truncate-lines nil)
+  (setq slime-autodoc-use-multiline-p t)
 
-  ;; (add-hook 'lisp-mode-hook 'zw/set-company-slime)
-  (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
-  (add-hook 'slime-mode-hook 'zw/set-company-slime))
+  (require 'slime-company))
 
+;; set company-slime into company-backends properly
+(defun zw/set-company-slime ()
+  ;; company-capf should put at behind because it cause too many extra candidates
+  (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
+  (setq-local company-backends (zw/delete-from-company-backends 'company-yasnippet))
+  (setq-local company-backends (zw/add-to-company-backends 'company-slime)))
 
+(add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
+(add-hook 'slime-mode-hook 'zw/set-company-slime)
 (add-hook 'lisp-mode-hook
           '(lambda ()
             (setq lisp-indent-function 'common-lisp-indent-function)))

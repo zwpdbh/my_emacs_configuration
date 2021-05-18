@@ -7,9 +7,10 @@
 (add-to-list 'completion-styles 'initials t)
 
 (when (maybe-require-package 'company)
+  (setq-default company-backends '((company-dabbrev company-capf) company-keywords company-files))
   (defun zw/set-company-backends-global ()
     (interactive)
-    (setq company-backends '((company-dabbrev company-capf) company-keywords company-files)))
+    (setq company-backends '((company-capf company-dabbrev) company-keywords company-files)))
   
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "M-C-/") 'company-complete)
@@ -22,20 +23,24 @@
 ;; Add a new backend to the head of company-backends recursively:
 ;; If the head is a list, add new backen into the list at head.
 (defun zw/add-to-company-backends (v)
-  (zw/add-to-company-backends-aux company-backends v))
-(defun zw/add-to-company-backends-aux (backends v)
-  (if (not (listp (car backends)))
-      (add-to-list (quote backends) v)
-    (cons (zw/add-to-company-backends-aux (car backends) v)
-          (cdr backends))))
+  (let ((backends company-backends))
+    (zw/add-to-company-backends-aux backends v)))
+(defun zw/add-to-company-backends-aux (local-backends v)
+  (let ((backends local-backends))
+    (if (not (listp (car backends)))
+        (add-to-list (quote backends) v)
+      (cons (zw/add-to-company-backends-aux (car backends) v)
+            (cdr backends)))))
 
 (defun zw/delete-from-company-backends (v)
-  (zw/delete-from-company-backends-aux company-backends v))
-(defun zw/delete-from-company-backends-aux (backends v)
-  (if (not (listp (car backends)))
-      (setq backends (delete v backends))
-    (let ((rest (cdr backends)))
-      (cons (zw/delete-from-company-backends-aux (car backends) v) rest))))
+  (let ((backends company-backends))
+    (zw/delete-from-company-backends-aux backends v)))
+(defun zw/delete-from-company-backends-aux (local-backends v)
+  (let ((backends local-backends))
+    (if (not (listp (car backends)))
+        (setq backends (delete v backends))
+      (let ((rest (cdr backends)))
+        (cons (zw/delete-from-company-backends-aux (car backends) v) rest)))))
 
 
 (after-load 'company

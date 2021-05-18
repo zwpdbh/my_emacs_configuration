@@ -59,7 +59,8 @@
   (add-hook 'tuareg-mode-hook
             (lambda ()
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
-              (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))))
+              (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
+              (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
 
 (after-load 'org
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
