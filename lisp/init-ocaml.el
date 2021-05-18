@@ -18,8 +18,10 @@
 
     (add-hook 'tuareg-mode-hook
               (lambda ()
+                (local-unset-key (kbd "C-c C-c"))
+                (local-unset-key (kbd "C-c C-e"))
                 (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
-                (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-region)))
+                (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)))
     (after-load 'tuareg
       (set-face-attribute 'tuareg-font-double-semicolon-face nil
                           :foreground "#ffb86c"))
