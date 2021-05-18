@@ -25,7 +25,7 @@
 
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
-                (setq-local company-backends '((merlin-company-backend company-dabbrev) company-keywords company-files company-dabbrev-code))))
+                (setq-local company-backends (zw/add-to-company-backends company-backends 'merlin-company-backends))))
     
     (after-load 'tuareg
       (set-face-attribute 'tuareg-font-double-semicolon-face nil
@@ -49,6 +49,7 @@
     (add-hook 'caml-mode-hook #'merlin-mode)
     
     (require 'caml-types nil 'noerror)
+    (require 'merlin-company)
     
     (setq merlin-use-auto-complete-mode 'easy)
     (setq merlin-command 'opam)
@@ -56,7 +57,8 @@
 
   (add-hook 'tuareg-mode-hook
             (lambda ()
-              (setq-local company-backends '((company-dabbrev-code company-capf) company-keywords company-files company-dabbrev)))))
+              ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
+              (setq-local company-backends (zw/add-to-company-backends company-backends 'merlin-company-backend)))))
 
 (after-load 'org
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
