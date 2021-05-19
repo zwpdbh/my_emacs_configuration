@@ -1,4 +1,5 @@
 ;; === Capture screenshot within Emacs
+;; By default, it utilizes the "import" tool available in the ImageMagick package: sudo apt install imagemagick
 (use-package org-attach-screenshot
   :commands (org-mode)
   :ensure t
