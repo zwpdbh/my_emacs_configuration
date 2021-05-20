@@ -24,17 +24,13 @@
               ;; use counsel-etags
               (zw/counsel-etags-setup)
               (flycheck-mode t)
-              (setq-local company-backends
-                          (add-to-list 'company-backends
-                                       'company-c-headers)))))
+              (setq-local company-backends (zw/add-to-company-backends 'company-c-headers)))))
 
 (when (maybe-require-package 'cmake-mode)
   (add-hook 'cmake-mode-hook
             '(lambda ()
                (zw/counsel-etags-setup)
-               (setq-local company-backends
-                           (add-to-list 'company-backends
-                                        'company-cmake)))))
+               (setq-local company-backends (zw/add-to-company-backends 'company-cmake)))))
 
 
 (provide 'init-c-and-c++)
