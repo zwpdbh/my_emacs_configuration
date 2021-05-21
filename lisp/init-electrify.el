@@ -44,13 +44,16 @@
         (newline arg)
         (indent-according-to-mode)))))
 
-(defun zw/newline-and-indent-for-lisp ()
-  (interactive)
-  (progn
-    (save-excursion
-     (newline-and-indent))
-    (newline-and-previous-indent)
-    (insert-tab)))
+(defun zw/newline-and-indent-for-lisp (arg)
+  (interactive "P")
+  (let ((case-fold-search nil))
+    (if (looking-at electrify-return-match)
+        (progn
+          (save-excursion
+           (newline-and-indent))
+          (newline-and-indent))
+        (progn
+          (newline-and-indent)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
