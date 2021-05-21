@@ -57,8 +57,8 @@
 (add-hook 'text-mode-hook 'zw/set-electrify-return)
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
-(add-hook 'lisp-mode-hook 'zw/unset-electrify-return)
-(add-hook 'emacs-lisp-mode-hook 'zw/unset-electrify-return)
+;; (add-hook 'lisp-mode-hook 'zw/unset-electrify-return)
+;; (add-hook 'emacs-lisp-mode-hook 'zw/unset-electrify-return)
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
