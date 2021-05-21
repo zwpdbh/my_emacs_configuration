@@ -44,6 +44,14 @@
         (newline arg)
         (indent-according-to-mode)))))
 
+(defun zw/newline-and-indent-for-lisp ()
+  (interactive)
+  (progn
+    (save-excursion
+     (newline-and-indent))
+    (newline-and-previous-indent)
+    (insert-tab)))
+
 (defun zw/set-electrify-return ()
   (interactive)
   (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
@@ -51,14 +59,18 @@
   (interactive)
   (local-unset-key (kbd "RET"))
   (define-key (current-local-map) (kbd "RET") 'newline-and-indent))
+(defun zw/set-newline-and-indent-for-lisp ()
+  (interactive)
+  (local-unset-key (kbd "RET"))
+  (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-lisp))
 
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)
 (add-hook 'text-mode-hook 'zw/set-electrify-return)
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
-;; (add-hook 'lisp-mode-hook 'zw/unset-electrify-return)
-;; (add-hook 'emacs-lisp-mode-hook 'zw/unset-electrify-return)
+(add-hook 'lisp-mode-hook #'zw/set-newline-and-indent-for-lisp)
+(add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
