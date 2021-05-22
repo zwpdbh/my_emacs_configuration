@@ -14,6 +14,7 @@
     (insert "source ~/.emacs.d/shell/bash_profile.sh")
     (comint-send-input nil t)))
 
+;; "C-u M-x shell" could be used to start multiple shells
 (add-hook 'shell-mode-hook
           #'(lambda ()
               (setq-local company-backends '((company-dabbrev company-files) company-keywords))
