@@ -55,6 +55,21 @@
         (progn
           (newline-and-indent)))))
 
+(defvar electrify-return-match-for-erlang
+  "[\]}\>\)\"\']"
+  "If this regexp matches the text after the cursor, do an \"electric\"
+        return.")
+(defun zw/newline-and-indent-for-erlang (arg)
+  (interactive "P")
+  (let ((case-fold-search nil))
+    (if (looking-at electrify-return-match-for-erlang)
+        (progn
+          (save-excursion
+            (newline))
+          (newline))
+      (progn
+        (newline)))))
+
 (defun zw/set-electrify-return ()
   (interactive)
   (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
@@ -66,6 +81,10 @@
   (interactive)
   (local-unset-key (kbd "RET"))
   (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-lisp))
+(defun zw/set-newline-and-indent-for-erlang ()
+  (interactive)
+  (local-unset-key (kbd "RET"))
+  (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-erlang))
 
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)
@@ -74,6 +93,7 @@
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
 (add-hook 'lisp-mode-hook #'zw/set-newline-and-indent-for-lisp)
 (add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
+(add-hook 'erlang-mode-hook #'zw/set-newline-and-indent-for-erlang)
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)
