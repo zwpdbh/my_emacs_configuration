@@ -7,7 +7,7 @@
 (add-to-list 'completion-styles 'initials t)
 
 (when (maybe-require-package 'company)
-  (setq-default company-backends '((company-dabbrev company-capf) company-keywords company-files))
+  (setq-default company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords company-files))
   (defun zw/set-company-backends-global ()
     (interactive)
     (setq company-backends '((company-capf company-dabbrev) company-keywords company-files)))
