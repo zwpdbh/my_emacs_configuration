@@ -33,6 +33,14 @@
   (require 'erlang-start)
   (setq inferior-erlang-machine-options '("-sname" "emacs")))
 
+
+(defun my/disable-paredit-spaces-before-paren ()
+  ;; Function which always returns nil -> never insert a space when insert a parentheses.
+  (defun my/erlang-paredit-space-for-delimiter-p (endp delimiter) nil)
+  ;; Set this function locally as only predicate to check when determining if a space should be inserted
+  ;; before a newly created pair of parentheses.
+  (setq-local paredit-space-for-delimiter-predicates '(my/erlang-paredit-space-for-delimiter-p)))
+
 ;; ;; TODO:: not very powerful, try it after feel the limitation
 ;; ;; ref: https://github.com/s-kostyaev/ivy-erlang-complete
 ;; (when (maybe-require-package 'ivy-erlang-complete))
@@ -40,6 +48,8 @@
 
 (add-hook 'erlang-mode-hook
           '(lambda ()
+             (my/disable-paredit-spaces-before-paren)
+             (paredit-mode t)
              ;; ;; configuration for ivy-erlang-complete with company-erlang
              ;; (setq-local company-backends (zw/add-to-company-backends 'company-erlang))
              ;; (add-hook 'after-save-hook 'ivy-erlang-complete-reparse 'append 'local)
@@ -113,7 +123,10 @@
 
 (add-hook 'erlang-shell-mode-hook
           (lambda ()
+            (my/disable-paredit-spaces-before-paren)
+            (paredit-mode t)
             (setq-local company-backends '((company-dabbrev company-capf) company-keywords company-files))))
+
 
 (provide 'init-erlang)
 ;;; init-erlang ends here

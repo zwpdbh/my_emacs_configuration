@@ -56,7 +56,7 @@
           (newline-and-indent)))))
 
 (defvar electrify-return-match-for-erlang
-  "[\]}\>\)\"\']"
+  "[\]}>\)\"\']"
   "If this regexp matches the text after the cursor, do an \"electric\"
         return.")
 (defun zw/newline-and-indent-for-erlang (arg)
@@ -65,10 +65,10 @@
     (if (looking-at electrify-return-match-for-erlang)
         (progn
           (save-excursion
-            (newline))
-          (newline))
+            (newline-and-indent))
+          (newline-and-indent))
       (progn
-        (newline)))))
+        (newline-and-indent)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
