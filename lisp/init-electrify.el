@@ -63,12 +63,12 @@
         (progn
           (save-excursion
             (newline)
-            (erlang-indent-command))
+            (erlang-indent-line))
           (newline-and-previous-indent)
           (insert-tab))
       (progn
         (newline)
-        (erlang-indent-command)))))
+        (erlang-indent-line)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
