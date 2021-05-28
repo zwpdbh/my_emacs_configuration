@@ -62,13 +62,11 @@
     (if (looking-at electrify-return-match)
         (progn
           (save-excursion
-            (newline)
-            (erlang-indent-line))
+            (newline-and-indent))
           (newline-and-previous-indent)
           (insert-tab))
       (progn
-        (newline)
-        (erlang-indent-line)))))
+        (newline-and-indent)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
