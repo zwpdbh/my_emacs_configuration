@@ -61,7 +61,7 @@
              ;; (define-key erlang-mode-map (kbd "C-c C-o") 'ivy-erlang-complete-find-file)
 
              ;; my own simple solution to format erlang code on save
-             (add-hook 'before-save-hook 'zw/indent-buffer nil 'local)
+             (add-hook 'before-save-hook 'erlang-indent-clause nil 'local)
              ;; key-bindings for erlang-mode
              (define-key erlang-mode-map (kbd "C-c C-c") 'erlang-compile)))
 
