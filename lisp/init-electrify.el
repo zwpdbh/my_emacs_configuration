@@ -55,6 +55,7 @@
         (progn
           (newline-and-indent)))))
 
+
 (defun zw/newline-and-indent-for-erlang (arg)
   (interactive "P")
   (let ((case-fold-search nil))
@@ -65,9 +66,8 @@
           (newline-and-previous-indent)
           (insert-tab))
       (progn
-        (save-excursion
-          (newline-and-indent))
-        (newline-and-indent)))))
+        (newline)
+        (erlang-indent-command)))))
 
 (defun zw/set-electrify-return ()
   (interactive)
