@@ -62,7 +62,8 @@
     (if (looking-at electrify-return-match)
         (progn
           (save-excursion
-            (newline-and-indent))
+            (newline)
+            (erlang-indent-command))
           (newline-and-previous-indent)
           (insert-tab))
       (progn
