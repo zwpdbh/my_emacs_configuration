@@ -81,6 +81,11 @@ FACE defaults to inheriting from default and highlight."
   ;; It is not a solution, since in c++, we often have cout <<
   ;; (sp-local-pair 'c-mode "<" ">")
   ;; (sp-local-pair 'c++-mode "<" ">")
+  
+  (when (featurep 'tuareg)
+    ;; Auto pair "'" for OCaml
+    (sp-local-pair 'tuareg-mode "'" "'"))
+
   (smartparens-global-mode t))
 
 ;; Make parenthesis less obvious for readability
