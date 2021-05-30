@@ -3,6 +3,7 @@
 ;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocp-indent
 (add-to-list 'load-path "~/.opam/system/share/emacs/site-lisp/")
+(add-to-list 'exec-path "~/.opam/system/bin")
 
 (when (executable-find "ocaml")
   (when (maybe-require-package 'tuareg)
@@ -66,7 +67,7 @@
   (add-to-list 'org-structure-template-alist '("ocaml" . "src ocaml :results verbatim")))
 
 
-;;; For ReasonML
+;; For ReasonML
 (when (maybe-require-package 'reason-mode)
   (defun shell-cmd (cmd)
     "Returns the stdout output of a shell command or nil if the command returned
@@ -87,7 +88,6 @@
                             (replace-regexp-in-string "bin/ocamlmerlin$" "" merlin-bin))))
     ;; Add merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
     (when merlin-bin
-      (add-to-list 'load-path (concat merlin-base-dir "share/emacs/site-lisp/"))
       (setq merlin-command merlin-bin))
 
     (when refmt-bin
@@ -99,6 +99,6 @@
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
               (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
               
-              (add-hook 'before-save-hook 'refmt-before-save))))
+              (add-hook 'before-save-hook 'refmt-before-save nil 'local))))
 
 (provide 'init-ocaml)
