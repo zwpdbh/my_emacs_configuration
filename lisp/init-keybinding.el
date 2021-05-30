@@ -36,6 +36,7 @@
 (global-set-key (kbd "C-z") #'undo)
 
 ;; one for terminal, another is for daemon
+(global-unset-key (kbd "C-/"))
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 (unless (display-graphic-p)
   ;; This is used especially for terminal, in such case "C-/" is mapped to "C-_".
@@ -85,22 +86,6 @@
   (dolist (multiple '("" "double-" "triple-"))
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
-
-
-(when (fboundp 'copy-to-x-clipboard)
-  ;; (global-set-key [remap whole-line-or-region-kill-ring-save] 'copy-to-x-clipboard)
-  (global-unset-key (kbd "M-w"))
-  (global-set-key (kbd "M-w") 'copy-to-x-clipboard))
-
-(when (fboundp 'cut-to-x-clipboard)
-  ;; (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard)
-  (global-unset-key (kbd "C-w"))
-  (global-set-key (kbd "C-w") 'cut-to-x-clipboard))
-
-;; (global-set-key [remap whole-line-or-region-yank] 'paste-from-x-clipboard)
-(when (fboundp 'paste-from-x-clipboard)
-  (global-unset-key (kbd "C-y"))
-  (global-set-key (kbd "C-y") 'paste-from-x-clipboard))
 
 
 ;; for ivy minibuffer
