@@ -16,13 +16,6 @@
     (add-to-list 'interpreter-mode-alist '("ocamlrun" . caml-mode))
     (add-to-list 'interpreter-mode-alist '("ocaml" . caml-mode))
 
-    (add-hook 'tuareg-mode-hook
-              (lambda ()
-                (local-unset-key (kbd "C-c C-c"))
-                (local-unset-key (kbd "C-c C-e"))
-                (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
-                (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)))
-
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
                 (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
@@ -58,6 +51,11 @@
 
   (add-hook 'tuareg-mode-hook
             (lambda ()
+              (local-unset-key (kbd "C-c C-c"))
+              (local-unset-key (kbd "C-c C-e"))
+              (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
+              (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
+              
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
               (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))

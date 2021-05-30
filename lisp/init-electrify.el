@@ -90,6 +90,7 @@
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
 (add-hook 'lisp-mode-hook #'zw/set-newline-and-indent-for-lisp)
+(add-hook 'tuareg-mode-hook #'zw/set-newline-and-indent-for-lisp)
 (add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
 (add-hook 'erlang-mode-hook #'zw/set-newline-and-indent-for-erlang)
 
