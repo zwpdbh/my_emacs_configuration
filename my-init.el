@@ -115,8 +115,6 @@
 (require-init 'init-whichkey)
 
 (require 'init-font)
-;; (when window-system
-;;   (require 'init-font))
 
 (require-init 'init-projectile)
 ;; (require-init 'init-treemacs)
