@@ -20,7 +20,8 @@
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
                 (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-                (setq-local company-backends (zw/delete-from-company-backends 'company-capf))))
+                (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
+                (paredit-mode t)))
     
     (after-load 'tuareg
       (set-face-attribute 'tuareg-font-double-semicolon-face nil
@@ -56,7 +57,8 @@
               (local-unset-key (kbd "C-c C-e"))
               (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
               (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
-              
+
+              (paredit-mode t)
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
               (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
