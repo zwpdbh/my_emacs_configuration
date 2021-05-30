@@ -10,3 +10,6 @@ alias cbuild="cmake -H. -Bbuild && cmake --build build -- -j4"
 export PATH=/home/zw/.cache/rebar3/bin:$PATH
 export PATH=/usr/lib/erlang/lib/tools-2.11.1/emacs:$PATH
 export PATH=/usr/lib/erlang:$PATH
+
+# For Ocaml bins
+export PATH=~/.opam/system/bin:$PATH
