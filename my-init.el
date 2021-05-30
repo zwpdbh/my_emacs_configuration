@@ -114,8 +114,9 @@
 (require-init 'init-keybinding)
 (require-init 'init-whichkey)
 
-(when window-system
-  (require-init 'init-font))
+(require 'init-font)
+;; (when window-system
+;;   (require 'init-font))
 
 (require-init 'init-projectile)
 ;; (require-init 'init-treemacs)
