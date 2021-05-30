@@ -6,9 +6,6 @@
 ;; (autoload 'dap-ui-mode "dap-mode" "" t)
 
 (autoload 'org-export-dispatch "htmlize")
-
-(autoload 'xclip-set-selection "xclip" "" t)
-(autoload 'xclip-get-selection "xclip" "" t)
 (autoload 'langtool-check "langtool" "" t)
 (autoload 'langtool-check-buffer "langtool" "" t)
 (autoload 'dianyou-group-make-nnir-group "dianyou" "" t)

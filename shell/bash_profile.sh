@@ -13,3 +13,7 @@ export PATH=/usr/lib/erlang:$PATH
 
 # For Ocaml bins
 export PATH=~/.opam/system/bin:$PATH
+
+# Something with Emacs terminal
+alias e='emacsclient -t -a ""'
+alise E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
