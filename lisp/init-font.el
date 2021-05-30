@@ -66,7 +66,14 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(zw/set-font 10)
+(if (display-graphic-p)
+    (zw/set-font 10)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (when (display-graphic-p frame)
+                (with-selected-frame frame
+                  (zw/set-font 10))))))
+
 
 ;; set emoji
 (when (and (boundp 'global-emojify-mode)
