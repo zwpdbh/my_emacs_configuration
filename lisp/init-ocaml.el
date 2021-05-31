@@ -97,10 +97,11 @@
 
   (add-hook 'reason-mode-hook
             (lambda ()
+              ;; (add-hook 'before-save-hook 'refmt-before-save nil 'local) ; not very useful
+              (add-hook 'before-save-hook 'zw/indent-buffer nil 'local)
+              
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-              (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
-              
-              (add-hook 'before-save-hook 'refmt-before-save nil 'local))))
+              (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
 
 (provide 'init-ocaml)
