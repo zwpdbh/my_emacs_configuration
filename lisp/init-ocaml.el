@@ -100,8 +100,7 @@
             (lambda ()
               (paredit-mode t)
               (zw/counsel-etags-setup)
-              ;; (add-hook 'before-save-hook 'refmt-before-save nil 'local) ; not very useful
-              (add-hook 'before-save-hook 'zw/indent-buffer nil 'local)
+              (add-hook 'before-save-hook 'refmt nil 'local)
               
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
