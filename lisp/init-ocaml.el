@@ -60,6 +60,8 @@
 
               (paredit-mode t)
               (zw/counsel-etags-setup)
+              (add-hook 'before-save-hook 'tuareg-indent-phrase nil 'local)
+              
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
               (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
