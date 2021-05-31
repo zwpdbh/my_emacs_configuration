@@ -16,14 +16,12 @@
              (set-face-attribute 'default nil
                                  :width 'regular
                                  :height 110
-                                 :foreground "#a9b7ca"
-                                 :background "black")
+                                 :foreground "#a9b7ca")
              (set-face-attribute 'font-lock-comment-face nil
                                  :foreground "#606873")))
     (progn
       (set-face-attribute 'default nil                          
-                          :foreground "#c6c6c6"
-                          :background "black")))
+                          :foreground "#c6c6c6")))
 
   ;; (set-face-attribute 'hl-line nil
   ;;                     :underline nil
