@@ -38,7 +38,7 @@
 (defun zw/delete-from-company-backends-aux (local-backends v)
   (let ((backends local-backends))
     (if (not (listp (car backends)))
-        (setq backends (delete v backends))
+        (setq backends (remove v backends))
       (let ((rest (cdr backends)))
         (cons (zw/delete-from-company-backends-aux (car backends) v) rest)))))
 

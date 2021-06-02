@@ -14,6 +14,11 @@
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
 (add-to-list 'exec-path opam-bin)
 
+(defun zw/set-company-backends-for-ocaml ()
+  (interactive)
+  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
+  (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
+
 (when (executable-find "ocaml")
   ;; installed by opam install ocamlformat
   ;; (require 'ocamlformat) ; not very useful
@@ -31,8 +36,7 @@
 
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
-                (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-                (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
+                (zw/set-company-backends-for-ocaml)
                 (paredit-mode t)))
     
     (after-load 'tuareg
@@ -45,11 +49,9 @@
 
   (when (maybe-require-package 'merlin)
     (autoload 'merlin-mode "merlin" "Merlin mode" t)
-    (add-hook 'tuareg-mode-hook #'merlin-mode)
-    (add-hook 'caml-mode-hook #'merlin-mode)
+    (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml)
     
     (require 'caml-types nil 'noerror)
-    (require 'merlin-company)
     
     (setq merlin-use-auto-complete-mode 'easy)
     (setq merlin-command 'opam)
@@ -67,8 +69,7 @@
               (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
               
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
-              (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-              (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
+              (zw/set-company-backends-for-ocaml))))
 
 (after-load 'org
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
@@ -109,7 +110,6 @@
               (add-hook 'before-save-hook 'refmt nil 'local)
               
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
-              (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-              (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))))
+              (zw/set-company-backends-for-ocaml))))
 
 (provide 'init-ocaml)
