@@ -1,11 +1,23 @@
 ;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
-
 ;; sudo apt install opam (OCaml package manager)
-;; opam install caml-mode merlin ocp-indent
-(add-to-list 'load-path "~/.opam/system/share/emacs/site-lisp/")
-(add-to-list 'exec-path "~/.opam/system/bin")
+;; opam install caml-mode merlin ocamlformat
+
+;; add load-path for ocaml related from opam 
+(setq opam-share (shell-command-to-string "opam config var share"))
+(when (string-match-p "\n\\'" opam-share)
+  (setq opam-share (substring opam-share 0 (- (length opam-share) 1))))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+
+;; add exec-path for ocaml related from opam
+(setq opam-bin (shell-command-to-string "opam config var bin"))
+(when (string-match-p "\n\\'" opam-bin)
+  (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
+(add-to-list 'exec-path opam-bin)
 
 (when (executable-find "ocaml")
+  ;; installed by opam install ocamlformat
+  (require 'ocamlformat)
+  
   (when (maybe-require-package 'tuareg)
     (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
     (autoload 'ocamldebug "ocamldebug" "Run the Caml debugger" t)
@@ -61,7 +73,7 @@
               (paredit-mode t)
               (zw/counsel-etags-setup)
               ;; (add-hook 'before-save-hook 'tuareg-indent-phrase nil 'local)
-              (add-hook 'before-save-hook 'zw/indent-buffer nil 'local)
+              (add-hook 'before-save-hook #'ocamlformat-before-save nil 'local)
               
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
