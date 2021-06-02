@@ -17,3 +17,8 @@ export PATH=~/.opam/system/bin:$PATH
 # Something with Emacs terminal
 alias e='emacsclient -t -a ""'
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
+
+
+# GO settings 
+export PATH=$PATH:/usr/local/go/bin
+export GO111MODULE=auto
