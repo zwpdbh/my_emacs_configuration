@@ -16,7 +16,7 @@
 
 (when (executable-find "ocaml")
   ;; installed by opam install ocamlformat
-  (require 'ocamlformat)
+  ;; (require 'ocamlformat) ; not very useful
   
   (when (maybe-require-package 'tuareg)
     (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
@@ -36,20 +36,12 @@
                 (paredit-mode t)))
     
     (after-load 'tuareg
-      (set-face-attribute 'tuareg-font-double-semicolon-face nil
+      (set-face-attribute 'tuareg-font-double-colon-face nil
                           :foreground "#ffb86c"))
-    
     (if window-system
         (progn
           (require 'caml-font)
           (set-face-foreground 'caml-font-doccomment-face "#cb4b16"))))
-
-  (when (maybe-require-package 'ocp-indent)  
-    (setq ocp-indent-path
-          (concat
-           (replace-regexp-in-string "\n$" ""
-                                     (shell-command-to-string "opam config var bin")) "/ocp-indent"))
-    (setq ocp-indent-config "strict_with=always,match_clause=4,strict_else=never"))
 
   (when (maybe-require-package 'merlin)
     (autoload 'merlin-mode "merlin" "Merlin mode" t)
@@ -72,8 +64,7 @@
 
               (paredit-mode t)
               (zw/counsel-etags-setup)
-              ;; (add-hook 'before-save-hook 'tuareg-indent-phrase nil 'local)
-              (add-hook 'before-save-hook #'ocamlformat-before-save nil 'local)
+              (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
               
               ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
               (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
