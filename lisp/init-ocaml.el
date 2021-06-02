@@ -16,6 +16,7 @@
 
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
+  ;; remember to comment out the autmatically register company-backends in merlin-company.el 
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
   (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
 
@@ -107,9 +108,7 @@
             (lambda ()
               (paredit-mode t)
               (zw/counsel-etags-setup)
-              (add-hook 'before-save-hook 'refmt nil 'local)
-              
-              ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
+              (add-hook 'before-save-hook 'refmt nil 'local)              
               (zw/set-company-backends-for-ocaml))))
 
 (provide 'init-ocaml)
