@@ -66,15 +66,14 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(let ((zw/font-size 10))
-  (if (display-graphic-p)
-      (zw/set-font zw/font-size)
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (when (display-graphic-p frame)
-                  (with-selected-frame frame
-                    (zw/set-font zw/font-size)))))))
-
+(setq zw/font-size 10)
+(if (display-graphic-p)
+    (zw/set-font zw/font-size)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (when (display-graphic-p frame)
+                (with-selected-frame frame
+                  (zw/set-font zw/font-size))))))
 
 
 ;; set emoji
