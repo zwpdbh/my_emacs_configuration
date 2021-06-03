@@ -1,4 +1,6 @@
 (setq zw/favorite-en-fonts '(
+                             "Monaco"
+                             "Monaco Nerd Font Mono"
                              "Source Code Pro"
                              "Anonymous Pro"
                              "Iosevka Slab"
@@ -7,8 +9,6 @@
                              "Consolas"                             
                              "Ubuntu Mono"                             
                              "Terminus (TTF)"
-                             "Monaco Nerd Font Mono"
-                             "Monaco"
                              "Terminus (TTF) for Windows"
                              "JetBrains Mono"
                              "DejaVu Sans Mono"
@@ -66,7 +66,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(let ((zw/font-size 10))
+(let ((zw/font-size 9))
   (if (display-graphic-p)
       (zw/set-font zw/font-size)
     (add-hook 'after-make-frame-functions
