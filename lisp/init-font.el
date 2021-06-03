@@ -1,7 +1,7 @@
 (setq zw/favorite-en-fonts '(
+                             "Anonymous Pro"
                              "Iosevka Slab"
                              "Iosevka Curly Slab"
-                             "Anonymous Pro"
                              "Inconsolata"
                              "Source Code Pro"
                              "Consolas"                             
@@ -66,13 +66,15 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(if (display-graphic-p)
-    (zw/set-font 10)
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (when (display-graphic-p frame)
-                (with-selected-frame frame
-                  (zw/set-font 10))))))
+(let ((zw/font-size 11))
+  (if (display-graphic-p)
+      (zw/set-font zw/font-size)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (when (display-graphic-p frame)
+                  (with-selected-frame frame
+                    (zw/set-font zw/font-size)))))))
+
 
 
 ;; set emoji
