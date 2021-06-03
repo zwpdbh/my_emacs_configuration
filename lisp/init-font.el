@@ -1,9 +1,9 @@
 (setq zw/favorite-en-fonts '(
+                             "Source Code Pro"
                              "Anonymous Pro"
                              "Iosevka Slab"
                              "Iosevka Curly Slab"
                              "Inconsolata"
-                             "Source Code Pro"
                              "Consolas"                             
                              "Ubuntu Mono"                             
                              "Terminus (TTF)"
@@ -66,7 +66,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(let ((zw/font-size 11))
+(let ((zw/font-size 10))
   (if (display-graphic-p)
       (zw/set-font zw/font-size)
     (add-hook 'after-make-frame-functions
