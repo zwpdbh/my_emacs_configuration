@@ -16,6 +16,7 @@
 
 (add-hook 'go-mode-hook
           '(lambda ()
+             (setq-local tab-width 4)
              (flycheck-mode t)             
              (when (featurep 'flycheck)
                (define-key (current-local-map) (kbd "C-c C-n") 'flycheck-next-error)
