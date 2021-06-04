@@ -5,29 +5,30 @@
 (when (maybe-require-package 'go-mode)
   (if (string-equal system-type "gnu/linux")
       (add-to-list 'exec-path "/usr/local/go/bin/")
-    nil))
+      nil))
 
 (when (maybe-require-package 'ob-go)
   (after-load 'org
-    (add-to-list 'org-structure-template-alist '("go" . "src go"))
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((go . t)))))
+              (add-to-list 'org-structure-template-alist '("go" . "src go"))
+              (org-babel-do-load-languages
+               'org-babel-load-languages
+               '((go . t)))))
 
 (add-hook 'go-mode-hook
           '(lambda ()
-             (add-hook 'before-save-hook 'gofmt-before-save nil 'local)
-             ;; Godef, lets you quickly jump around the code
-             ;; Install it by: go get github.com/rogpeppe/godef
-             (if (locate-file "godef" exec-path)
-                 (progn
-                   (define-key go-mode-map (kbd "M-.") 'godef-jump)
-                   (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
-                   (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point))
-               (progn
-                 (define-key go-mode-map (kbd "M-.") 'counsel-etags-find-tag-at-point)
-                 (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
-                 (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point)))))
+            (flycheck-mode t)
+            (add-hook 'before-save-hook 'gofmt-before-save nil 'local)
+            ;; Godef, lets you quickly jump around the code
+            ;; Install it by: go get github.com/rogpeppe/godef
+            (if (locate-file "godef" exec-path)
+                (progn
+                  (define-key go-mode-map (kbd "M-.") 'godef-jump)
+                  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+                  (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+                (progn
+                  (define-key go-mode-map (kbd "M-.") 'counsel-etags-find-tag-at-point)
+                  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+                  (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point)))))
 
 
 
@@ -42,7 +43,7 @@
 ;;   (lsp-register-custom-settings
 ;;    '(("gopls.completeUnimported" t t)
 ;;      ("gopls.staticcheck" t t)))
-  
+
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t)
 ;;   (zw/customize-lsp-ui-key-bindings))
 
