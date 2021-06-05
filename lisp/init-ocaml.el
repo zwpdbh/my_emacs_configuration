@@ -66,6 +66,7 @@
               (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
 
               (paredit-mode t)
+              (define-key tuareg-mode-map (kbd "}") 'paredit-close-curly)
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
               
