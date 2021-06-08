@@ -159,7 +159,7 @@
 (require-init 'init-clojure)
 (require 'init-erlang)
 (require 'init-ocaml)
-;; (require 'init-elixir) ; Currently doesn't need it.
+(require 'init-elixir)
 (require-init 'init-lisp-tool)
 
 (require-init 'init-clang-format)

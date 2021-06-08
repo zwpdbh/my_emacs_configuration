@@ -10,9 +10,7 @@
 (when (maybe-require-package 'ob-go)
   (after-load 'org
     (add-to-list 'org-structure-template-alist '("go" . "src go"))
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((go . t)))))
+    (add-to-list 'zw/org-babel-load-language-list '(go . t))))
 
 (add-hook 'go-mode-hook
           '(lambda ()
