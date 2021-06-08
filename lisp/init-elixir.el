@@ -10,6 +10,7 @@
 
 (when (maybe-require-package 'alchemist)  
   ;; ref: https://alchemist.readthedocs.io/en/latest/installation/
+  ;; ref: https://alchemist.readthedocs.io/en/latest/basic_usage/
   ;; ref: https://develop.spacemacs.org/layers/+lang/elixir/README.html#layer
   ;; ref: https://medium.com/@vasspilka/basic-workflow-for-alchemist-el-c35f460e04e1
   
@@ -20,10 +21,31 @@
   (setq alchemist-mix-command (executable-find "mix"))
   (setq alchemist-mix-test-task (executable-find "espec"))
 
+  (defun zw/alchemist-iex-send-current-line ()
+    (interactive)
+    (save-excursion
+      (let ((p1 (point))
+            (p2 (line-beginning-position)))
+        (set-mark  p1)
+        (goto-char p2)
+        (call-interactively 'alchemist-iex-send-region)
+        (deactivate-mark))))
+
+  (defun zw/alchemist-iex-send-region (beg end)
+    "Sends the marked region to the IEx process."
+    (interactive (list (point) (mark)))
+    (unless (and beg end)
+      (error "The mark is not set now, so there is no region"))
+    (let* ((region (buffer-substring-no-properties beg end)))
+      (alchemist-iex--send-command (alchemist-iex-process) region)
+      (deactivate-mark)))
+  
   (add-hook 'elixir-mode-hook
             (lambda ()
               (alchemist-mode t)
               (define-key (current-local-map) (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer)
+              (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-send-current-line)
+              (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region)
               (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-execute-this-buffer))))
 
 
