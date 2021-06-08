@@ -21,8 +21,8 @@
   (add-hook 'elixir-mode-hook
             (lambda ()
               (alchemist-mode t)
-              (define-key (current-local-map) (kbd "C-c C-c") 'alchemist-eval-current-line)
-              (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-eval-buffer))))
+              (define-key (current-local-map) (kbd "C-c C-c") 'alchemist-eval-buffer)
+              (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-eval-print-current-line))))
 
 
 (when (maybe-require-package 'ob-elixir)
