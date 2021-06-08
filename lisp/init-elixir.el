@@ -24,7 +24,7 @@
   (defun zw/alchemist-iex-send-current-line ()
     (interactive)
     (save-excursion
-      (let ((p1 (point))
+      (let ((p1 (line-end-position))
             (p2 (line-beginning-position)))
         (set-mark  p1)
         (goto-char p2)
