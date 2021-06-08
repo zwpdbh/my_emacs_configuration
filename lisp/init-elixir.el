@@ -11,6 +11,8 @@
 (when (maybe-require-package 'alchemist)  
   ;; ref: https://alchemist.readthedocs.io/en/latest/installation/
   ;; ref: https://develop.spacemacs.org/layers/+lang/elixir/README.html#layer
+  ;; ref: https://medium.com/@vasspilka/basic-workflow-for-alchemist-el-c35f460e04e1
+  
   (setq alchemist-iex-program-name (executable-find "iex")) 
   (setq alchemist-execute-command (executable-find "elixir")) 
   (setq alchemist-compile-command (executable-find "elixirc"))
@@ -21,8 +23,8 @@
   (add-hook 'elixir-mode-hook
             (lambda ()
               (alchemist-mode t)
-              (define-key (current-local-map) (kbd "C-c C-c") 'alchemist-eval-buffer)
-              (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-eval-print-current-line))))
+              (define-key (current-local-map) (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer)
+              (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-execute-this-buffer))))
 
 
 (when (maybe-require-package 'ob-elixir)
