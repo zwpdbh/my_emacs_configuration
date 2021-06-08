@@ -6,7 +6,7 @@
             (lambda ()
               (my/disable-paredit-spaces-before-paren)
               (paredit-mode t)
-              (add-hook 'before-save-hook 'elixir-format nil 'local))))
+              (add-hook 'before-save-hook 'zw/indent-buffer nil 'local))))
 
 (when (maybe-require-package 'alchemist)  
   ;; ref: https://alchemist.readthedocs.io/en/latest/installation/
