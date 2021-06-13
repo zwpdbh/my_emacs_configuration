@@ -29,6 +29,9 @@
     (autoload 'ocamldebug "ocamldebug" "Run the Caml debugger" t)
     (autoload 'caml-mode "caml" "Major mode for editing OCaml code." t)
     (autoload 'run-caml "inf-caml" "Run an inferior OCaml process." t)
+
+    (setq tuareg-interactive-program "ocaml -nopromptcont")
+    (setq tuareg-indent-align-with-first-arg t)
     
     (add-to-list 'auto-mode-alist '("\\.ml[iylp]?$" . tuareg-mode))
     (add-to-list 'auto-mode-alist '("\\.topml$" . tuareg-mode))
@@ -51,13 +54,12 @@
 
   (when (maybe-require-package 'merlin)
     (autoload 'merlin-mode "merlin" "Merlin mode" t)
-    (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml)
-    
     (require 'caml-types nil 'noerror)
     
     (setq merlin-use-auto-complete-mode 'easy)
     (setq merlin-command 'opam)
-    (setq merlin-error-on-single-line t))
+    (setq merlin-error-on-single-line t)
+    (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml))
 
   (add-hook 'tuareg-mode-hook
             (lambda ()
@@ -78,6 +80,22 @@
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
   (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
   (add-to-list 'org-structure-template-alist '("ml" . "src ocaml :results verbatim")))
+
+;; Not very useful, disable it for now 
+;; (when (maybe-require-package 'utop)
+;;   (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+
+;;   ;; (setq utop-command "opam config exec -- utop -emacs")
+;;   (setq utop-command "opam config exec -- dune utop . -- -emacs")
+
+;;   (add-hook 'tuareg-mode-hook
+;;             (lambda ()
+;;               (utop-minor-mode t)
+;;               (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend))))
+;;   (add-hook 'utop-mode-hook
+;;             (lambda ()
+;;               (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
+;;               (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend)))))
 
 
 ;; For ReasonML
