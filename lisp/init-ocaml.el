@@ -41,6 +41,7 @@
     (add-hook 'tuareg-interactive-mode-hook
               (lambda ()
                 (zw/set-company-backends-for-ocaml)
+                (my/disable-paredit-spaces-before-paren)
                 (paredit-mode t)))
 
     ;; Disable this customization because the name for this face keep changing for different version causing package load failure.
@@ -68,8 +69,10 @@
               (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
               (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
 
+              (my/disable-paredit-spaces-before-paren)
               (paredit-mode t)
               (define-key tuareg-mode-map (kbd "}") 'paredit-close-curly)
+              
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
               
@@ -126,6 +129,7 @@
 
   (add-hook 'reason-mode-hook
             (lambda ()
+              (my/disable-paredit-spaces-before-paren)
               (paredit-mode t)
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook 'refmt nil 'local)              
