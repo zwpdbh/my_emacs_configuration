@@ -39,10 +39,11 @@
               (lambda ()
                 (zw/set-company-backends-for-ocaml)
                 (paredit-mode t)))
-    
-    (after-load 'tuareg
-      (set-face-attribute 'tuareg-font-double-colon-face nil
-                          :foreground "#ffb86c"))
+
+    ;; Disable this customization because the name for this face keep changing for different version causing package load failure.
+    ;; (after-load 'tuareg
+    ;;   (set-face-attribute 'tuareg-font-double-colon-face nil
+    ;;                       :foreground "#ffb86c"))
     (if window-system
         (progn
           (require 'caml-font)
