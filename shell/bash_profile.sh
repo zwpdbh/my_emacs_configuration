@@ -13,6 +13,8 @@ export PATH=/usr/lib/erlang:$PATH
 
 # For Ocaml bins
 export PATH=~/.opam/system/bin:$PATH
+# For update Ocaml commands
+eval $(opam config env)
 
 # Something with Emacs terminal
 alias e='emacsclient -t -a ""'
