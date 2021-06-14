@@ -37,6 +37,7 @@
         (set-mark  p1)
         (goto-char p2)
         (call-interactively 'alchemist-iex-send-region)
+        (display-buffer (process-buffer (alchemist-iex-process)))
         (deactivate-mark))))
 
   (defun zw/alchemist-iex-send-region (beg end)
@@ -44,9 +45,11 @@
     (interactive (list (point) (mark)))
     (unless (and beg end)
       (error "The mark is not set now, so there is no region"))
-    (let* ((region (buffer-substring-no-properties beg end)))
-      (alchemist-iex--send-command (alchemist-iex-process) region)
-      (deactivate-mark)))
+    (save-excursion
+      (let* ((region (buffer-substring-no-properties beg end)))
+        (alchemist-iex--send-command (alchemist-iex-process) region)
+        (display-buffer (process-buffer (alchemist-iex-process)))
+        (deactivate-mark))))
   
   (add-hook 'elixir-mode-hook
             (lambda ()
