@@ -6,7 +6,7 @@
             (lambda ()
               (my/disable-paredit-spaces-before-paren)
               (paredit-mode t)
-              (add-hook 'before-save-hook 'elixir-format nil 'local))))
+              (add-hook 'before-save-hook 'zw/indent-buffer nil 'local))))
 
 (defun zw/set-company-backends-for-elixir ()
   (interactive)
@@ -65,7 +65,8 @@
               (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region)
-              (define-key (current-local-map) (kbd "<f1>") 'zw/alchemist-iex-send-region))))
+              (define-key (current-local-map) (kbd "<f1>") 'zw/alchemist-iex-send-region)
+              (define-key (current-local-map) (kbd "<f10>") 'elixir-format))))
 
 
 (when (maybe-require-package 'ob-elixir)
