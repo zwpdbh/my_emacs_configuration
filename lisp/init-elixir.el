@@ -50,14 +50,20 @@
         (alchemist-iex--send-command (alchemist-iex-process) region)
         (display-buffer (process-buffer (alchemist-iex-process)))
         (deactivate-mark))))
+
+  (defun zw/alchemist-iex-compile-this-buffer ()
+    (interactive)
+    (save-excursion
+      (alchemist-iex-compile-this-buffer)
+      (display-buffer (process-buffer (alchemist-iex-process)))))
   
   (add-hook 'elixir-mode-hook
             (lambda ()
               (alchemist-mode t)
               (zw/set-company-backends-for-elixir)
               (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-current-line)
-              (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-iex-compile-this-buffer)
-              (define-key (current-local-map) (kbd "C-c C-l") 'alchemist-iex-compile-this-buffer)
+              (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
+              (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region))))
 
 
