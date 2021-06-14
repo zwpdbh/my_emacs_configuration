@@ -64,7 +64,8 @@
               (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-current-line)
               (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
-              (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region))))
+              (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region)
+              (define-key (current-local-map) (kbd "<f6>") 'zw/alchemist-iex-send-region))))
 
 
 (when (maybe-require-package 'ob-elixir)
