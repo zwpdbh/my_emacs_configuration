@@ -8,6 +8,11 @@
               (paredit-mode t)
               (add-hook 'before-save-hook 'zw/indent-buffer nil 'local))))
 
+(defun zw/set-company-backends-for-elixir ()
+  (interactive)
+  (setq-local company-backends (zw/add-to-company-backends 'alchemist-company))
+  (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
+
 (when (maybe-require-package 'alchemist)  
   ;; ref: https://alchemist.readthedocs.io/en/latest/installation/
   ;; ref: https://alchemist.readthedocs.io/en/latest/basic_usage/
@@ -43,6 +48,7 @@
   (add-hook 'elixir-mode-hook
             (lambda ()
               (alchemist-mode t)
+              (zw/set-company-backends-for-elixir)
               (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-current-line)
               (define-key (current-local-map) (kbd "C-c C-e") 'alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-l") 'alchemist-iex-compile-this-buffer)
