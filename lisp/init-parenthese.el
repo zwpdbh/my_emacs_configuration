@@ -78,6 +78,7 @@ FACE defaults to inheriting from default and highlight."
               (sp-local-pair '(org-mode) "*" "*" :actions nil))
 
   ;; add addition pairs for certain mode
+  (sp-local-pair 'elixir-mode "<<" ">>")
   ;; It is not a solution, since in c++, we often have cout <<
   ;; (sp-local-pair 'c-mode "<" ">")
   ;; (sp-local-pair 'c++-mode "<" ">")
