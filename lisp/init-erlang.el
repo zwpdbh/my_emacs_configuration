@@ -18,21 +18,32 @@
 
 ;; When Erlang has been installed, it by default contains elisp code for Emacs to use.
 ;; Configure to load those .el files for erlang-mode
+
+(defun get-latest-erlang-lib-tools-dir ()
+  (let ((erlang-lib-dir (concat erlang-root-dir "lib/")))
+    (seq-filter (apply-partially #'< 3) '(1 2 3 4 5 6))
+    (let ((tools (seq-filter (apply-partially #'(lambda (str)
+                                                  (and (string-match "^tools" str)
+                                                       (file-exists-p (concat erlang-root-dir "lib/" str "/")))))
+                             (directory-files erlang-lib-dir))))
+      (nth (1- (length tools)) tools))))
+
 (cond (*win64*
        (setq erlang-root-dir "c:/Program Files/erl-23.0/")
        (setq erlang-man-root-dir (concat erlang-root-dir "man"))
        (add-to-list 'exec-path (concat erlang-root-dir "bin/"))
-       (add-to-list 'load-path (concat erlang-root-dir "lib/tools-3.4/emacs")))
+       (add-to-list 'load-path (concat erlang-root-dir "lib/" (get-latest-erlang-lib-tools-dir) "/emacs")))
       (*is-a-mac*
        (setq erlang-root-dir "/usr/local/lib/erlang/")
        (setq erlang-man-root-dir (concat erlang-root-dir "man"))
        (add-to-list 'exec-path (concat erlang-root-dir "bin"))
-       (add-to-list 'load-path (concat erlang-root-dir "lib/tools-3.5/emacs")))
+       (add-to-list 'load-path (concat erlang-root-dir "lib/" (get-latest-erlang-lib-tools-dir) "/emacs")))
       (t
        (setq erlang-root-dir "/usr/lib/erlang/")
        (setq erlang-man-root-dir (concat erlang-root-dir "man"))
        (add-to-list 'exec-path (concat erlang-root-dir "bin"))
-       (add-to-list 'load-path (concat erlang-root-dir "lib/tools-3.5/emacs"))))
+       (add-to-list 'load-path (concat erlang-root-dir "lib/" (get-latest-erlang-lib-tools-dir) "/emacs"))))
+
 
 (when (executable-find "erl")
   ;; If this part triggers error, check erlang-root-dir settings.
