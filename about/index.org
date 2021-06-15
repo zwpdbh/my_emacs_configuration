@@ -67,20 +67,15 @@
 
 * Knowledge
 ** Core skills
+   - Self-driven by interest and curiosity. For example, I am learning [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] using Erlang/Elixr and understanding algebraic data type using OCaml.
    - Solid implementation of data structure and algorithm.
    - Good understanding about operating system (Unix like system).
-
-** Strong at
-   - Self-driven by interest and curiosity. For example, I am using Go to learn [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] and thinking differently by doing Erlang programming.
-   - Object-oriented programming with Java and C++.
-   - Principles of designing a database, use of a database management system and implementation of the underlying database management system.
+   - Object-oriented programming with Java and C++. However, I am doubting their practise more than ever).     
 
 ** Experienced
-   - Erlang
-   - Golang
-   - Nodejs
+   - JavaScript
+   - Nodejs(Express)
    - Vuejs
-   - Python
    - Network programming, such TCP/IP sockt, websocket.
    - Database including
      - PostgreSQL
@@ -90,9 +85,13 @@
      - Docker
      - Terraform
    - AWS cloud infrastructure
+     
 ** Familar with
+   - Erlang/Elixir
+   - OCaml      
+   - Golang     
+   - Python          
    - Lisp
-   - Haskell
    - iOS and OS x programming using Swift
    - Linux driver development
 

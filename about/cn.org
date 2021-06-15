@@ -65,17 +65,13 @@
 ** 核心技能
    - 算法和数据结构
    - 对于操作系统的理解
-** 强项
-   - 自我驱动的强烈好奇心. 比如对于Functional Programming的探索.
+   - 自我驱动的强烈好奇心. 比如使用Erlang/Elixir来探索分布式和使用OCaml来理解algebraic data type.
    - 面向对象编程(Java, C++)
-   - 设计和创建关系型数据库对象模型
      
 ** 经验
-   - Erlang
-   - Golang
-   - Nodejs
+   - JavaScript
+   - Nodejs(Express)
    - Vuejs
-   - Python
    - Network programming, such TCP/IP sockt, websocket.
    - Database including
      - PostgreSQL
@@ -84,18 +80,20 @@
      - GitLab CICD
      - Docker
      - Terraform
-   - AWS cloud infrastructure
+   - AWS cloud infrastructure   
 
 ** 熟悉
+   - Erlang/Elixir
+   - OCaml      
+   - Golang     
+   - Python          
+   - Lisp
    - iOS and OS x programming using Swift
    - Linux driver development
-   - Lisp
-     - Common Lisp
-     - Elisp
-   - Haskell
 
 * 兴趣爱好
-  - 学习有趣的计算机知识
+  - 函数式编程尤其是OCaml和Erlang/Elixir
+  - 学习有趣的计算和数学知识
   - 打RTS游戏
     
 * 联系方式
