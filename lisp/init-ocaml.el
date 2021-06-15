@@ -23,7 +23,6 @@
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
   (merlin-mode t)
-  ;; (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
   (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))

@@ -13,8 +13,7 @@
   ;; First remove it since alchemist-mode automatically add its backend direct to company-backends
   (setq-local company-backends (zw/delete-from-company-backends 'alchemist-company))
   ;; Then, add its backend properly into my global backends
-  (setq-local company-backends (zw/add-to-company-backends 'alchemist-company))
-  (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
+  (setq-local company-backends (zw/add-to-company-backends 'alchemist-company)))
 
 (when (maybe-require-package 'alchemist)  
   ;; ref: https://alchemist.readthedocs.io/en/latest/installation/
