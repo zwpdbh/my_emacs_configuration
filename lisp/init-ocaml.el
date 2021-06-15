@@ -27,6 +27,7 @@
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
 
+;; ref: https://github.com/ocaml/merlin/wiki/emacs-from-scratch
 (when (maybe-require-package 'merlin)
   (setq merlin-command (concat opam-bin "/ocamlmerlin"))
   (autoload 'merlin-mode "merlin" "Merlin mode" t)
