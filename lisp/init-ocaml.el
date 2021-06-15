@@ -1,11 +1,17 @@
 ;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
+;; MUST INSTALL opam
 ;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocamlformat
 
 ;; add load-path for ocaml related from opam 
 (setq opam-share (shell-command-to-string "opam config var share"))
+(setq opam-bin (shell-command-to-string "opam config var bin"))
+
 (when (string-match-p "\n\\'" opam-share)
   (setq opam-share (substring opam-share 0 (- (length opam-share) 1))))
+(when (string-match-p "\n\\'" opam-bin)
+  (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
+
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 ;; add exec-path for ocaml related from opam
@@ -19,30 +25,29 @@
   (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
   (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
-  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-  (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend)))
+  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
 
 (when (maybe-require-package 'merlin)
   (autoload 'merlin-mode "merlin" "Merlin mode" t)
-  (require 'caml-types nil 'noerror)
+  (setq merlin-command (concat opam-bin "/ocamlmerlin"))
   
+  (require 'caml-types nil 'noerror)
   (setq merlin-use-auto-complete-mode 'easy)
-  (setq merlin-command 'opam)
   (setq merlin-error-on-single-line t))
 
-
-(when (maybe-require-package 'utop)
-  (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-  ;; (setq utop-command "opam config exec -- utop -emacs")
-  (setq utop-command "opam config exec -- dune utop . -- -emacs")
-  (add-hook 'utop-mode-hook
-            (lambda ()
-              ;; Use setq instead of setq-local because utop will change global company-backends.
-              (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
-              (zw/set-company-backends-for-ocaml)))
-  (add-hook 'tuareg-mode-hook
-            (lambda ()
-              (utop-minor-mode t))))
+;; Not very useful
+;; (when (maybe-require-package 'utop)
+;;   (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+;;   ;; (setq utop-command "opam config exec -- utop -emacs")
+;;   (setq utop-command "opam config exec -- dune utop . -- -emacs")
+;;   (add-hook 'utop-mode-hook
+;;             (lambda ()
+;;               ;; Use setq instead of setq-local because utop will change global company-backends.
+;;               (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
+;;               (zw/set-company-backends-for-ocaml)))
+;;   (add-hook 'tuareg-mode-hook
+;;             (lambda ()
+;;               (utop-minor-mode t))))
 
 (when (executable-find "ocaml")
   ;; installed by opam install ocamlformat
