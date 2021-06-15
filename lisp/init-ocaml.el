@@ -14,12 +14,35 @@
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
 (add-to-list 'exec-path opam-bin)
 
-
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
+  (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
   (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
-  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
+  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
+  (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend)))
+
+(when (maybe-require-package 'merlin)
+  (autoload 'merlin-mode "merlin" "Merlin mode" t)
+  (require 'caml-types nil 'noerror)
+  
+  (setq merlin-use-auto-complete-mode 'easy)
+  (setq merlin-command 'opam)
+  (setq merlin-error-on-single-line t))
+
+
+(when (maybe-require-package 'utop)
+  (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+  ;; (setq utop-command "opam config exec -- utop -emacs")
+  (setq utop-command "opam config exec -- dune utop . -- -emacs")
+  (add-hook 'utop-mode-hook
+            (lambda ()
+              ;; Use setq instead of setq-local because utop will change global company-backends.
+              (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
+              (zw/set-company-backends-for-ocaml)))
+  (add-hook 'tuareg-mode-hook
+            (lambda ()
+              (utop-minor-mode t))))
 
 (when (executable-find "ocaml")
   ;; installed by opam install ocamlformat
@@ -39,30 +62,22 @@
     (add-to-list 'interpreter-mode-alist '("ocamlrun" . caml-mode))
     (add-to-list 'interpreter-mode-alist '("ocaml" . caml-mode))
 
-    (add-hook 'tuareg-interactive-mode-hook
-              (lambda ()
-                (zw/set-company-backends-for-ocaml)
-                (my/disable-paredit-spaces-before-paren)
-                (paredit-mode t)))
-
     ;; Disable this customization because the name for this face keep changing for different version causing package load failure.
     ;; (after-load 'tuareg
     ;;   (set-face-attribute 'tuareg-font-double-colon-face nil
     ;;                       :foreground "#ffb86c"))
+    
     (if window-system
         (progn
           (require 'caml-font)
           (set-face-foreground 'caml-font-doccomment-face "#cb4b16"))))
 
-  (when (maybe-require-package 'merlin)
-    (autoload 'merlin-mode "merlin" "Merlin mode" t)
-    (require 'caml-types nil 'noerror)
-    
-    (setq merlin-use-auto-complete-mode 'easy)
-    (setq merlin-command 'opam)
-    (setq merlin-error-on-single-line t)
-    (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml))
-
+  (add-hook 'tuareg-interactive-mode-hook
+            (lambda ()
+              (zw/set-company-backends-for-ocaml)
+              (my/disable-paredit-spaces-before-paren)
+              (paredit-mode t)))
+  
   (add-hook 'tuareg-mode-hook
             (lambda ()
               (local-unset-key (kbd "C-c C-c"))
@@ -76,30 +91,15 @@
               
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
-              
-              ;; remember to comment out merlin-company auto-appending from merlin-company.el which is shipped with merlin
-              (zw/set-company-backends-for-ocaml))))
+
+              (zw/set-company-backends-for-ocaml)))
+  (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml))
 
 (after-load 'org
   (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
   (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
   (add-to-list 'org-structure-template-alist '("ml" . "src ocaml :results verbatim")))
 
-;; Not very useful, disable it for now 
-;; (when (maybe-require-package 'utop)
-;;   (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-
-;;   ;; (setq utop-command "opam config exec -- utop -emacs")
-;;   (setq utop-command "opam config exec -- dune utop . -- -emacs")
-
-;;   (add-hook 'tuareg-mode-hook
-;;             (lambda ()
-;;               (utop-minor-mode t)
-;;               (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend))))
-;;   (add-hook 'utop-mode-hook
-;;             (lambda ()
-;;               (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
-;;               (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend)))))
 
 
 ;; For ReasonML
