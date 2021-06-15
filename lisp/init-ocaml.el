@@ -22,37 +22,25 @@
 
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
-  (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
+  (merlin-mode t)
+  ;; (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
   (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
 
 (when (maybe-require-package 'merlin)
-  (autoload 'merlin-mode "merlin" "Merlin mode" t)
   (setq merlin-command (concat opam-bin "/ocamlmerlin"))
+  (autoload 'merlin-mode "merlin" "Merlin mode" t)
   
   (require 'caml-types nil 'noerror)
-  (setq merlin-use-auto-complete-mode 'easy)
   (setq merlin-error-on-single-line t))
 
-;; Not very useful
-;; (when (maybe-require-package 'utop)
-;;   (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-;;   ;; (setq utop-command "opam config exec -- utop -emacs")
-;;   (setq utop-command "opam config exec -- dune utop . -- -emacs")
-;;   (add-hook 'utop-mode-hook
-;;             (lambda ()
-;;               ;; Use setq instead of setq-local because utop will change global company-backends.
-;;               (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
-;;               (zw/set-company-backends-for-ocaml)))
-;;   (add-hook 'tuareg-mode-hook
-;;             (lambda ()
-;;               (utop-minor-mode t))))
+(defun zw/set-paredit-for-ocaml ()
+  (my/disable-paredit-spaces-before-paren)
+  (paredit-mode t)
+  (define-key tuareg-mode-map (kbd "}") 'paredit-close-curly))
 
 (when (executable-find "ocaml")
-  ;; installed by opam install ocamlformat
-  ;; (require 'ocamlformat) ; not very useful
-  
   (when (maybe-require-package 'tuareg)
     (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
     (autoload 'ocamldebug "ocamldebug" "Run the Caml debugger" t)
@@ -67,11 +55,6 @@
     (add-to-list 'interpreter-mode-alist '("ocamlrun" . caml-mode))
     (add-to-list 'interpreter-mode-alist '("ocaml" . caml-mode))
 
-    ;; Disable this customization because the name for this face keep changing for different version causing package load failure.
-    ;; (after-load 'tuareg
-    ;;   (set-face-attribute 'tuareg-font-double-colon-face nil
-    ;;                       :foreground "#ffb86c"))
-    
     (if window-system
         (progn
           (require 'caml-font)
@@ -80,30 +63,29 @@
   (add-hook 'tuareg-interactive-mode-hook
             (lambda ()
               (zw/set-company-backends-for-ocaml)
-              (my/disable-paredit-spaces-before-paren)
-              (paredit-mode t)))
+              (zw/set-paredit-for-ocaml)))
   
   (add-hook 'tuareg-mode-hook
             (lambda ()
+              (zw/set-company-backends-for-ocaml)
+              
               (local-unset-key (kbd "C-c C-c"))
               (local-unset-key (kbd "C-c C-e"))
               (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
               (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
 
-              (my/disable-paredit-spaces-before-paren)
-              (paredit-mode t)
-              (define-key tuareg-mode-map (kbd "}") 'paredit-close-curly)
-              
               (zw/counsel-etags-setup)
-              (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)
-
+              (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)))
+  
+  (add-hook 'ocaml-mode-hook
+            (lambda ()
+              (merlin-mode t)
               (zw/set-company-backends-for-ocaml)))
-  (add-hook 'ocaml-mode-hook #'zw/set-company-backends-for-ocaml))
 
-(after-load 'org
-  (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
-  (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
-  (add-to-list 'org-structure-template-alist '("ml" . "src ocaml :results verbatim")))
+  (after-load 'org
+    (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
+    (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
+    (add-to-list 'org-structure-template-alist '("ml" . "src ocaml :results verbatim"))))
 
 
 
