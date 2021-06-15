@@ -14,11 +14,12 @@
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
 (add-to-list 'exec-path opam-bin)
 
+
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
-  ;; remember to comment out the autmatically register company-backends in merlin-company.el 
-  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
-  (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
+  (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
+  ;; remember to comment out the autmatically register company-backends in merlin-company.el
+  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
 
 (when (executable-find "ocaml")
   ;; installed by opam install ocamlformat

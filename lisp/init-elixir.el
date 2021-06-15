@@ -12,7 +12,6 @@
   (interactive)
   ;; First remove it since alchemist-mode automatically add its backend direct to company-backends
   (setq-local company-backends (zw/delete-from-company-backends 'alchemist-company))
-  (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
   ;; Then, add its backend properly into my global backends
   (setq-local company-backends (zw/add-to-company-backends 'alchemist-company)))
 
