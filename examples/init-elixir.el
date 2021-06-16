@@ -57,3 +57,36 @@
 
 (provide 'init-elixir.el)
 ;;; init-elixir ends here
+
+
+
+
+;; My own attempt to automatically find proper region to better evaluate function or module
+(defun zw/get-region ()
+  (interactive)
+  (set-mark (point-min))
+  (goto-char (point-max))
+  (activate-mark))
+
+(string (preceding-char))
+(string (following-char))
+(re-search-backward "defun")
+(re-search-forward "defun")
+
+
+;; count the occurences of regex in string
+(defun recursive-count (regex string start)
+  (if (string-match regex string start)
+      (+ 1 (recursive-count regex string (match-end 0)))
+    0))
+(defun count-occurences (regex string)
+  (recursive-count regex string 0))
+
+;; grab current line content
+(thing-at-point 'line t)
+
+(count-occurences "fn" (thing-at-point 'line t))
+
+(defun is-balanced ()
+  (interactive)
+  (message "balanced: %d" (evenp (count-occurences " fn \\|end\\|def \\|defmodule " (thing-at-point 'line t)))))
