@@ -46,9 +46,6 @@
 (global-set-key (kbd "C-c C-c") 'eval-last-sexp)
 
 
-(after-load 'swiper
-  (global-set-key (kbd "C-s") 'swiper))
-
 (after-load 'ivy
   (global-set-key (kbd "<f1>") 'ivy-resume))
 (global-set-key (kbd "<f2>") #'toggle-full-window)

@@ -1,8 +1,5 @@
-
-;; we still need theme because currently counsel-etags need theme to work properly
+;; we still need all three of them because currently counsel-etags need theme to work properly
 ;; it looks like counsel is a requirement for swiper
-(use-package counsel
-  :ensure t)
 
 (when (maybe-require-package 'ivy)
   (after-load 'ivy
@@ -20,7 +17,8 @@
       ;; as well
       (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))))
 
-(use-package swiper
-  :ensure t)
+(when (maybe-require-package 'swiper)
+  (use-package counsel
+    :ensure t))
 
 (provide 'init-counsel-ivy-swiper)
