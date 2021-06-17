@@ -15,7 +15,6 @@
             (t
              (set-face-attribute 'default nil
                                  :width 'regular
-                                 :height 110
                                  :foreground "#a9b7ca")
              (set-face-attribute 'font-lock-comment-face nil
                                  :foreground "#606873")))

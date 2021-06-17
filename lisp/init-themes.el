@@ -43,50 +43,50 @@
   
   (load-theme custom-enabled-theme)
   
-  (zw/customize-themes-for-general)
+  ;; (zw/customize-themes-for-general)
   (zw/customize-themes-for-parenthesis)
-  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
+  ;; (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
 
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
-  (if (featurep 'selectrum)
-      (funcall 'zw/customize-themes-for-selectrum)
-    (after-load 'selectrum
-      (funcall 'zw/customize-themes-for-selectrum)))
+  ;; (if (featurep 'selectrum)
+  ;;     (funcall 'zw/customize-themes-for-selectrum)
+  ;;   (after-load 'selectrum
+  ;;     (funcall 'zw/customize-themes-for-selectrum)))
   
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
     (after-load 'symbol-overlay
       (funcall 'zw/customize-themes-for-symbol-overlay)))
 
-  (if (featurep 'indent-guide)
-      (funcall 'zw/customize-themes-for-indent-guide)
-    (after-load 'indent-guide
-      (funcall 'zw/customize-themes-for-indent-guide)))
+  ;; (if (featurep 'indent-guide)
+  ;;     (funcall 'zw/customize-themes-for-indent-guide)
+  ;;   (after-load 'indent-guide
+  ;;     (funcall 'zw/customize-themes-for-indent-guide)))
   
-  (if (featurep 'dashboard)
-      (funcall 'zw/customize-themes-for-dashboard)
-    (after-load 'dashboard
-      (funcall 'zw/customize-themes-for-dashboard)))
+  ;; (if (featurep 'dashboard)
+  ;;     (funcall 'zw/customize-themes-for-dashboard)
+  ;;   (after-load 'dashboard
+  ;;     (funcall 'zw/customize-themes-for-dashboard)))
   
-  (if (featurep 'org)
-      (funcall 'zw/customize-themes-for-org)
-    (after-load 'org
-      (funcall 'zw/customize-themes-for-org)))
+  ;; (if (featurep 'org)
+  ;;     (funcall 'zw/customize-themes-for-org)
+  ;;   (after-load 'org
+  ;;     (funcall 'zw/customize-themes-for-org)))
 
-  (if (featurep 'company)
-      (funcall 'zw/customize-themes-for-company)
-      (after-load 'company
-        (funcall 'zw/customize-themes-for-company)))
+  ;; (if (featurep 'company)
+  ;;     (funcall 'zw/customize-themes-for-company)
+  ;;     (after-load 'company
+  ;;       (funcall 'zw/customize-themes-for-company)))
 
-  (if (featurep 'swiper)
-      (funcall 'zw/customize-themes-for-swiper)
-    (after-load 'swiper
-      (funcall 'zw/customize-themes-for-swiper)))
+  ;; (if (featurep 'swiper)
+  ;;     (funcall 'zw/customize-themes-for-swiper)
+  ;;   (after-load 'swiper
+  ;;     (funcall 'zw/customize-themes-for-swiper)))
   
-  (if (featurep 'ivy)
-      (funcall 'zw/customize-themes-for-ivy)
-    (after-load 'ivy
-      (funcall 'zw/customize-themes-for-ivy)))
+  ;; (if (featurep 'ivy)
+  ;;     (funcall 'zw/customize-themes-for-ivy)
+  ;;   (after-load 'ivy
+  ;;     (funcall 'zw/customize-themes-for-ivy)))
 
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 
