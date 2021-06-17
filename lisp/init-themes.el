@@ -58,10 +58,10 @@
     (after-load 'symbol-overlay
       (funcall 'zw/customize-themes-for-symbol-overlay)))
 
-  ;; (if (featurep 'indent-guide)
-  ;;     (funcall 'zw/customize-themes-for-indent-guide)
-  ;;   (after-load 'indent-guide
-  ;;     (funcall 'zw/customize-themes-for-indent-guide)))
+  (if (featurep 'indent-guide)
+      (funcall 'zw/customize-themes-for-indent-guide)
+    (after-load 'indent-guide
+      (funcall 'zw/customize-themes-for-indent-guide)))
   
   ;; (if (featurep 'dashboard)
   ;;     (funcall 'zw/customize-themes-for-dashboard)
