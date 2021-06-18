@@ -35,7 +35,7 @@
   (setq modus-themes-slanted-constructs t
         modus-themes-bold-constructs nil
         modus-themes-region 'no-extend)
-  (setq modus-themes-syntax 'faint))
+  (setq modus-themes-syntax 'green-strings))
 
 
 ;; kaolin-ocean
