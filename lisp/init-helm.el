@@ -1,10 +1,4 @@
-;; (use-package helm-xref
-;;   :init
-;;   :ensure t
-;;   :config
-;;   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
-
-
+;; ref: https://github.com/emacsorphanage/helm-swoop
 (when (maybe-require-package 'helm-swoop)
   (after-load 'helm-swoop
     (setq helm-swoop-use-fuzzy-match t)
@@ -13,15 +7,10 @@
     (setq helm-swoop-split-with-multiple-windows t)
     (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)))
 
-;; (use-package helm-projectile
-;;   :after (projectile helm)
-;;   :ensure t
-;;   :config
-;;   (helm-projectile-on))
-
 (when (maybe-require-package 'helm-projectile)
-  (after-load 'helm
-    (helm-projectile-on)))
+  (after-load 'projectile
+    (after-load 'helm
+      (helm-projectile-on))))
 
 (when (maybe-require-package 'helm-descbinds)
   (after-load 'helm
@@ -93,7 +82,7 @@
 
     (when (executable-find "curl")
       (setq helm-google-suggest-use-curl-p t)))
-  (add-hook 'after-init-hook 'helm-mode))
+  (helm-mode t))
 
 
 (provide 'init-helm)
