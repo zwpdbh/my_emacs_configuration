@@ -9,7 +9,7 @@
   ;; weyland default, background color: #1f2226
   ;; weyland comment, foreground color: #606873
 
-  (set-cursor-color "#91f368")
+  ;; (set-cursor-color "steelblue")
   (setq-default cursor-type t)
   
   (if (display-graphic-p)
