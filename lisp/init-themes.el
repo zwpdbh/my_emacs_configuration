@@ -68,10 +68,10 @@
   ;;   (after-load 'dashboard
   ;;     (funcall 'zw/customize-themes-for-dashboard)))
   
-  ;; (if (featurep 'org)
-  ;;     (funcall 'zw/customize-themes-for-org)
-  ;;   (after-load 'org
-  ;;     (funcall 'zw/customize-themes-for-org)))
+  (if (featurep 'org)
+      (funcall 'zw/customize-themes-for-org)
+    (after-load 'org
+      (funcall 'zw/customize-themes-for-org)))
 
   ;; (if (featurep 'company)
   ;;     (funcall 'zw/customize-themes-for-company)
