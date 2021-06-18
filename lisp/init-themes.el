@@ -33,7 +33,7 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'zenburn)
+    (setq custom-enabled-theme 'doom-zenburn)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
