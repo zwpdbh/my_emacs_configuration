@@ -10,5 +10,9 @@
   (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'zw/counsel-etags-setup)
+(add-hook 'js-mode-hook
+          (lambda ()
+            (when (string= (file-name-extension buffer-file-name) "ts")
+              (setq-local js-indent-level 4))))
 
 (provide 'init-javascript)
