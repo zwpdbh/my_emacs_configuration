@@ -26,7 +26,7 @@
 
 
 ;; ===== highlight current line 
-(global-hl-line-mode +1)
+(setq global-hl-line-mode nil)
 
 ;; ===== trump-mode
 (setq tramp-default-method "ssh")

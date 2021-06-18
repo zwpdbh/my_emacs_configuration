@@ -15,7 +15,9 @@
     (setq-default js2-bounce-indent-p nil)
     (setq-default js-indent-level 2)
     ;; In Emacs >= 25, the following is an alias for js-indent-level anyway
-    (setq-default js2-basic-offset 2)))
+    (setq-default js2-basic-offset 2)
+    (setq-default js2-mode-show-strict-warnings nil)
+    (setq-default js2-mode-show-parse-errors nil)))
 
 (add-to-list 'interpreter-mode-alist (cons "node" 'js2-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|es6\\)\\(\\.erb\\)?\\'" . js2-mode))
