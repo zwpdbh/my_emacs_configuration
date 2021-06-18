@@ -59,7 +59,9 @@
   (setq-default company-dabbrev-other-buffers 'all
                 company-dabbrev-code-other-buffers 'all
                 company-dabbrev-code-everywhere t
-                company-tooltip-align-annotations t)
+                company-tooltip-align-annotations t
+                ;; disable company-icon
+                company-format-margin-function nil)
   
   (setq company-require-match nil
         company-echo-delay 0
