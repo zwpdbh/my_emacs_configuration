@@ -7,7 +7,7 @@
 (add-to-list 'interpreter-mode-alist '("node" . javascript-mode))
 
 (after-load 'js
-  (setq js-indent-level 4))
+  (setq js-indent-level 2))
 
 (add-hook 'js-mode-hook 'zw/counsel-etags-setup)
 
