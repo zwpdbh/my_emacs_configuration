@@ -93,8 +93,8 @@ locate PACKAGE."
                    (seq-uniq (append sanityinc/required-packages package-selected-packages))))))
 
 
-(require-package 'fullframe)
-(fullframe list-packages quit-window)
+;; (require-package 'fullframe)
+;; (fullframe list-packages quit-window)
 
 
 (require-package 'gnu-elpa-keyring-update)
