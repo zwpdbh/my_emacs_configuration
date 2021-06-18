@@ -8,6 +8,9 @@
   ;; weyland default, foreground color: #a9b7ca
   ;; weyland default, background color: #1f2226
   ;; weyland comment, foreground color: #606873
+
+  (set-cursor-color "#91f368")
+  (setq-default cursor-type t)
   
   (if (display-graphic-p)
       (cond ((string-match-p "dracula" (symbol-name custom-enabled-theme))
@@ -109,7 +112,6 @@
   (set-face-attribute 'helm-selection nil
                       :inherit nil
                       :underline nil
-                      :weight 'normal
                       :foreground "yellow"
                       :background "#3b3559"))
 
@@ -226,7 +228,6 @@
 
 (defun zw/customize-themes-for-symbol-overlay ()
   (set-face-attribute 'symbol-overlay-default-face nil
-                      :weight 'normal
                       :underline t
                       :inherit nil))
 

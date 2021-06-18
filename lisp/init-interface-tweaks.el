@@ -9,10 +9,6 @@
                            (modes   . align-text-modes)
                            (repeat  . t)))))
 
-;; customize cursor-type
-(when window-system
-  (set-cursor-color "#ffb86c")
-  (setq-default cursor-type t))
 ;; ===== make cursor blink forever
 (setq-default blink-cursor-interval 0.618)
 (setq blink-cursor-blinks -1)
