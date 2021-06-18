@@ -175,32 +175,33 @@
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
 
-  ;; ;; make ivy current match background lighter
-  (set-face-attribute 'ivy-current-match nil
-                      :weight 'normal
-                      :foreground (face-foreground 'default t t)
-                      :background "#3b3559")
+  ;; ;; ;; make ivy current match background lighter
+  ;; (set-face-attribute 'ivy-current-match nil
+  ;;                     :weight 'normal
+  ;;                     :foreground (face-foreground 'default t t)
+  ;;                     :background "#3b3559")
   
-  ;; Face for ‘ivy’ minibuffer matches covered by inputs
-  (set-face-attribute 'ivy-minibuffer-match-face-1 nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground "Yellow"
-                      :background (face-background 'default t t))
+  ;; ;; Face for ‘ivy’ minibuffer matches covered by inputs
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-1 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
   
-  ;; Face for ‘ivy’ minibuffer matches inputs 
-  (set-face-attribute 'ivy-minibuffer-match-face-2 nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground "Yellow"
-                      :background (face-background 'default t t))
+  ;; ;; Face for ‘ivy’ minibuffer matches inputs 
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-2 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
   
-  ;; Face for "ivy" minibuffer matches other segement input
-  (set-face-attribute 'ivy-minibuffer-match-face-3 nil
-                      :weight 'normal
-                      :underline nil
-                      :foreground "Yellow"
-                      :background (face-background 'default t t)))
+  ;; ;; Face for "ivy" minibuffer matches other segement input
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-3 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
+  )
 
 (defun zw/customize-themes-for-swiper ()
   (set-face-attribute 'swiper-line-face nil
