@@ -17,23 +17,32 @@
   :ensure t
   :defer t)
 
-(use-package leuven-theme
-  :ensure t
-  :defer t)
+;; (use-package leuven-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package zenburn-theme
-  :ensure t
-  :defer t)
+;; (use-package zenburn-theme
+;;   :ensure t
+;;   :defer t)
 
-(use-package moe-theme
-  :ensure t
-  :defer t)
+;; (use-package moe-theme
+;;   :ensure t
+;;   :defer t)
+
+;; ref: https://gitlab.com/protesilaos/modus-themes
+(when (maybe-require-package 'modus-themes)
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-slanted-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-region 'no-extend)
+  (setq modus-themes-syntax 'alt-syntax))
+
 
 ;; kaolin-ocean
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-zenburn)
+    (setq custom-enabled-theme 'modus-vivendi)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
@@ -45,13 +54,13 @@
   
   ;; (zw/customize-themes-for-general)
   (zw/customize-themes-for-parenthesis)
-  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
+  ;; (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
 
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
-  (if (featurep 'selectrum)
-      (funcall 'zw/customize-themes-for-selectrum)
-    (after-load 'selectrum
-      (funcall 'zw/customize-themes-for-selectrum)))
+  ;; (if (featurep 'selectrum)
+  ;;     (funcall 'zw/customize-themes-for-selectrum)
+  ;;   (after-load 'selectrum
+  ;;     (funcall 'zw/customize-themes-for-selectrum)))
   
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
@@ -68,10 +77,10 @@
   ;;   (after-load 'dashboard
   ;;     (funcall 'zw/customize-themes-for-dashboard)))
   
-  (if (featurep 'org)
-      (funcall 'zw/customize-themes-for-org)
-    (after-load 'org
-      (funcall 'zw/customize-themes-for-org)))
+  ;; (if (featurep 'org)
+  ;;     (funcall 'zw/customize-themes-for-org)
+  ;;   (after-load 'org
+  ;;     (funcall 'zw/customize-themes-for-org)))
 
   ;; (if (featurep 'company)
   ;;     (funcall 'zw/customize-themes-for-company)
