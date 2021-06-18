@@ -33,7 +33,7 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'wombat)
+    (setq custom-enabled-theme 'moe-dark)
   (setq custom-enabled-theme 'doom-Iosvkem))
 
 ;; load theme and do customization for themes
