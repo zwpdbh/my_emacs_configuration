@@ -65,14 +65,7 @@
         show-paren-delay 0
         show-paren-highlight-openparen t
         show-paren-when-point-inside-paren nil
-        show-paren-when-point-in-periphery t)
-
-  (set-face-attribute 'show-paren-match nil
-                      :weight 'normal
-                      ;; :underline nil
-                      :underline "#cce6ff"
-                      :foreground "#cce6ff"
-                      :background (face-background 'default t t)))
+        show-paren-when-point-in-periphery t))
 
 (defun zw/customize-themes-for-company ()
   ;; (set-face-attribute 'company-tooltip-common-selection nil

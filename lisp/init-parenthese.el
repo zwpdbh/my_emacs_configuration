@@ -90,9 +90,14 @@ FACE defaults to inheriting from default and highlight."
   (smartparens-global-mode t))
 
 ;; Make parenthesis less obvious for readability
-(use-package paren-face
-  :ensure t
-  :defer)
+(when (maybe-require-package 'paren-face)
+  (after-load 'paren-face
+    (set-face-attribute 'show-paren-match nil
+                        :weight 'normal
+                        ;; :underline nil
+                        :underline "#cce6ff"
+                        :foreground "#cce6ff"
+                        :background (face-background 'default t t))))
 
 (show-paren-mode 1)
 
