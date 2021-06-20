@@ -160,6 +160,7 @@
 (require 'init-erlang)
 (require 'init-ocaml)
 (require 'init-elixir)
+(require 'init-go)
 (require-init 'init-lisp-tool)
 
 (require-init 'init-clang-format)
@@ -177,7 +178,6 @@
 (require 'init-prettier)
 ;; (require 'init-prettier-eslint)
 
-(require-init 'init-go)
 (require-init 'init-R)
 
 (require-init 'init-org)
