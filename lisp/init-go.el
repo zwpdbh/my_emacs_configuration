@@ -13,15 +13,15 @@
     (add-to-list 'zw/org-babel-load-language-list '(go . t))))
 
 
-(defun zw/set-paredit-for-go ()
-  (my/disable-paredit-spaces-before-paren)
-  (paredit-mode t)
-  (define-key go-mode-map (kbd "}") 'paredit-close-curly))
+;; (defun zw/set-paredit-for-go ()
+;;   (my/disable-paredit-spaces-before-paren)
+;;   (paredit-mode t)
+;;   (define-key go-mode-map (kbd "}") 'paredit-close-curly))
 
 (add-hook 'go-mode-hook
           '(lambda ()             
              (setq-local tab-width 4)
-             (zw/set-paredit-for-go)
+             ;; (zw/set-paredit-for-go)
              
              (flycheck-mode t)             
              (when (featurep 'flycheck)
