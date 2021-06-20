@@ -2,7 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(global-set-key (kbd "C-c <tab>") 'hippie-expand)
+(global-unset-key (kbd "C-t"))
+(global-set-key (kbd "C-t") 'hippie-expand)
 
 (setq hippie-expand-try-functions-list
       '(try-complete-file-name-partially
