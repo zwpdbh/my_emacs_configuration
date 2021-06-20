@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-c <tab>") 'hippie-expand)
 
 (setq hippie-expand-try-functions-list
       '(try-complete-file-name-partially
@@ -12,4 +12,4 @@
         try-expand-dabbrev-from-kill))
 
 (provide 'init-hippie-expand)
-;;; init-hippie-expand.el ends here
+;;; init-hippie-expand.el ends her
