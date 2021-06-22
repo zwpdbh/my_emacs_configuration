@@ -15,7 +15,6 @@
 ;; (load-file (concat (concat opam-share "/emacs/site-lisp") "/ocp-indent.el"))
 
 
-
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
   (merlin-mode t)
@@ -139,8 +138,12 @@
 
 ;; ref: https://gist.github.com/Khady/d37b7d88c81c4178dcccc6579fd0b526
 (when (maybe-require-package 'utop)
-  (after-load 'utop
-              (setq company-backends (zw/delete-from-company-backends 'utop-company-backend)))
+  (add-hook 'utop-mode-hook
+            (lambda ()
+              ;; make sure it doesn't affect global company-backends
+              (setq company-backends (zw/delete-from-company-backends 'utop-company-backend))
+              (setq-local company-backends (zw/add-to-company-backends 'utop-company-backend))))
+
   ;; Need opam install utop rtop
   ;; However, currently .ocamlinit's format is not compartible with rtop
   ;; So, utop with rtop could not be started correctly.
