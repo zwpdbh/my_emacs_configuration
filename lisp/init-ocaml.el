@@ -3,21 +3,20 @@
 ;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocamlformat
 
-;; add load-path for ocaml related from opam 
+;; Prepare opam related path
 (setq opam-share (shell-command-to-string "opam config var share"))
 (setq opam-bin (shell-command-to-string "opam config var bin"))
-
+;; opam-share contains files related to configuration, such as emacs plugins
 (when (string-match-p "\n\\'" opam-share)
   (setq opam-share (substring opam-share 0 (- (length opam-share) 1))))
 (when (string-match-p "\n\\'" opam-bin)
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
-
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-
-;; add exec-path for ocaml related from opam
+;; opam-bin contains executable files installed by opam
 (setq opam-bin (shell-command-to-string "opam config var bin"))
 (when (string-match-p "\n\\'" opam-bin)
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
+
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 (add-to-list 'exec-path opam-bin)
 
 
