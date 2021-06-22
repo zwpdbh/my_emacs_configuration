@@ -90,8 +90,11 @@
 
 
 
-;; For ReasonML(.re files)
+;; For ReasonML
 (when (maybe-require-package 'reason-mode)
+  (add-to-list 'auto-mode-alist '("\\.re$" . reason-mode))
+  (add-to-list 'auto-mode-alist '("\\.rei$" . reason-mode))
+  
   (defun shell-cmd (cmd)
     "Returns the stdout output of a shell command or nil if the command returned
    an error"
@@ -123,5 +126,20 @@
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook 'refmt nil 'local)              
               (zw/set-company-backends-for-ocaml))))
+
+
+;; ref: https://gist.github.com/Khady/d37b7d88c81c4178dcccc6579fd0b526
+(when (maybe-require-package 'utop)
+  ;; Need opam install utop rtop
+  ;; However, currently .ocamlinit's format is not compartible with rtop
+  ;; So, utop with rtop could not be started correctly.
+  (setq utop-command "opam config exec -- rtop -emacs") 
+  (add-hook 'reason-mode-hook
+            (lambda ()
+              (local-unset-key (kbd "C-c C-c"))
+              (local-unset-key (kbd "C-c C-e"))
+              (define-key reason-mode-map (kbd "C-c C-c") 'utop-eval-phrase)
+              (define-key reason-mode-map (kbd "C-c C-e") 'utop-eval-buffer)))
+  (add-hook 'reason-mode-hook #'utop-minor-mode))
 
 (provide 'init-ocaml)
