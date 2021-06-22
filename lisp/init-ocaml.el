@@ -1,23 +1,19 @@
 ;; ref: https://gist.github.com/dbuenzli/a797e398cb3f6503b6e0b5f34249648a
+;; ref: https://ocaml.xyz/book/install.html
 ;; MUST INSTALL opam
 ;; sudo apt install opam (OCaml package manager)
 ;; opam install caml-mode merlin ocamlformat
 
 ;; Prepare opam related path
-(setq opam-share (shell-command-to-string "opam config var share"))
-(setq opam-bin (shell-command-to-string "opam config var bin"))
 ;; opam-share contains files related to configuration, such as emacs plugins
-(when (string-match-p "\n\\'" opam-share)
-  (setq opam-share (substring opam-share 0 (- (length opam-share) 1))))
-(when (string-match-p "\n\\'" opam-bin)
-  (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
+(setq opam-share (substring (shell-command-to-string "opam config var share") 0 -1))
 ;; opam-bin contains executable files installed by opam
-(setq opam-bin (shell-command-to-string "opam config var bin"))
-(when (string-match-p "\n\\'" opam-bin)
-  (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
+(setq opam-bin (substring (shell-command-to-string "opam config var bin") 0 -1))
 
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 (add-to-list 'exec-path opam-bin)
+;; (load-file (concat (concat opam-share "/emacs/site-lisp") "/ocp-indent.el"))
+
 
 
 (defun zw/set-company-backends-for-ocaml ()
@@ -30,6 +26,7 @@
 
 
 ;; ref: https://github.com/ocaml/merlin/wiki/emacs-from-scratch
+;; opam install merlin
 (when (maybe-require-package 'merlin)
   (maybe-require-package 'merlin-company)
   
@@ -37,7 +34,14 @@
   (autoload 'merlin-mode "merlin" "Merlin mode" t)
   
   (require 'caml-types nil 'noerror)
-  (setq merlin-error-on-single-line t))
+  (setq merlin-error-on-single-line t)
+
+  (after-load 'merlin
+    (define-key merlin-mode-map
+      (kbd "C-c <up>") 'merlin-type-enclosing-go-up)
+    (define-key merlin-mode-map
+      (kbd "C-c <down>") 'merlin-type-enclosing-go-down)))
+
 
 (defun zw/set-paredit-for-ocaml ()
   (my/disable-paredit-spaces-before-paren)
@@ -68,7 +72,9 @@
             (lambda ()
               (zw/set-company-backends-for-ocaml)
               (zw/set-paredit-for-ocaml)))
-  
+
+  ;; opam install ocp-indent
+  (require 'ocp-indent)
   (add-hook 'tuareg-mode-hook
             (lambda ()
               (zw/set-company-backends-for-ocaml)
@@ -79,7 +85,7 @@
               (define-key tuareg-mode-map (kbd "C-c C-e") 'tuareg-eval-buffer)
 
               (zw/counsel-etags-setup)
-              (add-hook 'before-save-hook #'zw/indent-buffer nil 'local)))
+              (add-hook 'before-save-hook #'ocp-indent-buffer nil 'local)))
   
   (add-hook 'ocaml-mode-hook
             (lambda ()
@@ -133,6 +139,8 @@
 
 ;; ref: https://gist.github.com/Khady/d37b7d88c81c4178dcccc6579fd0b526
 (when (maybe-require-package 'utop)
+  (after-load 'utop
+              (setq company-backends (zw/delete-from-company-backends 'utop-company-backend)))
   ;; Need opam install utop rtop
   ;; However, currently .ocamlinit's format is not compartible with rtop
   ;; So, utop with rtop could not be started correctly.
