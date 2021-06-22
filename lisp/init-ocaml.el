@@ -90,7 +90,7 @@
 
 
 
-;; For ReasonML
+;; For ReasonML(.re files)
 (when (maybe-require-package 'reason-mode)
   (defun shell-cmd (cmd)
     "Returns the stdout output of a shell command or nil if the command returned
