@@ -20,6 +20,7 @@
   (setq opam-bin (substring opam-bin 0 (- (length opam-bin) 1))))
 (add-to-list 'exec-path opam-bin)
 
+
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
   (merlin-mode t)
@@ -28,8 +29,11 @@
   ;; remember to comment out the autmatically register company-backends in merlin-company.el
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))
 
+
 ;; ref: https://github.com/ocaml/merlin/wiki/emacs-from-scratch
 (when (maybe-require-package 'merlin)
+  (maybe-require-package 'merlin-company)
+  
   (setq merlin-command (concat opam-bin "/ocamlmerlin"))
   (autoload 'merlin-mode "merlin" "Merlin mode" t)
   
