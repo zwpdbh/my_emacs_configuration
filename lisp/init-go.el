@@ -3,9 +3,14 @@
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
 (when (maybe-require-package 'go-mode)
-  (if (string-equal system-type "gnu/linux")
-      (add-to-list 'exec-path "/usr/local/go/bin/")
-    nil))
+  (cond ((string-equal system-type "gnu/linux")
+         (add-to-list 'exec-path "/usr/local/go/bin/")
+         (add-to-list 'exec-path "/usr/bin/"))
+        (t
+         nil))
+
+  ;; ref: https://wiki.crdb.io/wiki/spaces/CRDB/pages/73105658/Ben+s+Go+Emacs+Setup
+  (maybe-require-package 'gotest))
 
 (when (maybe-require-package 'ob-go)
   (after-load 'org
@@ -13,15 +18,14 @@
     (add-to-list 'zw/org-babel-load-language-list '(go . t))))
 
 
-;; (defun zw/set-paredit-for-go ()
-;;   (my/disable-paredit-spaces-before-paren)
-;;   (paredit-mode t)
-;;   (define-key go-mode-map (kbd "}") 'paredit-close-curly))
+(after-load 'go-mode
+  ;; disable annoying *Gofmt Errors* buffer
+  (setq gofmt-show-errors nil)
+  (define-key go-mode-map (kbd "C-c C-c") #'go-run))
 
 (add-hook 'go-mode-hook
           '(lambda ()             
              (setq-local tab-width 4)
-             ;; (zw/set-paredit-for-go)
              
              (flycheck-mode t)             
              (when (featurep 'flycheck)
@@ -41,25 +45,5 @@
                  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
                  (define-key go-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point)))))
 
-
-
-;; - lsp should work with [[https://github.com/golang/tools/blob/master/gopls/README.md][gopls]]
-;; - install it by ~go get golang.org/x/tools/gopls@latest~
-;; Need to install gopls to use lsp
-;; go get golang.org/x/tools/gopls@latest
-
-;; ;; configure lsp related parameters
-;; (defun zw/lsp-go-steup ()
-;;   (setq lsp-gopls-use-placeholders t)
-;;   (lsp-register-custom-settings
-;;    '(("gopls.completeUnimported" t t)
-;;      ("gopls.staticcheck" t t)))
-
-;;   (add-hook 'before-save-hook #'lsp-organize-imports t t)
-;;   (zw/customize-lsp-ui-key-bindings))
-
-;; (add-hook 'go-mode-hook #'lsp-deferred)
-;; (add-hook 'go-mode-hook '(lambda ()
-;;                           #'zw/lsp-go-steup))
 
 (provide 'init-go)
