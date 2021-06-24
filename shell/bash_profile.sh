@@ -33,3 +33,8 @@ export PATH=$PATH:/usr/local/go/bin
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
     source ~/.config/exercism/exercism_completion.bash
 fi
+
+# For direnv which augments existing shells with a new feature that can load and unload environment variables
+# Install by: sudo apt install direnv, only support unix like system
+eval "$(direnv hook bash)"
+# For zsh: eval "$(direnv hook zsh)"
