@@ -50,28 +50,9 @@
            (default-directory (my/project-root)))
       (compile (concat "hlint " current-file))))
 
-
-  (reformatter-define haskell-format
-    :program "hindent"
-    :group 'haskell)
-
   (add-hook 'haskell-mode-hook
             '(lambda ()
                (add-hook 'before-save-hook 'haskell-format-buffer nil 'local))))
-
-
-
-
-;; ;; TODO: install ghc from cabal
-;; (when (maybe-require-package 'company-ghc)
-;;   (add-to-list 'load-path "~/.cabal/share/ghc-mod-x.y.z")
-;;   (autoload 'ghc-init "ghc" nil t)
-;;   (autoload 'ghc-debug "ghc" nil t)
-
-;;   (add-hook 'haskell-mode-hook
-;;             '(lambda ()
-;;                (ghc-init)
-;;                (setq-local company-backends (zw/add-to-company-backends 'company-ghc)))))
 
 
 (provide 'init-haskell)

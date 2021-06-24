@@ -73,7 +73,7 @@
               (zw/set-paredit-for-ocaml)))
 
   ;; opam install ocp-indent
-  (require 'ocp-indent)
+  (require 'ocp-indent nil t)
   (add-hook 'tuareg-mode-hook
             (lambda ()
               (zw/set-company-backends-for-ocaml)
