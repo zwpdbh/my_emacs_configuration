@@ -15,12 +15,21 @@ export PATH=/usr/lib/erlang:$PATH
 export PATH=~/.opam/system/bin:$PATH
 # For update Ocaml commands
 eval $(opam config env)
+# OPAM configuration
+$HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 # Something with Emacs terminal
 alias e='emacsclient -t -a ""'
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 
-
 # GO settings 
-export PATH=$PATH:/usr/local/go/bin
 export GO111MODULE=auto
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:${GOPATH//://bin:}/bin
+export PATH=$PATH:/usr/local/go/bin
+
+# (Optional) for exercism completion.
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+    source ~/.config/exercism/exercism_completion.bash
+fi
