@@ -7,10 +7,10 @@
 (add-to-list 'completion-styles 'initials t)
 
 (when (maybe-require-package 'company)
-  (setq-default company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords company-files))
+  (setq-default company-backends '((company-dabbrev company-capf) company-dabbrev-code company-keywords company-files))
   (defun zw/set-company-backends-global ()
     (interactive)
-    (setq company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords company-files)))
+    (setq company-backends '((company-dabbrev company-capf) company-dabbrev-code company-keywords company-files)))
   
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "M-C-/") 'company-complete)
