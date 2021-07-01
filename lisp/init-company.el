@@ -56,7 +56,7 @@
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   
-  (setq-default company-dabbrev-other-buffers 'all
+  (setq-default company-dabbrev-other-buffers t
                 company-dabbrev-code-other-buffers 'all
                 company-dabbrev-code-everywhere t
                 company-tooltip-align-annotations t
@@ -64,10 +64,11 @@
                 company-format-margin-function nil)
   
   (setq company-require-match nil
-        company-echo-delay 0
-        company-idle-delay 0
+        company-echo-delay 0.1
+        company-idle-delay 0.1
         company-selection-wrap-around t
-        company-minimum-prefix-length 2
+        company-minimum-prefix-length 2        
+        company-dabbrev-minimum-length 3        
         company-dabbrev-ignore-case t
         company-dabbrev-downcase nil
         company-show-numbers t
