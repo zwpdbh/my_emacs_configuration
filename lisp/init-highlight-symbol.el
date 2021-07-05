@@ -5,7 +5,7 @@
     (add-hook hook 'symbol-overlay-mode))
   (after-load 'symbol-overlay
     (diminish 'symbol-overlay-mode)
-    (setq symbol-overlay-displayed-window t)
+    (setq symbol-overlay-displayed-window nil)
 
     (define-key symbol-overlay-mode-map (kbd "M-i") 'symbol-overlay-put)
     (define-key symbol-overlay-mode-map (kbd "C-c C-s") 'symbol-overlay-rename)
