@@ -8,7 +8,7 @@
   (setq helm-swoop-pre-input-function
         (lambda () (thing-at-point 'symbol)))
 
-  (global-set-key (kbd "C-c C-s") 'helm-swoop)
+  ;; (global-set-key (kbd "C-c C-s") 'helm-swoop)
   (after-load 'helm-swoop
     (define-key helm-swoop-map (kbd "C-p") 'helm-previous-line)
     (define-key helm-swoop-map (kbd "C-n") 'helm-next-line)
