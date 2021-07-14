@@ -137,4 +137,20 @@
     (find-file (plist-get (cdr (assoc choice headlines)) :file))
     (goto-char (plist-get (cdr (assoc choice headlines)) :position))))
 
+
+;; How to copy links OUT of org-mode?
+;; https://emacs.stackexchange.com/questions/3981/how-to-copy-links-out-of-org-mode
+(defun zw/org-link-copy (&optional arg)
+  "Extract URL from org-mode link and add it to kill ring."
+  (interactive "P")
+  (let* ((link (org-element-lineage (org-element-context) '(link) t))
+         (type (org-element-property :type link))
+         (url (org-element-property :path link))
+         (url (concat type ":" url)))
+    (kill-new url)
+    (message (concat "Copied URL: " url))))
+
+(define-key org-mode-map (kbd "C-x C-l") 'zw/org-link-copy)
+
+
 (provide 'init-org-tools)
