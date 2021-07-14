@@ -150,7 +150,9 @@
     (kill-new url)
     (message (concat "Copied URL: " url))))
 
-(define-key org-mode-map (kbd "C-x C-l") 'zw/org-link-copy)
+(after-load 'org
+            (define-key org-mode-map (kbd "C-x C-l") 'zw/org-link-copy))
+
 
 
 (provide 'init-org-tools)
