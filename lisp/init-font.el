@@ -56,7 +56,6 @@
       (format "%s%s" font-name font-size)
     (format "%s-%s" font-name font-size)))
 
-
 (defun zw/set-font (font-size)
   (let ((en-font (zw/make-font-string (zw/select-available-font zw/favorite-en-fonts) font-size))
         (cn-font (zw/make-font-string (zw/select-available-font zw/favorite-cn-fonts) font-size)))
@@ -75,17 +74,43 @@
                 (with-selected-frame frame
                   (zw/set-font zw/font-size))))))
 
+
 ;; ref:https://www.emacswiki.org/emacs/GlobalTextScaleMode, which does "text-scale-adjust"
-(define-globalized-minor-mode 
+(define-globalized-minor-mode
   global-text-scale-mode
   text-scale-mode
   (lambda () (text-scale-mode 1)))
-(defun global-text-scale-adjust (inc) (interactive)
-       (text-scale-set 1)
-       (kill-local-variable 'text-scale-mode-amount)
-       (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
-       (global-text-scale-mode 1))
-(global-text-scale-adjust -1)
+
+(defun global-text-scale-adjust (scale)
+  "Set the text scale to SCALE in all buffers."
+  (interactive (let* ((ev last-command-event)
+                      (echo-keystrokes nil)
+                      (base (event-basic-type ev)))
+                 (list (+ (pcase base
+                            ((or ?+ ?=) (1+ text-scale-mode-amount))
+                            ((or ?- ?_) (1- text-scale-mode-amount))
+                            (_ 0))))))
+  (text-scale-set 1)
+  (kill-local-variable 'text-scale-mode-amount)
+  (setq-default text-scale-mode-amount scale)
+  (global-text-scale-mode 1)
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (dolist (mods '(() (control)))
+       (dolist (key '(?- ?_ ?+ ?= ?0))
+         (define-key map (vector (append mods (list key)))
+           #'global-text-scale-adjust)))
+     map))
+  (message "Use +,-,0 for further adjustment"))
+
+(global-set-key (kbd "C-x C-0")
+                '(lambda () (interactive)
+                   (global-text-scale-adjust (- text-scale-mode-amount))
+                   (global-text-scale-mode -1)))
+(global-set-key (kbd "C-x C-=")
+                '(lambda () (interactive) (global-text-scale-adjust 1)))
+(global-set-key (kbd "C-x C--")
+                '(lambda () (interactive) (global-text-scale-adjust -1)))
 
 
 ;; set emoji
