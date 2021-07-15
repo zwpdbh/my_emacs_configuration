@@ -38,3 +38,7 @@ fi
 # Install by: sudo apt install direnv, only support unix like system
 eval "$(direnv hook bash)"
 # For zsh: eval "$(direnv hook zsh)"
+
+
+# get rid of "warning: GREP_OPTIONS is deprecated" message
+unset GREP_OPTIONS
