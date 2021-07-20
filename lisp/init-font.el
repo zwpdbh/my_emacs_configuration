@@ -65,7 +65,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(setq zw/font-size 10)
+(setq zw/font-size 11)
 (if (display-graphic-p)
     (zw/set-font zw/font-size)
   (add-hook 'after-make-frame-functions
@@ -74,43 +74,12 @@
                 (with-selected-frame frame
                   (zw/set-font zw/font-size))))))
 
-
-;; ref:https://www.emacswiki.org/emacs/GlobalTextScaleMode, which does "text-scale-adjust"
-(define-globalized-minor-mode
-  global-text-scale-mode
-  text-scale-mode
-  (lambda () (text-scale-mode 1)))
-
-(defun global-text-scale-adjust (scale)
-  "Set the text scale to SCALE in all buffers."
-  (interactive (let* ((ev last-command-event)
-                      (echo-keystrokes nil)
-                      (base (event-basic-type ev)))
-                 (list (+ (pcase base
-                            ((or ?+ ?=) (1+ text-scale-mode-amount))
-                            ((or ?- ?_) (1- text-scale-mode-amount))
-                            (_ 0))))))
-  (text-scale-set 1)
-  (kill-local-variable 'text-scale-mode-amount)
-  (setq-default text-scale-mode-amount scale)
-  (global-text-scale-mode 1)
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (dolist (mods '(() (control)))
-       (dolist (key '(?- ?_ ?+ ?= ?0))
-         (define-key map (vector (append mods (list key)))
-           #'global-text-scale-adjust)))
-     map))
-  (message "Use +,-,0 for further adjustment"))
-
-(global-set-key (kbd "C-x C-0")
-                '(lambda () (interactive)
-                   (global-text-scale-adjust (- text-scale-mode-amount))
-                   (global-text-scale-mode -1)))
-(global-set-key (kbd "C-x C-=")
-                '(lambda () (interactive) (global-text-scale-adjust 1)))
-(global-set-key (kbd "C-x C--")
-                '(lambda () (interactive) (global-text-scale-adjust -1)))
+;; Adjust font in every buffer instead of having to zoom in each buffer separately.
+;; ref: https://www.emacswiki.org/emacs/GlobalTextScaleMode
+(when (maybe-require-package 'default-text-scale)
+  (global-set-key (kbd "C-x C-0") #'default-text-scale-reset)
+  (global-set-key (kbd "C-x C-=") #'default-text-scale-increase)
+  (global-set-key (kbd "C-x C--") #'default-text-scale-decrease))
 
 
 ;; set emoji

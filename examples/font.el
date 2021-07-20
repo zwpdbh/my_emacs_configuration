@@ -151,8 +151,45 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 (global-set-key [(control x) (meta +)] (lambda () (interactive) (bhj-step-frame-font-size 1)))
 
 (set-face-attribute 'default nil :font (font-spec))
-
-
 ;;; Refs
 ;; http://baohaojun.github.io/perfect-emacs-chinese-font.html (狠狠地折腾了一把Emacs中文字体)
 ;; http://blog.chinaunix.net/uid-11187-id-3040030.html 关于字符集和乱码的思考
+
+
+;; Code segment for adjust font 
+;; ref:https://www.emacswiki.org/emacs/GlobalTextScaleMode, which does "text-scale-adjust"
+(define-globalized-minor-mode
+  global-text-scale-mode
+  text-scale-mode
+  (lambda () (text-scale-mode 1)))
+
+(defun global-text-scale-adjust (scale)
+  "Set the text scale to SCALE in all buffers."
+  (interactive (let* ((ev last-command-event)
+                      (echo-keystrokes nil)
+                      (base (event-basic-type ev)))
+                 (list (+ (pcase base
+                            ((or ?+ ?=) (1+ text-scale-mode-amount))
+                            ((or ?- ?_) (1- text-scale-mode-amount))
+                            (_ 0))))))
+  (text-scale-set 1)
+  (kill-local-variable 'text-scale-mode-amount)
+  (setq-default text-scale-mode-amount scale)
+  (global-text-scale-mode 1)
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (dolist (mods '(() (control)))
+       (dolist (key '(?- ?_ ?+ ?= ?0))
+         (define-key map (vector (append mods (list key)))
+           #'global-text-scale-adjust)))
+     map))
+  (message "Use +,-,0 for further adjustment"))
+
+(global-set-key (kbd "C-x C-0")
+                '(lambda () (interactive)
+                   (global-text-scale-adjust (- text-scale-mode-amount))
+                   (global-text-scale-mode -1)))
+(global-set-key (kbd "C-x C-=")
+                '(lambda () (interactive) (global-text-scale-adjust 1)))
+(global-set-key (kbd "C-x C--")
+                '(lambda () (interactive) (global-text-scale-adjust -0.2)))
