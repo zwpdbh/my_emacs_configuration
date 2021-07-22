@@ -1,8 +1,8 @@
 (setq zw/favorite-en-fonts '(
+                             "Anonymous Pro"
                              "Monaco"
                              "Monaco Nerd Font Mono"
                              "Source Code Pro"
-                             "Anonymous Pro"
                              "Iosevka Slab"
                              "Iosevka Curly Slab"
                              "Inconsolata"
@@ -65,7 +65,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(setq zw/font-size 11)
+(setq zw/font-size 13)
 (if (display-graphic-p)
     (zw/set-font zw/font-size)
   (add-hook 'after-make-frame-functions
