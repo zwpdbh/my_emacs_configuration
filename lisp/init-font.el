@@ -65,7 +65,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(setq zw/font-size 13)
+(setq zw/font-size 11)
 (if (display-graphic-p)
     (zw/set-font zw/font-size)
   (add-hook 'after-make-frame-functions
