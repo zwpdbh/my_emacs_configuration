@@ -9,6 +9,7 @@
 ;; this still needs to be set for `blink-matching-open` to work
 (setq blink-matching-paren 'show)
 
+;; Very useful to see where the parenthese starts
 (defun display-line-overlay+ (pos str &optional face)
   "Display line at POS as STR with FACE.
 
@@ -43,7 +44,8 @@ FACE defaults to inheriting from default and highlight."
                          (minibufferp)
                          this-command))
                 (and (not (bobp))
-                     (memq (char-syntax (char-before)) '(?\) ?\$)))
+                     (or  (memq (char-syntax (char-before)) '(?\) ?\$))
+                          (memq (char-syntax (char-before)) '(?\} ?\$))))
                 (= 1 (logand 1 (- (point)
                                   (save-excursion
                                     (forward-char -1)
