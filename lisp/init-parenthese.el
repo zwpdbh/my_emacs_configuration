@@ -27,6 +27,7 @@ FACE defaults to inheriting from default and highlight."
                             :weight 'normal)))
     ol))
 
+;; Display matched parentheses out of screen
 (let ((ov nil)) ; keep track of the overlay
   (advice-add
    #'show-paren-function
