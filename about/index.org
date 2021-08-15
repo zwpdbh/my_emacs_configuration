@@ -19,7 +19,14 @@
    - Contribute individually or in a team as needed to meet the requirements of other non-cloud projects.
    - Design and implement architecture core services for a CAD product.
    - Maintain existing software code - analyze and resolve customer and internally reported problems
-     
+
+*** Loadtest using Golang (from 2021/06 to present)
+    Using Golang to execute multiple instances of existing javascript code, then parse and collect each javascript script's stdout and stderr to perform metrics comparision. In this project, the following Golang skills have been practised:
+    - Web programming in websocket, socket and http.
+    - Concurrent programming using sync.WaitGroup, and goroutine + channels.
+    - Use interface to mock AWS interface to do unit test.
+    - Encoding and decoding according to application protocol.
+   
 *** Distributed service admin-console (from 2020/07 to present)
     
     An admin-dashboard for Atlas distributed service (stateless service for visualization). Implement frontend using Vuejs and backend using Nodejs.
@@ -43,34 +50,19 @@
     3) Using this dashboard to debug Atlas-stateful-service
 
 *** Tester for end-to-end test (from 2019/01 to present)
-    
     Based on many microserivces we built, we need a tester tool to do end-to-end test. My responsibility includes:
     1) Implement it with nodejs, websocket and socket.
     2) Deploy it using Docker + GitLab pipeline to AWS with cloudformation template.
     3) Write pageduty runbook for handling incidents.
 
-* Work Experience (as non Software Engineer)
-** ATOS (2012/02 -- 2015/06)
-   As a Linux system engineer, my job at Atos includes
-   1) In VGIC (Volkswagen Group (Import) Co. Ltd.) project:
-      - Follow up project operation and optimize maintenance process.
-      - Make specifications about monthly report and project operation.
-      - Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
-   2) Installing hardware and software, maintaining Linux Servers.
-   3) Troubleshooting and resolution of application and system related problems.
-   4) Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
-   5) Performing backup administration, including backup and restore of data.
-   6) Responding to outages both during normal business hours and in an after-hours, on call capacity.
-
-** JobKoo.com (2010/02 -- 2011/02)
-   I am doing destop service for Windows platform.
 
 * Knowledge
 ** Core skills
-   - Self-driven by interest and curiosity. For example, I am learning [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] using Erlang/Elixr and understanding algebraic data type using OCaml.
+   - Concurrent programming using Golang.
    - Solid implementation of data structure and algorithm.
+   - Fast learning driven by interest and curiosity. For example, I am learning [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] using Erlang/Elixr and learning algebraic data type using OCaml.
    - Good understanding about operating system (Unix like system).
-   - Object-oriented programming with Java and C++. However, I am doubting their practise more than ever).     
+   - Object-oriented programming with in C++ and Java.
 
 ** Experienced
    - JavaScript
@@ -94,6 +86,22 @@
    - Lisp
    - iOS and OS x programming using Swift
    - Linux driver development
+     
+* Work Experience (as non Software Engineer)
+** ATOS (2012/02 -- 2015/06)
+   As a Linux system engineer, my job at Atos includes
+   1) In VGIC (Volkswagen Group (Import) Co. Ltd.) project:
+      - Follow up project operation and optimize maintenance process.
+      - Make specifications about monthly report and project operation.
+      - Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
+   2) Installing hardware and software, maintaining Linux Servers.
+   3) Troubleshooting and resolution of application and system related problems.
+   4) Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
+   5) Performing backup administration, including backup and restore of data.
+   6) Responding to outages both during normal business hours and in an after-hours, on call capacity.     
+      
+** JobKoo.com (2010/02 -- 2011/02)
+   I am doing destop service for Windows platform.      
 
 * Hobby
   - Functional programming in Lisp and Erlang.
