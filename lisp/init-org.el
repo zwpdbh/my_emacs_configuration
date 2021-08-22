@@ -12,6 +12,7 @@
   
   (global-set-key (kbd "<f12>") (kbd "C-c '"))
   (define-key org-mode-map [f5] #'org-toggle-inline-images)
+  (define-key org-mode-map [f8] #'org-set-tags-command)
   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)
 
   ;; === org agenda
