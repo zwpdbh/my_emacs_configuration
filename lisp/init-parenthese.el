@@ -92,14 +92,21 @@ FACE defaults to inheriting from default and highlight."
 
   (smartparens-global-mode t))
 
+
 ;; Make parenthesis less obvious for readability
-(when (maybe-require-package 'paren-face)
+(maybe-require-package 'paren-face)
+(defun zw/customize-themes-for-parenthesis ()
+  ;; customize how to show matched parentheses: 'expression or 'parenthesis
+  (setq show-paren-style 'parenthesis
+        show-paren-delay 0
+        show-paren-highlight-openparen t
+        show-paren-when-point-inside-paren nil
+        show-paren-when-point-in-periphery t)
   (after-load 'paren-face
     (set-face-attribute 'show-paren-match nil
                         :weight 'bold
                         :underline nil
-                        ;; :underline "#cce6ff"
-                        ;; :foreground "#cce6ff"
+                        :foreground "#50fa7b"
                         :background (face-background 'default t t))))
 
 (show-paren-mode 1)

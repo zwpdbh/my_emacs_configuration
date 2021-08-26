@@ -10,31 +10,35 @@
   ;; weyland comment, foreground color: #606873
 
   ;; (set-cursor-color "steelblue")
-  (setq-default cursor-type t)
+  ;; (setq-default cursor-type t)
   
-  (if (display-graphic-p)
-      (cond ((string-match-p "dracula" (symbol-name custom-enabled-theme))
-             t)
-            (t
-             (set-face-attribute 'default nil
-                                 :width 'regular
-                                 :foreground "#a9b7ca")
-             (set-face-attribute 'font-lock-comment-face nil
-                                 :foreground "#606873")))
-    (progn
-      (set-face-attribute 'default nil                          
-                          :foreground "#c6c6c6")))
+  ;; (if (display-graphic-p)
+  ;;     (cond ((string-match-p "dracula" (symbol-name custom-enabled-theme))
+  ;;            t)
+  ;;           (t
+  ;;            (set-face-attribute 'default nil
+  ;;                                :width 'regular
+  ;;                                :foreground "#a9b7ca")
+  ;;            (set-face-attribute 'font-lock-comment-face nil
+  ;;                                :foreground "#606873")))
+  ;;   (progn
+  ;;     (set-face-attribute 'default nil                          
+  ;;                         :foreground "#c6c6c6")))
 
-  ;; (set-face-attribute 'hl-line nil
-  ;;                     :underline nil
-  ;;                     :background (face-background 'default))
+ 
   
-  (cond ((string-match-p "kaolin" (symbol-name custom-enabled-theme))
-         (set-face-attribute 'font-lock-keyword-face nil
-                             :foreground "#91f368"))
-        (t
-         (set-face-attribute 'font-lock-keyword-face nil
-                             :foreground "#50fa7b"))))
+  (cond ;; ((string-match-p "kaolin" (symbol-name custom-enabled-theme))         
+        ;;  (set-face-attribute 'font-lock-keyword-face nil
+        ;;                      :foreground "#91f368"))
+        ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
+         (set-face-attribute 'highlight nil
+                             :underline nil
+                             :foreground (face-foreground 'default t t)
+                             :background "Black"))
+        ;; (t
+        ;;  (set-face-attribute 'font-lock-keyword-face nil
+        ;;                      :foreground "#50fa7b"))
+        ))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
@@ -59,13 +63,6 @@
                       :foreground (face-foreground 'default t t)
                       :background (face-background 'default t t)))
 
-(defun zw/customize-themes-for-parenthesis ()
-  ;; customize how to show matched parentheses: 'expression or 'parenthesis
-  (setq show-paren-style 'parenthesis
-        show-paren-delay 0
-        show-paren-highlight-openparen t
-        show-paren-when-point-inside-paren nil
-        show-paren-when-point-in-periphery t))
 
 (defun zw/customize-themes-for-company ()
   ;; (set-face-attribute 'company-tooltip-common-selection nil
@@ -131,16 +128,26 @@
                       :underline '(:color "yellow" :style wave)))
 
 (defun zw/customize-themes-for-consult ()
-  (set-face-attribute 'consult-preview-line nil
-                      :inherit nil
-                      :underline nil
-                      :weight 'normal
-                      :foreground "Yellow"
-                      :background "#3b3559")
+  (cond  ;; ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
+         ;;  (set-face-attribute 'consult-preview-line nil
+         ;;                      :inherit nil
+         ;;                      :underline nil
+         ;;                      :weight 'normal
+         ;;                      :foreground "Yellow"
+         ;;                      :background "Black"))
+         (t
+          (set-face-attribute 'consult-preview-line nil
+                              :inherit nil
+                              :underline nil
+                              :weight 'normal
+                              :foreground "Yellow"
+                              :background "Black")))
   
-  (set-face-attribute 'consult-file nil
-                      :inherit nil
-                      :foreground "#a9b7ca"))
+  ;; (set-face-attribute 'consult-file nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#a9b7ca")
+  )
+
 
 (defun zw/customize-themes-for-marginalia ()
   (set-face-attribute 'marginalia-documentation nil

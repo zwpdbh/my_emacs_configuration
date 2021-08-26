@@ -42,7 +42,7 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-dracula)
+    (setq custom-enabled-theme 'tango-dark)
   (setq custom-enabled-theme 'modus-vivendi))
 
 ;; load theme and do customization for themes
@@ -52,7 +52,7 @@
   
   (load-theme custom-enabled-theme)
   
-  ;; (zw/customize-themes-for-general)
+  (zw/customize-themes-for-general)
   (zw/customize-themes-for-parenthesis)
   ;; (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
 
@@ -61,6 +61,11 @@
   ;;     (funcall 'zw/customize-themes-for-selectrum)
   ;;   (after-load 'selectrum
   ;;     (funcall 'zw/customize-themes-for-selectrum)))
+
+  (if (featurep 'consult)
+      (funcall 'zw/customize-themes-for-consult)
+    (after-load 'consult
+      (funcall 'zw/customize-themes-for-consult)))
   
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
