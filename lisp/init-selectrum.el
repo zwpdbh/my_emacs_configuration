@@ -21,7 +21,9 @@
     (marginalia-mode)
     ;; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
     (advice-add #'marginalia-cycle :after
-                (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))))
+                (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit)))))
+  (set-face-attribute 'marginalia-documentation nil
+                      :underline nil))
 
 
 
