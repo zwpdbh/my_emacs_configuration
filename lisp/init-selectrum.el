@@ -21,9 +21,11 @@
     (marginalia-mode)
     ;; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
     (advice-add #'marginalia-cycle :after
-                (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit)))))
-  (set-face-attribute 'marginalia-documentation nil
-                      :underline nil))
+                (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))
+
+    ;; get rid of underline in minibuffer for some column when C-x b
+    (set-face-attribute 'marginalia-documentation nil
+                        :underline nil)))
 
 
 
