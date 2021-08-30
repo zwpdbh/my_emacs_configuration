@@ -12,7 +12,7 @@
 
 * Work Experience (as Software Engineer)
 ** Siemens PLM Software (2018/10 -- present)
-   My job includes
+   My job responsibilities include:
    - Automate deployment of great products and services in cloud environments.
    - Design and develop intelligent operation and operation platform, tools, and system.
    - Participate in solving the problems of capacity, performance and stability of cloud environment.
@@ -21,7 +21,10 @@
    - Maintain existing software code - analyze and resolve customer and internally reported problems
 
 *** Loadtest using Golang (from 2021/06 to present)
-    Using Golang to execute multiple instances of existing javascript code, then parse and collect each javascript script's stdout and stderr to perform metrics comparision. In this project, the following Golang skills have been practised:
+    Using Golang to execute multiple instances of existing javascript code, then parse and collect each javascript script's stdout and stderr to perform metrics comparision. 
+   
+    \\ 
+    In this project, the following Golang skills have been [[https://zwpdbh.github.io/golang/golang-practise.html][practised]]:
     - Web programming in websocket, socket and http.
     - Concurrent programming using sync.WaitGroup, and goroutine + channels.
     - Use interface to mock AWS interface to do unit test.
@@ -30,11 +33,17 @@
 *** Distributed service admin-console (from 2020/07 to present)
     
     An admin-dashboard for Atlas distributed service (stateless service for visualization). Implement frontend using Vuejs and backend using Nodejs.
-
+    \\ 
+    
     My responsiblity includes:
     1) Design relational database and implement it using PostgreSQL.
     2) Frontend implementation using Vuejs.
     3) Backend implementation using Nodejs.
+    4) Deployment pipeline, in GitLab CICD pipeline:
+       - Build frontend and backend images
+       - Publish images to AWS S3
+       - Write AWS cloudformation template
+       - Deploy service from pipeline using cloudformation template.
        
 *** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
     
@@ -50,9 +59,12 @@
     3) Using this dashboard to debug Atlas-stateful-service
 
 *** Tester for end-to-end test (from 2019/01 to present)
-    Based on many microserivces we built, we need a tester tool to do end-to-end test. My responsibility includes:
+    Based on many microserivces we built, we need a tester tool to do end-to-end test.
+    \\
+    
+    My responsibility includes:
     1) Implement it with nodejs, websocket and socket.
-    2) Deploy it using Docker + GitLab pipeline to AWS with cloudformation template.
+    2) Deploy it using Docker + GitLab pipeline to AWS with cloudformation template. 
     3) Write pageduty runbook for handling incidents.
 
 
@@ -62,21 +74,27 @@
    - Solid implementation of data structure and algorithm.
    - Fast learning driven by interest and curiosity. For example, I am learning [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] using Erlang/Elixr and learning algebraic data type using OCaml.
    - Good understanding about operating system (Unix like system).
-   - Object-oriented programming with in C++ and Java.
+   - Web programming using Javascript.     
+
 
 ** Experienced
-   - JavaScript
+   - Object-oriented programming with in C++ and Java.   
    - Nodejs(Express)
    - Vuejs
    - Network programming, such TCP/IP sockt, websocket.
    - Database including
      - PostgreSQL
-     - Oracle
+     - AWS DynamoDB
    - Devop tools, including
+     - Define AWS cloud infrastructure using AWS cloudformation template or Terraform, including:
+       - Upload application image into S3.
+       - Create ECS service from application image by defining
+       - Manage service log  using cloudwatch
+         - Extract metrics from cloudwatch
+         - Set alarm based on metrics and integrate it with pagerduty.
      - GitLab CICD
      - Docker
-     - Terraform
-   - AWS cloud infrastructure
+
      
 ** Familar with
    - Erlang/Elixir
