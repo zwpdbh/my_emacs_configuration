@@ -40,8 +40,9 @@
     2) Frontend implementation using Vuejs.
     3) Backend implementation using Nodejs.
     4) Deployment pipeline, in GitLab CICD pipeline:
-       - Build frontend and backend images
-       - Publish images to AWS S3
+       - Build backend image
+       - Build frontend image with Nginx which is used for web server as well as transparent proxy for backend.
+       - Publish application images to AWS S3
        - Write AWS cloudformation template
        - Deploy service from pipeline using cloudformation template.
        
@@ -94,7 +95,7 @@
          - Set alarm based on metrics and integrate it with pagerduty.
      - GitLab CICD
      - Docker
-
+     - Nginx
      
 ** Familar with
    - Erlang/Elixir
