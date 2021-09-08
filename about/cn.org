@@ -21,6 +21,17 @@
    - 为CAD产品提供核心的服务
    - 维护现有的代码， 分析并解决客户的需求并汇报问题
      
+*** Loadtest using Golang (from 2021/06 to present)
+    使用Golang的并发功能来执行已有的javascript脚本, 收集和处理每个执行脚本的stdout和stderr, 最后汇总数据.
+    
+    \\
+    在这个项目里,包含 以下的[[https://zwpdbh.github.io/golang/golang-practise.html][Golang实践]]:
+    - 网络编程使用websocket, socket和http
+    - Concurrent programming 使用 ~sync.WaitGroup~, ~goroutine + channels~.
+    - 使用AWS提供的接口来做单元测试.
+    - 根据应用层的协议来处理socket链接.
+    
+   
 *** Distributed service admin-dashboard (from 2020/07 to present)     
     Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 这个dashboard是为了控制distributed-service.
     我在其中的职责:
@@ -47,6 +58,40 @@
     - 自动化部署(Docker + GitLab pipeline + AWS cloudformation).
     - Pagerduty oncall.
     
+* 专业知识
+** 核心技能
+   - 使用Golang进行Concurrent programming.
+   - 熟悉算法和数据结构.
+   - 好奇心和兴趣驱动的快速学习能力. 比如使用Erlang/Elixir来探索分布式和使用OCaml来理解algebraic data type.
+   - 对类Unix操作系统的熟悉和理解.
+   - Web全栈开发使用JavaScript.
+     
+** 经验
+   - 使用Python进行机器学习, 比如 PCA, 聚类和神经网络.
+   - 面向对象编程使用C++和Java
+   - Nodejs(Express)
+   - Vuejs
+   - Network programming, 比如TCP/IP sockt, websocket.
+   - 数据库
+     - PostgreSQL
+     - AWS DynamoDB
+   - Devop包括
+     - 使用AWS cloudformation或者Terraform来定义AWS的各种资源:
+       - 发布镜像到S3
+       - 创建ECS
+       - 使用cloudwatch管理服务日志
+       - 根据服务日志定义收集的数据并建立报警机制
+     - GitLab CICD
+     - Docker
+     - Nginx
+
+** 熟悉
+   - Erlang/Elixir
+   - OCaml      
+   - Lisp
+   - iOS and OS x programming using Swift
+   - Linux driver development
+
 * 工作经验(非程序开发)    
 ** ATOS(源讯) (2012/02 - 2015/06)
    作为一名Linux系统维护工程师, 我在ATOS的工作包括:
@@ -61,41 +106,11 @@
 ** Jobkook.com(2010/02-2011/02)     
    维护内部使用的Windows系统, 包括: Outlook, DNS, 以及AD.
      
-* 专业知识
-** 核心技能
-   - 算法和数据结构
-   - 对于操作系统的理解
-   - 自我驱动的强烈好奇心. 比如使用Erlang/Elixir来探索分布式和使用OCaml来理解algebraic data type.
-   - 面向对象编程(Java, C++)
-     
-** 经验
-   - JavaScript
-   - Nodejs(Express)
-   - Vuejs
-   - Network programming, such TCP/IP sockt, websocket.
-   - Database including
-     - PostgreSQL
-     - Oracle
-   - Devop tools, including
-     - GitLab CICD
-     - Docker
-     - Terraform
-   - AWS cloud infrastructure   
-
-** 熟悉
-   - Erlang/Elixir
-   - OCaml      
-   - Golang     
-   - Python          
-   - Lisp
-   - iOS and OS x programming using Swift
-   - Linux driver development
-
 * 兴趣爱好
   - 函数式编程尤其是OCaml和Erlang/Elixir
   - 学习有趣的计算和数学知识
   - 打RTS游戏
     
 * 联系方式
-  - WeChat: 15811257483
+  - WeChat: ~15811257483~
   - Email: ~hyperion_z@outlook.com~

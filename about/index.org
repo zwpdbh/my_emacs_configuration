@@ -79,6 +79,7 @@
 
 
 ** Experienced
+   - Machine learning using Python, such as PCA, clustering and neural network.
    - Object-oriented programming with in C++ and Java.   
    - Nodejs(Express)
    - Vuejs
@@ -100,8 +101,6 @@
 ** Familar with
    - Erlang/Elixir
    - OCaml      
-   - Golang     
-   - Python          
    - Lisp
    - iOS and OS x programming using Swift
    - Linux driver development
@@ -128,6 +127,6 @@
   - Play the RTS game: Supreme commander: forged alliance.
 
 * Contact
-  - WeChat: 15811257483
+  - WeChat: ~15811257483~
   - Email: ~hyperion_z@outlook.com~
     
