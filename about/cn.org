@@ -22,6 +22,7 @@
    - 维护现有的代码， 分析并解决客户的需求并汇报问题
      
 *** Loadtest using Golang (from 2021/06 to present)
+    
     使用Golang的并发功能来执行已有的javascript脚本, 收集和处理每个执行脚本的stdout和stderr, 最后汇总数据.
     
     \\
@@ -33,27 +34,40 @@
     
    
 *** Distributed service admin-dashboard (from 2020/07 to present)     
-    Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 这个dashboard是为了控制distributed-service.
+    
+    Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 
+    
+    \\
     我在其中的职责:
-    - 设计和实施关系型数据模型 (postgreSQL)
-    - 前端设计和实施(Vuejs)
-    - 后端设计和实施(Nodejs)
-    - 修改node-oidc-provider 来做OAuth2.0 认证服务
+    1) 设计和实施关系型数据模型 (postgreSQL)
+    2) 前端设计和实施(Vuejs)
+    3) 后端设计和实施(Nodejs)
+    4) 修改node-oidc-provider 来做OAuth2.0 认证服务
+    5) 代码的提交和发布管理, 使用GitLab CICD:
+       - 编译代码, 准备docker镜像
+       - 使用Nginx镜像做前端的Web服务器和后端的透明代理.
+       - 发布镜像到S3
+       - 编写AWS cloudformation 或者使用Terraform来创建和管理AWS ECS.
 
 *** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
+    
     由于我们很多的服务是使用AWS cloud, 为了控制各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务. 其内容包括:
-    - 日志搜索
-    - AWS EC2 task 管理
-    - 管理stateful service worker pool
-    - 基于角色的权限控制
+    1) 日志搜索
+    2) AWS EC2 task 管理
+    3) 管理stateful service worker pool
+    4) 基于角色的权限控制
       
     我的职责包括:
-    - 实施前端和后端, 尤其是关于角色的权限控制和登陆
-    - 使用Docker + GitLab + AWS cloudformation 来进行自动化部署
-    - 对Stateful-service 进行排错
+    1) 实施前端和后端, 尤其是关于角色的权限控制和登陆
+    2) 使用Docker + GitLab + AWS cloudformation 来进行自动化部署
+    3) 对Stateful-service 进行排错
       
 *** Tester for end-to-end test (from 2019/01 to present)    
-    基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 我的职责包括:
+    
+    基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 
+    
+    \\
+    我的职责包括:
     - 使用nodejs, websocket和socket 来实现这个脚本工具.
     - 自动化部署(Docker + GitLab pipeline + AWS cloudformation).
     - Pagerduty oncall.
