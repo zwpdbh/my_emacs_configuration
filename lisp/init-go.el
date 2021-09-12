@@ -32,10 +32,10 @@
           (lambda ()             
             (setq-local tab-width 4)
             
-            ;; (flycheck-mode t)             
-            ;; (when (featurep 'flycheck)
-            ;;   (define-key (current-local-map) (kbd "C-c C-n") 'flycheck-next-error)
-            ;;   (define-key (current-local-map) (kbd "C-c C-p") 'flycheck-previous-error))
+            (flycheck-mode t)             
+            (when (featurep 'flycheck)
+              (define-key (current-local-map) (kbd "C-c C-n") 'flycheck-next-error)
+              (define-key (current-local-map) (kbd "C-c C-p") 'flycheck-previous-error))
             
             (add-hook 'before-save-hook 'gofmt-before-save nil 'local)
             ;; Godef, lets you quickly jump around the code
