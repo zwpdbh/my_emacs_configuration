@@ -7,13 +7,13 @@
   我目前定居在上海, 秉持开放的心态去探索这个世界.
   
 * 教育
-  - Otago (2016/01 -- 2018/09)
+  - Otago (2016 -- 2018)
     计算机硕士学位
-  - 北京工业大学 (2004/07 -- 2009/07)
+  - 北京工业大学 (2004 -- 2009)
     计算机本科学位
     
 * 工作经验
-** 西门子工业软件（2018-10 至今）
+** 西门子工业软件（2018 至今）
    工作内容：
    - 基于云环境(AWS)的自动化部署
    - 为公司的平台和系统设计和编写程序
@@ -21,7 +21,7 @@
    - 为CAD产品提供核心的服务
    - 维护现有的代码， 分析并解决客户的需求并汇报问题
      
-*** Loadtest using Golang (from 2021/06 to present)
+*** Loadtest using Golang (从2021/06至今)
     
     使用Golang的并发功能来执行已有的javascript脚本, 收集和处理每个执行脚本的stdout和stderr, 最后汇总数据.
     
@@ -33,7 +33,7 @@
     - 根据应用层的协议来处理socket链接.
     
    
-*** Distributed service admin-dashboard (from 2020/07 to present)     
+*** Distributed service admin-dashboard (从2020/07至今)     
     
     Admin-dashboard 由前端（使用vuejs）和后端（使用nodejs）组成. 
     
@@ -49,7 +49,7 @@
        - 发布镜像到S3
        - 编写AWS cloudformation 或者使用Terraform来创建和管理AWS ECS.
 
-*** Admin-dashbaord for stateful service based on AWS (from 2019/05 to present)
+*** Admin-dashbaord for stateful service based on AWS (从2019/05至今)
     
     由于我们很多的服务是使用AWS cloud, 为了控制各类微服务,我们构建了一个admin-dashboard 用来方便管理线上的各种服务. 其内容包括:
     1) 日志搜索
@@ -62,7 +62,7 @@
     2) 使用Docker + GitLab + AWS cloudformation 来进行自动化部署
     3) 对Stateful-service 进行排错
       
-*** Tester for end-to-end test (from 2019/01 to present)    
+*** Tester for end-to-end test (从2019/01至今)    
     
     基于我们的微服务架构, 我们需要一个测试工具来进行端到端的检测. 
     
@@ -72,15 +72,29 @@
     - 自动化部署(Docker + GitLab pipeline + AWS cloudformation).
     - Pagerduty oncall.
     
+* 工作经验(系统运维)    
+** ATOS(源讯) (2012-2016)
+   作为一名Linux系统维护工程师, 我在ATOS的工作包括:
+   - 大众进口项目(最主要的工作)
+     - 跟进项目进度和优化维护流程
+     - 绘制月报量化项目实施的进展
+     - 联系多方: 大众, 联通和4S店推进项目进展, 尤其是确保经销商的服务器的正常运行.
+     - 远程支持, 跟踪汇报服务质量
+   - 安装, 维护大众的汽车检测服务.
+   - 定期更新系统和安全补丁.
+   - 定期备份系统.
+** Jobkook.com(2010-2012)     
+   维护内部使用的Windows系统, 包括: Outlook, DNS, 以及AD.
+     
 * 专业知识
-** 核心技能
+** 熟练
    - 使用Golang进行Concurrent programming.
+   - 使用Golang进行[[https://zwpdbh.github.io/golang/build-RESTful-API-using-Golang.html][ RESTful API ]]开发.
    - 熟悉算法和数据结构.
-   - 好奇心和兴趣驱动的快速学习能力. 比如使用Erlang/Elixir来探索分布式和使用OCaml来理解algebraic data type.
    - 对类Unix操作系统的熟悉和理解.
    - Web全栈开发使用JavaScript.
      
-** 经验
+** 有经验
    - 使用Python进行机器学习, 比如 PCA, 聚类和神经网络.
    - 面向对象编程使用C++和Java
    - Nodejs(Express)
@@ -100,26 +114,13 @@
      - Nginx
 
 ** 熟悉
+   - MongoDB
    - Erlang/Elixir
    - OCaml      
    - Lisp
    - iOS and OS x programming using Swift
    - Linux driver development
 
-* 工作经验(非程序开发)    
-** ATOS(源讯) (2012/02 - 2015/06)
-   作为一名Linux系统维护工程师, 我在ATOS的工作包括:
-   - 大众进口项目(最主要的工作)
-     - 跟进项目进度和优化维护流程
-     - 绘制月报量化项目实施的进展
-     - 联系多方: 大众, 联通和4S店推进项目进展, 尤其是确保经销商的服务器的正常运行.
-     - 远程支持, 跟踪汇报服务质量
-   - 安装, 维护大众的汽车检测服务.
-   - 定期更新系统和安全补丁.
-   - 定期备份系统.
-** Jobkook.com(2010/02-2011/02)     
-   维护内部使用的Windows系统, 包括: Outlook, DNS, 以及AD.
-     
 * 兴趣爱好
   - 函数式编程尤其是OCaml和Erlang/Elixir
   - 学习有趣的计算和数学知识
