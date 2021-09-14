@@ -42,7 +42,7 @@
 ;; set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'tango-dark)
+    (setq custom-enabled-theme 'kaolin-aurora)
   (setq custom-enabled-theme 'doom-dracula))
 
 ;; load theme and do customization for themes
