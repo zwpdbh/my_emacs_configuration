@@ -8,7 +8,7 @@
   - Otago University (2016/01 -- 2018/09)
     Master of Applied Science, specialized in Computer Science
   - Beijing University and Technology (2004/07 -- 2009/07)
-    Bacholar degree in Computer Science
+    Bachelor degree in Computer Science
 
 * Work Experience (as Software Engineer)
 ** Siemens PLM Software (2018/10 -- present)
