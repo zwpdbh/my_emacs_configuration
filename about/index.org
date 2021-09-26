@@ -71,13 +71,29 @@
     3) Write pageduty runbook for handling incidents.
 
 
+* Work Experience (as non Software Engineer)
+** ATOS (2012/02 -- 2015/06)
+   As a Linux system engineer, my job at Atos includes
+   1) In VGIC (Volkswagen Group (Import) Co. Ltd.) project:
+      - Follow up project operation and optimize maintenance process.
+      - Make specifications about monthly report and project operation.
+      - Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
+   2) Installing hardware and software, maintaining Linux Servers.
+   3) Troubleshooting and resolution of application and system related problems.
+   4) Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
+   5) Performing backup administration, including backup and restore of data.
+   6) Responding to outages both during normal business hours and in an after-hours, on call capacity.     
+      
+** JobKoo.com (2010/02 -- 2011/02)
+   I am doing destop service for Windows platform.      
+
 * Knowledge
 ** Core skills
    - Concurrent programming using Golang.
+   - Web programming using Javascript and Golang.     
    - Solid implementation of data structure and algorithm.
    - Fast learning driven by interest and curiosity. For example, I am learning [[https://pdos.csail.mit.edu/6.824/schedule.html][distributed-system]] using Erlang/Elixr and learning algebraic data type using OCaml.
    - Good understanding about operating system (Unix like system).
-   - Web programming using Javascript.     
 
 
 ** Experienced
@@ -107,22 +123,6 @@
    - iOS and OS x programming using Swift
    - Linux driver development
      
-* Work Experience (as non Software Engineer)
-** ATOS (2012/02 -- 2015/06)
-   As a Linux system engineer, my job at Atos includes
-   1) In VGIC (Volkswagen Group (Import) Co. Ltd.) project:
-      - Follow up project operation and optimize maintenance process.
-      - Make specifications about monthly report and project operation.
-      - Communicate with VGIC and dealer site for server maintenance, report and analyzing monitor incidents monthly for service quality SLA.
-   2) Installing hardware and software, maintaining Linux Servers.
-   3) Troubleshooting and resolution of application and system related problems.
-   4) Performing system software upgrades including planning/ scheduling security patch, and maintaining integrity of the operating system environment.
-   5) Performing backup administration, including backup and restore of data.
-   6) Responding to outages both during normal business hours and in an after-hours, on call capacity.     
-      
-** JobKoo.com (2010/02 -- 2011/02)
-   I am doing destop service for Windows platform.      
-
 * Hobby
   - Functional programming in Lisp and Erlang.
   - Having fun with interesting algorithms related to distributed system and symbolic AI.
