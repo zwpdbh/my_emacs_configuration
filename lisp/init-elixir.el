@@ -2,6 +2,7 @@
 ;; ref: https://erick.navarro.io/blog/minimal-setup-for-elixir-development-in-emacs/
 
 (when (maybe-require-package 'elixir-mode)
+  (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
   (add-hook 'elixir-mode-hook
             (lambda ()
               (my/disable-paredit-spaces-before-paren)
