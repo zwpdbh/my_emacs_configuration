@@ -32,16 +32,11 @@
   (setq alchemist-mix-command (executable-find "mix"))
   (setq alchemist-mix-test-task (executable-find "espec"))
 
-  (defun zw/alchemist-iex-send-current-line ()
+  (defun zw/alchemist-iex-send-last-sexp ()
     (interactive)
     (save-excursion
-      (let ((p1 (line-end-position))
-            (p2 (line-beginning-position)))
-        (set-mark  p1)
-        (goto-char p2)
-        (call-interactively 'alchemist-iex-send-region)
-        (display-buffer (process-buffer (alchemist-iex-process)))
-        (deactivate-mark))))
+      (call-interactively 'alchemist-iex-send-last-sexp)
+      (display-buffer (process-buffer (alchemist-iex-process)))))
 
   (defun zw/alchemist-iex-send-region (beg end)
     "Sends the marked region to the IEx process."
@@ -64,7 +59,7 @@
             (lambda ()
               (alchemist-mode t)
               (zw/set-company-backends-for-elixir)
-              (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-current-line)
+              (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
               (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
               (define-key (current-local-map) (kbd "C-c C-r") 'zw/alchemist-iex-send-region)
