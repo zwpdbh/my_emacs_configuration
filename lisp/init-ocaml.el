@@ -27,7 +27,7 @@
 ;; ref: https://github.com/ocaml/merlin/wiki/emacs-from-scratch
 ;; opam install merlin
 (when (maybe-require-package 'merlin)
-  (maybe-require-package 'merlin-company)
+  (require 'merlin-company)
   
   (setq merlin-command (concat opam-bin "/ocamlmerlin"))
   (autoload 'merlin-mode "merlin" "Merlin mode" t)
