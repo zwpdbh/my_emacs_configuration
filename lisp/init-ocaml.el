@@ -69,15 +69,16 @@
 
   (add-hook 'tuareg-interactive-mode-hook
             (lambda ()
-              (zw/set-company-backends-for-ocaml)
-              (zw/set-paredit-for-ocaml)))
+              ;; (zw/set-paredit-for-ocaml)
+              (zw/set-company-backends-for-ocaml)))
 
   ;; opam install ocp-indent
   (require 'ocp-indent nil t)
   (add-hook 'tuareg-mode-hook
             (lambda ()
-              (zw/set-company-backends-for-ocaml)
               ;; (zw/set-paredit-for-ocaml)
+              (zw/set-company-backends-for-ocaml)
+
               (local-unset-key (kbd "C-c C-c"))
               (local-unset-key (kbd "C-c C-e"))
               (define-key tuareg-mode-map (kbd "C-c C-c") 'tuareg-eval-phrase)
