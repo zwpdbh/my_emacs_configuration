@@ -17,20 +17,18 @@
 
 (defun zw/set-company-backends-for-ocaml ()
   (interactive)
-  (setq-local company-backends (zw/delete-from-company-backends 'company-capf))
-  (run-at-time "1 sec" nil (lambda ()
-                             ;; Because (merlin-mode t) will automatically register company-backends from merlin-company.el, so we need to remove it first
-                             (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
-                             (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend)))))
+  ;; Because (merlin-mode t) will automatically register company-backends from merlin-company.el, so we need to remove it first
+  (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
+  (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
+  (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
 
 
 ;; ref: https://github.com/ocaml/merlin/wiki/emacs-from-scratch
 ;; opam install merlin
 (when (maybe-require-package 'merlin)
+  ;; (autoload 'merlin-mode "merlin" "Merlin mode" t)
   (maybe-require-package 'merlin-company)
-  
   (setq merlin-command (concat opam-bin "/ocamlmerlin"))
-  (autoload 'merlin-mode "merlin" "Merlin mode" t)
   
   (require 'caml-types nil 'noerror)
   (setq merlin-error-on-single-line t)
@@ -68,19 +66,13 @@
           (require 'caml-font)
           (set-face-foreground 'caml-font-doccomment-face "#cb4b16"))))
 
-  (add-hook 'tuareg-interactive-mode-hook
-            (lambda ()
-              ;; (zw/set-paredit-for-ocaml)
-              (merlin-mode t)
-              (zw/set-company-backends-for-ocaml)))
-
   ;; opam install ocp-indent
   (require 'ocp-indent nil t)
   (add-hook 'tuareg-mode-hook
             (lambda ()
               ;; (zw/set-paredit-for-ocaml)
               (merlin-mode t)
-              (zw/set-company-backends-for-ocaml)
+              (run-at-time "1 sec" nil #'zw/set-company-backends-for-ocaml)
 
               (local-unset-key (kbd "C-c C-c"))
               (local-unset-key (kbd "C-c C-e"))
@@ -90,11 +82,6 @@
               (zw/counsel-etags-setup)
               (add-hook 'before-save-hook #'ocp-indent-buffer nil 'local)))
   
-  (add-hook 'ocaml-mode-hook
-            (lambda ()
-              (merlin-mode t)
-              (zw/set-company-backends-for-ocaml)))
-
   (after-load 'org
     (add-to-list 'zw/org-babel-evaluate-whitelist "ocaml")
     (add-to-list 'zw/org-babel-load-language-list '(ocaml . t))
