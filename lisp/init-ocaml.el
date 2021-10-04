@@ -70,9 +70,9 @@
   (require 'ocp-indent nil t)
   (add-hook 'tuareg-mode-hook
             (lambda ()
-              ;; (zw/set-paredit-for-ocaml)
+              (zw/set-paredit-for-ocaml)
               (merlin-mode t)
-              (run-at-time "1 sec" nil #'zw/set-company-backends-for-ocaml)
+              (zw/set-company-backends-for-ocaml)
 
               (local-unset-key (kbd "C-c C-c"))
               (local-unset-key (kbd "C-c C-e"))
