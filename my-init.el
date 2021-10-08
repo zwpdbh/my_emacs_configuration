@@ -142,7 +142,7 @@
 (require 'init-counsel-etags)
 ;; (require 'init-lsp)
 
-(require 'init-terraform)
+;; (require 'init-terraform)
 (require-init 'init-eldoc)
 
 (require 'init-common-lisp-configure)
@@ -171,7 +171,7 @@
 (require 'init-prettier)
 ;; (require 'init-prettier-eslint)
 
-(require-init 'init-R)
+;; (require-init 'init-R)
 
 (require-init 'init-org)
 (require-init 'init-org-babel)

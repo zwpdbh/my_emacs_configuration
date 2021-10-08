@@ -16,11 +16,11 @@
                              "Courier New"))
 
 ;; use terminal preferred fonts
-(unless (display-graphic-p)
-  (setq zw/favorite-en-fonts (delete "Terminus (TTF)" zw/favorite-en-fonts))
-  (setq zw/favorite-en-fonts (delete "Terminus (TTF) for Windows" zw/favorite-en-fonts))
-  (setq zw/favorite-en-fonts (cons "Terminus (TTF)" zw/favorite-en-fonts))
-  (setq zw/favorite-en-fonts (cons "Terminus (TTF) for Windows" zw/favorite-en-fonts)))
+;; (unless (display-graphic-p)
+;;   (setq zw/favorite-en-fonts (delete "Terminus (TTF)" zw/favorite-en-fonts))
+;;   (setq zw/favorite-en-fonts (delete "Terminus (TTF) for Windows" zw/favorite-en-fonts))
+;;   (setq zw/favorite-en-fonts (cons "Terminus (TTF)" zw/favorite-en-fonts))
+;;   (setq zw/favorite-en-fonts (cons "Terminus (TTF) for Windows" zw/favorite-en-fonts)))
 
 ;; For cases which Chinese characters could not be displayed properly:
 ;; 1) Ensure Chinese characters are installed in System.
@@ -83,8 +83,8 @@
 
 
 ;; set emoji
-(when (and (boundp 'global-emojify-mode)
-           global-emojify-mode)
-  (global-emojify-mode 1))
+;; (when (and (boundp 'global-emojify-mode)
+;;            global-emojify-mode)
+;;   (global-emojify-mode 1))
 
 (provide 'init-font)

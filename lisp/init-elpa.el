@@ -75,46 +75,46 @@ locate PACKAGE."
 ;; after custom-file has been loaded, which is a bug. We work around this by adding
 ;; the required packages to package-selected-packages after startup is complete.
 
-(defvar sanityinc/required-packages nil)
+;; (defvar sanityinc/required-packages nil)
 
-(defun sanityinc/note-selected-package (oldfun package &rest args)
-  "If OLDFUN reports PACKAGE was successfully installed, note it in `sanityinc/required-packages'."
-  (let ((available (apply oldfun package args)))
-    (prog1 available
-      (when (and available (boundp 'package-selected-packages))
-        (add-to-list 'sanityinc/required-packages package)))))
+;; (defun sanityinc/note-selected-package (oldfun package &rest args)
+;;   "If OLDFUN reports PACKAGE was successfully installed, note it in `sanityinc/required-packages'."
+;;   (let ((available (apply oldfun package args)))
+;;     (prog1 available
+;;       (when (and available (boundp 'package-selected-packages))
+;;         (add-to-list 'sanityinc/required-packages package)))))
 
-(advice-add 'require-package :around 'sanityinc/note-selected-package)
+;; (advice-add 'require-package :around 'sanityinc/note-selected-package)
 
-(when (fboundp 'package--save-selected-packages)
-  (require-package 'seq)
-  (add-hook 'after-init-hook
-            (lambda () (package--save-selected-packages
-                   (seq-uniq (append sanityinc/required-packages package-selected-packages))))))
-
-
-;; (require-package 'fullframe)
-;; (fullframe list-packages quit-window)
+;; (when (fboundp 'package--save-selected-packages)
+;;   (require-package 'seq)
+;;   (add-hook 'after-init-hook
+;;             (lambda () (package--save-selected-packages
+;;                    (seq-uniq (append sanityinc/required-packages package-selected-packages))))))
 
 
-(require-package 'gnu-elpa-keyring-update)
+;; ;; (require-package 'fullframe)
+;; ;; (fullframe list-packages quit-window)
 
 
-(defun sanityinc/set-tabulated-list-column-width (col-name width)
-  "Set any column with name COL-NAME to the given WIDTH."
-  (when (> width (length col-name))
-    (cl-loop for column across tabulated-list-format
-             when (string= col-name (car column))
-             do (setf (elt column 1) width))))
+;; (require-package 'gnu-elpa-keyring-update)
 
-(defun sanityinc/maybe-widen-package-menu-columns ()
-  "Widen some columns of the package menu table to avoid truncation."
-  (when (boundp 'tabulated-list-format)
-    (sanityinc/set-tabulated-list-column-width "Version" 13)
-    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
-      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
 
-(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
+;; (defun sanityinc/set-tabulated-list-column-width (col-name width)
+;;   "Set any column with name COL-NAME to the given WIDTH."
+;;   (when (> width (length col-name))
+;;     (cl-loop for column across tabulated-list-format
+;;              when (string= col-name (car column))
+;;              do (setf (elt column 1) width))))
+
+;; (defun sanityinc/maybe-widen-package-menu-columns ()
+;;   "Widen some columns of the package menu table to avoid truncation."
+;;   (when (boundp 'tabulated-list-format)
+;;     (sanityinc/set-tabulated-list-column-width "Version" 13)
+;;     (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
+;;       (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+
+;; (add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
 
 (provide 'init-elpa)
