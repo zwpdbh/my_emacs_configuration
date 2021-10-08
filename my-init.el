@@ -149,7 +149,7 @@
 
 (require-init 'init-racket)
 (require-init 'init-scheme)
-(require-init 'init-clojure)
+;; (require-init 'init-clojure)
 (require 'init-erlang)
 (require 'init-ocaml)
 (require 'init-elixir)
@@ -162,8 +162,8 @@
 
 ;; (require-init 'init-python)
 (require-init 'init-c-and-c++)
-(require 'init-lua)
-(require 'init-haskell)
+;; (require 'init-lua)
+;; (require 'init-haskell)
 
 (require-init 'init-javascript)
 (require-init 'init-web)
