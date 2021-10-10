@@ -85,6 +85,14 @@
 ;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
 
 (after-load 'slime
+            (defun zw/slime-eval-last-expression-in-repl ()
+              "zw customize slime-eval to make sure to jump back to original buffer"
+              (interactive) 
+              (let ((buf (buffer-name)))
+                (save-excursion
+                 (slime-eval-last-expression-in-repl t)
+                 (select-window (previous-window)))))
+            
             (if (and (search "sbcl" inferior-lisp-program)
                      (search "sbcl" (car (car (cdr (car slime-lisp-implementations))))))
                 (progn
@@ -96,8 +104,12 @@
 
             (local-unset-key (kbd "C-c C-c"))
             (local-unset-key (kbd "C-c C-e"))
-            (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
+            
+            ;; (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
+            (define-key slime-mode-map (kbd "C-c C-c") #'zw/slime-eval-last-expression-in-repl)
+            
             (define-key slime-mode-map (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
+            
             (define-key slime-mode-map (kbd "C-c C-l") #'slime-load-file)
             (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
 
