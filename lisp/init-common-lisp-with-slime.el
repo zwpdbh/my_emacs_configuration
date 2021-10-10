@@ -20,7 +20,8 @@
   (add-to-list 'slime-contribs 'helm-slime))
 
 (when (maybe-require-package 'slime-company)
-  (setq slime-company-after-completion 'slime-company-just-one-space)
+  ;; when press TAB during company completion, slime will enter one space automatically
+  (setq slime-company-after-completion nil)
   (setq slime-company-completion 'simple)
   (setq slime-complete-symbol*-fancy t)
   (setq slime-completion-at-point-functions 'slime-simple-completion-at-point)
