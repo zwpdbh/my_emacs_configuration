@@ -153,6 +153,11 @@
 (after-load 'org
             (define-key org-mode-map (kbd "C-x C-l") 'zw/org-link-copy))
 
-
+(after-load 'org
+  ;; For making line in org source block wrap
+  ;; see: https://emacs.stackexchange.com/questions/33010/how-to-word-wrap-within-code-blocks
+  (add-to-list 'org-latex-packages-alist '("" "listings" nil))
+  (setq org-latex-listings t)
+  (setq org-latex-listings-options '(("breaklines" "true"))))
 
 (provide 'init-org-tools)
