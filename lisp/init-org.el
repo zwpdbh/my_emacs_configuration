@@ -14,6 +14,7 @@
   (define-key org-mode-map [f5] #'org-toggle-inline-images)
   (define-key org-mode-map [f8] #'org-set-tags-command)
   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)
+  (define-key org-mode-map (kbd "M-<return>") #'org-insert-item)
 
   ;; === org agenda
   ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
