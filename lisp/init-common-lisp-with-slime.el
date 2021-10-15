@@ -105,8 +105,8 @@
             (local-unset-key (kbd "C-c C-c"))
             (local-unset-key (kbd "C-c C-e"))
             
-            ;; (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
-            (define-key slime-mode-map (kbd "C-c C-c") #'zw/slime-eval-last-expression-in-repl)
+            (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
+            ;; (define-key slime-mode-map (kbd "C-c C-c") #'zw/slime-eval-last-expression-in-repl)
             
             (define-key slime-mode-map (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
             
