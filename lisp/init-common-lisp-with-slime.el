@@ -111,7 +111,8 @@
             (define-key slime-mode-map (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
             
             (define-key slime-mode-map (kbd "C-c C-l") #'slime-load-file)
-            (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup))
+            (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup)
+            (define-key slime-mode-map (kbd "C-c t") #'slime-toggle-trace-fdefinition))
 
 
 (provide 'init-common-lisp-with-slime)
