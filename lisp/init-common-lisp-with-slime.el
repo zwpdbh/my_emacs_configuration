@@ -68,21 +68,21 @@
    (setq slime-lisp-implementations `((clisp (,my-clisp))))))
 
 
-;; ;; Set the alignment of the indents under him
-;; ;; Learn more about customization of this case you can read
-;; ;; SLIME source, namely
-;; ;; %путь_к_slime%/contrib/slime-cl-indent.el
-;; (define-common-lisp-style "zw/common-lisp-indent-style"
-;;   "My custom indent style."
-;;   (:inherit "modern")
-;;   (:variables
-;;    (lisp-loop-indent-subclauses t)) 
-;;   (:indentation
-;;    (if (4 2 2))
-;;    (define (&lambda 2))
-;;    (with-gensyms ((&whole 4 &rest 1) &body))
-;;    (once-only (as with-gensyms))))
-;; (setq common-lisp-style-default "zw/common-lisp-indent-style")
+;; Set the alignment of the indents under him
+;; Learn more about customization of this case you can read
+;; SLIME source, namely
+;; %путь_к_slime%/contrib/slime-cl-indent.el
+(define-common-lisp-style "zw/common-lisp-indent-style"
+  "My custom indent style."
+  (:inherit "modern")
+  (:variables
+   (lisp-loop-indent-subclauses t)) 
+  (:indentation
+   (if (4 2 2))
+   (define (&lambda 2))
+   (with-gensyms ((&whole 4 &rest 1) &body))
+   (once-only (as with-gensyms))))
+(setq common-lisp-style-default "zw/common-lisp-indent-style")
 
 (after-load 'slime
             (defun zw/slime-eval-last-expression-in-repl ()
