@@ -72,6 +72,11 @@
 
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
+  ;; ;; When using iTerm2
+  ;; Preference -> general -> selection -> enable "application in terminal may access clipboard"
+  ;; Preference -> keys -> remap modifier -> "remap left cmd key" to "left option"
+  ;; Preference -> profiles -> selecting profile: "default" -> keys -> general -> "left option key" to "esc+"
+  
   ;; use macbook's command(cmd) key as meta key 
   (setq mac-command-modifier 'meta
         mac-option-modifier 'none)
