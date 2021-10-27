@@ -72,12 +72,12 @@
 
 ;; ===== adjust meta key for Mac OSX
 (when *is-a-mac*
-  ;; ;; When using iTerm2
+  ;; for emacs -nw in iTerm2 (on mac)
   ;; Preference -> general -> selection -> enable "application in terminal may access clipboard"
   ;; Preference -> keys -> remap modifier -> "remap left cmd key" to "left option"
   ;; Preference -> profiles -> selecting profile: "default" -> keys -> general -> "left option key" to "esc+"
   
-  ;; use macbook's command(cmd) key as meta key 
+  ;; use macbook's command(cmd) key as meta key for emacs with gui
   (setq mac-command-modifier 'meta
         mac-option-modifier 'none)
 
