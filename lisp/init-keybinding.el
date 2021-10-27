@@ -104,6 +104,8 @@
   (when (fboundp 'paste-from-x-clipboard)
     ;; (global-unset-key (kbd "C-y"))
     ;; (global-set-key (kbd "C-y") 'paste-from-x-clipboard)
+    
+    ;; For case emacs -nw in iTerm2, we have to M-x paste-from-x-clipboard to get content from system-clipboard
     (global-set-key [remap whole-line-or-region-yank] 'paste-from-x-clipboard)))
 
 ;; for ivy minibuffer
