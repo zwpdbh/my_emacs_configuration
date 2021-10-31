@@ -109,8 +109,9 @@
             
             (define-key slime-mode-map (kbd "C-c C-c") #'slime-eval-last-expression)
             ;; (define-key slime-mode-map (kbd "C-c C-c") #'zw/slime-eval-last-expression-in-repl)
-            
+
             (define-key slime-mode-map (kbd "C-c C-e") #'slime-eval-last-expression-in-repl)
+            (define-key slime-mode-map (kbd "C-c e") #'slime-macroexpand-1) 
             
             (define-key slime-mode-map (kbd "C-c C-l") #'slime-load-file)
             (define-key slime-mode-map (kbd "C-c C-h") #'slime-documentation-lookup)
