@@ -31,11 +31,6 @@
 ;; ===== trump-mode
 (setq tramp-default-method "ssh")
 
-;; prettify-symbols
-;; (when (fboundp 'global-prettify-symbols-mode)
-;;   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
-
-
 ;; line number mode settings
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)

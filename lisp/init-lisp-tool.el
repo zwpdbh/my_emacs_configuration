@@ -27,6 +27,7 @@
   ;; (aggressive-indent-mode t)
   (paren-face-mode t))
 
+
 ;; define a group of different lisp modes, so we could apply features on on them 
 (setq my-lisp-mode-set '(lisp-mode
                          lisp-interaction-mode
@@ -43,7 +44,7 @@
                          cider-repl-mode
                          geiser-repl-mode))
 
-(when (featurep 'lfe-mode)
+(when (featurep 'lfe-mode) ; lisp-flavored-erlang
   (add-to-list 'my-lisp-mode-set 'lfe-mode)
   (add-to-list 'my-lisp-mode-set 'inferior-lfe-mode))
 
@@ -51,6 +52,9 @@
                               (dolist (each-mode my-lisp-mode-set)
                                 (add-to-list 'sp-ignore-modes-list each-mode)
                                 (add-hook (intern (format "%s-hook" each-mode))
-                                          #'zw/enhance-lisp-power))))
+                                          (lambda ()
+                                            (zw/enhance-lisp-power)
+                                            (when (fboundp 'prettify-symbols-mode)
+                                              (prettify-symbols-mode t)))))))
 
 (provide 'init-lisp-tool)
