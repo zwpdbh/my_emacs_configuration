@@ -29,13 +29,13 @@
 ;;   :ensure t
 ;;   :defer t)
 
-;; ref: https://gitlab.com/protesilaos/modus-themes
-(when (maybe-require-package 'modus-themes)
-  ;; Add all your customizations prior to loading the themes
-  (setq modus-themes-slanted-constructs t
-        modus-themes-bold-constructs nil
-        modus-themes-region 'no-extend)
-  (setq modus-themes-syntax 'green-strings))
+;; ;; ref: https://gitlab.com/protesilaos/modus-themes
+;; (when (maybe-require-package 'modus-themes)
+;;   ;; Add all your customizations prior to loading the themes
+;;   (setq modus-themes-slanted-constructs t
+;;         modus-themes-bold-constructs nil
+;;         modus-themes-region 'no-extend)
+;;   (setq modus-themes-syntax 'green-strings))
 
 
 ;; kaolin-ocean
