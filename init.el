@@ -1,8 +1,9 @@
 ;; To fix error: No version of gnu-elpa-keyring-update >= nil is available
 (when (version<= emacs-version "26.3")
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  (setq package-check-signature nil))
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
+;; To solve problem: Signature made by expired key 474F05837FBDEF9B GNU ELPA Signing Agent (2014) <elpasign@elpa.gnu.org>
+(setq package-check-signature nil)
 
 (load "~/.emacs.d/my-init.el")
 (put 'narrow-to-region 'disabled nil)
