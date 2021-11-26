@@ -81,7 +81,8 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 
-;; set my favorite themes 
+;; set my favorite themes
+(require 'init-font)
 (require 'init-themes)
 
 (require 'init-interface-tweaks)
@@ -90,10 +91,14 @@
 
 (require-init 'init-dashboard)
 
-(require-init 'init-helm)
-(require-init 'init-counsel-ivy-swiper)
-(require-init 'init-silver-search)
-(require 'init-ripgrep)
+(require 'init-helm)
+(require 'init-helm-search)
+(require 'init-helm-projectile)
+(require 'init-helm-swoop)
+
+;; (require-init 'init-silver-search)
+
+;; (require-init 'init-counsel-ivy-swiper)
 
 (require 'init-selectrum)
 (require 'init-orderless)
@@ -102,12 +107,11 @@
 
 
 (require-init 'init-convenient)
-(require-init 'init-all-the-icons)
 (require-init 'init-clipboard)
 (require-init 'init-keybinding)
 (require-init 'init-whichkey)
 
-(require 'init-font)
+
 
 (require-init 'init-projectile)
 ;; (require-init 'init-treemacs)

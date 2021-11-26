@@ -13,11 +13,13 @@
   :commands (try)
   :ensure t)
 
-;; ===== set mode-line 
-(use-package doom-modeline
-  :ensure t
-  :init (setq doom-modeline-vcs-max-length 20)
-  :hook (after-init . doom-modeline-mode))
+;; ===== set mode-line
+(when *all-the-icons-installed-p*
+  (use-package doom-modeline
+    :ensure t
+    :init (setq doom-modeline-vcs-max-length 20)
+    :hook (after-init . doom-modeline-mode)))
+
 
 (use-package expand-region
   :ensure t

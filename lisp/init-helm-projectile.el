@@ -1,7 +1,6 @@
 ;;; init-projectile.el --- Use Projectile for navigation within projects -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-
 (use-package projectile
   :init
   (setq-default projectile-mode-line-prefix " Proj")
@@ -78,5 +77,9 @@
     (zw/project-switch-action)))
 
 
-(provide 'init-projectile)
-;;; init-projectile.el ends here
+(when (maybe-require-package 'helm-projectile)
+  (after-load 'projectile
+    (after-load 'helm
+      (helm-projectile-on))))
+
+(provide 'init-helm-projectile)

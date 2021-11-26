@@ -1,6 +1,8 @@
 ;; (add-to-list 'load-path
 ;;              "~/.emacs.d/site-lisp/counsel-etags")
 ;; (require 'counsel-etags)
+(use-package counsel
+  :ensure t)
 
 (when (maybe-require-package 'counsel-etags)
   ;; (require 'counsel-etags)

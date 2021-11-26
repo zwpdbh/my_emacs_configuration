@@ -17,8 +17,6 @@
       ;; as well
       (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))))
 
-(when (maybe-require-package 'swiper)
-  (use-package counsel
-    :ensure t))
+(when (maybe-require-package 'swiper))
 
 (provide 'init-counsel-ivy-swiper)
