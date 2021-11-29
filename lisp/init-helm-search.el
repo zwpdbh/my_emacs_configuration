@@ -1,7 +1,7 @@
 (when (executable-find "rg")
   ;; need to install sudo apt install ripgrep
   (when (maybe-require-package 'rg)
-    (when (maybe-require-package 'helm-rg)
+    (when (maybe-require-package 'helm-rg)      
       (setq helm-rg-ripgrep-executable (executable-find "rg"))
       ;; from https://github.com/BurntSushi/ripgrep
       (defconst modi/rg-arguments
