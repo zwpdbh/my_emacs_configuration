@@ -6,6 +6,7 @@
 ;; (setenv "HOME" "D:/dev/")
 ;; (load user-init-file)
 ;; Then create "dev" folder in section D and create sub-folder code inside "dev"
+;; Don't forget to copy/move .ssh keys from actual home folder of your windows to "D:/dev/"
 
 ;; To fix error: No version of gnu-elpa-keyring-update >= nil is available
 (when (version<= emacs-version "26.3")
