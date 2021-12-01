@@ -9,6 +9,11 @@
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
 ;;(setq debug-on-error t)
 
+;; To set git config for this project:
+;; cd ~/.emacs.d/
+;; git config user.name zwpdbh
+;; git config user.email hyperion_z@outlook.com
+
 ;; Disable startup warning: "cl is deprecated"
 (setq byte-compile-warnings '(cl-functions))
 
