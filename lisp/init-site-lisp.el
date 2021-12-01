@@ -3,7 +3,9 @@
 ;;; Code:
 
 ;;; Set load path
-
+;; To add one specific package from local site-lisp folders
+;; (add-to-list 'load-path
+;;              "~/.emacs.d/site-lisp/<local_package_dir>")
 (eval-when-compile (require 'cl)) ; remove-if-not is from cl, not cl-lib
 ;; (eval-when-compile (require 'cl-lib))
 (defun sanityinc/add-subdirs-to-load-path (parent-dir)

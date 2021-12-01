@@ -212,10 +212,6 @@
 ;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
 ;; (require 'init-scimax)
 
-;; To add packages from local site-lisp folders
-;; (add-to-list 'load-path
-;;              "~/.emacs.d/site-lisp/<local_package_dir>")
-
 ;; ;;----------------------------------------------------------------------------
 ;; ;; emacs server related
 ;; ;;----------------------------------------------------------------------------
