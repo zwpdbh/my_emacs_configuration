@@ -17,6 +17,9 @@
 ;; Disable startup warning: "cl is deprecated"
 (setq byte-compile-warnings '(cl-functions))
 
+;; To solve error: nesting exceeds `max-lisp-eval-depth'
+(setq max-lisp-eval-depth 10000)
+
 ;; (setq my-emacs-root-directory "~/.emacs.d/")
 ;; (add-to-list 'load-path (expand-file-name "lisp" my-emacs-root-directory))
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
