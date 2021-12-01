@@ -168,6 +168,7 @@
 (require-init 'init-c-and-c++)
 ;; (require 'init-lua)
 ;; (require 'init-haskell)
+(require 'init-csharp)
 
 (require-init 'init-javascript)
 (require-init 'init-web)
