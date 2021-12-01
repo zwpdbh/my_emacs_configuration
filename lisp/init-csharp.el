@@ -1,4 +1,4 @@
-(when *win64*
+(when (executable-find "dotnet")
   (when (maybe-require-package 'csharp-mode)
     (when (maybe-require-package 'omnisharp)
       ;; After the package is installed you’ll need to install the omnisharp server by running M-x omnisharp-install-server

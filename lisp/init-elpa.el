@@ -31,7 +31,8 @@
                                  (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/"))
                                  (cons "org" (concat proto "://elpa.emacs-china.org/org/")))))
   ;; (zw/use-offical-package-archives)
-  (zw/use-china-package-archives))
+  (zw/use-china-package-archives)
+  )
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
 (when (and (version< emacs-version "26.3") (boundp 'libgnutls-version) (>= libgnutls-version 30604))
