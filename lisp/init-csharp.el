@@ -5,6 +5,7 @@
       (defun my-csharp-mode-hook ()
         (omnisharp-mode t)
         (company-mode t)
+        (flycheck-mode -1)
         (setq-local company-backends (zw/add-to-company-backends 'company-omnisharp))
         (setq indent-tabs-mode nil)
         (setq c-syntactic-indentation t)
