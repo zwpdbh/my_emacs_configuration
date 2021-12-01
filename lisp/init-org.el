@@ -1,6 +1,6 @@
 (use-package org
   :defer t
-  :ensure org-plus-contrib)
+  :ensure org-contrib)
 
 ;; To bind a key in a mode, you need to wait for the mode to be loaded before defining the key.
 (after-load 'org

@@ -23,15 +23,15 @@
     (interactive)
     (setf package-archives (list (cons "melpa" (concat proto "://melpa.org/packages/"))
                                  (cons "gnu" (concat proto "://elpa.gnu.org/packages/"))
-                                 (cons "org" (concat proto "://orgmode.org/elpa/")))))
+                                 (cons "nongnu" (concat proto "://elpa.nongnu.org/nongnu/")))))
 
   (defun zw/use-china-package-archives ()
     (interactive)
     (setf package-archives (list (cons "melpa" (concat proto "://elpa.emacs-china.org/melpa/"))
                                  (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/"))
                                  (cons "org" (concat proto "://elpa.emacs-china.org/org/")))))
-  ;; (zw/use-offical-package-archives)
-  (zw/use-china-package-archives)
+  (zw/use-offical-package-archives)
+  ;; (zw/use-china-package-archives)
   )
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
