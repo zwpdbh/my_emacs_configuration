@@ -79,7 +79,8 @@
       (helm-projectile-on))))
 
 (after-load 'helm-projectile
-  (if (fboundp 'zw/advice-projectile-use-rg)
+  (if (and (fboundp 'zw/advice-projectile-use-rg)
+           (not *win64*))
        (global-set-key (kbd "C-c p s s") 'helm-projectile-rg)
     (global-set-key (kbd "C-c p s s") 'helm-projectile-grep)))
 
