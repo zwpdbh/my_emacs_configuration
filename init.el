@@ -1,12 +1,13 @@
 ;; If it is fresh Emacs on Windows. Use the following setting to customize a different location for Emacs configuration
 ;; ;; Place ".emacs" file in C:\Users\Username\AppData\Roaming and point to the appropriate files
-;; (setq user-init-file "D:/dev/.emacs.d/init.el")
-;; (setq user-emacs-directory "D:/dev/.emacs.d/")
-;; (setq default-directory "D:/dev/")
-;; (setenv "HOME" "D:/dev/")
-;; (load user-init-file)
-;; Then create "dev" folder in section D and create sub-folder code inside "dev"
-;; Don't forget to copy/move .ssh keys from actual home folder of your windows to "D:/dev/"
+;; Place this file in C:\Users\Username\AppData\Roaming and point to the appropriate files
+(setq user-init-file "D:/.emacs.d/init.el")
+(setq user-emacs-directory "D:/.emacs.d/")
+(setq default-directory "D:/code/")
+(setenv "HOME" "D:/")
+(load user-init-file)
+;; Then create "code" folder in section D.
+;; Don't forget to copy/move .ssh keys from actual home folder of your windows to "D:/"
 
 ;; To fix error: No version of gnu-elpa-keyring-update >= nil is available
 (when (version<= emacs-version "26.3")
