@@ -3,6 +3,7 @@
   (when (maybe-require-package 'rg)
     (when (maybe-require-package 'helm-rg)      
       (setq helm-rg-ripgrep-executable (executable-find "rg"))
+      (setq helm-rg-default-directory 'git-root)
       ;; from https://github.com/BurntSushi/ripgrep
       (defconst modi/rg-arguments
         `("--line-number"                     ; line numbers
