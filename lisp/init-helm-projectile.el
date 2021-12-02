@@ -1,20 +1,16 @@
 ;;; init-projectile.el --- Use Projectile for navigation within projects -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-(use-package projectile
-  :init
+(when (maybe-require-package 'projectile)
   (setq-default projectile-mode-line-prefix " Proj")
   (setq projectile-completion-system 'helm)
-  :ensure t
-  :bind ("C-c p" . projectile-command-map))
+  (after-load 'projectile
+    (global-set-key (kbd "C-c p") 'projectile-command-map))
+  (when (maybe-require-package 'ibuffer-projectile)))
 
-(use-package ibuffer-projectile
-  :ensure t
-  :after (projectile))
 
 (add-hook 'after-init-hook '(lambda ()
                               (projectile-global-mode)))
-
 
 ;; ref: https://erickgnavar.github.io/emacs-config/#org0149359
 (defun zw/project-edit-dir-locals ()
