@@ -20,9 +20,9 @@
     (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
     (after-load 'org
-      ;; Defun dummy execution
-      ;; (defun org-babel-execute:csharp (body params) body)
-      (add-to-list 'zw/org-babel-load-language-list '(csharp . t))
+      ;; Uncomment one of the following to be able to execute csharp code block.
+      ;; (defun org-babel-execute:csharp (body params) body) ; Defun dummy function to execute.
+      ;; (add-to-list 'zw/org-babel-load-language-list '(csharp . t)) ; Only enable this if you have ob-csharp
       (add-to-list 'org-structure-template-alist '("cs" . "src csharp"))
       (add-to-list 'org-structure-template-alist '("csharp" . "src csharp")))))
 
