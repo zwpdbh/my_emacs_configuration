@@ -32,8 +32,7 @@
       (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
 
     (setq zw/use-counsel-etags-modes '(yaml-mode
-                                       json-mode
-                                       elisp-mode))
+                                       json-mode))
 
     (dolist (each-mode zw/use-counsel-etags-modes)
       (add-hook (intern (format "%s-hook" each-mode))
