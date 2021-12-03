@@ -10,13 +10,13 @@
 
     ;; NOTICE!!!
     ;; Set Exuberant Ctags or Universal Ctags
+    ;; On Windows, we install Universal Ctags by choco install universal-ctags    
     ;; On Ubuntu, we could install Universal Ctags by sudo snap install universal-ctags, then check it by universal-ctags --version.
+    ;; Or install by sudo apt install universal-ctags, then check it by ctags --version.
     ;; Notice: There may be a ctags which is actually etags.
     ;; That etags (which is /usr/local/bin/ctags) is probably installed from Emacs (maybe by native compile?)
     ;; The problem is it may shadow the real ctags or universal-ctags.
     ;; So, the counsel-etags failed to find available ctags program
-    ;; On Windows, we install Universal Ctags by choco install universal-ctags
-    
     (if *win64*
         (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
       (add-to-list 'exec-path "/snap/bin/"))
