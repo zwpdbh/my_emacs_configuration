@@ -16,8 +16,7 @@
 
         (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
         (local-set-key (kbd "C-c C-c") 'recompile)
-        (define-key (current-local-map) (kbd "M-.") 'omnisharp-go-to-definition)
-        (define-key (current-local-map) (kbd "M-/") 'omnisharp-find-usages)))
+        (zw/counsel-etags-setup)))
       (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)))
 
 (provide 'init-csharp)

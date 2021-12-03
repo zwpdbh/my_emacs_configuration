@@ -26,13 +26,12 @@
   ;; adjust key-bindings for counsel-etags
   (defun zw/counsel-etags-key-bindings ()
     (interactive)
-    ;; (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
     (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
     (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
 
-
   (setq zw/use-counsel-etags-modes '(yaml-mode
-                                     json-mode))
+                                     json-mode
+                                     elisp-mode))
   ;; Setup auto update now
   (defun zw/counsel-etags-setup ()
     (interactive)
