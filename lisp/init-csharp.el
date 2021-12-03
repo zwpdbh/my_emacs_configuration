@@ -17,6 +17,13 @@
         (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
         (local-set-key (kbd "C-c C-c") 'recompile)
         (zw/counsel-etags-setup)))
-      (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)))
+    (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
+
+    (after-load 'org
+      ;; Defun dummy execution
+      ;; (defun org-babel-execute:csharp (body params) body)
+      (add-to-list 'zw/org-babel-load-language-list '(csharp . t))
+      (add-to-list 'org-structure-template-alist '("cs" . "src csharp"))
+      (add-to-list 'org-structure-template-alist '("csharp" . "src csharp")))))
 
 (provide 'init-csharp)
