@@ -34,13 +34,67 @@ See `consult-grep' for more details."
         (unless initial (setq initial (counsel-etags-tagname-at-point)))
         (unless dir (setq dir (zw/find-project-root-dir)))
         (consult--grep "Ripgrep" #'consult--ripgrep-builder dir initial))
+
+      ;; try to use counsel-ripgrep
+      (defun zw/counsel-etags-find-tag-api (tagname fuzzy current-file)
+        "Find TAGNAME using FUZZY algorithm from CURRENT-FILE."
+        (let* ((time (current-time))
+               (dir (counsel-etags-tags-file-directory))
+               (current-file (and current-file (file-local-name current-file))))
+          (if dir (setq dir (file-local-name dir)))
+          (when counsel-etags-debug
+            (message "counsel-etags-find-tag-api called => tagname=%s fuzzy=%s dir%s current-file=%s"
+                     tagname
+                     fuzzy
+                     dir
+                     current-file))
+          ;; Dir could be nil. User could use `counsel-etags-extra-tags-files' instead
+          (cond
+           ((and (not dir) (not counsel-etags-extra-tags-files))
+            (message "Tags file is not ready yet."))
+           ((not tagname)
+            ;; OK, need use ivy-read to find candidate
+            (ivy-read "Fuzz matching tags: "
+                      `(lambda (s)
+                         (counsel-etags-list-tag-function s ,current-file))
+                      :history 'counsel-git-grep-history
+                      :dynamic-collection t
+                      :action `(lambda (e)
+                                 (counsel-etags-open-file-api e ,dir))
+                      :caller 'counsel-etags-find-tag
+                      :keymap counsel-etags-find-tag-map))
+
+           ((not (setq counsel-etags-find-tag-candidates
+                       (counsel-etags-collect-cands tagname fuzzy current-file dir)))
+            ;; OK, let's try grep the whole project if no tag is found yet
+            (consult--grep "Ripgrep" #'consult--ripgrep-builder (zw/find-project-root-dir) tagname))
+           (t
+            ;; open the one selected candidate
+            (counsel-etags-open-tag-cand tagname counsel-etags-find-tag-candidates time)))))
+      
+      (defun zw/counsel-etags-find-tag-at-point ()
+        "Find tag using tagname at point.  Use `pop-tag-mark' to jump back.
+Please note parsing tags file containing line with 2K characters could be slow.
+That's the known issue of Emacs Lisp.  The program itself is perfectly fine."
+        (interactive)
+        (counsel-etags-tags-file-must-exist)
+        (let* ((tagname (counsel-etags-tagname-at-point)))
+          (cond
+           (tagname
+            (zw/counsel-etags-find-tag-api tagname nil buffer-file-name))
+           (t
+            (message "No tag at point")))))
+
       (after-load 'consult
-         (consult-customize zw/consult-ripgrep-at-point :preview-key (kbd "M-."))))
+        (consult-customize
+         zw/consult-ripgrep-at-point
+         zw/counsel-etags-find-tag-at-point
+         :preview-key (kbd "M-."))))
     
     ;; adjust key-bindings for counsel-etags
     (defun zw/counsel-etags-key-bindings ()
       (interactive)
-      (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
+      (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
       (if (fboundp 'zw/consult-ripgrep-at-point)
           (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point)
         (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point)))
