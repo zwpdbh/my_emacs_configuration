@@ -14,18 +14,29 @@
 
     ;; Optionally configure a function which returns the project root directory.
     ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (project-roots)
-    (setq consult-project-root-function
-          (lambda ()
-            (when-let (project (project-current))
-              (car (project-roots project)))))
-  ;;;; 2. projectile.el (projectile-project-root)
+    ;;;; 1. project.el (project-roots)
+    ;; (setq consult-project-root-function
+    ;;       (lambda ()
+    ;;         (when-let (project (project-current))
+    ;;           (car (project-roots project)))))
+    ;;;; 2. projectile.el (projectile-project-root)
     ;; (autoload 'projectile-project-root "projectile")
     ;; (setq consult-project-root-function #'projectile-project-root)
-  ;;;; 3. vc.el (vc-root-dir)
+    ;;;; 3. vc.el (vc-root-dir)
     ;; (setq consult-project-root-function #'vc-root-dir)
-  ;;;; 4. locate-dominating-file
-    ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
+    ;;;; 4. locate-dominating-file
+    (defun zw/find-solution-root-dir ()
+      (interactive)
+      (let ((sln-root (locate-dominating-file "."
+                                              (lambda (parent) (directory-files parent nil "\\.sln"))))
+            (git-root (locate-dominating-file "." ".git")))
+        (cond (sln-root
+               sln-root)
+              (git-root
+               git-root)
+              (t
+               (message "Couldn't decide project's root-dir")))))
+    (setq consult-project-root-function 'zw/find-solution-root-dir)
 
     ;; (setq consult-narrow-key "l")
     (global-set-key (kbd "C-x M-:") 'consult-complex-command)
@@ -44,5 +55,7 @@
 ;; (when (maybe-require-package 'consult-selectrum)
 ;;   (after-load 'selectrum
 ;;     (require 'consult-selectrum)))
+
+
 
 (provide 'init-consult)
