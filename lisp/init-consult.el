@@ -17,10 +17,6 @@
   (global-set-key (kbd "C-x b") 'consult-buffer)
   ;; change from swiper to this because it is faster
   (global-set-key (kbd "C-s") 'consult-line)
-  
-  ;; need to install sudo apt install ripgrep
-  (when (executable-find "rg")
-    (global-set-key (kbd "C-c p s s") 'consult-ripgrep))
 
   (global-set-key (kbd "C-r") 'consult-outline)
   (global-set-key (kbd "M-g M-g") 'consult-goto-line))

@@ -5,7 +5,12 @@
   (setq-default projectile-mode-line-prefix " Proj")
   (setq projectile-completion-system 'helm)
   (after-load 'projectile
-    (global-set-key (kbd "C-c p") 'projectile-command-map))
+    (global-set-key (kbd "C-c p") 'projectile-command-map)
+    
+    ;; need to install sudo apt install ripgrep, on windows install it by choco install ripgrep
+    (when (and (executable-find "rg")
+               (fboundp 'consult-ripgrep))
+      (global-set-key (kbd "C-c p s s") 'consult-ripgrep)))
   (when (maybe-require-package 'ibuffer-projectile)))
 
 
@@ -71,20 +76,5 @@
          (default-directory (replace-regexp-in-string (expand-file-name "~") "~" project-path-abs)))
     (project-remember-project (project-current))
     (zw/project-switch-action)))
-
-
-;; (when (maybe-require-package 'helm-projectile)
-;;   (after-load 'projectile
-;;     (after-load 'helm
-;;       (helm-projectile-on))))
-
-;; (after-load 'helm-projectile
-;;   (cond ((and (fboundp 'zw/advice-projectile-use-rg)
-;;               (not *win64*))
-;;          (global-set-key (kbd "C-c p s s") 'helm-projectile-rg))
-;;         ((executable-find "ag")
-;;          (global-set-key (kbd "C-c p s s") 'helm-projectile-ag))
-;;         (t
-;;          (global-set-key (kbd "C-c p s s") 'helm-projectile-grep))))
 
 (provide 'init-projectile)
