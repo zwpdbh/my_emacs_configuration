@@ -34,7 +34,12 @@
     (global-set-key (kbd "C-s") 'consult-line)
 
     (global-set-key (kbd "C-r") 'consult-outline)
-    (global-set-key (kbd "M-g M-g") 'consult-goto-line)))
+    (global-set-key (kbd "M-g M-g") 'consult-goto-line)
+
+
+    ;; Use Consult to select xref locations with preview
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)))
 
 ;; (when (maybe-require-package 'consult-selectrum)
 ;;   (after-load 'selectrum
