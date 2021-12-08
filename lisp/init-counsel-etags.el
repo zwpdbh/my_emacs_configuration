@@ -73,9 +73,7 @@ See `consult-grep' for more details."
             (counsel-etags-open-tag-cand tagname counsel-etags-find-tag-candidates time)))))
       
       (defun zw/counsel-etags-find-tag-at-point ()
-        "Find tag using tagname at point.  Use `pop-tag-mark' to jump back.
-Please note parsing tags file containing line with 2K characters could be slow.
-That's the known issue of Emacs Lisp.  The program itself is perfectly fine."
+        "Modified 'counsel-etags-find-tag-at-point to use consult--grep when failed to find tag"
         (interactive)
         (counsel-etags-tags-file-must-exist)
         (let* ((tagname (counsel-etags-tagname-at-point)))
@@ -93,11 +91,14 @@ That's the known issue of Emacs Lisp.  The program itself is perfectly fine."
     
     ;; adjust key-bindings for counsel-etags
     (defun zw/counsel-etags-key-bindings ()
-      (interactive)
-      (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
+      (interactive)      
       (if (fboundp 'zw/consult-ripgrep-at-point)
-          (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point)
-        (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point)))
+          (progn
+            (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
+            (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point))
+        (progn
+          (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
+          (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))))
 
     (setq zw/use-counsel-etags-modes '(yaml-mode
                                        json-mode))
