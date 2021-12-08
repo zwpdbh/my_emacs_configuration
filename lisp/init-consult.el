@@ -3,7 +3,7 @@
     (consult-customize
      consult-ripgrep consult-git-grep consult-grep
      consult-bookmark consult-recent-file consult-xref
-     consult--source-file consult--source-project-file consult--source-bookmark
+     consult--source-file consult--source-project-file consult--source-bookmark     
      :preview-key (kbd "M-."))
     (consult-customize consult-theme
                        ;; Preview immediately on M-., on up/down after 0.5s, on any other key after 1s                       
@@ -25,7 +25,7 @@
     ;;;; 3. vc.el (vc-root-dir)
     ;; (setq consult-project-root-function #'vc-root-dir)
     ;;;; 4. locate-dominating-file
-    (defun zw/find-solution-root-dir ()
+    (defun zw/find-project-root-dir ()
       (interactive)
       (let ((sln-root (locate-dominating-file "."
                                               (lambda (parent) (directory-files parent nil "\\.sln"))))
@@ -36,7 +36,7 @@
                git-root)
               (t
                (message "Couldn't decide project's root-dir")))))
-    (setq consult-project-root-function 'zw/find-solution-root-dir)
+    (setq consult-project-root-function 'zw/find-project-root-dir)
 
     ;; (setq consult-narrow-key "l")
     (global-set-key (kbd "C-x M-:") 'consult-complex-command)

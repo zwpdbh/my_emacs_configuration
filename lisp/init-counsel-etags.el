@@ -25,11 +25,24 @@
       (interactive)
       (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil t))
 
+    (when (fboundp 'consult-ripgrep)
+      (defun zw/consult-ripgrep-at-point (&optional dir initial)
+        "zw modified: Search for regexp with rg in DIR with INITIAL input.
+
+See `consult-grep' for more details."
+        (interactive "P")
+        (unless initial (setq initial (counsel-etags-tagname-at-point)))
+        (unless dir (setq dir (zw/find-project-root-dir)))
+        (consult--grep "Ripgrep" #'consult--ripgrep-builder dir initial))
+      (consult-customize zw/consult-ripgrep-at-point :preview-key (kbd "M-.")))
+    
     ;; adjust key-bindings for counsel-etags
     (defun zw/counsel-etags-key-bindings ()
       (interactive)
       (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
-      (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))
+      (if (fboundp 'zw/consult-ripgrep-at-point)
+          (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point)
+        (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point)))
 
     (setq zw/use-counsel-etags-modes '(yaml-mode
                                        json-mode))
@@ -61,7 +74,9 @@
     (add-to-list 'counsel-etags-ignore-filenames "package-lock.json")
     (add-to-list 'counsel-etags-ignore-filenames "#*")
     (add-to-list 'counsel-etags-ignore-filenames "#*.*#")
-    (add-to-list 'counsel-etags-ignore-filenames "*.*#")))
+    (add-to-list 'counsel-etags-ignore-filenames "*.*#"))
+
+  (add-hook 'after-init-hook (lambda () (require 'counsel-etags))))
 
 
 (defun zw/counsel-etags-setup ()
