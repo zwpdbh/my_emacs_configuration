@@ -46,6 +46,10 @@
 (after-load 'magit
   (fullframe magit-status magit-mode-quit-window))
 
+;; use gitconfig-execute-command to set git related settings
+(when (maybe-require-package 'gitconfig)
+  (add-hook 'after-init-hook (lambda () (require 'gitconfig))))
+
 ;; (when (maybe-require-package 'git-commit)
 ;;   (add-hook 'git-commit-mode-hook 'goto-address-mode))
 
