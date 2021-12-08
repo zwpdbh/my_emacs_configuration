@@ -100,17 +100,16 @@
 (require-init 'init-dashboard)
 
 (require 'init-helm)
-(require 'init-helm-search)
-(require 'init-helm-projectile)
-(require 'init-helm-swoop)
+;; (require 'init-helm-search)
+;; (require 'init-helm-swoop)
 
 ;; (require-init 'init-silver-search)
-
 ;; (require-init 'init-counsel-ivy-swiper)
 
 (require 'init-selectrum)
 (require 'init-orderless)
 (require 'init-consult)
+(require 'init-projectile)
 (require-init 'init-parenthese)
 
 
@@ -120,8 +119,6 @@
 (require-init 'init-whichkey)
 
 
-
-(require-init 'init-projectile)
 ;; (require-init 'init-treemacs)
 (require-init 'init-ggtags)
 (require-init 'init-markdown)
