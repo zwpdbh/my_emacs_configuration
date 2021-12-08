@@ -34,7 +34,8 @@ See `consult-grep' for more details."
         (unless initial (setq initial (counsel-etags-tagname-at-point)))
         (unless dir (setq dir (zw/find-project-root-dir)))
         (consult--grep "Ripgrep" #'consult--ripgrep-builder dir initial))
-      (consult-customize zw/consult-ripgrep-at-point :preview-key (kbd "M-.")))
+      (after-load 'consult
+         (consult-customize zw/consult-ripgrep-at-point :preview-key (kbd "M-."))))
     
     ;; adjust key-bindings for counsel-etags
     (defun zw/counsel-etags-key-bindings ()
