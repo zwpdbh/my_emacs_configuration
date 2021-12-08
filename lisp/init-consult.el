@@ -56,6 +56,6 @@
 ;;   (after-load 'selectrum
 ;;     (require 'consult-selectrum)))
 
-
+(add-hook 'after-init-hook (lambda () (require 'consult)))
 
 (provide 'init-consult)
