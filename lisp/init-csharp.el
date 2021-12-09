@@ -16,10 +16,14 @@
 
         (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
         (local-set-key (kbd "C-c C-c") 'recompile)
-        (define-key csharp-mode-map (kbd "M-.") 'omnisharp-find-implementations)
-        (if (fboundp 'zw/consult-ripgrep-at-point)
-            (define-key csharp-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point)
-          (define-key csharp-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point))))
+
+        (if (fboundp 'omnisharp-find-implementations)
+            (progn
+              (define-key csharp-mode-map (kbd "M-.") 'omnisharp-find-implementations)
+              (if (fboundp 'zw/consult-ripgrep-at-point)
+                  (define-key csharp-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point)
+                (define-key csharp-mode-map (kbd "M-/") 'omnisharp-find-usages)))
+          (zw/counsel-etags-setup))))
     
     (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
