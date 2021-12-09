@@ -16,7 +16,11 @@
 
         (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
         (local-set-key (kbd "C-c C-c") 'recompile)
-        (zw/counsel-etags-setup)))
+        (define-key csharp-mode-map (kbd "M-.") 'omnisharp-find-implementations)
+        (if (fboundp 'zw/consult-ripgrep-at-point)
+            (define-key csharp-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point)
+          (define-key csharp-mode-map (kbd "M-/") 'zw/counsel-etags-grep-at-point))))
+    
     (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
     (after-load 'org
