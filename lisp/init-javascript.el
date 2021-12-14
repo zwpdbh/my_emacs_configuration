@@ -9,6 +9,14 @@
 (after-load 'js
   (setq js-indent-level 2))
 
+(when (maybe-require-package 'typescript-mode)
+  (after-load 'org
+              ;; since yaml mode is not supported by org, create the command yourself
+              (defun org-babel-execute:typescript (body params) body)
+
+              (add-to-list 'org-structure-template-alist '("typescript" . "src typescript"))
+              (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))))
+
 (add-hook 'js-mode-hook 'zw/counsel-etags-setup)
 (add-hook 'js-mode-hook
           (lambda ()
