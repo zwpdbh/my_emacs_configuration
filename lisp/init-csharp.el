@@ -26,6 +26,7 @@
           (zw/counsel-etags-setup))))
     
     (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
+    (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
 
     (after-load 'org
       ;; Uncomment one of the following to be able to execute csharp code block.
