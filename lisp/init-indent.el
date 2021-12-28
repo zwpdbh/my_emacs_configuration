@@ -18,7 +18,8 @@
   :config
   (progn
     (add-hook 'web-mode-hook 'indent-guide-mode)
-    (add-hook 'sgml-mode-hook 'indent-guide-mode)))
+    (add-hook 'sgml-mode-hook 'indent-guide-mode)
+    (add-hook 'org-mode-hook 'indent-guide-mode)))
 
 ;; https://stackoverflow.com/questions/69934/set-4-space-indent-in-emacs-in-text-mode/10439239
 (setq tab-always-indent 'complete)
