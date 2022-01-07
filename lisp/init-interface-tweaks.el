@@ -11,6 +11,9 @@
 
 ;; ===== make cursor blink forever
 (setq-default blink-cursor-interval 0.618)
+;; Active cursor blink
+(blink-cursor-mode t)
+;; By default, the cursor stops blinking after 10 blinks, if Emacs does not get any input during that time; any input event restarts the count.
 (setq blink-cursor-blinks 10)
 
 ;; ===== reply y/n instead of yes/no
