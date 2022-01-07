@@ -11,7 +11,7 @@
 
 ;; ===== make cursor blink forever
 (setq-default blink-cursor-interval 0.618)
-(setq blink-cursor-blinks -1)
+(setq blink-cursor-blinks 10)
 
 ;; ===== reply y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
