@@ -154,8 +154,7 @@
 ;; (require 'init-terraform)
 (require-init 'init-eldoc)
 
-(require 'init-common-lisp-configure)
-
+(require 'init-lisp)
 (require-init 'init-racket)
 (require-init 'init-scheme)
 ;; (require-init 'init-clojure)

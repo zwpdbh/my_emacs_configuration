@@ -1,6 +1,3 @@
-(add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
-
 (when (maybe-require-package 'slime)  
   ;; (require 'slime-autoloads)
   ;; set some contribs
