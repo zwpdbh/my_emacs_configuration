@@ -2,8 +2,6 @@
                              "Monaco"
                              "Monaco Nerd Font Mono"                             
                              "Source Code Pro"
-                             "Iosevka Slab"
-                             "Iosevka Curly Slab"
                              "Anonymous Pro"
                              "Inconsolata"
                              "Consolas"                             
