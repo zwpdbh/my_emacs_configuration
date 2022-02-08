@@ -1,9 +1,13 @@
 (when (maybe-require-package 'fsharp-mode)
   (maybe-require-package 'ob-fsharp)
-
   ;; currently meet problem of not able to unzip
-  ;; need to set inferior-fsharp-program, see: https://github.com/fsharp/emacs-fsharp-mode
   ;; (maybe-require-package 'eglot-fsharp)
+  
+  (unless (executable-find inferior-fsharp-program)
+    ;; need to set inferior-fsharp-program, see: https://github.com/fsharp/emacs-fsharp-mode
+    (if *win64*
+        (setq inferior-fsharp-program "c:\\ProgramFiles(x86)\\Microsoft SDK\\F#\\<fsharp-version>\\Framework\\<dotnet-version>\\Fsi.exe")
+        (setq inferior-fsharp-program "fsharpi --readline-")))
 
   (defun fsharp-fantomas-format-region (start end)
     (interactive "r")
@@ -11,18 +15,18 @@
           (ok-buffer "*fantomas*")
           (error-buffer "*fantomas-errors*"))
       (save-window-excursion
-        (shell-command-on-region
-         start end (format "fantomas --indent 2 --pageWidth 99 --stdin %s --stdout" source)
-         ok-buffer nil error-buffer)
-        (if (get-buffer error-buffer)
-            (progn
-              (kill-buffer error-buffer)
-              (message "Can't format region."))
-          (delete-region start end)
-          (insert (with-current-buffer ok-buffer
-                    (s-chomp (buffer-string))))
-          (delete-trailing-whitespace)
-          (message "Region formatted.")))))
+       (shell-command-on-region
+        start end (format "fantomas --indent 2 --pageWidth 99 --stdin %s --stdout" source)
+        ok-buffer nil error-buffer)
+       (if (get-buffer error-buffer)
+           (progn
+             (kill-buffer error-buffer)
+             (message "Can't format region."))
+           (delete-region start end)
+           (insert (with-current-buffer ok-buffer
+                     (s-chomp (buffer-string))))
+           (delete-trailing-whitespace)
+           (message "Region formatted.")))))
 
 
   (defun fsharp-fantomas-format-defun ()
@@ -89,7 +93,7 @@
                         (call-interactively 'compile)))
             (proj (let ((compile-command (format "dotnet build \"%s\"" proj)))
                     (call-interactively 'compile)))
-            (t (call-interactively 'compile)))))) 
+            (t (call-interactively 'compile))))))
 
 
 (provide 'init-fsharp)
