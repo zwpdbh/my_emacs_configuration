@@ -160,6 +160,7 @@
 ;; (require-init 'init-clojure)
 (require 'init-erlang)
 (require 'init-ocaml)
+(require 'init-fsharp)
 (require 'init-elixir)
 (require 'init-go)
 (require-init 'init-lisp-tool)
