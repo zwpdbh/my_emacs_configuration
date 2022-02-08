@@ -1,8 +1,7 @@
 (when (maybe-require-package 'fsharp-mode)
-  (maybe-require-package 'ob-fsharp)
-  
+  (maybe-require-package 'ob-fsharp)  
   ;; need to set inferior-fsharp-program, see: https://github.com/fsharp/emacs-fsharp-mode
-  ;; (maybe-require-package 'eglot-fsharp)
+  (require 'eglot-fsharp)
 
   (defun fsharp-fantomas-format-region (start end)
     (interactive "r")
