@@ -149,7 +149,6 @@
 ;; === programing language related ===
 (require-init 'init-company)
 (require 'init-counsel-etags)
-;; (require 'init-lsp)
 
 ;; (require 'init-terraform)
 (require-init 'init-eldoc)
@@ -183,6 +182,9 @@
 
 ;; (require-init 'init-R)
 
+;; (require 'init-lsp)
+;; (require 'init-eglot)
+
 (require-init 'init-org)
 (require-init 'init-org-babel)
 (require-init 'init-org-tools)
@@ -205,8 +207,8 @@
 
 ;; (require-init 'init-pomodoro)
 
-;; Tex related
-(require-init 'init-tex)
+;; ===Tex related
+;; (require-init 'init-tex)
 ;; (require 'init-bib)
 
 ;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
