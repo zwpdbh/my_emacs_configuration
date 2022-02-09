@@ -18,25 +18,25 @@
 
 ;; When Erlang has been installed, it by default contains elisp code for Emacs to use.
 ;; Configure to load those .el files for erlang-mode
-(cond (*win64*
-       (setq erlang-root-dir "c:/Program Files/erl-23.0/"))
-      (*is-a-mac*
-       (setq erlang-root-dir "/usr/local/lib/erlang/"))
-      (t
-       (setq erlang-root-dir "/usr/lib/erlang/")))
+(unless (executable-find "erl")
+  (cond (*win64*
+         (setq erlang-root-dir "c:/Program Files/erl-23.0/"))
+        (*is-a-mac*
+         (setq erlang-root-dir "/usr/local/lib/erlang/"))
+        (t
+         (setq erlang-root-dir "/usr/lib/erlang/")))
+  (setq erlang-man-root-dir (concat erlang-root-dir "man"))
+  (add-to-list 'exec-path (concat erlang-root-dir "bin/")))
 
-(setq erlang-man-root-dir (concat erlang-root-dir "man"))
-(add-to-list 'exec-path (concat erlang-root-dir "bin/"))
-
-(when (executable-find "erl")
+(when (boundp 'erlang-root-dir)
   (defun get-latest-erlang-lib-tools-dir ()
-  (let ((erlang-lib-dir (concat erlang-root-dir "lib/")))
-    (seq-filter (apply-partially #'< 3) '(1 2 3 4 5 6))
-    (let ((tools (seq-filter (apply-partially #'(lambda (str)
-                                                  (and (string-match "^tools" str)
-                                                       (file-exists-p (concat erlang-root-dir "lib/" str "/")))))
-                             (directory-files erlang-lib-dir))))
-      (nth (1- (length tools)) tools))))
+    (let ((erlang-lib-dir (concat erlang-root-dir "lib/")))
+      (seq-filter (apply-partially #'< 3) '(1 2 3 4 5 6))
+      (let ((tools (seq-filter (apply-partially #'(lambda (str)
+                                                    (and (string-match "^tools" str)
+                                                         (file-exists-p (concat erlang-root-dir "lib/" str "/")))))
+                               (directory-files erlang-lib-dir))))
+        (nth (1- (length tools)) tools))))
   (add-to-list 'load-path (concat erlang-root-dir "lib/" (get-latest-erlang-lib-tools-dir) "/emacs"))
   
   ;; If this part triggers error, check erlang-root-dir settings.
