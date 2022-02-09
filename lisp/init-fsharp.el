@@ -1,13 +1,15 @@
-(when (maybe-require-package 'fsharp-mode)
+;; need to set inferior-fsharp-program, see: https://github.com/fsharp/emacs-fsharp-mode
+(unless (executable-find "fsi")
+  (if *win64*
+      (setq inferior-fsharp-program "c:\\ProgramFiles(x86)\\Microsoft SDK\\F#\\<fsharp-version>\\Framework\\<dotnet-version>\\Fsi.exe")
+    (setq inferior-fsharp-program "fsharpi --readline-")))
+
+(unless (and (boundp 'inferior-fsharp-program)
+             (executable-find inferior-fsharp-program))
+  (when (maybe-require-package 'fsharp-mode)
   (maybe-require-package 'ob-fsharp)
   ;; currently meet problem of not able to unzip
   ;; (maybe-require-package 'eglot-fsharp)
-  
-  (unless (executable-find inferior-fsharp-program)
-    ;; need to set inferior-fsharp-program, see: https://github.com/fsharp/emacs-fsharp-mode
-    (if *win64*
-        (setq inferior-fsharp-program "c:\\ProgramFiles(x86)\\Microsoft SDK\\F#\\<fsharp-version>\\Framework\\<dotnet-version>\\Fsi.exe")
-        (setq inferior-fsharp-program "fsharpi --readline-")))
 
   (defun fsharp-fantomas-format-region (start end)
     (interactive "r")
@@ -93,7 +95,7 @@
                         (call-interactively 'compile)))
             (proj (let ((compile-command (format "dotnet build \"%s\"" proj)))
                     (call-interactively 'compile)))
-            (t (call-interactively 'compile))))))
+            (t (call-interactively 'compile)))))))
 
 
 (provide 'init-fsharp)
