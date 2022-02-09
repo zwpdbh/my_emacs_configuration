@@ -183,7 +183,7 @@
 ;; (require-init 'init-R)
 
 ;; (require 'init-lsp)
-(require 'init-eglot)
+;; (require 'init-eglot)
 
 (require-init 'init-org)
 (require-init 'init-org-babel)
