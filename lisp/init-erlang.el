@@ -28,7 +28,8 @@
   (setq erlang-man-root-dir (concat erlang-root-dir "man"))
   (add-to-list 'exec-path (concat erlang-root-dir "bin/")))
 
-(when (boundp 'erlang-root-dir)
+(when (and (boundp 'erlang-root-dir)
+           (executable-find "erl"))
   (defun get-latest-erlang-lib-tools-dir ()
     (let ((erlang-lib-dir (concat erlang-root-dir "lib/")))
       (seq-filter (apply-partially #'< 3) '(1 2 3 4 5 6))
