@@ -78,7 +78,8 @@
     (after-load 'org
       (add-to-list 'zw/org-babel-evaluate-whitelist "elixir")
       (add-to-list 'zw/org-babel-load-language-list '(elixir . t))
-      (add-to-list 'org-structure-template-alist '("exr" . "src elixir")))))
+      (add-to-list 'org-structure-template-alist '("exr" . "src elixir"))
+      (add-to-list 'org-structure-template-alist '("exs" . "src elixir")))))
 
 
 
