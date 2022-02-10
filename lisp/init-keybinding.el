@@ -89,24 +89,25 @@
     (dolist (direction '("right" "left"))
       (global-set-key (read-kbd-macro (concat "<" multiple "wheel-" direction ">")) 'ignore))))
 
-;; when runing in -nw, use xclip
+;; When runing in -nw, use xclip, check lisp/init-clipboard.el
+;; Especially, we need to load xclip.el (preserved in site-lisp/xclip/xclip.el)
 (unless (display-graphic-p)
   (when (fboundp 'cut-to-x-clipboard)
-    ;; (global-unset-key (kbd "M-w"))
-    ;; (global-set-key (kbd "M-w") 'copy-to-x-clipboard)
-    (global-set-key [remap whole-line-or-region-kill-ring-save] 'copy-to-x-clipboard))
+    ;; (global-set-key [remap whole-line-or-region-kill-ring-save] nil)
+    ;; (global-set-key [remap whole-line-or-region-kill-ring-save] 'copy-to-x-clipboard)
+    (global-unset-key (kbd "M-w"))
+    (global-set-key (kbd "M-w") 'copy-to-x-clipboard))
 
   (when (fboundp 'cut-to-x-clipboard)
-    ;; (global-unset-key (kbd "C-w"))
-    ;; (global-set-key (kbd "C-w") 'cut-to-x-clipboard)
-    (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard))
+    ;; (global-set-key [remap whole-line-or-region-kill-region] 'cut-to-x-clipboard)
+    (global-unset-key (kbd "C-w"))
+    (global-set-key (kbd "C-w") 'cut-to-x-clipboard))
   
   (when (fboundp 'paste-from-x-clipboard)
     ;; (global-unset-key (kbd "C-y"))
     ;; (global-set-key (kbd "C-y") 'paste-from-x-clipboard)
-    
     ;; For case emacs -nw in iTerm2, we have to M-x paste-from-x-clipboard to get content from system-clipboard
-    (global-set-key [remap whole-line-or-region-yank] 'paste-from-x-clipboard)))
+    (global-set-key [remap yank] 'paste-from-x-clipboard)))
 
 ;; for ivy minibuffer
 (when (fboundp 'ivy-previous-line-and-call)
