@@ -1,4 +1,4 @@
-
+(setq coding-system-for-write 'utf-8-unix)
 ;; ===== set buffer and shell 
 (use-package exec-path-from-shell
   :ensure t
