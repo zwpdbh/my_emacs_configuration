@@ -1,3 +1,10 @@
+;; Making electric-indent behave sanely
+(setq-default electric-indent-inhibit nil)
+
+;; Make the backspace properly erase the tab instead of
+;; removing 1 space at a time.
+(setq backward-delete-char-untabify-method 'hungry)
+
 ;; electric return in parenthesis
 (defvar electrify-return-match
   "[\]}\)\"\']"
@@ -68,6 +75,11 @@
       (progn
         (newline-and-indent)))))
 
+(defun zw/newline-and-indent-for-elixir (arg)
+  (interactive "P")
+  (progn
+    (newline-and-previous-indent)))
+
 (defun zw/set-electrify-return ()
   (interactive)
   (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
@@ -84,6 +96,13 @@
   (local-unset-key (kbd "RET"))
   (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-erlang))
 
+(defun zw/set-newline-and-indent-for-elixir ()
+  (interactive)
+  (local-unset-key (kbd "RET"))
+  (setq-local backward-delete-char-untabify-method 'untabify)
+  (setq-local electric-indent-inhibit t)
+  (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-elixir))
+
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)
 (add-hook 'text-mode-hook 'zw/set-electrify-return)
@@ -93,14 +112,7 @@
 (add-hook 'tuareg-mode-hook #'zw/set-newline-and-indent-for-lisp)
 (add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
 (add-hook 'erlang-mode-hook #'zw/set-newline-and-indent-for-erlang)
-(add-hook 'elixir-mode-hook #'zw/set-newline-and-indent-for-lisp)
-
-;; Making electric-indent behave sanely
-(setq-default electric-indent-inhibit nil)
-
-;; Make the backspace properly erase the tab instead of
-;; removing 1 space at a time.
-(setq backward-delete-char-untabify-method 'hungry)
+(add-hook 'elixir-mode-hook #'zw/set-newline-and-indent-for-elixir)
 
 ;; Auto-indent yanked (pasted) code
 (dolist (command '(yank yank-pop))
