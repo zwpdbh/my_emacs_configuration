@@ -10,9 +10,9 @@
     
     (add-hook 'elixir-mode-hook
               (lambda ()
+                ;; (add-hook 'before-save-hook 'indent-according-to-mode nil 'local)
                 (my/disable-paredit-spaces-before-paren)
-                (paredit-mode t)
-                (add-hook 'before-save-hook 'indent-according-to-mode nil 'local))))
+                (paredit-mode t))))
 
   (defun zw/set-company-backends-for-elixir ()
     (interactive)
