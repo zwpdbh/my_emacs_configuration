@@ -45,6 +45,8 @@ FACE defaults to inheriting from default and highlight."
                          (minibufferp)
                          this-command))
                 (and (not (bobp))
+                     ;; define that when cursor put at } or ) will try to show matched
+                     ;; other part if it is out of current screen scope
                      (or  (memq (char-syntax (char-before)) '(?\) ?\$))
                           (memq (char-syntax (char-before)) '(?\} ?\$))))
                 (= 1 (logand 1 (- (point)

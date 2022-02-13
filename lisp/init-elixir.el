@@ -64,6 +64,7 @@
     
     (add-hook 'elixir-mode-hook
               (lambda ()
+                (highlight-indent-guides-mode t)
                 (alchemist-mode t)
                 (zw/set-company-backends-for-elixir)
                 (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
