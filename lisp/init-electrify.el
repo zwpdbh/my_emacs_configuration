@@ -93,6 +93,7 @@
 (add-hook 'tuareg-mode-hook #'zw/set-newline-and-indent-for-lisp)
 (add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
 (add-hook 'erlang-mode-hook #'zw/set-newline-and-indent-for-erlang)
+(add-hook 'elixir-mode-hook #'zw/set-newline-and-indent-for-lisp)
 
 ;; Making electric-indent behave sanely
 (setq-default electric-indent-inhibit nil)

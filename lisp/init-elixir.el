@@ -61,12 +61,21 @@
     (add-hook 'alchemist-iex-mode-hook
               (lambda ()
                 (zw/set-company-backends-for-elixir)))
+
+    (defun bounga/insert-elixir-pipe-operator ()
+      "Insert a newline and the |> operator"
+      (interactive)
+      (end-of-line)
+      (newline-and-indent)
+      (insert "|> "))
+
     
     (add-hook 'elixir-mode-hook
               (lambda ()
                 (highlight-indent-guides-mode t)
                 (alchemist-mode t)
                 (zw/set-company-backends-for-elixir)
+                (define-key elixir-mode-map (kbd "M-RET") 'bounga/insert-elixir-pipe-operator)
                 (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
                 (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
