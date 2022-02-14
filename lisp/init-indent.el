@@ -22,9 +22,10 @@
     (add-hook 'org-mode-hook 'indent-guide-mode)))
 
 ;; https://stackoverflow.com/questions/69934/set-4-space-indent-in-emacs-in-text-mode/10439239
-(setq tab-always-indent 'complete)
+(setq tab-always-indent 'nil)
 (setq-default tab-width 2)
 (setq tab-width 2)
+(setq-default indent-line-function 'insert-tab)
 (setq-default standard-indent tab-width)
 (setq-default indent-tabs-mode nil)
 
