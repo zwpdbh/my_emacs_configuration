@@ -11,9 +11,7 @@
     ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
     ;; (add-hook 'plantuml-mode-hook 'highlight-indent-guides-mode)
     (add-hook 'json-mode-hook 'highlight-indent-guides-mode)
-    (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
-    ;; (add-hook 'fsharp-mode-hook 'highlight-indent-guides-mode)
-    ))
+    (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)))
 
 (use-package indent-guide  
   :ensure t

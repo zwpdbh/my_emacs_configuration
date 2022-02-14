@@ -80,11 +80,6 @@
   (progn
     (newline-and-previous-indent)))
 
-(defun zw/set-tab-for-elixir ()
-  (interactive)
-  (progn
-    (indent-relative nil)))
-
 (defun zw/set-electrify-return ()
   (interactive)
   (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
@@ -105,9 +100,8 @@
   (interactive)
   (local-unset-key (kbd "RET"))
   (setq-local backward-delete-char-untabify-method 'untabify)
-  (setq-local electric-indent-inhibit t)
-  (define-key elixir-mode-map (kbd "RET") 'zw/newline-and-indent-for-elixir)
-  (define-key elixir-mode-map (kbd "TAB") 'zw/set-tab-for-elixir))
+  (setq-local electric-indent-inhibit nil)
+  (define-key elixir-mode-map (kbd "RET") 'zw/newline-and-indent-for-elixir))
 
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)

@@ -10,6 +10,7 @@
     
     (add-hook 'elixir-mode-hook
               (lambda ()
+                ;; Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
                 (add-hook 'before-save-hook 'elixir-format nil 'local)
                 (my/disable-paredit-spaces-before-paren)
                 (paredit-mode t))))
@@ -72,7 +73,6 @@
     
     (add-hook 'elixir-mode-hook
               (lambda ()
-                (highlight-indent-guides-mode t)
                 (alchemist-mode t)
                 (zw/set-company-backends-for-elixir)
                 (define-key elixir-mode-map (kbd "M-RET") 'bounga/insert-elixir-pipe-operator)
