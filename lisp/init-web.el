@@ -1,17 +1,16 @@
+(add-to-list 'auto-mode-alist '("\\.html\\.eex\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("elixir" . "\\.html\\.eex\\'")))
+
 (use-package web-mode
   :defer t
   :ensure t
-  :mode ("\\.html\\'")
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-enable-current-element-highlight t)
-  (setq web-mode-enable-css-colorization t)
-
-  (add-hook 'web-mode-hook
-            '(lambda ()
-               (zw/counsel-etags-setup))))
+  (setq web-mode-enable-css-colorization t))
 
 
 (defun zw/set-company-backends-for-web-mode ()
@@ -40,5 +39,12 @@
 (after-load 'org
   (defun org-babel-execute:web (body params) body)
   (add-to-list 'org-structure-template-alist '("web" . "src web")))
+
+(add-hook 'web-mode-hook
+          '(lambda ()
+             ;; reindentation is not appropriate for dealing with .vue file.
+             (setq-local electric-indent-inhibit t)
+             (zw/counsel-etags-setup)))
+
 
 (provide 'init-web)
