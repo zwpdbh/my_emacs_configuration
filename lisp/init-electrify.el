@@ -78,8 +78,8 @@
 (defun zw/newline-and-indent-for-elixir (arg)
   (interactive "P")
   (progn
-    (save-excursion
-      (newline-and-indent))
+    ;; (save-excursion
+    ;;   (newline-and-indent))
     (newline-and-indent)))
 
 (defun zw/set-electrify-return ()
