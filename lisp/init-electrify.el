@@ -51,7 +51,7 @@
         (newline arg)
         (indent-according-to-mode)))))
 
-(defun zw/newline-and-indent-for-lisp (arg)
+(defun zw/electrify-return-for-lisp (arg)
   (interactive "P")
   (let ((case-fold-search nil))
     (if (looking-at electrify-return-match)
@@ -62,8 +62,7 @@
         (progn
           (newline-and-indent)))))
 
-
-(defun zw/newline-and-indent-for-erlang (arg)
+(defun zw/electrify-return-for-erlang (arg)
   (interactive "P")
   (let ((case-fold-search nil))
     (if (looking-at electrify-return-match)
@@ -75,46 +74,53 @@
       (progn
         (newline-and-indent)))))
 
-(defun zw/newline-and-indent-for-elixir (arg)
+(defun zw/electrify-return-for-elixir (arg)
   (interactive "P")
   (progn
     ;; (save-excursion
     ;;   (newline-and-indent))
     (newline-and-indent)))
 
+
 (defun zw/set-electrify-return ()
   (interactive)
   (define-key (current-local-map) (kbd "RET") 'electrify-return-if-match))
+
 (defun zw/unset-electrify-return ()
   (interactive)
   (local-unset-key (kbd "RET"))
   (define-key (current-local-map) (kbd "RET") 'newline-and-indent))
-(defun zw/set-newline-and-indent-for-lisp ()
-  (interactive)
-  (local-unset-key (kbd "RET"))
-  (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-lisp))
-(defun zw/set-newline-and-indent-for-erlang ()
-  (interactive)
-  (local-unset-key (kbd "RET"))
-  (define-key (current-local-map) (kbd "RET") 'zw/newline-and-indent-for-erlang))
 
-(defun zw/set-newline-and-indent-for-elixir ()
+(defun zw/set-electrify-return-for-lisp ()
+  (interactive)
+  (local-unset-key (kbd "RET"))
+  (define-key (current-local-map) (kbd "RET") 'zw/electrify-return-for-lisp))
+
+(defun zw/set-electrify-return-for-erlang ()
+  (interactive)
+  (local-unset-key (kbd "RET"))
+  (define-key (current-local-map) (kbd "RET") 'zw/electrify-return-for-erlang))
+
+(defun zw/set-electrify-return-for-elixir ()
   (interactive)
   (local-unset-key (kbd "RET"))
   (setq-local backward-delete-char-untabify-method 'untabify)
   (setq-local electric-indent-inhibit nil)
-  (define-key elixir-mode-map (kbd "RET") 'zw/newline-and-indent-for-elixir))
+  (define-key elixir-mode-map (kbd "RET") 'zw/electrify-return-for-elixir))
 
 (add-hook 'prog-mode-hook 'zw/set-electrify-return)
 (add-hook 'conf-mode-hook 'zw/set-electrify-return)
 (add-hook 'text-mode-hook 'zw/set-electrify-return)
+
 (add-hook 'c-mode-hook 'zw/unset-electrify-return)
 (add-hook 'c++-mode-hook 'zw/unset-electrify-return)
-(add-hook 'lisp-mode-hook #'zw/set-newline-and-indent-for-lisp)
-(add-hook 'tuareg-mode-hook #'zw/set-newline-and-indent-for-lisp)
 (add-hook 'emacs-lisp-mode-hook #'zw/unset-electrify-return)
-(add-hook 'erlang-mode-hook #'zw/set-newline-and-indent-for-erlang)
-(add-hook 'elixir-mode-hook #'zw/set-newline-and-indent-for-elixir)
+
+(add-hook 'lisp-mode-hook #'zw/set-electrify-return-for-lisp)
+(add-hook 'tuareg-mode-hook #'zw/set-electrify-return-for-lisp)
+
+(add-hook 'erlang-mode-hook #'zw/set-electrify-return-for-erlang)
+(add-hook 'elixir-mode-hook #'zw/set-electrify-return-for-elixir)
 
 ;; Auto-indent yanked (pasted) code
 (dolist (command '(yank yank-pop))
