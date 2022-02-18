@@ -7,18 +7,13 @@
        (executable-find "elixir")
        (executable-find "elixirc"))
   
-  (reformatter-define elixir-format
-    :program "mix"
-    :args '("format" "-")
-    :group 'elixir)
-  
   (when (maybe-require-package 'elixir-mode)
     (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
     (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
     
     (add-hook 'elixir-mode-hook
               (lambda ()
-                ;; Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
+                ;; === Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
                 (add-hook 'before-save-hook 'elixir-format nil 'local)
                 (my/disable-paredit-spaces-before-paren)
                 (paredit-mode t))))
