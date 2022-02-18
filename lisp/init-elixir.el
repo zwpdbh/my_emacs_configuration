@@ -1,9 +1,17 @@
+;; ref: https://erickgnavar.github.io/emacs-config/#org4e744a7
 ;; ref: https://www.badykov.com/emacs/2020/05/30/emacs-setup-for-elixir/
 ;; ref: https://erick.navarro.io/blog/minimal-setup-for-elixir-development-in-emacs/
+
 (when (and
        (executable-find "iex")
        (executable-find "elixir")
        (executable-find "elixirc"))
+  
+  (reformatter-define elixir-format
+    :program "mix"
+    :args '("format" "-")
+    :group 'elixir)
+  
   (when (maybe-require-package 'elixir-mode)
     (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
     (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
@@ -83,6 +91,30 @@
                 (define-key elixir-mode-map (kbd "C-c r") 'zw/alchemist-iex-send-region)
                 (define-key (current-local-map) (kbd "<f1>") 'zw/alchemist-iex-send-region)
                 (define-key (current-local-map) (kbd "<f10>") 'elixir-format))))
+
+
+  (defun zw/mix-run-test (&optional at-point)
+    "If AT-POINT is true it will pass the line number to mix test."
+    (interactive)
+    (let* ((current-file (buffer-file-name))
+	         (current-line (line-number-at-pos))
+	         (mix-file (concat (projectile-project-root) "mix.exs"))
+	         (default-directory (file-name-directory mix-file))
+	         (mix-env (concat "MIX_ENV=test ")))
+
+      (if at-point
+	        (compile (format "%s mix test %s:%s" mix-env current-file current-line))
+        (compile (format "%s mix test %s" mix-env current-file)))))
+
+  (defun zw/mix-run-test-file ()
+    "Run mix test over the current file."
+    (interactive)
+    (zw/mix-run-test nil))
+
+  (defun zw/mix-run-test-at-point ()
+    "Run mix test at point."
+    (interactive)
+    (zw/mix-run-test t))
 
 
   (when (maybe-require-package 'ob-elixir)
