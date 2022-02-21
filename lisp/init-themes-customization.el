@@ -41,14 +41,15 @@
 
 
 (defun zw/customize-themes-for-company ()
-  (set-face-attribute 'company-tooltip-selection nil
-                      :inherit nil
-                      :background "#3b3559")
   (set-face-attribute 'company-tooltip nil
                       :weight 'normal))
 
 
 (defun zw/customize-themes-for-helm ()
+  (set-face-attribute 'helm-ff-directory nil
+                      :weight 'normal)
+  (set-face-attribute 'helm-ff-dotted-directory nil
+                      :weight 'normal)
   (set-face-attribute 'helm-selection nil
                       :underline nil
                       :foreground (face-foreground 'default t t)
@@ -68,8 +69,7 @@
                       :inherit nil
                       :underline nil
                       :weight 'normal
-                      :foreground (face-foreground 'default t t)
-                      :background "#3b3559"))
+                      :foreground (face-foreground 'default t t)))
 
 (defun zw/customize-themes-for-flycheck ()
   (set-face-attribute 'flycheck-error nil
@@ -101,19 +101,21 @@
   (set-face-attribute 'orderless-match-face-3 nil
                       :weight 'normal))
 
-
-
-(defun zw/customize-themes-for-web-mode ()
-  (set-face-attribute 'web-mode-current-element-highlight-face nil
-                      :weight 'normal
-                      :foreground "#f5f5f5"
-                      :background "#3b3559"))
-
 (defun zw/customize-themes-for-ivy ()
   (set-face-attribute 'ivy-current-match nil
                       :weight 'normal)
   ;; make selection highlight-background expand full width of the minibuffer
-  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  ;; ;; Face for ‘ivy’ minibuffer matches covered by inputs
+  (set-face-attribute 'ivy-minibuffer-match-face-1 nil
+                      :weight 'normal)
+  (set-face-attribute 'ivy-minibuffer-match-face-2 nil
+                      :weight 'normal)
+  (set-face-attribute 'ivy-minibuffer-match-face-3 nil
+                      :weight 'normal)
+  (set-face-attribute 'ivy-minibuffer-match-face-4 nil
+                      :weight 'normal))
 
 (defun zw/customize-themes-for-swiper ()
   (set-face-attribute 'swiper-line-face nil

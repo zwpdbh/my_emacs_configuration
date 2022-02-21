@@ -46,5 +46,4 @@
              (setq-local electric-indent-inhibit t)
              (zw/counsel-etags-setup)))
 
-
 (provide 'init-web)
