@@ -6,11 +6,14 @@
   (setq projectile-completion-system 'helm)
   (after-load 'projectile
     (global-set-key (kbd "C-c p") 'projectile-command-map)
-    
-    ;; need to install sudo apt install ripgrep, on windows install it by choco install ripgrep
+    ;; === need to install ripgrep
     (when (and (executable-find "rg")
                (fboundp 'consult-ripgrep))
-      (global-set-key (kbd "C-c p s s") 'consult-ripgrep)))
+      (global-set-key (kbd "C-c p s s") 'consult-ripgrep))
+    ;; === need to install the_silver_searcher
+    (when (and (executable-find "ag")
+               (fboundp 'helm-projectile-ag))
+      (global-set-key (kbd "C-c p s g") 'helm-projectile-ag)))
   (when (maybe-require-package 'ibuffer-projectile)))
 
 
