@@ -4,17 +4,41 @@
     (after-load pkg
       (funcall fn))))
 
-;; How to check the face you want to set?
-;; Use helm-colors (C-c h c) to filter out different color and view different faces!
 (defun zw/customize-themes-for-general ()
-  (set-face-attribute 'line-number-current-line nil
-                      :weight 'normal)
+  ;; weyland default, foreground color: #a9b7ca
+  ;; weyland default, background color: #1f2226
+  ;; weyland comment, foreground color: #606873
+
+  ;; (set-cursor-color "steelblue")
+  ;; (setq-default cursor-type t)
   
-  (cond ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
-         (set-face-attribute 'highlight nil
-                             :underline nil
-                             :foreground (face-foreground 'default t t)
-                             :background "Black"))))
+  ;; (if (display-graphic-p)
+  ;;     (cond ((string-match-p "dracula" (symbol-name custom-enabled-theme))
+  ;;            t)
+  ;;           (t
+  ;;            (set-face-attribute 'default nil
+  ;;                                :width 'regular
+  ;;                                :foreground "#a9b7ca")
+  ;;            (set-face-attribute 'font-lock-comment-face nil
+  ;;                                :foreground "#606873")))
+  ;;   (progn
+  ;;     (set-face-attribute 'default nil                          
+  ;;                         :foreground "#c6c6c6")))
+
+  
+  
+  (cond ;; ((string-match-p "kaolin" (symbol-name custom-enabled-theme))         
+   ;;  (set-face-attribute 'font-lock-keyword-face nil
+   ;;                      :foreground "#91f368"))
+   ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
+    (set-face-attribute 'highlight nil
+                        :underline nil
+                        :foreground (face-foreground 'default t t)
+                        :background "Black"))
+   ;; (t
+   ;;  (set-face-attribute 'font-lock-keyword-face nil
+   ;;                      :foreground "#50fa7b"))
+   ))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
@@ -41,19 +65,45 @@
 
 
 (defun zw/customize-themes-for-company ()
+  ;; (set-face-attribute 'company-tooltip-common-selection nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#a9b7ca"
+  ;;                     :weight 'bold)
+
   (set-face-attribute 'company-tooltip-selection nil
                       :inherit nil
+                      ;; :foreground "#a9b7ca"
                       :background "#3b3559")
+  
+  ;; (set-face-attribute 'company-tooltip-annotation-selection nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#59b9b4")
   (set-face-attribute 'company-tooltip nil
                       :weight 'normal))
 
 
 (defun zw/customize-themes-for-helm ()
+  ;; make helm related selection use underline
   (set-face-attribute 'helm-selection nil
                       :underline nil
                       :foreground (face-foreground 'default t t)
-                      :weight 'normal
-                      :extend t))
+                      :weight 'bold
+                      :extend t)
+  (setq helm-buffer-max-length 36)
+
+  (set-face-attribute 'helm-ff-directory nil
+                      :foreground "#67bfba"
+                      :background (face-background 'default t t)
+                      :weight 'bold)
+  (set-face-attribute 'helm-ff-dotted-directory nil
+                      :foreground "#20b2aa"
+                      :background (face-background 'default t t)
+                      :weight 'bold)
+  (set-face-attribute 'helm-selection nil
+                      :inherit nil
+                      :underline nil
+                      :foreground "yellow"
+                      :background "#3b3559"))
 
 (defun zw/customize-themes-for-smartparens ()
   (set-face-attribute 'sp-pair-overlay-face nil
@@ -78,13 +128,25 @@
                       :underline '(:color "yellow" :style wave)))
 
 (defun zw/customize-themes-for-consult ()
-  (cond (t
-         (set-face-attribute 'consult-preview-line nil
-                              :inherit nil
-                              :underline nil
-                              :weight 'normal
-                              :foreground "Yellow"
-                              :background "Black"))))
+  (cond  ;; ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
+   ;;  (set-face-attribute 'consult-preview-line nil
+   ;;                      :inherit nil
+   ;;                      :underline nil
+   ;;                      :weight 'normal
+   ;;                      :foreground "Yellow"
+   ;;                      :background "Black"))
+   (t
+    (set-face-attribute 'consult-preview-line nil
+                        :inherit nil
+                        :underline nil
+                        :weight 'normal
+                        :foreground "Yellow"
+                        :background "Black")))
+  
+  ;; (set-face-attribute 'consult-file nil
+  ;;                     :inherit nil
+  ;;                     :foreground "#a9b7ca")
+  )
 
 
 (defun zw/customize-themes-for-marginalia ()
@@ -111,7 +173,35 @@
 
 (defun zw/customize-themes-for-ivy ()
   ;; make selection highlight-background expand full width of the minibuffer
-  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
+  (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  ;; ;; ;; make ivy current match background lighter
+  ;; (set-face-attribute 'ivy-current-match nil
+  ;;                     :weight 'normal
+  ;;                     :foreground (face-foreground 'default t t)
+  ;;                     :background "#3b3559")
+  
+  ;; ;; Face for ‘ivy’ minibuffer matches covered by inputs
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-1 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
+  
+  ;; ;; Face for ‘ivy’ minibuffer matches inputs 
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-2 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
+  
+  ;; ;; Face for "ivy" minibuffer matches other segement input
+  ;; (set-face-attribute 'ivy-minibuffer-match-face-3 nil
+  ;;                     :weight 'normal
+  ;;                     :underline nil
+  ;;                     :foreground "Yellow"
+  ;;                     :background (face-background 'default t t))
+  )
 
 (defun zw/customize-themes-for-swiper ()
   (set-face-attribute 'swiper-line-face nil

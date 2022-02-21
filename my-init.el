@@ -104,7 +104,6 @@
 ;; (require 'init-helm-swoop)
 
 ;; (require-init 'init-silver-search)
-;; (require-init 'init-counsel-ivy-swiper)
 
 (require 'init-selectrum)
 (require 'init-orderless)
@@ -148,6 +147,7 @@
 
 ;; === programing language related ===
 (require-init 'init-company)
+(require-init 'init-counsel-ivy-swiper)
 (require 'init-counsel-etags)
 
 ;; (require 'init-terraform)

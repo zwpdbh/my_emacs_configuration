@@ -1,6 +1,8 @@
 
 ;; bib related configuration
-(maybe-require-package 'ivy-bibtex)
+(when (fboundp 'ivy-mode)
+  (maybe-require-package 'ivy-bibtex))
+
 (defvar my/bib-file-location "~/code/capture-org/bib/library.bib"
   "Where I keep my bib file.")
 (setq bibtex-completion-bibliography my/bib-file-location)

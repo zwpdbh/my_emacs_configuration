@@ -17,32 +17,12 @@
   :ensure t
   :defer t)
 
-;; (use-package leuven-theme
-;;   :ensure t
-;;   :defer t)
-
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :defer t)
-
-;; (use-package moe-theme
-;;   :ensure t
-;;   :defer t)
-
-;; ;; ref: https://gitlab.com/protesilaos/modus-themes
-;; (when (maybe-require-package 'modus-themes)
-;;   ;; Add all your customizations prior to loading the themes
-;;   (setq modus-themes-slanted-constructs t
-;;         modus-themes-bold-constructs nil
-;;         modus-themes-region 'no-extend)
-;;   (setq modus-themes-syntax 'green-strings))
 
 
-;; kaolin-ocean
-;; set default theme
+;; ===set default theme
 (setq-default custom-enabled-theme 'weyland-yutani)
 (if (display-graphic-p)
-    (setq custom-enabled-theme 'doom-dracula)
+    (setq custom-enabled-theme 'kaolin-ocean)
   (setq custom-enabled-theme 'doom-dracula))
 
 ;; load theme and do customization for themes
@@ -54,16 +34,15 @@
   
   (zw/customize-themes-for-general)
   (zw/customize-themes-for-parenthesis)
-  ;; (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
+  ;; this helm setting effect a lot
+  (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
 
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
-  (unless (display-graphic-p)
-    (if (featurep 'selectrum)
-        (funcall 'zw/customize-themes-for-selectrum)
-      (after-load 'selectrum
-        (funcall 'zw/customize-themes-for-selectrum))))
-
-
+  (if (featurep 'selectrum)
+      (funcall 'zw/customize-themes-for-selectrum)
+    (after-load 'selectrum
+      (funcall 'zw/customize-themes-for-selectrum)))
+  
   (if (featurep 'consult)
       (funcall 'zw/customize-themes-for-consult)
     (after-load 'consult
@@ -79,30 +58,27 @@
     (after-load 'indent-guide
       (funcall 'zw/customize-themes-for-indent-guide)))
   
-  ;; (if (featurep 'dashboard)
-  ;;     (funcall 'zw/customize-themes-for-dashboard)
-  ;;   (after-load 'dashboard
-  ;;     (funcall 'zw/customize-themes-for-dashboard)))
-  
   (if (featurep 'org)
       (funcall 'zw/customize-themes-for-org)
     (after-load 'org
       (funcall 'zw/customize-themes-for-org)))
 
-  ;; (if (featurep 'company)
-  ;;     (funcall 'zw/customize-themes-for-company)
-  ;;     (after-load 'company
-  ;;       (funcall 'zw/customize-themes-for-company)))
+  (if (featurep 'company)
+      (funcall 'zw/customize-themes-for-company)
+      (after-load 'company
+        (funcall 'zw/customize-themes-for-company)))
 
-  ;; (if (featurep 'swiper)
-  ;;     (funcall 'zw/customize-themes-for-swiper)
-  ;;   (after-load 'swiper
-  ;;     (funcall 'zw/customize-themes-for-swiper)))
-  
   (if (featurep 'ivy)
       (funcall 'zw/customize-themes-for-ivy)
     (after-load 'ivy
       (funcall 'zw/customize-themes-for-ivy)))
+
+  (if (featurep 'dashboard)
+      (funcall 'zw/customize-themes-for-dashboard)
+    (after-load 'ivy
+      (funcall 'zw/customize-themes-for-dashboard)))
+
+  
 
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
 
