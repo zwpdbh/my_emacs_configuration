@@ -91,7 +91,8 @@ FACE defaults to inheriting from default and highlight."
   (when (featurep 'tuareg)
     ;; Auto pair "'" for OCaml
     (sp-local-pair 'tuareg-mode "'" "'"))
-
+  
+  (add-hook 'eshell-first-time-mode-hook 'smartparens-mode)
   (smartparens-global-mode t))
 
 
