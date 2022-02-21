@@ -1,5 +1,5 @@
 (when (executable-find "rg")
-  ;; need to install sudo apt install ripgrep
+  ;; ===need to install sudo apt install ripgrep
   (when (maybe-require-package 'rg)
     (when (maybe-require-package 'helm-rg)      
       (setq helm-rg-ripgrep-executable (executable-find "rg"))
@@ -21,14 +21,5 @@
                    " "))
       (advice-add 'projectile-get-ext-command :override #'zw/advice-projectile-use-rg))))
 
-
-(use-package ag
-  :ensure t
-  :defer t)
-
-;; available options see: https://github.com/emacsorphanage/helm-ag
-(when (maybe-require-package 'helm-ag)
-  (setq helm-ag-command-option "--hidden --ignore .git"
-        helm-ag-insert-at-point nil))
 
 (provide 'init-helm-search)

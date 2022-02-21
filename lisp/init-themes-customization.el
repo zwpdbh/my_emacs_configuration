@@ -42,7 +42,11 @@
 
 (defun zw/customize-themes-for-company ()
   (set-face-attribute 'company-tooltip nil
-                      :weight 'normal))
+                      :weight 'normal)
+  (set-face-attribute 'company-tooltip-common nil
+                      :underline nil)
+  (set-face-attribute 'company-tooltip-common-selection nil
+                      :underline nil))
 
 
 (defun zw/customize-themes-for-helm ()
@@ -76,20 +80,6 @@
                       :underline '(:color "firebrick" :style wave))
   (set-face-attribute 'flycheck-warning nil
                       :underline '(:color "yellow" :style wave)))
-
-(defun zw/customize-themes-for-consult ()
-  (cond (t
-         (set-face-attribute 'consult-preview-line nil
-                              :inherit nil
-                              :underline nil
-                              :weight 'normal
-                              :foreground "Yellow"
-                              :background "Black"))))
-
-
-(defun zw/customize-themes-for-marginalia ()
-  (set-face-attribute 'marginalia-documentation nil
-                      :underline nil))
 
 (defun zw/customize-themes-for-orderless ()
   (set-face-attribute 'orderless-match-face-0 nil

@@ -103,7 +103,6 @@
 ;; (require 'init-helm-search)
 ;; (require 'init-helm-swoop)
 
-;; (require-init 'init-silver-search)
 
 (require 'init-selectrum)
 (require 'init-orderless)

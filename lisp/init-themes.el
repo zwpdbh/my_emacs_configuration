@@ -43,11 +43,6 @@
     (after-load 'selectrum
       (funcall 'zw/customize-themes-for-selectrum)))
   
-  (if (featurep 'consult)
-      (funcall 'zw/customize-themes-for-consult)
-    (after-load 'consult
-      (funcall 'zw/customize-themes-for-consult)))
-  
   (if (featurep 'symbol-overlay)
       (funcall 'zw/customize-themes-for-symbol-overlay)
     (after-load 'symbol-overlay
