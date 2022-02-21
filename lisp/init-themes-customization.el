@@ -110,6 +110,8 @@
                       :background "#3b3559"))
 
 (defun zw/customize-themes-for-ivy ()
+  (set-face-attribute 'ivy-current-match nil
+                      :weight 'normal)
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line))
 
