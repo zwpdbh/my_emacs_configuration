@@ -18,12 +18,11 @@
   :defer t)
 
 
-
 ;; ===set default theme
-(setq-default custom-enabled-theme 'weyland-yutani)
-(if (display-graphic-p)
-    (setq custom-enabled-theme 'kaolin-ocean)
+(setq-default custom-enabled-theme 'doom-gruvbox)
+(unless (display-graphic-p)
   (setq custom-enabled-theme 'doom-dracula))
+
 
 ;; load theme and do customization for themes
 (defun zw/load-theme ()
