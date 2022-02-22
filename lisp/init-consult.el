@@ -26,7 +26,7 @@
     ;;;; 3. vc.el (vc-root-dir)
     ;; (setq consult-project-root-function #'vc-root-dir)
     ;;;; 4. locate-dominating-file
-    (defun zw/find-project-root-dir ()
+    (defun zw/find-project-root-dir-for-csharp ()
       (interactive)
       (let ((sln-root (locate-dominating-file "."
                                               (lambda (parent) (directory-files parent nil "\\.sln"))))
@@ -37,7 +37,36 @@
                git-root)
               (t
                (message "Couldn't decide project's root-dir")))))
-    (setq consult-project-root-function 'zw/find-project-root-dir)
+
+    (defun zw/find-project-root-dir-for-emacs ()
+      (interactive)
+      (let* ((git-root (locate-dominating-file "." ".git"))
+             (init-lisp-folder (concat git-root "lisp/")))
+        (cond (init-lisp-folder
+               init-lisp-folder)
+              (git-root
+               git-root)
+              (t
+               (message "Couldn't decide project's root-dir")))))
+
+
+    (defun zw/find-project-root-dir-prefer-gitignore ()
+      (interactive)
+      (let ((gitignore-root (locate-dominating-file "."
+                                              (lambda (parent) (directory-files parent nil "\\.gitignore"))))
+            (git-root (locate-dominating-file "." ".git")))
+        (cond (gitignore-root
+               gitignore-root)
+              (git-root
+               git-root)
+              (t
+               (message "Couldn't decide project's root-dir")))))
+    
+
+    (add-hook 'csharp-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-csharp)))
+    (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-emacs)))
+    (add-hook 'elixir-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-prefer-gitignore)))
+    
 
     ;; (setq consult-narrow-key "l")
     (global-set-key (kbd "C-x M-:") 'consult-complex-command)
