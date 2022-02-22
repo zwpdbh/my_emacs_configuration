@@ -30,7 +30,8 @@
 See `consult-grep' for more details."
         (interactive "P")
         (unless initial (setq initial (counsel-etags-tagname-at-point)))
-        (unless dir (setq dir (zw/find-project-root-dir)))
+        (unless dir (setq dir (funcall consult-project-root-function)))
+        
         (consult--grep "Ripgrep" #'consult--ripgrep-builder dir initial))
 
       ;; try to use counsel-ripgrep
