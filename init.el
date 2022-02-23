@@ -1,6 +1,6 @@
 ;; If it is fresh Emacs on Windows. Use the following setting to customize a different location for Emacs configuration
-;; ;; Place ".emacs" file in C:\Users\Username\AppData\Roaming and point to the appropriate files
-;; Place this file in C:\Users\Username\AppData\Roaming and point to the appropriate files
+
+;; ;; Place a ".emacs" file in C:\Users\<username>\AppData\Roaming and use it to point to the appropriate files
 ;; (setq user-init-file "D:/.emacs.d/init.el")
 ;; (setq user-emacs-directory "D:/.emacs.d/")
 ;; (setq default-directory "D:/code/")
