@@ -129,15 +129,5 @@
       (add-to-list 'org-structure-template-alist '("exs" . "src elixir")))))
 
 
-;; ref: https://web-mode.org/
-(add-to-list 'auto-mode-alist '("\\.eex\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.heex\\'" . web-mode))
-;; A specific engine can be forced 
-(setq web-mode-engines-alist
-      '(("elixir"    . "\\.eex\\'")
-        ("elixir"  . "\\.heex\\.")))
-
-
-
 (provide 'init-elixir)
 ;;; init-elixir ends here

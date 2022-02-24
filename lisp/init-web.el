@@ -1,4 +1,11 @@
+;; ref: https://web-mode.org/
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.eex\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.heex\\'" . web-mode))
+;; A specific engine can be forced 
+(setq web-mode-engines-alist
+      '(("elixir"    . "\\.eex\\'")
+        ("elixir"  . "\\.heex\\.")))
 
 (use-package web-mode
   :defer t
@@ -41,6 +48,7 @@
 (add-hook 'web-mode-hook
           '(lambda ()
              ;; reindentation is not appropriate for dealing with .vue file.
+             (turn-off-smartparens-mode)
              (setq-local electric-indent-inhibit t)
              (zw/counsel-etags-setup)))
 
