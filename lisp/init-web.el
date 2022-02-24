@@ -1,6 +1,4 @@
-(add-to-list 'auto-mode-alist '("\\.html\\.eex\\'" . web-mode))
-(setq web-mode-engines-alist
-      '(("elixir" . "\\.html\\.eex\\'")))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
 (use-package web-mode
   :defer t

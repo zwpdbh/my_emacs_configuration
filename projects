@@ -1,3 +1,4 @@
 ;;; -*- lisp-data -*-
-(("d:/code/elixir-programming/elixir-and-phx/hello/")
+(("d:/.emacs.d/")
+ ("d:/code/elixir-programming/elixir-and-phx/hello/")
  ("~/.emacs.d/"))
