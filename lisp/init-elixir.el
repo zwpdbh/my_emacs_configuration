@@ -68,7 +68,7 @@
               (lambda ()
                 (zw/set-company-backends-for-elixir)))
 
-    (defun bounga/insert-elixir-pipe-operator ()
+    (defun zw/insert-elixir-pipe-operator ()
       "Insert a newline and the |> operator"
       (interactive)
       (end-of-line)
@@ -80,7 +80,8 @@
               (lambda ()
                 (alchemist-mode t)
                 (zw/set-company-backends-for-elixir)
-                (define-key elixir-mode-map (kbd "M-RET") 'bounga/insert-elixir-pipe-operator)
+                
+                (define-key elixir-mode-map (kbd "<M-return>") 'zw/insert-elixir-pipe-operator)
                 (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
                 (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
