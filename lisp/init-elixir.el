@@ -85,7 +85,12 @@
                 (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-compile-this-buffer)
                 (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
                 (define-key elixir-mode-map (kbd "C-c e") 'zw/alchemist-iex-send-region)
-                (define-key elixir-mode-map (kbd "C-c r") 'zw/alchemist-iex-send-region)
+
+                (define-key elixir-mode-map (kbd "C-c m") 'alchemist-macroexpand-current-line)
+                (define-key elixir-mode-map (kbd "C-c r") 'alchemist-macroexpand-region)
+                (define-key elixir-mode-map (kbd "C-c c-p") 'alchemist-macroexpand-print-current-line)
+                (define-key elixir-mode-map (kbd "C-c c-r") 'alchemist-macroexpand-print-region)
+                
                 (define-key (current-local-map) (kbd "<f1>") 'zw/alchemist-iex-send-region)
                 (define-key (current-local-map) (kbd "<f10>") 'elixir-format))))
 
