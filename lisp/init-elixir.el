@@ -88,8 +88,8 @@
 
                 (define-key elixir-mode-map (kbd "C-c m") 'alchemist-macroexpand-current-line)
                 (define-key elixir-mode-map (kbd "C-c r") 'alchemist-macroexpand-region)
-                (define-key elixir-mode-map (kbd "C-c c-p") 'alchemist-macroexpand-print-current-line)
-                (define-key elixir-mode-map (kbd "C-c c-r") 'alchemist-macroexpand-print-region)
+                (define-key elixir-mode-map (kbd "C-c C-p") 'alchemist-macroexpand-print-current-line)
+                (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-macroexpand-print-region)
 
                 (define-key elixir-mode-map (kbd "C-c a i p") 'alchemist-iex-project-run)
                 
