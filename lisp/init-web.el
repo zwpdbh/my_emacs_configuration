@@ -47,8 +47,8 @@
 
 (add-hook 'web-mode-hook
           '(lambda ()
+             ;; (turn-off-smartparens-mode)
              ;; reindentation is not appropriate for dealing with .vue file.
-             (turn-off-smartparens-mode)
              (setq-local electric-indent-inhibit t)
              (zw/counsel-etags-setup)))
 

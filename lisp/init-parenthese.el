@@ -82,11 +82,13 @@ FACE defaults to inheriting from default and highlight."
               (sp-local-pair '(org-mode) "~" "~" :actions nil)
               (sp-local-pair '(org-mode) "*" "*" :actions nil))
 
+
+  ;; disable auto-pair for "<>" in web mode for .heex and .eex template file
+  (add-hook 'web-mode-hook '(lambda ()
+                              (sp-local-pair 'web-mode "<" ">" :actions nil)))
+ 
   ;; add addition pairs for certain mode
   (sp-local-pair 'elixir-mode "<<" ">>")
-  ;; It is not a solution, since in c++, we often have cout <<
-  ;; (sp-local-pair 'c-mode "<" ">")
-  ;; (sp-local-pair 'c++-mode "<" ">")
   
   (when (featurep 'tuareg)
     ;; Auto pair "'" for OCaml
