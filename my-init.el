@@ -100,10 +100,6 @@
 (require-init 'init-dashboard)
 
 (require 'init-helm)
-;; (require 'init-helm-search)
-;; (require 'init-helm-swoop)
-
-
 (require 'init-selectrum)
 (require 'init-orderless)
 (require 'init-consult)
