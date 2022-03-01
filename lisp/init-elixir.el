@@ -81,10 +81,9 @@
                 (zw/set-company-backends-for-elixir)
                 
                 (define-key elixir-mode-map (kbd "<M-return>") 'zw/insert-elixir-pipe-operator)
-                (define-key (current-local-map) (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
-                (define-key (current-local-map) (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
+                (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
+                (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
                 (define-key (current-local-map) (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
-                (define-key elixir-mode-map (kbd "C-c e") 'zw/alchemist-iex-send-region)
 
                 (define-key elixir-mode-map (kbd "C-c m") 'alchemist-macroexpand-current-line)
                 (define-key elixir-mode-map (kbd "C-c r") 'alchemist-macroexpand-region)
