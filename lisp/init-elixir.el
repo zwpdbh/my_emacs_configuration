@@ -63,9 +63,9 @@
         (alchemist-iex-compile-this-buffer)
         (display-buffer (process-buffer (alchemist-iex-process)))))
 
-    (add-hook 'alchemist-iex-mode-hook
-              (lambda ()
-                (zw/set-company-backends-for-elixir)))
+    ;; (add-hook 'alchemist-iex-mode-hook
+    ;;           (lambda ()
+    ;;             (zw/set-company-backends-for-elixir)))
 
     (defun zw/insert-elixir-pipe-operator ()
       "Insert a newline and the |> operator"
