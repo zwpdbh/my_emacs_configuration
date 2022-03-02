@@ -7,6 +7,7 @@
   (after-load 'projectile
     (global-set-key (kbd "C-c p") 'projectile-command-map)
     ;; === need to install ripgrep
+    ;; === in windows, use choco install ripgrep
     (when (and (executable-find "rg")
                (fboundp 'consult-ripgrep))
       (global-set-key (kbd "C-c p s s") 'consult-ripgrep))
