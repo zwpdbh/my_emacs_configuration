@@ -87,8 +87,8 @@
                 ;; === Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
                 ;; (add-hook 'before-save-hook 'elixir-format nil 'local)
                 (my/disable-paredit-spaces-before-paren)
-                (when (fboundp 'consult-ripgrep)
-                  (define-key elixir-mode-map (kbd "M-/") 'consult-ripgrep))
+                (when (fboundp 'zw/consult-ripgrep-at-point)
+                  (define-key elixir-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point))
 
                 (define-key (current-local-map) (kbd "<f10>") 'elixir-format))))
 
