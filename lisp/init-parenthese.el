@@ -80,7 +80,8 @@ FACE defaults to inheriting from default and highlight."
   ;; disable for specific modes
   (after-load 'org
               (sp-local-pair '(org-mode) "~" "~" :actions nil)
-              (sp-local-pair '(org-mode) "*" "*" :actions nil))
+              (sp-local-pair '(org-mode) "*" "*" :actions nil)
+              (sp-local-pair '(org-mode) "=" "=" :actions nil))
 
 
   ;; disable auto-pair for "<>" in web mode for .heex and .eex template file
