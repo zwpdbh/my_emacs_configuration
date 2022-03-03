@@ -9,16 +9,7 @@
   
   (when (maybe-require-package 'elixir-mode)
     (add-to-list 'auto-mode-alist '("\\.exs\\'" . elixir-mode))
-    (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode))
-    
-    (add-hook 'elixir-mode-hook
-              (lambda ()
-                ;; === Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
-                ;; (add-hook 'before-save-hook 'elixir-format nil 'local)
-                
-                (my/disable-paredit-spaces-before-paren)
-                (when (fboundp 'zw/consult-ripgrep-at-point)
-                  (define-key elixir-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point)))))
+    (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-mode)))
 
   (defun zw/set-company-backends-for-elixir ()
     (interactive)
@@ -92,6 +83,12 @@
                 (define-key elixir-mode-map (kbd "C-c C-p") 'alchemist-macroexpand-print-current-line)
                 (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-macroexpand-print-region)
                 (define-key elixir-mode-map (kbd "C-c a i p") 'alchemist-iex-project-run)
+
+                ;; === Notice, on windows we may need to install: choco install diffutils, if we meet error: missing diff
+                ;; (add-hook 'before-save-hook 'elixir-format nil 'local)
+                (my/disable-paredit-spaces-before-paren)
+                (when (fboundp 'consult-ripgrep)
+                  (define-key elixir-mode-map (kbd "M-/") 'consult-ripgrep))
 
                 (define-key (current-local-map) (kbd "<f10>") 'elixir-format))))
 
