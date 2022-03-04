@@ -82,9 +82,6 @@
     (setq xref-show-xrefs-function #'consult-xref
           xref-show-definitions-function #'consult-xref)))
 
-;; (when (maybe-require-package 'consult-selectrum)
-;;   (after-load 'selectrum
-;;     (require 'consult-selectrum)))
 
 (add-hook 'after-init-hook (lambda () (require 'consult)))
 

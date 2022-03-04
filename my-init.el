@@ -113,7 +113,6 @@
 
 
 ;; (require 'init-treemacs)
-(require 'init-ggtags)
 (require 'init-markdown)
 (require 'init-json)
 (require 'init-docker)
