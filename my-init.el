@@ -80,7 +80,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require-init 'init-autoload)
+(require 'init-autoload)
 
 (maybe-require-package 'diminish)
 (maybe-require-package 'scratch)
@@ -97,27 +97,27 @@
 (require 'init-gui-frames)
 (require 'init-highlight-symbol)
 
-(require-init 'init-dashboard)
+(require 'init-dashboard)
 
 (require 'init-helm)
 (require 'init-selectrum)
 (require 'init-orderless)
 (require 'init-consult)
 (require 'init-projectile)
-(require-init 'init-parenthese)
+(require 'init-parenthese)
 
 
-(require-init 'init-convenient)
-(require-init 'init-clipboard)
-(require-init 'init-keybinding)
-(require-init 'init-whichkey)
+(require 'init-convenient)
+(require 'init-clipboard)
+(require 'init-keybinding)
+(require 'init-whichkey)
 
 
-;; (require-init 'init-treemacs)
-(require-init 'init-ggtags)
-(require-init 'init-markdown)
-(require-init 'init-json)
-(require-init 'init-docker)
+;; (require 'init-treemacs)
+(require 'init-ggtags)
+(require 'init-markdown)
+(require 'init-json)
+(require 'init-docker)
 
 (require 'init-dired)
 (require 'init-grep)
@@ -136,60 +136,60 @@
 
 (require 'init-compile)
 ;; (require 'init-reveal)
-(require-init 'init-package)
-(require-init 'init-hydra)
+(require 'init-package)
+(require 'init-hydra)
 
 
 ;; === programing language related ===
-(require-init 'init-company)
-(require-init 'init-counsel-ivy-swiper)
+(require 'init-company)
+(require 'init-counsel-ivy-swiper)
 (require 'init-counsel-etags)
 
 ;; (require 'init-terraform)
-(require-init 'init-eldoc)
+(require 'init-eldoc)
 
 (require 'init-lisp)
-(require-init 'init-racket)
-(require-init 'init-scheme)
-;; (require-init 'init-clojure)
+(require 'init-racket)
+(require 'init-scheme)
+;; (require 'init-clojure)
 (require 'init-erlang)
 (require 'init-ocaml)
 (require 'init-fsharp)
 (require 'init-elixir)
 (require 'init-go)
-(require-init 'init-lisp-tool)
+(require 'init-lisp-tool)
 
-(require-init 'init-clang-format)
-(require-init 'init-yaml)
-(require-init 'init-yasnippet)
+(require 'init-clang-format)
+(require 'init-yaml)
+(require 'init-yasnippet)
 
-;; (require-init 'init-python)
-(require-init 'init-c-and-c++)
+;; (require 'init-python)
+(require 'init-c-and-c++)
 ;; (require 'init-lua)
 ;; (require 'init-haskell)
 (require 'init-csharp)
 
-(require-init 'init-javascript)
-(require-init 'init-web)
+(require 'init-javascript)
+(require 'init-web)
 (require 'init-vue)
 (require 'init-prettier)
 ;; (require 'init-prettier-eslint)
 
-;; (require-init 'init-R)
+;; (require 'init-R)
 
 ;; (require 'init-lsp)
 ;; (require 'init-eglot)
 
-(require-init 'init-org)
-(require-init 'init-org-babel)
-(require-init 'init-org-tools)
-(require-init 'init-org-html)
+(require 'init-org)
+(require 'init-org-babel)
+(require 'init-org-tools)
+(require 'init-org-html)
 (require 'init-org-capture)
 (require 'init-org-ob-browser)
 
-(require-init 'init-plantuml)
-(require-init 'init-mermaid)
-(require-init 'init-graphviz)
+(require 'init-plantuml)
+(require 'init-mermaid)
+(require 'init-graphviz)
 
 (require 'init-sql)
 (require 'init-ejc-sql)
@@ -200,10 +200,10 @@
 (require 'init-shell)
 ;; (require 'init-eshell) ; disable it for not using currently
 
-;; (require-init 'init-pomodoro)
+;; (require 'init-pomodoro)
 
 ;; ===Tex related
-;; (require-init 'init-tex)
+;; (require 'init-tex)
 ;; (require 'init-bib)
 
 ;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
