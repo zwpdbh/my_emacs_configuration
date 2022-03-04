@@ -24,8 +24,9 @@
 (set-default 'fill-column 120)
 (add-hook 'org-mode-hook 'visual-line-mode)
 
-(when (maybe-require-package 'adaptive-wrap)
-  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
+(add-to-list 'load-path "~/.emacs.d/pre-install/adaptive-wrap")
+(require 'adaptive-wrap)
+(add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
 
 ;; ===== highlight current line 
 (setq global-hl-line-mode nil)
