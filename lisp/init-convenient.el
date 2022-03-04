@@ -41,16 +41,18 @@
 ;; M-x scratch, Immediately create a scratch buffer with the same major mode as the current buffer’s.
 ;; C-u M-x scratch, Prompts for a major mode to create a scratch buffer with.
 
-;; custom modeline to show file name 
+;; custom modeline to show file name
 (setq-default mode-line-buffer-identification
-              '(:eval (let* ((fullname (buffer-file-name (current-buffer)))
-                            (splited (split-string fullname "/"))
-                            (filename-part (last splited))
-                            (except-last (butlast splited))
-                            (parent-folder (last except-last)))
-                       (if (car parent-folder)
-                           (concat (car parent-folder) "/" (car filename-part))
-                         fullname))))
+              '(:eval (let ((fullname (buffer-file-name (current-buffer))))
+                        (if (not fullname)
+                            (buffer-name)
+                          (let* ((splited (split-string fullname "/"))
+                                 (filename-part (last splited))
+                                 (except-last (butlast splited))
+                                 (parent-folder (last except-last)))
+                            (if parent-folder
+                                (concat (car parent-folder) "/" (car filename-part))
+                              fullname))))))
 
 
 (provide 'init-convenient)
