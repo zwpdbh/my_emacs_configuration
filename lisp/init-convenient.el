@@ -51,7 +51,10 @@
                                  (except-last (butlast splited))
                                  (parent-folder (last except-last)))
                             (if parent-folder
-                                (concat (car parent-folder) "/" (car filename-part))
+                                (let ((project-path (my/project-root)))
+                                  (if project-path
+                                      (file-relative-name fullname project-path)
+                                    (concat (car parent-folder) "/" (car filename-part))))
                               fullname))))))
 
 
