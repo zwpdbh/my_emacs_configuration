@@ -1,3 +1,4 @@
+(require 'cl)
 (when (maybe-require-package 'slime)  
   ;; (require 'slime-autoloads)
   ;; set some contribs
