@@ -47,7 +47,9 @@
   (zw/set-company-backends-global)
 
   ;; company-ctags is much faster out of box. No further optimiation needed
-  (unless (featurep 'company-ctags) (local-require 'company-ctags))
+  (unless (featurep 'company-ctags)
+    (require 'company-ctags))
+  
   (company-ctags-auto-setup)
   
   (diminish 'company-mode)
