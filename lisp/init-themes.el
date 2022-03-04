@@ -21,7 +21,7 @@
 ;; ===set default theme
 (setq-default custom-enabled-theme 'doom-gruvbox)
 (unless (display-graphic-p)
-  (setq custom-enabled-theme 'doom-dracula))
+  (setq custom-enabled-theme 'doom-Iosvkem))
 
 
 ;; load theme and do customization for themes
