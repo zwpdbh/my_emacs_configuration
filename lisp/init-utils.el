@@ -11,6 +11,9 @@
     `(eval-after-load ,feature
        '(progn ,@body))))
 
+;;----------------------------------------------------------------------------
+;; Copy and Past from x-clipboard
+;;----------------------------------------------------------------------------
 (defun my-use-selected-string-or-ask (&optional hint)
   "Use selected region or ask user input for string."
   (if (region-active-p) (my-selected-str)
