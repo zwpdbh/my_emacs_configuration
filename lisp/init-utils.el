@@ -20,6 +20,28 @@
 (defun my-selected-str ()
   (buffer-substring-no-properties (region-beginning) (region-end)))
 
+(defun my-delete-selected-region ()
+  "Delete selected region."
+  (when (region-active-p)
+    (delete-region (region-beginning) (region-end))))
+
+(defun my-insert-str (str)
+  "Insert STR into current buffer."
+  ;; ivy8 or ivy9
+  (if (consp str) (setq str (cdr str)))
+  ;; evil-mode?
+  (if (and (functionp 'evil-normal-state-p)
+           (boundp 'evil-move-cursor-back)
+           (evil-normal-state-p)
+           (not (eolp))
+           (not (eobp)))
+      (forward-char))
+
+  (my-delete-selected-region)
+  ;; insert now
+  (insert str)
+  str)
+
 ;;----------------------------------------------------------------------------
 ;; Delete the current file
 ;;----------------------------------------------------------------------------
