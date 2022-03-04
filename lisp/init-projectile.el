@@ -1,6 +1,12 @@
 ;;; init-projectile.el --- Use Projectile for navigation within projects -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+(when (executable-find "ag")
+  (maybe-require-package 'ag))
+
+(when (executable-find "rg")
+  (maybe-require-package 'rg))
+
 (when (maybe-require-package 'projectile)
   (setq-default projectile-mode-line-prefix " Proj")
   (setq projectile-completion-system 'helm)

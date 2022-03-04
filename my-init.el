@@ -118,9 +118,9 @@
 ;; (require 'init-docker)
 
 (require 'init-dired)
-(require 'init-grep)
+;; (require 'init-grep)
 (require 'init-uniquify)
-(require 'init-ibuffer)
+;; (require 'init-ibuffer)
 (require 'init-flycheck)
 (require 'init-recentf)
 (require 'init-hippie-expand)
