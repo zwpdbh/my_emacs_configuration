@@ -128,7 +128,7 @@
 
 (require 'init-editing-utils)
 ;; (require 'init-mmm)
-(require 'init-vc)
+;; (require 'init-vc)
 (require 'init-git)
 
 
