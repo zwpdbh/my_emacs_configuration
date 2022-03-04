@@ -47,6 +47,7 @@
   (zw/set-company-backends-global)
 
   ;; company-ctags is much faster out of box. No further optimiation needed
+  (add-to-list 'load-path "~/.emacs.d/pre-install/company-ctags")
   (unless (featurep 'company-ctags)
     (require 'company-ctags))
   
