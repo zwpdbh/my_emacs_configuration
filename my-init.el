@@ -109,31 +109,22 @@
 (require 'init-convenient)
 (require 'init-clipboard)
 (require 'init-keybinding)
-;; (require 'init-whichkey)
 
 
-;; (require 'init-treemacs)
 (require 'init-markdown)
 (require 'init-json)
-;; (require 'init-docker)
 
 (require 'init-dired)
-;; (require 'init-grep)
 (require 'init-uniquify)
-;; (require 'init-ibuffer)
+
 (require 'init-flycheck)
 (require 'init-recentf)
 (require 'init-hippie-expand)
 (require 'init-windows)
 
 (require 'init-editing-utils)
-;; (require 'init-mmm)
-;; (require 'init-vc)
 (require 'init-git)
 
-
-;; (require 'init-compile)
-;; (require 'init-reveal)
 (require 'init-package)
 (require 'init-hydra)
 
@@ -143,40 +134,23 @@
 (require 'init-counsel-ivy-swiper)
 (require 'init-counsel-etags)
 
-;; (require 'init-terraform)
 (require 'init-eldoc)
 
 (require 'init-lisp)
-;; (require 'init-racket)
 (require 'init-scheme)
-;; (require 'init-clojure)
 (require 'init-erlang)
-;; (require 'init-ocaml)
-;; (require 'init-fsharp)
 (require 'init-elixir)
-;; (require 'init-go)
 (require 'init-lisp-tool)
 
 (require 'init-clang-format)
 (require 'init-yaml)
-;; (require 'init-yasnippet)
 
-;; (require 'init-python)
 (require 'init-c-and-c++)
-;; (require 'init-lua)
-;; (require 'init-haskell)
 (require 'init-csharp)
 
 (require 'init-javascript)
 (require 'init-web)
-;; (require 'init-vue)
 (require 'init-prettier)
-;; (require 'init-prettier-eslint)
-
-;; (require 'init-R)
-
-;; (require 'init-lsp)
-;; (require 'init-eglot)
 
 (require 'init-org)
 (require 'init-org-babel)
@@ -196,16 +170,6 @@
 (require 'init-indent)
 (require 'init-electrify)
 (require 'init-shell)
-;; (require 'init-eshell) ; disable it for not using currently
-
-;; (require 'init-pomodoro)
-
-;; ===Tex related
-;; (require 'init-tex)
-;; (require 'init-bib)
-
-;; ;; for Scimax is an Emacs starterkit for scientists and engineers. It provides a comprehensive configuration of Emacs for scientific programming and publishing.
-;; (require 'init-scimax)
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; emacs server related
