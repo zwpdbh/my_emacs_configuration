@@ -109,7 +109,7 @@
 (require 'init-convenient)
 (require 'init-clipboard)
 (require 'init-keybinding)
-(require 'init-whichkey)
+;; (require 'init-whichkey)
 
 
 ;; (require 'init-treemacs)

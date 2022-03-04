@@ -88,8 +88,8 @@ Version 2019-11-05"
 
 
 ;;; A simple visible bell which works in all terminal types
-(require-package 'mode-line-bell)
-(add-hook 'after-init-hook 'mode-line-bell-mode)
+;; (require-package 'mode-line-bell)
+;; (add-hook 'after-init-hook 'mode-line-bell-mode)
 
 
 
@@ -170,33 +170,8 @@ Version 2019-11-05"
 (when (maybe-require-package 'avy)
   (global-set-key (kbd "C-;") 'avy-goto-char-timer))
 
-;; (require-package 'multiple-cursors)
-;; ;; multiple-cursors
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-;; ;; From active region to multiple cursors:
-;; (global-set-key (kbd "C-c m r") 'set-rectangular-region-anchor)
-;; (global-set-key (kbd "C-c m c") 'mc/edit-lines)
-;; (global-set-key (kbd "C-c m e") 'mc/edit-ends-of-lines)
-;; (global-set-key (kbd "C-c m a") 'mc/edit-beginnings-of-lines)
 
 
-;; Train myself to use M-f and M-b instead
-(global-unset-key [M-left])
-(global-unset-key [M-right])
-
-
-
-(defun kill-back-to-indentation ()
-  "Kill from point back to the first non-whitespace character on the line."
-  (interactive)
-  (let ((prev-pos (point)))
-    (back-to-indentation)
-    (kill-region (point) prev-pos)))
-
-(global-set-key (kbd "C-M-<backspace>") 'kill-back-to-indentation)
 
 
 ;;----------------------------------------------------------------------------
@@ -245,100 +220,11 @@ Version 2019-11-05"
   (diminish 'whole-line-or-region-local-mode))
 
 
-;; ;; Some local minor modes clash with CUA rectangle selection
-
-;; (defvar-local sanityinc/suspended-modes-during-cua-rect nil
-;;   "Modes that should be re-activated when cua-rect selection is done.")
-
-;; (eval-after-load 'cua-rect
-;;   (advice-add 'cua--deactivate-rectangle :after
-;;               (lambda (&rest _)
-;;                 (dolist (m sanityinc/suspended-modes-during-cua-rect)
-;;                   (funcall m 1)
-;;                   (setq sanityinc/suspended-modes-during-cua-rect nil)))))
-
-;; (defun sanityinc/suspend-mode-during-cua-rect-selection (mode-name)
-;;   "Add an advice to suspend `MODE-NAME' while selecting a CUA rectangle."
-;;   (eval-after-load 'cua-rect
-;;     (advice-add 'cua--activate-rectangle :after
-;;                 (lambda (&rest _)
-;;                   (when (bound-and-true-p mode-name)
-;;                     (push mode-name sanityinc/suspended-modes-during-cua-rect)
-;;                     (funcall mode-name 0))))))
-
-;; (sanityinc/suspend-mode-during-cua-rect-selection 'whole-line-or-region-local-mode)
-
-
-
-
-(defun sanityinc/open-line-with-reindent (n)
-  "A version of `open-line' which reindents the start and end positions.
-If there is a fill prefix and/or a `left-margin', insert them
-on the new line if the line would have been blank.
-With arg N, insert N newlines."
-  (interactive "*p")
-  (let* ((do-fill-prefix (and fill-prefix (bolp)))
-         (do-left-margin (and (bolp) (> (current-left-margin) 0)))
-         (loc (point-marker))
-         ;; Don't expand an abbrev before point.
-         (abbrev-mode nil))
-    (delete-horizontal-space t)
-    (newline n)
-    (indent-according-to-mode)
-    (when (eolp)
-      (delete-horizontal-space t))
-    (goto-char loc)
-    (while (> n 0)
-      (cond ((bolp)
-             (if do-left-margin (indent-to (current-left-margin)))
-             (if do-fill-prefix (insert-and-inherit fill-prefix))))
-      (forward-line 1)
-      (setq n (1- n)))
-    (goto-char loc)
-    (end-of-line)
-    (indent-according-to-mode)))
-
-(global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
-
-
-;;----------------------------------------------------------------------------
-;; Random line sorting
-;;----------------------------------------------------------------------------
-(defun sanityinc/sort-lines-random (beg end)
-  "Sort lines in region from BEG to END randomly."
-  (interactive "r")
-  (save-excursion
-    (save-restriction
-      (narrow-to-region beg end)
-      (goto-char (point-min))
-      (let ;; To make `end-of-line' and etc. to ignore fields.
-          ((inhibit-field-text-motion t))
-        (sort-subr nil 'forward-line 'end-of-line nil nil
-                   (lambda (s1 s2) (eq (random 2) 0)))))))
-
-
-
-
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
 
-
-(require-package 'which-key)
-(add-hook 'after-init-hook 'which-key-mode)
-(setq-default which-key-idle-delay 1.5)
-(after-load 'which-key
-  (diminish 'which-key-mode))
 
-
-(defun sanityinc/disable-features-during-macro-call (orig &rest args)
-  "When running a macro, disable features that might be expensive.
-ORIG is the advised function, which is called with its ARGS."
-  (let (post-command-hook
-        font-lock-mode
-        (tab-always-indent (or (eq 'complete tab-always-indent) tab-always-indent)))
-    (apply orig args)))
 
-(advice-add 'kmacro-call-macro :around 'sanityinc/disable-features-during-macro-call)
 
 
 (provide 'init-editing-utils)

@@ -28,6 +28,9 @@
     (global-set-key (kbd "M-=") 'er/expand-region)
     (global-set-key (kbd "M--") 'er/contract-region)))
 
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
 
 ;; Instant scratch buffer for current mode
 ;; https://github.com/ieure/scratch-el
