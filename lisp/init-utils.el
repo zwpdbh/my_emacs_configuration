@@ -11,6 +11,11 @@
     `(eval-after-load ,feature
        '(progn ,@body))))
 
+(defun my-use-selected-string-or-ask (&optional hint)
+  "Use selected region or ask user input for string."
+  (if (region-active-p) (my-selected-str)
+    (if (or (not hint) (string= "" hint)) (thing-at-point 'symbol)
+      (read-string hint))))
 
 ;;----------------------------------------------------------------------------
 ;; Delete the current file
