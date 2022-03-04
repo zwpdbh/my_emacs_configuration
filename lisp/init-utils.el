@@ -17,6 +17,9 @@
     (if (or (not hint) (string= "" hint)) (thing-at-point 'symbol)
       (read-string hint))))
 
+(defun my-selected-str ()
+  (buffer-substring-no-properties (region-beginning) (region-end)))
+
 ;;----------------------------------------------------------------------------
 ;; Delete the current file
 ;;----------------------------------------------------------------------------
