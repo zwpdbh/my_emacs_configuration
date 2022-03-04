@@ -132,7 +132,7 @@
 (require 'init-git)
 
 
-(require 'init-compile)
+;; (require 'init-compile)
 ;; (require 'init-reveal)
 (require 'init-package)
 (require 'init-hydra)
