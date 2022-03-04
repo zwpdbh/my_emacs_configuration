@@ -16,28 +16,5 @@
   :defer t
   :ensure t)
 
-(use-package docker-tramp
-  ;; C-x C-f /docker:user@container:/path/to/file, where:
-  ;; user is the user that you want to use
-  ;; container is the id or name of the container 
-  :defer t
-  :ensure t
-  :after (dockerfile-mode))
-
-(use-package eshell-bookmark
-  :defer t 
-  :after eshell
-  :config 
-  (add-hook 'eshell-mode-hook #'eshell-bookmark-setup))
-
-;; Use emacs to manage dockers
-;; https://github.com/Silex/docker.el
-(use-package docker
-  :ensure t
-  :defer t)
-(add-hook 'after-init-hook
-          '(lambda ()
-             (global-set-key (kbd "C-c d") 'docker)))
-
 
 (provide 'init-docker)

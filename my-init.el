@@ -115,7 +115,7 @@
 ;; (require 'init-treemacs)
 (require 'init-markdown)
 (require 'init-json)
-(require 'init-docker)
+;; (require 'init-docker)
 
 (require 'init-dired)
 (require 'init-grep)
