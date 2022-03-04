@@ -147,19 +147,19 @@
 (require 'init-eldoc)
 
 (require 'init-lisp)
-(require 'init-racket)
+;; (require 'init-racket)
 (require 'init-scheme)
 ;; (require 'init-clojure)
 (require 'init-erlang)
-(require 'init-ocaml)
-(require 'init-fsharp)
+;; (require 'init-ocaml)
+;; (require 'init-fsharp)
 (require 'init-elixir)
-(require 'init-go)
+;; (require 'init-go)
 (require 'init-lisp-tool)
 
 (require 'init-clang-format)
 (require 'init-yaml)
-(require 'init-yasnippet)
+;; (require 'init-yasnippet)
 
 ;; (require 'init-python)
 (require 'init-c-and-c++)
@@ -169,7 +169,7 @@
 
 (require 'init-javascript)
 (require 'init-web)
-(require 'init-vue)
+;; (require 'init-vue)
 (require 'init-prettier)
 ;; (require 'init-prettier-eslint)
 
