@@ -49,12 +49,6 @@
           (display-buffer (process-buffer (alchemist-iex-process)))
           (deactivate-mark))))
 
-    (defun zw/alchemist-iex-compile-this-buffer ()
-      (interactive)
-      (save-excursion
-        (alchemist-iex-compile-this-buffer)
-        (display-buffer (process-buffer (alchemist-iex-process)))))
-
     ;; (add-hook 'alchemist-iex-mode-hook
     ;;           (lambda ()
     ;;             (zw/set-company-backends-for-elixir)))
@@ -76,8 +70,9 @@
                 (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
                 (define-key elixir-mode-map (kbd "<f1>") 'zw/alchemist-iex-send-region)
-                (define-key elixir-mode-map (kbd "C-c C-l") 'zw/alchemist-iex-compile-this-buffer)
+                (define-key elixir-mode-map (kbd "C-c b") 'alchemist-iex-compile-this-buffer)
 
+                
                 (define-key elixir-mode-map (kbd "C-c m") 'alchemist-macroexpand-current-line)
                 (define-key elixir-mode-map (kbd "C-c r") 'alchemist-macroexpand-region)
                 (define-key elixir-mode-map (kbd "C-c C-p") 'alchemist-macroexpand-print-current-line)
