@@ -5,7 +5,9 @@
   (maybe-require-package 'ag))
 
 (when (executable-find "rg")
-  (maybe-require-package 'rg))
+  (maybe-require-package 'rg)
+  (when (maybe-require-package 'find-file-rg)
+    (global-set-key (kbd "C-c f") 'find-file-rg)))
 
 (when (maybe-require-package 'projectile)
   (setq-default projectile-mode-line-prefix " Proj")
