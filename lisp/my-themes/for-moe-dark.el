@@ -2,9 +2,9 @@
                     :slant 'normal)
 
 (set-face-attribute 'consult-preview-line nil
-                    :foreground "Yellow"
-                    :background (face-background 'default nil t))
+                    :foreground "#86dc2f"
+                    :background "Black")
 
 (set-face-attribute 'consult-preview-cursor nil
-                    :foreground (face-foreground 'default nil t)
-                    :background (face-background 'default nil t))
+                    :foreground "#86dc2f"
+                    :background "Black")
