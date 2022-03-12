@@ -8,3 +8,7 @@
 (set-face-attribute 'consult-preview-cursor nil
                     :foreground "#86dc2f"
                     :background "Black")
+
+(set-face-attribute 'region nil
+                    :foreground (face-foreground 'default t t)
+                    :background "gray23")
