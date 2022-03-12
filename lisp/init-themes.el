@@ -41,43 +41,20 @@
   (zw/customize-pkg-with-fn 'helm 'zw/customize-themes-for-helm)
 
   ;; TODO: why zw/customize-pkg-with-fn doesn't work for scenarios need after-load
-  (if (featurep 'selectrum)
-      (funcall 'zw/customize-themes-for-selectrum)
-    (after-load 'selectrum
-      (funcall 'zw/customize-themes-for-selectrum)))
+  (defun zw/customize-package-attribute-for-theme (package-name customize-fn)
+    (if (featurep package-name)
+        (funcall customize-fn)
+      (after-load package-name
+        (funcall customize-fn))))
+  (zw/customize-package-attribute-for-theme 'selectrum 'zw/customize-themes-for-selectrum)
+  (zw/customize-package-attribute-for-theme 'symbol-overlay 'zw/customize-themes-for-symbol-overlay)
+  (zw/customize-package-attribute-for-theme 'indent-guide 'zw/customize-themes-for-indent-guide)
+  (zw/customize-package-attribute-for-theme 'org 'zw/customize-themes-for-org)
+  (zw/customize-package-attribute-for-theme 'company 'zw/customize-themes-for-company)
+  (zw/customize-package-attribute-for-theme 'ivy 'zw/customize-themes-for-ivy)
+  (zw/customize-package-attribute-for-theme 'dashboard 'zw/customize-themes-for-dashboard)
   
-  (if (featurep 'symbol-overlay)
-      (funcall 'zw/customize-themes-for-symbol-overlay)
-    (after-load 'symbol-overlay
-      (funcall 'zw/customize-themes-for-symbol-overlay)))
-
-  (if (featurep 'indent-guide)
-      (funcall 'zw/customize-themes-for-indent-guide)
-    (after-load 'indent-guide
-      (funcall 'zw/customize-themes-for-indent-guide)))
-  
-  (if (featurep 'org)
-      (funcall 'zw/customize-themes-for-org)
-    (after-load 'org
-      (funcall 'zw/customize-themes-for-org)))
-
-  (if (featurep 'company)
-      (funcall 'zw/customize-themes-for-company)
-      (after-load 'company
-        (funcall 'zw/customize-themes-for-company)))
-
-  (if (featurep 'ivy)
-      (funcall 'zw/customize-themes-for-ivy)
-    (after-load 'ivy
-      (funcall 'zw/customize-themes-for-ivy)))
-
-  (if (featurep 'dashboard)
-      (funcall 'zw/customize-themes-for-dashboard)
-    (after-load 'ivy
-      (funcall 'zw/customize-themes-for-dashboard)))
-
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens)
-
   (zw/customize-themes-for-particular-one))
 
 

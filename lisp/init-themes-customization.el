@@ -73,7 +73,9 @@
                       :inherit nil
                       :underline nil
                       :weight 'normal
-                      :foreground (face-foreground 'default t t)))
+                      :foreground (face-foreground 'default t t))
+  (set-face-attribute 'selectrum-current-candidate nil
+                      :background (face-attribute 'helm-selection :background)))
 
 (defun zw/customize-themes-for-flycheck ()
   (set-face-attribute 'flycheck-error nil
@@ -92,10 +94,12 @@
                       :weight 'normal))
 
 (defun zw/customize-themes-for-ivy ()
-  (set-face-attribute 'ivy-current-match nil
-                      :weight 'normal)
   ;; make selection highlight-background expand full width of the minibuffer
   (setcdr (assoc t ivy-format-functions-alist) #'ivy-format-function-line)
+  
+  (set-face-attribute 'ivy-current-match nil
+                      :weight 'normal
+                      :background (face-attribute 'helm-selection :background))
 
   ;; ;; Face for ‘ivy’ minibuffer matches covered by inputs
   (set-face-attribute 'ivy-minibuffer-match-face-1 nil
