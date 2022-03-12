@@ -9,12 +9,12 @@
 ;;----------------------------------------------------------------------------
 ;; Stop C-z from minimizing windows under OS X
 ;;----------------------------------------------------------------------------
-(defun sanityinc/maybe-suspend-frame ()
-  (interactive)
-  (unless (and *is-a-mac* window-system)
-    (suspend-frame)))
+;; (defun sanityinc/maybe-suspend-frame ()
+;;   (interactive)
+;;   (unless (and *is-a-mac* window-system)
+;;     (suspend-frame)))
 
-(global-set-key (kbd "C-z") 'sanityinc/maybe-suspend-frame)
+;; (global-set-key (kbd "C-z") 'sanityinc/maybe-suspend-frame)
 
 
 (add-hook 'after-init-hook
@@ -52,10 +52,10 @@
                (add-to-list 'default-frame-alist no-border)
                (add-to-list 'initial-frame-alist no-border))
 
-             (when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
-               ;; Command-Option-f to toggle fullscreen mode
-               ;; Hint: Customize `ns-use-native-fullscreen'
-               (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
+             ;; (when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
+             ;;   ;; Command-Option-f to toggle fullscreen mode
+             ;;   ;; Hint: Customize `ns-use-native-fullscreen'
+             ;;   (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
              (when *is-a-mac*
                (when (maybe-require-package 'ns-auto-titlebar)
