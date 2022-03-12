@@ -4,19 +4,7 @@
 
 (maybe-require-package 'counsel)
 (maybe-require-package 'swiper)
-
-(when (maybe-require-package 'ivy)
-  (when (maybe-require-package 'ivy-xref)
-    ;; xref initialization is different in Emacs 27 - there are two different
-    ;; variables which can be set rather than just one
-    (when (>= emacs-major-version 27)
-      (setq xref-show-definitions-function #'ivy-xref-show-defs))
-    ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
-    ;; commands other than xref-find-definitions (e.g. project-find-regexp)
-    ;; as well
-    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)))
-
-
+(maybe-require-package 'ivy)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 
 

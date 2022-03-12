@@ -31,45 +31,45 @@ If N is not nil, copy file name and line number."
       (copy-yank-str s)
       (message "%s => clipboard&kill-ring" s))))
 
-(defun cp-ffip-ivy-last ()
-  "Copy visible keys of `ivy-last' into `kill-ring' and clipboard."
-  (interactive)
-  (my-ensure 'find-file-in-project)
-  (when ffip-ivy-last-saved
-    (copy-yank-str
-     (mapconcat (lambda (e)
-                  (format "%S" (if (consp e) (car e) e)))
-                (ivy-state-collection ffip-ivy-last-saved)
-                "\n"))
-    (message "%d items from ivy-last => clipboard & yank ring" (length ivy-last))))
+;; (defun cp-ffip-ivy-last ()
+;;   "Copy visible keys of `ivy-last' into `kill-ring' and clipboard."
+;;   (interactive)
+;;   (my-ensure 'find-file-in-project)
+;;   (when ffip-ivy-last-saved
+;;     (copy-yank-str
+;;      (mapconcat (lambda (e)
+;;                   (format "%S" (if (consp e) (car e) e)))
+;;                 (ivy-state-collection ffip-ivy-last-saved)
+;;                 "\n"))
+;;     (message "%d items from ivy-last => clipboard & yank ring" (length ivy-last))))
 
-(defun cp-fullpath-of-current-buffer ()
-  "Copy full path into the yank ring and OS clipboard"
-  (interactive)
-  (when buffer-file-name
-    (copy-yank-str (file-truename buffer-file-name))
-    (message "file full path => clipboard & yank ring")))
+;; (defun cp-fullpath-of-current-buffer ()
+;;   "Copy full path into the yank ring and OS clipboard"
+;;   (interactive)
+;;   (when buffer-file-name
+;;     (copy-yank-str (file-truename buffer-file-name))
+;;     (message "file full path => clipboard & yank ring")))
 
-(defun clipboard-to-kill-ring ()
-  "Copy from clipboard to `kill-ring'."
-  (interactive)
-  (let* ((warning-minimum-level :emergency))
-    (kill-new (my-gclip)))
-  (message "clipboard => kill-ring"))
+;; (defun clipboard-to-kill-ring ()
+;;   "Copy from clipboard to `kill-ring'."
+;;   (interactive)
+;;   (let* ((warning-minimum-level :emergency))
+;;     (kill-new (my-gclip)))
+;;   (message "clipboard => kill-ring"))
 
-(defun kill-ring-to-clipboard ()
-  "Copy from `kill-ring' to clipboard."
-  (interactive)
-  (my-select-from-kill-ring (lambda (s)
-                              (let* ((summary (car s))
-                                     (hint " => clipboard" )
-                                     (msg (if (string-match-p "\.\.\.$" summary)
-                                              (substring summary 0 (- (length summary) (length hint)))
-                                            msg)))
-                                ;; cc actual string
-                                (my-pclip (cdr s))
-                                ;; echo
-                                (message "%s%s" msg hint)))))
+;; (defun kill-ring-to-clipboard ()
+;;   "Copy from `kill-ring' to clipboard."
+;;   (interactive)
+;;   (my-select-from-kill-ring (lambda (s)
+;;                               (let* ((summary (car s))
+;;                                      (hint " => clipboard" )
+;;                                      (msg (if (string-match-p "\.\.\.$" summary)
+;;                                               (substring summary 0 (- (length summary) (length hint)))
+;;                                             msg)))
+;;                                 ;; cc actual string
+;;                                 (my-pclip (cdr s))
+;;                                 ;; echo
+;;                                 (message "%s%s" msg hint)))))
 
 (defun my-gclip ()
   "Get clipboard content."

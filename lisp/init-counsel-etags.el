@@ -17,23 +17,9 @@
     ;; So, the counsel-etags failed to find available ctags program
     (if *win64*
         (add-to-list 'exec-path "c:/ProgramData/chocolatey/bin/")
-      (add-to-list 'exec-path "/snap/bin/"))
-    
-    (defun zw/counsel-etags-grep-at-point ()
-      (interactive)
-      (counsel-etags-grep (counsel-etags-tagname-at-point) nil nil t))
+      (add-to-list 'exec-path "/snap/bin/"))        
 
-    (when (fboundp 'consult-ripgrep)
-      (defun zw/consult-ripgrep-at-point (&optional dir initial)
-        "zw modified: Search for regexp with rg in DIR with INITIAL input.
-
-See `consult-grep' for more details."
-        (interactive "P")
-        (unless initial (setq initial (counsel-etags-tagname-at-point)))
-        (unless dir (setq dir (funcall consult-project-root-function)))
-        
-        (consult--grep "Ripgrep" #'consult--ripgrep-builder dir initial))
-
+    (when (fboundp 'consult-ripgrep)      
       ;; try to use counsel-ripgrep
       (defun zw/counsel-etags-find-tag-api (tagname fuzzy current-file)
         "Find TAGNAME using FUZZY algorithm from CURRENT-FILE."
@@ -81,31 +67,12 @@ See `consult-grep' for more details."
             (zw/counsel-etags-find-tag-api tagname nil buffer-file-name))
            (t
             (message "No tag at point")))))
-
       (after-load 'consult
         (consult-customize
-         zw/consult-ripgrep-at-point
          zw/counsel-etags-find-tag-at-point
-         :preview-key (kbd "M-."))))
-    
-    ;; adjust key-bindings for counsel-etags
-    (defun zw/counsel-etags-key-bindings ()
-      (interactive)      
-      (if (fboundp 'zw/consult-ripgrep-at-point)
-          (progn
-            (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
-            (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point))
-        (progn
-          (define-key (current-local-map) (kbd "M-.") 'counsel-etags-find-tag-at-point)
-          (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point))))
+         :preview-key (kbd "M-.")))))
 
-    (setq zw/use-counsel-etags-modes '(yaml-mode
-                                       json-mode))
-
-    (dolist (each-mode zw/use-counsel-etags-modes)
-      (add-hook (intern (format "%s-hook" each-mode))
-                'zw/counsel-etags-setup)))
-
+  
 
   ;; Ignore directories and files
   (after-load 'counsel-etags
@@ -134,11 +101,28 @@ See `consult-grep' for more details."
   (add-hook 'after-init-hook (lambda () (require 'counsel-etags))))
 
 
-(defun zw/counsel-etags-setup ()
-  (interactive)
-  (when (fboundp 'zw/counsel-etags-key-bindings)
-    (zw/counsel-etags-key-bindings)
-    (add-hook 'after-save-hook
-              'counsel-etags-virtual-update-tags 'append 'local)))
+;; adjust key-bindings for counsel-etags
+(when (fboundp 'zw/counsel-etags-find-tag-at-point)
+  (defun zw/counsel-etags-key-bindings ()
+    (interactive)
+    (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
+    (if (fboundp 'zw/consult-ripgrep-at-point)
+        (define-key (current-local-map) (kbd "M-/") 'zw/consult-ripgrep-at-point)
+      (define-key (current-local-map) (kbd "M-/") 'zw/counsel-etags-grep-at-point)))
+
+  (setq zw/use-counsel-etags-modes '(yaml-mode
+                                     json-mode))
+
+  (dolist (each-mode zw/use-counsel-etags-modes)
+    (add-hook (intern (format "%s-hook" each-mode))
+              'zw/counsel-etags-setup))
+
+  (defun zw/counsel-etags-setup ()
+    (interactive)
+    (when (fboundp 'zw/counsel-etags-key-bindings)
+      (zw/counsel-etags-key-bindings)
+      (add-hook 'after-save-hook
+                'counsel-etags-virtual-update-tags 'append 'local))))
+
 
 (provide 'init-counsel-etags)

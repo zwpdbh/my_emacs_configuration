@@ -1,11 +1,11 @@
 (setq coding-system-for-write 'utf-8-unix)
 ;; ===== set buffer and shell 
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (progn
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize))))
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (when (memq window-system '(mac ns x))
+;;       (exec-path-from-shell-initialize))))
 
 ;; Show actual color from hex code or color string.
 ;; Run "M-x rainbow-mode" when needed.
