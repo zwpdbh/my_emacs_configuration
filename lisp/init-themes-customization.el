@@ -44,8 +44,10 @@
   (set-face-attribute 'company-tooltip nil
                       :weight 'normal)
   (set-face-attribute 'company-tooltip-common nil
+                      :weight 'normal
                       :underline nil)
   (set-face-attribute 'company-tooltip-common-selection nil
+                      :weight 'normal
                       :underline nil))
 
 

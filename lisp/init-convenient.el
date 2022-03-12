@@ -7,6 +7,8 @@
     (when (memq window-system '(mac ns x))
       (exec-path-from-shell-initialize))))
 
+;; Show actual color from hex code or color string.
+;; Run "M-x rainbow-mode" when needed.
 (maybe-require-package 'rainbow-mode)
 
 ;; ===== try 
