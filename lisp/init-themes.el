@@ -55,6 +55,7 @@
   (zw/customize-package-attribute-for-theme 'dashboard 'zw/customize-themes-for-dashboard)
   
   (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens)
+  ;; Finally, adjust some appearence based on current theme 
   (zw/customize-themes-for-particular-one))
 
 
