@@ -105,12 +105,16 @@
 
   ;; ;; Face for ‘ivy’ minibuffer matches covered by inputs
   (set-face-attribute 'ivy-minibuffer-match-face-1 nil
+                      :background (face-background 'default t t)
                       :weight 'normal)
   (set-face-attribute 'ivy-minibuffer-match-face-2 nil
+                      :background (face-background 'default t t)
                       :weight 'normal)
   (set-face-attribute 'ivy-minibuffer-match-face-3 nil
+                      :background (face-background 'default t t)
                       :weight 'normal)
   (set-face-attribute 'ivy-minibuffer-match-face-4 nil
+                      :background (face-background 'default t t)
                       :weight 'normal))
 
 (defun zw/customize-themes-for-swiper ()
