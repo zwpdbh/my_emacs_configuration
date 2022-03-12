@@ -17,9 +17,12 @@
   :ensure t
   :defer t)
 
+(use-package moe-theme
+  :ensure t
+  :defer t)
 
 ;; ===set default theme
-(setq-default custom-enabled-theme 'doom-dark+)
+(setq-default custom-enabled-theme 'moe-dark)
 (unless (display-graphic-p)
   (setq custom-enabled-theme 'wombat))
 
@@ -27,6 +30,7 @@
 ;; load theme and do customization for themes
 (defun zw/load-theme ()
   (interactive)
+  ;; load functions which does customization
   (require 'init-themes-customization)
   
   (load-theme custom-enabled-theme)
@@ -72,9 +76,9 @@
     (after-load 'ivy
       (funcall 'zw/customize-themes-for-dashboard)))
 
-  
+  (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens)
 
-  (add-hook 'smartparens-mode-hook 'zw/customize-themes-for-smartparens))
+  (zw/customize-themes-for-particular-one))
 
 
 ;; Don't prompt to confirm theme safety. This 

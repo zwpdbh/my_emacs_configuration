@@ -8,13 +8,13 @@
 ;; Use helm-colors (C-c h c) to filter out different color and view different faces!
 (defun zw/customize-themes-for-general ()
   (set-face-attribute 'line-number-current-line nil
-                      :weight 'normal)
-  
-  (cond ((string-match-p "tango-dark" (symbol-name custom-enabled-theme))
-         (set-face-attribute 'highlight nil
-                             :underline nil
-                             :foreground (face-foreground 'default t t)
-                             :background "Black"))))
+                      :weight 'normal))
+
+(defun zw/customize-themes-for-particular-one ()
+  (let* ((current-theme (symbol-name custom-enabled-theme))
+         (config-file (concat "~/.emacs.d/lisp/my-themes/" "for-" current-theme ".el")))
+    (when (file-exists-p config-file)
+      (load config-file))))
 
 (defun zw/customize-themes-for-dashboard ()
   (set-face-attribute 'dashboard-items-face nil
