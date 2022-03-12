@@ -19,7 +19,7 @@
 
 
 ;; ===set default theme
-(setq-default custom-enabled-theme 'doom-gruvbox)
+(setq-default custom-enabled-theme 'doom-dark+)
 (unless (display-graphic-p)
   (setq custom-enabled-theme 'wombat))
 
