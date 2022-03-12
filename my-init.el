@@ -89,7 +89,7 @@
 (require 'init-clipboard)
 (require 'init-keybinding)
 
-(require 'init-frame-hooks)
+;; (require 'init-frame-hooks)
 (require 'init-xterm)
 
 ;; set my favorite themes

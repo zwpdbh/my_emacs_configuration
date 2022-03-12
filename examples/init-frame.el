@@ -23,7 +23,7 @@ Selectively runs either `after-make-console-frame-hooks' or
 
 (add-hook 'after-init-hook
           (lambda () (when sanityinc/initial-frame
-                  (run-after-make-frame-hooks sanityinc/initial-frame))))
+                   (run-after-make-frame-hooks sanityinc/initial-frame))))
 
 
 (provide 'init-frame-hooks)
