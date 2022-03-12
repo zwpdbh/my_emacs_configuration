@@ -7,19 +7,12 @@
     (when (memq window-system '(mac ns x))
       (exec-path-from-shell-initialize))))
 
+(maybe-require-package 'rainbow-mode)
 
 ;; ===== try 
 (use-package try
   :commands (try)
   :ensure t)
-
-;; ===== set mode-line
-(when *all-the-icons-installed-p*
-  (use-package doom-modeline
-    :ensure t
-    :init (setq doom-modeline-vcs-max-length 20)
-    :hook (after-init . doom-modeline-mode)))
-
 
 (use-package expand-region
   :ensure t

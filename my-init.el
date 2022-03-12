@@ -85,6 +85,10 @@
 (maybe-require-package 'scratch)
 (maybe-require-package 'command-log-mode)
 
+(require 'init-convenient)
+(require 'init-clipboard)
+(require 'init-keybinding)
+
 (require 'init-frame-hooks)
 (require 'init-xterm)
 
@@ -104,12 +108,6 @@
 (require 'init-consult)
 (require 'init-projectile)
 (require 'init-parenthese)
-
-
-(require 'init-convenient)
-(require 'init-clipboard)
-(require 'init-keybinding)
-
 
 (require 'init-markdown)
 (require 'init-json)
