@@ -103,7 +103,7 @@
 
 ;; adjust key-bindings for counsel-etags
 (when (fboundp 'zw/counsel-etags-find-tag-at-point)
-  (defun zw/counsel-etags-key-bindings ()
+  (defun zw/setup-counsel-etags-key-bindings ()
     (interactive)
     (define-key (current-local-map) (kbd "M-.") 'zw/counsel-etags-find-tag-at-point)
     (if (fboundp 'zw/consult-ripgrep-at-point)
@@ -119,8 +119,8 @@
 
   (defun zw/counsel-etags-setup ()
     (interactive)
-    (when (fboundp 'zw/counsel-etags-key-bindings)
-      (zw/counsel-etags-key-bindings)
+    (when (fboundp 'zw/setup-counsel-etags-key-bindings)
+      (zw/setup-counsel-etags-key-bindings)
       (add-hook 'after-save-hook
                 'counsel-etags-virtual-update-tags 'append 'local))))
 

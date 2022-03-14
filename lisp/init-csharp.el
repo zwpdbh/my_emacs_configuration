@@ -17,15 +17,7 @@
     (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
     (local-set-key (kbd "C-c C-c") 'recompile)
 
-    (if (fboundp 'omnisharp-find-implementations)
-        (progn
-          (omnisharp-mode t)
-          (setq-local company-backends (zw/add-to-company-backends 'company-omnisharp))
-          (define-key csharp-mode-map (kbd "M-.") 'omnisharp-find-implementations)
-          (if (fboundp 'zw/consult-ripgrep-at-point)
-              (define-key csharp-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point)
-            (define-key csharp-mode-map (kbd "M-/") 'omnisharp-find-usages)))
-      (zw/counsel-etags-setup)))
+    (zw/counsel-etags-setup))
 
   (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
   (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
