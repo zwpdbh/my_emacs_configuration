@@ -177,7 +177,12 @@
           (lambda ()
             (require 'server)
             (unless (server-running-p)
-              (server-start))))
+              (when (and (>= emacs-major-version 23)
+                         (equal window-system 'w32))
+                (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
+                                                               ; ~/.emacs.d/server is unsafe"
+                                                               ; on windows. 
+                (server-start))))
 
 ;; define function to shutdown emacs server instance
 (defun zw/emacs-server-shutdown ()
