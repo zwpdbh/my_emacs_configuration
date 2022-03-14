@@ -87,9 +87,10 @@
                              :debounce 1 'any))
     (consult-customize
      consult-ripgrep consult-git-grep consult-grep
+     zw/consult-ripgrep-at-point
      consult-bookmark consult-buffer consult-recent-file
      consult-xref
-     consult--source-bookmark     
+     consult--source-bookmark
      :preview-key (kbd "M-."))))
 
 
