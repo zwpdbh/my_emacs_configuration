@@ -168,6 +168,7 @@
 (require 'init-indent)
 (require 'init-electrify)
 (require 'init-shell)
+(require 'init-powershell)
 
 ;; ;;----------------------------------------------------------------------------
 ;; ;; emacs server related
