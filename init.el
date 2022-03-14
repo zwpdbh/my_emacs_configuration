@@ -10,6 +10,11 @@
 ;; Don't forget to copy/move .ssh keys from actual home folder of your windows to "D:/"
 ;; (If there is no other drivers, then change "D:/" to "C:/" for all related places.)
 
+;; We also need to prepare the following programs to make all works well
+;; === For windows
+;; choco install universal-ctags
+;; choco install rg 
+
 
 ;; To fix error: No version of gnu-elpa-keyring-update >= nil is available
 (when (version<= emacs-version "26.3")
