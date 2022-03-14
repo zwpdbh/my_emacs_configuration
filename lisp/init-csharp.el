@@ -1,8 +1,5 @@
 (when (executable-find "dotnet")
   (maybe-require-package 'csharp-mode)
-  ;; After the package is installed you’ll need to install the omnisharp server by
-  ;; running M-x omnisharp-install-server
-  (maybe-require-package 'omnisharp)
 
   (defun my-csharp-mode-hook ()
     (setq-local indent-tabs-mode nil)
@@ -14,9 +11,7 @@
     (c-set-style "ellemtel")
     (flycheck-mode -1)
 
-    (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
     (local-set-key (kbd "C-c C-c") 'recompile)
-
     (zw/counsel-etags-setup))
 
   (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
