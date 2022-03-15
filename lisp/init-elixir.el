@@ -2,6 +2,9 @@
 ;; ref: https://www.badykov.com/emacs/2020/05/30/emacs-setup-for-elixir/
 ;; ref: https://erick.navarro.io/blog/minimal-setup-for-elixir-development-in-emacs/
 
+;; When install erlang and elixir on Windows, we have to install them in a path without "blank".
+;; So, DO NOT install them under path like: "C:\Program Files (x86)".
+;; It will cause alchemist-iex consider them as extra command argument!
 (when (and
        (executable-find "iex")
        (executable-find "elixir")
