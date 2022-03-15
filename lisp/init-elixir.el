@@ -53,6 +53,7 @@
     (add-hook 'elixir-mode-hook
               (lambda ()
                 (alchemist-mode t)
+                (zw/set-company-backends-for-elixir)
                 (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
                 (define-key elixir-mode-map (kbd "<f1>") 'zw/alchemist-iex-send-region)
@@ -74,7 +75,6 @@
 
   (add-hook 'elixir-mode-hook
             (lambda ()
-              (zw/set-company-backends-for-elixir)
               (define-key elixir-mode-map (kbd "<M-return>") 'zw/insert-elixir-pipe-operator)
               (when (fboundp 'zw/consult-ripgrep-at-point)
                 (define-key elixir-mode-map (kbd "M-/") 'zw/consult-ripgrep-at-point))
