@@ -182,7 +182,7 @@
                 (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
                                                                ; ~/.emacs.d/server is unsafe"
                                                                ; on windows. 
-                (server-start))))
+              (server-start))))
 
 ;; define function to shutdown emacs server instance
 (defun zw/emacs-server-shutdown ()
