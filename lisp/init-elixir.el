@@ -52,8 +52,10 @@
     
     (add-hook 'elixir-mode-hook
               (lambda ()
+                ;; adjust company-backends immediately after alchemist-mode is invoked.
                 (alchemist-mode t)
-                (zw/set-company-backends-for-elixir)
+                (zw/set-company-backends-for-elixir) 
+                
                 (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
                 (define-key elixir-mode-map (kbd "<f1>") 'zw/alchemist-iex-send-region)
