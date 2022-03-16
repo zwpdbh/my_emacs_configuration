@@ -19,6 +19,7 @@
   (interactive)
   ;; Because (merlin-mode t) will automatically register company-backends from merlin-company.el, so we need to remove it first
   (setq-local company-backends (zw/delete-from-company-backends 'merlin-company-backend))
+  ;; Then, add its backend properly into my global backends
   (setq-local company-backends (zw/add-to-company-backends 'merlin-company-backend))
   (setq-local company-backends (zw/delete-from-company-backends 'company-capf)))
 
@@ -71,6 +72,7 @@
   (add-hook 'tuareg-mode-hook
             (lambda ()
               (zw/set-paredit-for-ocaml)
+              ;; adjust company-backends immediately after merlin-mode is invoked.
               (merlin-mode t)
               (zw/set-company-backends-for-ocaml)
 
