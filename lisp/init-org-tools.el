@@ -160,4 +160,9 @@
   (setq org-latex-listings t)
   (setq org-latex-listings-options '(("breaklines" "true"))))
 
+;; add dummy ob-xml
+(after-load 'org
+  (defun org-babel-execute:xml (body params) body)
+  (add-to-list 'org-structure-template-alist '("xml" . "src xml")))
+
 (provide 'init-org-tools)
