@@ -11,6 +11,6 @@
 
 (set-face-attribute 'region nil
                     :foreground (face-foreground 'default t t)
-                    :background "gray23")
+                    :background "gray29")
 
 (set-cursor-color "tomato")
