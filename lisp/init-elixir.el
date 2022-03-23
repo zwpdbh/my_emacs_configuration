@@ -70,7 +70,6 @@
                 (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-macroexpand-print-region)
                 (define-key elixir-mode-map (kbd "C-c a i p") 'alchemist-iex-project-run))))
 
-
   (defun zw/insert-elixir-pipe-operator ()
     "Insert a newline and the |> operator"
     (interactive)
@@ -87,6 +86,11 @@
               ;; (add-hook 'before-save-hook 'elixir-format nil 'local)
               (define-key (current-local-map) (kbd "<f10>") 'elixir-format)
               (my/disable-paredit-spaces-before-paren)))
+
+  (add-hook 'alchemist-iex-mode-hook
+            (lambda ()
+              (zw/set-company-backends-for-elixir)
+              (define-key alchemist-iex-mode-map (kbd "<M-return>") 'zw/insert-elixir-pipe-operator)))
   
   (defun zw/mix-run-test (&optional at-point)
     "If AT-POINT is true it will pass the line number to mix test."

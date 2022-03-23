@@ -176,12 +176,12 @@
 (add-hook 'after-init-hook
           (lambda ()
             (require 'server)
-            (unless (server-running-p)
-              (when (and (>= emacs-major-version 23)
-                         (equal window-system 'w32))
-                (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
-                                                               ; ~/.emacs.d/server is unsafe"
-                                                               ; on windows. 
+            (when (and (>= emacs-major-version 23)
+                       (equal window-system 'w32))
+              (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
+                                        ; ~/.emacs.d/server is unsafe"
+                                        ; on windows. 
+            (unless (server-running-p)              
               (server-start))))
 
 ;; define function to shutdown emacs server instance
