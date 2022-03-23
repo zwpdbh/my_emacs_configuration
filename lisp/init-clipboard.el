@@ -5,10 +5,15 @@
 ;; So `C-y' could paste from clipbord if you are NOT using emacs-nox
 ;; I only use `paste-from-x-clipboard', not `C-y'.
 
-;; Require ~/.emacs.d/site-lisp/xclip/xclip.el
-;; This two are must set
-(autoload 'xclip-set-selection "xclip" "" t)
-(autoload 'xclip-get-selection "xclip" "" t)
+;; Require ~/.emacs.d/site-lisp/xclip/xclip.el when Emacs is running in terminal
+(unless (display-graphic-p)
+  ;; This two are must set
+  (autoload 'xclip-set-selection "xclip" "" t)
+  (autoload 'xclip-get-selection "xclip" "" t)
+  
+  (add-hook 'after-init-hook '(lambda ()
+                               (load-file "~/.emacs.d/site-lisp/xclip/xclip.el"))))
+
 
 (setq x-select-enable-clipboard t
       x-select-enable-primary t)
