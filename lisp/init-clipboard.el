@@ -6,7 +6,8 @@
 ;; I only use `paste-from-x-clipboard', not `C-y'.
 
 ;; Require ~/.emacs.d/site-lisp/xclip/xclip.el
-(load-file "~/.emacs.d/site-lisp/xclip/xclip.el")
+(add-hook 'after-init-hook '(lambda ()
+                              (load-file "~/.emacs.d/site-lisp/xclip/xclip.el")))
 
 ;; This two are must set
 (autoload 'xclip-set-selection "xclip" "" t)
