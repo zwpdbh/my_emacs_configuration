@@ -89,7 +89,8 @@
 
   (add-hook 'alchemist-iex-mode-hook
             (lambda ()
-              (zw/set-company-backends-for-elixir)
+              ;; Disable commpany-mode since the repl usually output so many content and cause the Emacs lag.
+              (company-mode -1)
               (define-key alchemist-iex-mode-map (kbd "<M-return>") 'zw/insert-elixir-pipe-operator)))
   
   (defun zw/mix-run-test (&optional at-point)
