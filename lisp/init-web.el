@@ -43,7 +43,10 @@
 
 (after-load 'org
   (defun org-babel-execute:web (body params) body)
-  (add-to-list 'org-structure-template-alist '("web" . "src web")))
+  (add-to-list 'org-structure-template-alist '("web" . "src web"))
+
+  (defun org-babel-execute:html (body params) body)
+  (add-to-list 'org-structure-template-alist '("html" . "src html")))
 
 (add-hook 'web-mode-hook
           '(lambda ()
