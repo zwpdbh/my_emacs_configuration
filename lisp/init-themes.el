@@ -22,7 +22,7 @@
   :defer t)
 
 ;; ===set default theme
-(setq-default custom-enabled-theme 'moe-dark)
+(setq-default custom-enabled-theme 'doom-dracula)
 (unless (display-graphic-p)
   (setq custom-enabled-theme 'wombat))
 
