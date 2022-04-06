@@ -2,13 +2,13 @@
   (maybe-require-package 'csharp-mode)
 
   (defun my-csharp-mode-hook ()
+    (interactive)
+    (setq-local c-basic-offset 4)
     (setq-local indent-tabs-mode nil)
     (setq-local c-syntactic-indentation t)
-    (setq-local c-basic-offset 4)
     (setq-local truncate-lines t)
     (setq-local tab-width 4)
     
-    (c-set-style "ellemtel")
     (flycheck-mode -1)
 
     (local-set-key (kbd "C-c C-c") 'recompile)
