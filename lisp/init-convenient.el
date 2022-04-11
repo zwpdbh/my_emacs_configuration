@@ -36,6 +36,56 @@
 ;; M-x scratch, Immediately create a scratch buffer with the same major mode as the current buffer’s.
 ;; C-u M-x scratch, Prompts for a major mode to create a scratch buffer with.
 
+;; Optionally configure a function which returns the project root directory.
+;; There are multiple reasonable alternatives to chose from.
+    ;;;; 1. project.el (project-roots)
+;; (setq consult-project-root-function
+;;       (lambda ()
+;;         (when-let (project (project-current))
+;;           (car (project-roots project)))))
+    ;;;; 2. projectile.el (projectile-project-root)
+;; (autoload 'projectile-project-root "projectile")
+;; (setq consult-project-root-function #'projectile-project-root)
+    ;;;; 3. vc.el (vc-root-dir)
+;; (setq consult-project-root-function #'vc-root-dir)
+    ;;;; 4. locate-dominating-file
+(defun zw/find-project-root-dir-for-csharp ()
+  (interactive)
+  (let ((sln-root (locate-dominating-file "."
+                                          (lambda (parent) (directory-files parent nil "\\.sln"))))
+        (git-root (locate-dominating-file "." ".git")))
+    (cond (sln-root
+           sln-root)
+          (git-root
+           git-root)
+          (t
+           (message "Couldn't decide project's root-dir")))))
+
+(defun zw/find-project-root-dir-for-emacs ()
+  (interactive)
+  (let* ((git-root (locate-dominating-file "." ".git"))
+         (init-lisp-folder (concat git-root "lisp/")))
+    (cond (init-lisp-folder
+           init-lisp-folder)
+          (git-root
+           git-root)
+          (t
+           (message "Couldn't decide project's root-dir")))))
+
+
+(defun zw/find-project-root-dir-prefer-gitignore ()
+  (interactive)
+  (let ((gitignore-root (locate-dominating-file "."
+                                                (lambda (parent) (directory-files parent nil "\\.gitignore"))))
+        (git-root (locate-dominating-file "." ".git")))
+    (cond (gitignore-root
+           gitignore-root)
+          (git-root
+           git-root)
+          (t
+           (message "Couldn't decide project's root-dir")))))
+
+
 ;; custom modeline to show file name
 (setq-default mode-line-buffer-identification
               '(:eval (let ((fullname (buffer-file-name (current-buffer))))
@@ -46,11 +96,10 @@
                                  (except-last (butlast splited))
                                  (parent-folder (last except-last)))
                             (if parent-folder
-                                (let ((project-path (my/project-root)))
+                                (let ((project-path (zw/find-project-root-dir-prefer-gitignore)))
                                   (if project-path
                                       (file-relative-name fullname project-path)
                                     (concat (car parent-folder) "/" (car filename-part))))
                               fullname))))))
-
 
 (provide 'init-convenient)
