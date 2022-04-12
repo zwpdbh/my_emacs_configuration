@@ -86,20 +86,28 @@
            (message "Couldn't decide project's root-dir")))))
 
 
+;; Show current buffer file name relative to a project containing .gitignore file 
+(defun zw/buffer-file-name ()
+  (let ((fullname (buffer-file-name (current-buffer))))
+    (if (not fullname)
+        (buffer-name)
+      (let* ((splited (split-string fullname "/"))
+             (filename-part (last splited))
+             (except-last (butlast splited))
+             (parent-folder (last except-last)))
+        (if parent-folder
+            (let ((project-path (zw/find-project-root-dir-prefer-gitignore)))
+              (if project-path
+                  (file-relative-name fullname project-path)
+                (concat (car parent-folder) "/" (car filename-part))))
+          fullname)))))
+
 ;; custom modeline to show file name
 (setq-default mode-line-buffer-identification
-              '(:eval (let ((fullname (buffer-file-name (current-buffer))))
-                        (if (not fullname)
-                            (buffer-name)
-                          (let* ((splited (split-string fullname "/"))
-                                 (filename-part (last splited))
-                                 (except-last (butlast splited))
-                                 (parent-folder (last except-last)))
-                            (if parent-folder
-                                (let ((project-path (zw/find-project-root-dir-prefer-gitignore)))
-                                  (if project-path
-                                      (file-relative-name fullname project-path)
-                                    (concat (car parent-folder) "/" (car filename-part))))
-                              fullname))))))
+              '(:eval (zw/buffer-file-name)))
+
+(defun zw/get-buffer-file-name ()
+  (interactive)
+  (kill-new (zw/buffer-file-name)))
 
 (provide 'init-convenient)
