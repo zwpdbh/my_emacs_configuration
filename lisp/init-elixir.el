@@ -61,8 +61,9 @@
                 
                 (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
                 (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
-                (define-key elixir-mode-map (kbd "<f1>") 'zw/alchemist-iex-send-region)
-                (define-key elixir-mode-map (kbd "C-c b") 'alchemist-iex-compile-this-buffer)
+
+                (define-key elixir-mode-map (kbd "<f1>") 'alchemist-compile-this-buffer)
+                (define-key elixir-mode-map (kbd "C-c b") 'alchemist-iex-compile-this-buffer-and-go)
 
                 (define-key elixir-mode-map (kbd "C-c m") 'alchemist-macroexpand-current-line)
                 (define-key elixir-mode-map (kbd "C-c r") 'alchemist-macroexpand-region)
