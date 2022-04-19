@@ -10,9 +10,9 @@
   
   
 
-  (add-hook 'csharp-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-csharp)))
-  (add-hook 'emacs-lisp-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-emacs)))
-  (add-hook 'elixir-mode-hook '(lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-prefer-gitignore)))
+  (add-hook 'csharp-mode-hook (lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-csharp)))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-for-emacs)))
+  (add-hook 'elixir-mode-hook (lambda () (setq-local consult-project-root-function 'zw/find-project-root-dir-prefer-gitignore)))
   
 
   ;; (setq consult-narrow-key "l")

@@ -24,7 +24,7 @@
 
 (when (maybe-require-package 'company-web)
   (add-hook 'web-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (zw/set-company-backends-for-web-mode))))
 
 
@@ -46,7 +46,7 @@
   (add-to-list 'org-structure-template-alist '("html" . "src html")))
 
 (add-hook 'web-mode-hook
-          '(lambda ()
+          #'(lambda ()
              ;; (turn-off-smartparens-mode)
              ;; reindentation is not appropriate for dealing with .vue file.
              (setq-local electric-indent-inhibit t)

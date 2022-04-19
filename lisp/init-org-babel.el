@@ -37,7 +37,7 @@
         (haskell . t)))
 
 (add-hook 'org-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (progn
                ;; all languages needed to be confirmed to execute except:
                (defun my-org-confirm-babel-evaluate (lang body)
@@ -90,7 +90,7 @@
 
 ;; Do not use flycheck in org-src-mode since it is used most of time for documentation
 (add-hook 'org-src-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (flycheck-mode 0)))
 
 (provide 'init-org-babel)

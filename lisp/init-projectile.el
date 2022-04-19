@@ -26,8 +26,8 @@
   (when (maybe-require-package 'ibuffer-projectile)))
 
 
-(add-hook 'after-init-hook '(lambda ()
-                              (projectile-global-mode)))
+(add-hook 'after-init-hook (lambda ()
+                             (projectile-global-mode)))
 
 ;; ref: https://erickgnavar.github.io/emacs-config/#org0149359
 (defun zw/project-edit-dir-locals ()

@@ -17,7 +17,7 @@
   ;;         (define-key map (kbd "C-c C-d d") 'mermaid-open-doc)
   ;;         map))
   (add-hook 'mermaid-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (define-key (current-local-map) (kbd "C-c C-c") 'mermaid-compile-buffer)
                (define-key (current-local-map) (kbd "C-c C-d o") 'mermaid-open-browser)
                (define-key (current-local-map) (kbd "C-c C-d d") 'mermaid-open-doc)))

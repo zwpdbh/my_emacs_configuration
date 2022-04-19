@@ -27,7 +27,7 @@
         org-use-tag-inheritance nil)
   
   ;; Code run from org-mode-hook is for buffer-specific things which means code is evaluated for every org buffer.
-  (add-hook 'org-mode-hook '(lambda ()
+  (add-hook 'org-mode-hook #'(lambda ()
                               ;; set org to how to arrange current window when edit src code
                               (setq org-src-window-setup 'current-window)
                               

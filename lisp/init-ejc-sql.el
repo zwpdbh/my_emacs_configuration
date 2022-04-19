@@ -11,7 +11,7 @@
   (setq ejc-result-table-impl 'ejc-result-mode)
   
   (add-hook 'ejc-sql-minor-mode-hook
-            '(lambda ()
+            (lambda ()
                (ejc-eldoc-setup)
                (setq-local company-backends (zw/add-to-company-backends 'ejc-company-backend))
                (company-mode t)))
@@ -24,7 +24,7 @@
               (ejc-set-column-width-limit 25)
               (ejc-set-use-unicode t)))
   (add-hook 'sql-mode-hook
-            '(lambda ()
+            (lambda ()
                (require 'ejc-company)
                (ejc-sql-mode t))))
 

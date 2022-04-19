@@ -26,7 +26,7 @@
 (define-derived-mode csweb-mode web-mode "csharpweb-mode")
 (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . csweb-mode))
 (add-hook 'csweb-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (setq-local tab-width 4)
              (setq-local web-mode-markup-indent-offset 4)
              (setq-local web-mode-css-indent-offset 4)

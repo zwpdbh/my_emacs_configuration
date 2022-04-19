@@ -103,11 +103,11 @@
 
 
     (add-hook 'company-posframe-mode-hook
-              '(lambda ()
+              #'(lambda ()
                  (define-key company-posframe-active-map [(up)] 'company-posframe-quickhelp-scroll-down)
                  (define-key company-posframe-active-map [(down)] 'company-posframe-quickhelp-scroll-up)))
     (add-hook 'company-mode-hook
-              '(lambda ()
+              #'(lambda ()
                  (company-posframe-mode 1)))))
 
 (when (maybe-require-package 'company-math)

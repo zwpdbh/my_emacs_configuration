@@ -36,7 +36,7 @@
               (define-key geiser-mode-map (kbd "C-c C-c") 'geiser-eval-definition))
   ;; expression in mode-hook executed very time when buffer opened
   (add-hook 'geiser-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (setq-local company-backends (zw/add-to-company-backends 'geiser-company-backend)))))
 
 

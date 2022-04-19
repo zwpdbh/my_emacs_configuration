@@ -54,7 +54,7 @@
                           term-mode-hook
                           eshell-mode-hook))
   (add-hook each-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (display-line-numbers-mode 0))))
 
 (provide 'init-interface-tweaks)

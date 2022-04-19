@@ -39,7 +39,7 @@
   (setq sqlformat-args '("-s2" "-g"))
   
   (add-hook 'sql-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (zw/enable-tabs)
                (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat-buffer)
                

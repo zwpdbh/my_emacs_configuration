@@ -11,7 +11,7 @@
   (autoload 'xclip-set-selection "xclip" "" t)
   (autoload 'xclip-get-selection "xclip" "" t)
   
-  (add-hook 'after-init-hook '(lambda ()
+  (add-hook 'after-init-hook #'(lambda ()
                                (load-file "~/.emacs.d/site-lisp/xclip/xclip.el"))))
 
 

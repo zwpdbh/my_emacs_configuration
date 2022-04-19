@@ -28,7 +28,7 @@
 
 (when (maybe-require-package 'cmake-mode)
   (add-hook 'cmake-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (zw/counsel-etags-setup)
                (setq-local company-backends (zw/add-to-company-backends 'company-cmake)))))
 
