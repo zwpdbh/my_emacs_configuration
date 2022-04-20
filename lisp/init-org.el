@@ -21,7 +21,7 @@
   ;; Another way is to invoke the function ~org-agenda-file-to-front~.
   ;; To update org-agenda-files, just delete outdated cache configuration from init.el
   ;; To add any current buffer into agenda files, use: "C-c [" which is "org-agenda-file-to-front"
-  (setq org-agenda-files (directory-files-recursively "~/code/capture-org/" "\\`[^.].*\\.org\\'")
+  (setq org-agenda-files (directory-files-recursively "~/code/capture-org/TODOs/" "\\`[^.].*\\.org\\'")
         org-tags-match-list-sublevels 'indented
         org-use-tag-inheritance nil)
   
