@@ -84,7 +84,7 @@
             (add-to-list 'org-structure-template-alist '("cmake" . "src cmake"))
             (add-to-list 'org-structure-template-alist '("terraform" . "src terraform"))
             (add-to-list 'org-structure-template-alist '("tex" . "src latex"))
-            (add-to-list 'org-structure-template-alist '("text" . "src text"))
+            (add-to-list 'org-structure-template-alist '("txt" . "src txt"))
             (add-to-list 'org-structure-template-alist '("makefile" . "src makefile")))
 
 
