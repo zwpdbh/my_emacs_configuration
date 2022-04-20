@@ -45,7 +45,7 @@
 ;; All the mode in which indentation could insert tabs
 ;; Hooks to Enable Tabs
 (add-hook 'plantuml-mode-hook
-          '(lambda ()
+          (lambda ()
              ;; plantuml seems always use tabs to do indent format
              (zw/enable-tabs)
              (setq plantuml-indent-level tab-width)))
@@ -62,7 +62,7 @@
 (add-hook 'yaml-mode-hook 'zw/disable-tabs)
 ;; Adjust indent offset for specific mode
 (add-hook 'python-mode-hook
-          '(lambda ()
+          (lambda ()
              (zw/adjust-local-tab-width 4)
              (setq python-indent-offset tab-width)))
 

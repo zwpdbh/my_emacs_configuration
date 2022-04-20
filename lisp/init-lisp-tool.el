@@ -48,7 +48,7 @@
   (add-to-list 'my-lisp-mode-set 'lfe-mode)
   (add-to-list 'my-lisp-mode-set 'inferior-lfe-mode))
 
-(add-hook 'after-init-hook '(lambda ()
+(add-hook 'after-init-hook #'(lambda ()
                               (dolist (each-mode my-lisp-mode-set)
                                 (add-to-list 'sp-ignore-modes-list each-mode)
                                 (add-hook (intern (format "%s-hook" each-mode))

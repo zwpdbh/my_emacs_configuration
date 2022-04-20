@@ -4,7 +4,7 @@
   :config
   (progn
     (add-hook 'yaml-mode-hook 
-              '(lambda ()
+              #'(lambda ()
                  (setq yaml-indent-offset 2)
                  (remove-hook 'before-save-hook #'clang-format-buffer-smart 'local)))))
 

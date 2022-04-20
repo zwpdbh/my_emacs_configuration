@@ -5,7 +5,7 @@
   (setq plantuml-jar-path "~/.emacs.d/plantuml.jar")
   (setq plantuml-output-type "png"))
 
-(add-hook 'plantuml-mode-hook '(lambda ()
+(add-hook 'plantuml-mode-hook #'(lambda ()
                                  (setq-local company-backends (add-to-list 'company-backends 'plantuml-complete-symbol))))
 
 (after-load 'org

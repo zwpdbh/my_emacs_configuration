@@ -39,7 +39,7 @@
 
 ;; ===== make window/buffer move easier 
 (when (maybe-require-package 'buffer-move)
-  (add-hook 'after-init-hook '(lambda ()
+  (add-hook 'after-init-hook #'(lambda ()
                                 (global-set-key (kbd "C-x C-<up>") 'buf-move-up)
                                 (global-set-key (kbd "C-x C-<left>") 'buf-move-left)
                                 (global-set-key (kbd "C-x C-<right>") 'buf-move-right)
@@ -84,7 +84,7 @@
 
 
 (add-hook 'after-init-hook
-          '(lambda ()
+          #'(lambda ()
              (setq xref-prompt-for-identifier nil)
              (global-set-key (kbd "M-.") 'xref-find-definitions)))
 

@@ -85,7 +85,7 @@ FACE defaults to inheriting from default and highlight."
 
 
   ;; disable auto-pair for "<>" in web mode for .heex and .eex template file
-  (add-hook 'web-mode-hook '(lambda ()
+  (add-hook 'web-mode-hook (lambda ()
                               (sp-local-pair 'web-mode "<" ">" :actions nil)))
  
   ;; add addition pairs for certain mode

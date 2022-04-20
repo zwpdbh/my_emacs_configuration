@@ -39,7 +39,7 @@
 (add-hook 'slime-repl-mode-hook 'zw/set-company-slime)
 (add-hook 'slime-mode-hook 'zw/set-company-slime)
 (add-hook 'lisp-mode-hook
-          '(lambda ()
+          #'(lambda ()
             (setq lisp-indent-function 'common-lisp-indent-function)))
 
 ;; set lisp system

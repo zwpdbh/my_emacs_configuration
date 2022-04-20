@@ -58,7 +58,7 @@
 ;; (when (maybe-require-package 'company-erlang))
 
 (add-hook 'erlang-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (my/disable-paredit-spaces-before-paren)
              (paredit-mode t)
              ;; ;; configuration for ivy-erlang-complete with company-erlang

@@ -30,7 +30,7 @@
       (org-display-inline-images))
   (defalias 'zw/org-screenshot 'org-attach-screenshot))
 
-(add-hook 'org-mode-hook '(lambda ()
+(add-hook 'org-mode-hook #'(lambda ()
                             (define-key org-mode-map (kbd "\C-c s") 'zw/org-screenshot)))
 
 ;; === Org-download moving images from A to B
@@ -120,7 +120,7 @@
   (let ((files (f-entries "." (lambda (f) (f-ext? f "org")) t))
         (headlines '())
         choice) 
-    (loop for file in files do
+    (cl-loop for file in files do
           (with-temp-buffer 
             (insert-file-contents file) 
             (goto-char (point-min))

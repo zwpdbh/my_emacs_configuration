@@ -8,13 +8,13 @@
   ;; format code for web-mode before save
   (when (fboundp 'prettier)
     (add-hook 'web-mode-hook
-              '(lambda ()
+              #'(lambda ()
                  (add-hook 'before-save-hook
                            'prettier-prettify nil 'local))))
 
 
   (add-hook 'sgml-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (add-hook 'before-save-hook
                          'prettier-prettify nil 'local))))
 

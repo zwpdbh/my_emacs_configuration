@@ -1,6 +1,6 @@
 (when (maybe-require-package 'selectrum)
   (add-hook 'after-init-hook
-            '(lambda ()
+            #'(lambda ()
                (selectrum-mode +1)))
   
   ;; https://github.com/raxod502/selectrum/wiki/Additional-Configuration#handle-complete-symbol-with-slime
