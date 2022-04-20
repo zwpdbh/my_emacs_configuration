@@ -19,7 +19,6 @@
   ;; === org agenda
   ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
   ;; Another way is to invoke the function ~org-agenda-file-to-front~.
-  ;; make org-agenda to search all the TODOs recursively for files .org in folder "~/code/org/"
   ;; To update org-agenda-files, just delete outdated cache configuration from init.el
   ;; To add any current buffer into agenda files, use: "C-c [" which is "org-agenda-file-to-front"
   (setq org-agenda-files (directory-files-recursively "~/code/capture-org/" "\\`[^.].*\\.org\\'")
