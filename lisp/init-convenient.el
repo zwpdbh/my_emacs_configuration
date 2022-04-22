@@ -11,6 +11,9 @@
 ;; Run "M-x rainbow-mode" when needed.
 (maybe-require-package 'rainbow-mode)
 
+;; It makes M-x show the histry of commands
+(maybe-require-package'amx)
+
 ;; ===== try 
 (use-package try
   :commands (try)
