@@ -16,14 +16,16 @@
   (define-key org-mode-map [f11] #'org-toggle-narrow-to-subtree)
   (define-key org-mode-map (kbd "M-<return>") #'org-insert-item)
 
-  ;; === org agenda
-  ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
-  ;; Another way is to invoke the function ~org-agenda-file-to-front~.
-  ;; To update org-agenda-files, just delete outdated cache configuration from init.el
-  ;; To add any current buffer into agenda files, use: "C-c [" which is "org-agenda-file-to-front"
-  (setq org-agenda-files (directory-files-recursively "~/code/capture-org/TODOs/" "\\`[^.].*\\.org\\'")
-        org-tags-match-list-sublevels 'indented
+  (setq org-tags-match-list-sublevels 'indented
         org-use-tag-inheritance nil)
+  
+  (when (file-directory-p "~/code/capture-org/TODOs/")
+    ;; === org agenda
+    ;; In case some org files is not listed in agenda files, run the code block again to refresh the file list.
+    ;; Another way is to invoke the function ~org-agenda-file-to-front~.
+    ;; To update org-agenda-files, just delete outdated cache configuration from init.el
+    ;; To add any current buffer into agenda files, use: "C-c [" which is "org-agenda-file-to-front"
+    (setq org-agenda-files (directory-files-recursively "~/code/capture-org/TODOs/" "\\`[^.].*\\.org\\'")))
   
   ;; Code run from org-mode-hook is for buffer-specific things which means code is evaluated for every org buffer.
   (add-hook 'org-mode-hook #'(lambda ()

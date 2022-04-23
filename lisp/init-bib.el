@@ -3,13 +3,12 @@
 (when (fboundp 'ivy-mode)
   (maybe-require-package 'ivy-bibtex))
 
-(defvar my/bib-file-location "~/code/capture-org/bib/library.bib"
-  "Where I keep my bib file.")
-(setq bibtex-completion-bibliography my/bib-file-location)
-
-
-;; telling bibtex-completion where your bibliographies can be found
-(setq bibtex-completion-bibliography my/bib-file-location)
+(when (file-directory-p "~/code/capture-org/bib/")
+  (defvar my/bib-file-location "~/code/capture-org/bib/library.bib"
+    "Where I keep my bib file.")
+  (setq bibtex-completion-bibliography my/bib-file-location)
+  ;; telling bibtex-completion where your bibliographies can be found
+  (setq bibtex-completion-bibliography my/bib-file-location))
 
 ;; specify the path of the note
 (setq bibtex-completion-notes-path "~/Documents/Research/ref.org")

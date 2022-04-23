@@ -10,7 +10,9 @@
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (setq org-reveal-mathjax t))
 
-(setq blog-org-files-dir "~/code/capture-org/publish/")
+(when (file-directory-p "~/code/capture-org/publish/")
+  (setq blog-org-files-dir "~/code/capture-org/publish/"))
+
 (setq emacs-config-base-dir "~/.emacs.d/")
 (setq blog-publish-base-dir "~/code/blog/")
 
