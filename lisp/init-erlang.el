@@ -136,7 +136,7 @@
           (lambda ()
             (my/disable-paredit-spaces-before-paren)
             (paredit-mode t)
-            (setq-local company-backends '((company-dabbrev company-capf) company-keywords company-files))))
+            (setq-local company-backends '((company-dabbrev company-capf) company-keywords))))
 
 
 (provide 'init-erlang)

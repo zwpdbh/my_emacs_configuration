@@ -7,10 +7,10 @@
 (add-to-list 'completion-styles 'initials t)
 
 (when (maybe-require-package 'company)
-  (setq-default company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords company-files))
+  (setq-default company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords))
   (defun zw/set-company-backends-global ()
     (interactive)
-    (setq company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords company-files)))
+    (setq company-backends '((company-dabbrev-code company-capf) company-dabbrev company-keywords)))
   
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "M-C-/") 'company-complete)
@@ -114,11 +114,27 @@
   (add-hook 'LaTeX-mode-hook (lambda ()
                                (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-latex))
                                (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))
-                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))))
-  ;; (add-hook 'org-mode-hook (lambda ()
-  ;;                            (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode))
-  ;;                            (setq-local company-backends (add-to-list 'company-backends 'company-latex-commands))))
-  )
+                               (setq-local company-backends (add-to-list 'company-backends 'company-math-symbols-unicode)))))
+
+
+;; Customize completion-at-point: adds file path completion to the hook
+;; https://with-emacs.com/posts/tutorials/customize-completion-at-point/
+;; This offer you file completions when your point is at a path.
+;; This is especially nice with selectrum which won’t exit file completions after each path level
+;; so you can conveniently navigate to the path like you would do with find-file.
+(autoload 'ffap-file-at-point "ffap")
+(defun complete-path-at-point+ ()
+  "Return completion data for UNIX path at point."
+  (let ((fn (ffap-file-at-point))
+        (fap (thing-at-point 'filename)))
+    (when (and (or fn (equal "/" fap))
+               (save-excursion
+                 (search-backward fap (line-beginning-position) t)))
+      (list (match-beginning 0)
+            (match-end 0)
+            #'completion-file-name-table :exclusive 'no))))
+
+(add-hook 'completion-at-point-functions #'complete-path-at-point+ 'append)
 
 
 (provide 'init-company)

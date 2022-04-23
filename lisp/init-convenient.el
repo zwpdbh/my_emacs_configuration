@@ -60,9 +60,7 @@
     (cond (sln-root
            sln-root)
           (git-root
-           git-root)
-          (t
-           (message "Couldn't decide project's root-dir")))))
+           git-root))))
 
 (defun zw/find-project-root-dir-for-emacs ()
   (interactive)
@@ -71,9 +69,7 @@
     (cond (init-lisp-folder
            init-lisp-folder)
           (git-root
-           git-root)
-          (t
-           (message "Couldn't decide project's root-dir")))))
+           git-root))))
 
 
 (defun zw/find-project-root-dir-prefer-gitignore ()
@@ -84,9 +80,7 @@
     (cond (gitignore-root
            gitignore-root)
           (git-root
-           git-root)
-          (t
-           (message "Couldn't decide project's root-dir")))))
+           git-root))))
 
 
 ;; Show current buffer file name relative to a project containing .gitignore file 

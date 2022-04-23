@@ -11,7 +11,7 @@
 ;; "C-u M-x shell" could be used to start multiple shells
 (add-hook 'shell-mode-hook
           #'(lambda ()
-              (setq-local company-backends '((company-dabbrev company-files) company-keywords))
+              (setq-local company-backends '((company-dabbrev company-keywords)))
               (zw/set-bash-profile)))
 
 (add-hook 'sh-mode-hook
