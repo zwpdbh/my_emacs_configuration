@@ -36,10 +36,19 @@
     (setq alchemist-mix-test-task (executable-find "espec"))
 
     (defun zw/alchemist-iex-send-last-sexp ()
+      "current it is not that useful"
       (interactive)
       (save-excursion
         (call-interactively 'alchemist-iex-send-last-sexp)
         (display-buffer (process-buffer (alchemist-iex-process)))))
+
+    (defun zw/alchemist-mix-recompile ()
+      "recompile the mix project in iex"
+      (interactive)
+      (save-excursion
+        (display-buffer (process-buffer (alchemist-iex-process)))
+        (alchemist-iex--send-command (alchemist-iex-process) "recompile")))
+    
 
     (defun zw/alchemist-iex-send-region (beg end)
       "Sends the marked region to the IEx process."
@@ -65,7 +74,7 @@
                 (alchemist-mode t)
                 (zw/set-company-backends-for-elixir) 
                 
-                (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-iex-send-last-sexp)
+                (define-key elixir-mode-map (kbd "C-c C-c") 'zw/alchemist-mix-recompile)
                 (define-key elixir-mode-map (kbd "C-c C-e") 'zw/alchemist-iex-send-region)
 
                 (define-key elixir-mode-map (kbd "<f1>") 'zw/alchemist-iex-compile-this-buffer)
