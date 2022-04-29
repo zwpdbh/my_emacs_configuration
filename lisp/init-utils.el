@@ -89,18 +89,5 @@
 
 
 
-;; To solve issue: "^M" appeared at the end of file
-(setq-default buffer-file-coding-system 'utf-8-unix)
-(set-buffer-file-coding-system 'utf-8-unix)
-
-(defun zw/delete-annoying-carrage-returns ()
-  (interactive)
-  (save-excursion
-    (goto-char 0)
-    (while (search-forward "\r" nil :noerror)
-      (replace-match ""))))
-
-
-
 (provide 'init-utils)
 ;;; init-utils.el ends here
