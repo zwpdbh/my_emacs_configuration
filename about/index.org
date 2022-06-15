@@ -11,7 +11,10 @@
     Bachelor degree in Computer Science
 
 * Work Experience (as Software Engineer)
-** Siemens PLM Software (2018/10 -- present)
+** Microsoft (2021/11/30 -- Present)
+TODO:: update this in two days.
+
+** Siemens PLM Software (2018/10 -- 2021/11/15)
    My job responsibilities include:
    - Automate deployment of great products and services in cloud environments.
    - Design and develop intelligent operation and operation platform, tools, and system.
