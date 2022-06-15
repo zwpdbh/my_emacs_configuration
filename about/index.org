@@ -13,8 +13,7 @@
 * Work Experience (as Software Engineer)
 ** Microsoft (2021/11/30 -- Present)
    My job is mainly about enhance the current Azure storage end to end testing tools.
-
-
+   
 ** Siemens PLM Software (2018/10 -- 2021/11/15)
    My job responsibilities include:
    - Automate deployment of great products and services in cloud environments.
