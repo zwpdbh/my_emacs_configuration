@@ -1,3 +1,4 @@
+;; How to build WebSite from org files
 ;; # By default, only modified files including new files are pubished
 ;; emacs --script "~/.emacs.d/publish.el"
 ;; # We could also force to publish all files
