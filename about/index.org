@@ -2,7 +2,7 @@
 #+filetags: about
 
 * Background
-  I am a software engineer who is passionate about functional programming using Erlang and Lisp. I always have strong desires to apply mathematics and algorithms to solve problem in a straight manner. Currently, I am living in Shanghai and have an open mind to explore the world.
+  I am a software engineer who is passionate about functional programming using Erlang/Elixir and Lisp. I always have strong desires to apply mathematics and algorithms to solve problem in a straight manner. Currently, I am living in Shanghai and have an open mind to explore the world.
 
 * Education
   - Otago University (2016/01 -- 2018/09)
@@ -12,7 +12,8 @@
 
 * Work Experience (as Software Engineer)
 ** Microsoft (2021/11/30 -- Present)
-TODO:: update this in two days.
+   My job is mainly about enhance the current Azure storage end to end testing tools.
+
 
 ** Siemens PLM Software (2018/10 -- 2021/11/15)
    My job responsibilities include:
