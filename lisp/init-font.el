@@ -1,8 +1,8 @@
 (setq zw/favorite-en-fonts '(
+                             "Anonymous Pro"
                              "Monaco"
                              "Monaco Nerd Font Mono"                             
                              "Source Code Pro"
-                             "Anonymous Pro"
                              "Inconsolata"
                              "Consolas"                             
                              "Ubuntu Mono"                             
