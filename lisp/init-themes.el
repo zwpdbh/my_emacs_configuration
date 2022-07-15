@@ -20,11 +20,14 @@
 (use-package moe-theme
   :ensure t
   :defer t)
+(use-package vscode-dark-plus-theme
+  :ensure t
+  :defer t)
 
 ;; ===set default theme
-(setq-default custom-enabled-theme 'doom-dracula)
+(setq-default custom-enabled-theme 'vscode-dark-plus)
 (unless (display-graphic-p)
-  (setq custom-enabled-theme 'wombat))
+  (setq custom-enabled-theme 'doom-dracula))
 
 
 ;; load theme and do customization for themes
