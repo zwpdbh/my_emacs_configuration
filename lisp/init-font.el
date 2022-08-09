@@ -1,4 +1,5 @@
 (setq zw/favorite-en-fonts '(
+                             "Cascadia Mono"
                              "Anonymous Pro"
                              "Monaco"
                              "Monaco Nerd Font Mono"                             
@@ -63,7 +64,7 @@
       (set-fontset-font t charset cn-font))))
 
 ;; set font
-(setq zw/font-size 11)
+(setq zw/font-size 10)
 (if (display-graphic-p)
     (zw/set-font zw/font-size)
   (add-hook 'after-make-frame-functions
