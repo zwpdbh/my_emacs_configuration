@@ -91,6 +91,6 @@
                         (call-interactively 'compile)))
             (proj (let ((compile-command (format "dotnet build \"%s\"" proj)))
                     (call-interactively 'compile)))
-            (t (call-interactively 'compile)))))
-  )
+            (t (call-interactively 'compile))))))
+
 (provide 'init-fsharp)

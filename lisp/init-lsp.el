@@ -2,10 +2,11 @@
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 
 (when (maybe-require-package 'lsp-mode)  
-  (when (symbol-function 'helm)
-    (maybe-require-package 'helm-lsp))
-  (when (symbol-function 'treemacs)
-    (maybe-require-package 'lsp-treemacs)))
+  ;; (when (symbol-function 'helm)
+  ;;   (maybe-require-package 'helm-lsp))
+  ;; (when (symbol-function 'treemacs)
+  ;;   (maybe-require-package 'lsp-treemacs))
+  )
 
 (after-load 'lsp-mode
   (setq lsp-idle-delay 0.500)
@@ -17,10 +18,10 @@
   (setq lsp-lens-enable nil)
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil))
 
-(after-load 'company-lsp
-  (setq company-lsp-cache-candidates nil)
-  (setq company-lsp-async t)
-  (setq company-lsp-enable-recompletion t))
+;; (after-load 'company-lsp
+;;   (setq company-lsp-cache-candidates nil)
+;;   (setq company-lsp-async t)
+;;   (setq company-lsp-enable-recompletion t))
 
 ;; (after-load 'lsp-ui
 ;;             ;; Establishing keybindings for lsp-ui-mode
