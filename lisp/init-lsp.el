@@ -14,17 +14,12 @@
   ;; this was invaluable for debugging communication with the MS Python Language Server
   ;; and comparing this with what vs.code is doing
   (setq lsp-print-io nil)
-  ;; (lsp-ui-mode t)
-  (setq lsp-lens--disable t))
+  (setq lsp-lens-enable nil))
 
 (after-load 'company-lsp
   (setq company-lsp-cache-candidates nil)
   (setq company-lsp-async t)
   (setq company-lsp-enable-recompletion t))
-
-(when (symbol-function 'fsharp-mode)
-  (add-hook 'fsharp-mode-hook '(lambda ()
-                                 (lsp t))))
 
 ;; (after-load 'lsp-ui
 ;;             ;; Establishing keybindings for lsp-ui-mode

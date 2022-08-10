@@ -134,9 +134,8 @@
 
 (require 'init-eldoc)
 
-(require 'init-fsharp)
 (require 'init-lsp)
-
+(require 'init-fsharp)
 (require 'init-lisp)
 (require 'init-scheme)
 (require 'init-erlang)

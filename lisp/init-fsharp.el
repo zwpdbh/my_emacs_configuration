@@ -4,6 +4,8 @@
     (after-load 'org
       (add-to-list 'zw/org-babel-load-language-list '(fsharp . t))
       (add-to-list 'org-structure-template-alist '("fsharp" . "src fsharp"))
-      (add-to-list 'org-structure-template-alist '("fs" . "src fsharp")))))
-
+      (add-to-list 'org-structure-template-alist '("fs" . "src fsharp"))))
+  ;; (when (executable-find "fsharpi"))
+  (add-hook 'fsharp-mode-hook '(lambda ()
+                                 (lsp))))
 (provide 'init-fsharp)
