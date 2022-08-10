@@ -14,7 +14,8 @@
   ;; this was invaluable for debugging communication with the MS Python Language Server
   ;; and comparing this with what vs.code is doing
   (setq lsp-print-io nil)
-  (setq lsp-lens-enable nil))
+  (setq lsp-lens-enable nil)
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil))
 
 (after-load 'company-lsp
   (setq company-lsp-cache-candidates nil)
